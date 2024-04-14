@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import Button from '../../../shared/components/buttons/button/Button';
 import Input from '../../../shared/components/inputs/input/Input';
+import { useGlobalContext } from '../../../shared/hooks/useGlobalContext';
 import { useRequests } from '../../../shared/hooks/useRequests';
 import {
   ContainerLogin,
@@ -11,6 +12,7 @@ import {
 } from '../styles/loginScreen.style';
 
 const LoginScreen = () => {
+  const { accessToken, setAccessToken } = useGlobalContext();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -25,6 +27,7 @@ const LoginScreen = () => {
   };
 
   const handleLogin = () => {
+    setAccessToken('novo token');
     postRequest('http://localhost:8080/auth', {
       email: email,
       password: password,
@@ -35,7 +38,7 @@ const LoginScreen = () => {
     <ContainerLoginScreen>
       <ContainerLogin>
         <LogoImage src="./logo.png" />
-        <TitleLogin>Brazilian Soccer Manager</TitleLogin>
+        <TitleLogin>Brazilian Soccer Manager ({accessToken})</TitleLogin>
         <Input title="E-mail" margin="16px 0px 0px 0px" onChange={handleEmail} value={email} />
         <Input
           type="password"
