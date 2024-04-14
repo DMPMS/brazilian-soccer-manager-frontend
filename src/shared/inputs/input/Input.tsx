@@ -5,13 +5,16 @@ import { BoxInput, TitleInput } from './input.style';
 interface InputProps extends InputPropsAntd {
   title?: string;
   margin?: string;
+  type?: string;
 }
 
-const Input = ({ title, margin, ...props }: InputProps) => {
+const Input = ({ title, margin, type, ...props }: InputProps) => {
+  const isPasswordInput = type === 'password';
+
   return (
     <BoxInput style={{ margin: margin }}>
       {title && <TitleInput>{title}</TitleInput>}
-      <InputAntd {...props} />
+      {isPasswordInput ? <InputAntd.Password {...props} /> : <InputAntd {...props} />}
     </BoxInput>
   );
 };

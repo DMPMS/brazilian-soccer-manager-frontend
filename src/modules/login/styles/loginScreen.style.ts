@@ -1,40 +1,35 @@
-import { Typography } from 'antd';
 import styled from 'styled-components';
 
-const { Title } = Typography;
-
 export const ContainerLoginScreen = styled.div`
-  background-color: #cfe7d7;
+  background-color: #052574;
+  font-family: Arial, sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100vh; // Substituir depois
 `;
 
 export const LogoImage = styled.img`
-  width: 200px;
+  width: 70%;
+  display: block;
 `;
 
-export const TitleLogin = styled(Title)`
-  color: #006397;
+export const TitleLogin = styled.h3`
+  color: #052574;
 `;
 
 export const ContainerLogin = styled.div`
+  background-color: #ffffff;
   display: flex;
-  justify-content: center;
-  background-color: #edebeb;
-  width: 100%;
-  height: 70vh;
-  max-width: 400px;
-  border-radius: 20px;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
-`;
-
-export const LimitedContainer = styled.div`
-  width: 100%;
-  max-width: 300px;
-  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  text-align: center;
+
+  max-width: 300px;
+
+  margin: 10px;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.1);
 `;
