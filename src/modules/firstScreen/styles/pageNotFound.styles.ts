@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ContainerLoginScreen = styled.div`
+export const ContainerPageNotFound = styled.div`
   background-color: #052574;
   font-family: Arial, sans-serif;
   display: flex;
@@ -9,21 +9,23 @@ export const ContainerLoginScreen = styled.div`
   height: 100vh; // Substituir depois
 `;
 
-export const LogoImage = styled.img`
+export const DeflatedBallImage = styled.img`
   width: 70%;
   display: block;
 `;
 
-export const TitleLogin = styled.h3`
+export const TitleError = styled.h3`
   color: #052574;
 `;
 
-export const ContainerLogin = styled.div`
+export const DescriptionError = styled.p``;
+
+export const ContainerError = styled.div`
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
+  text-align: justify;
 
   max-width: 300px;
 
