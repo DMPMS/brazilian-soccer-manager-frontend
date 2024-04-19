@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../shared/components/buttons/button/Button';
@@ -7,23 +7,25 @@ import Screen from '../../../shared/components/screen/Screen';
 import Select from '../../../shared/components/select/Select';
 import { DisplayFlexJustifyRight } from '../../../shared/components/styles/display.styled';
 import { LimitedContainer } from '../../../shared/components/styles/limited.styled';
-import { URL_COUNTRY, URL_MANAGERGLOBAL } from '../../../shared/constants/urls';
-import { InsertManagerglobalDto } from '../../../shared/dtos/InsertManagerglobal.dto';
+import { URL_COUNTRY } from '../../../shared/constants/urls';
 import { MethodsEnum } from '../../../shared/enums/methods.enum';
-import { connectionAPIPost } from '../../../shared/functions/connection/connectionAPI';
 import { useDataContext } from '../../../shared/hooks/useDataContext';
-import { useGlobalContext } from '../../../shared/hooks/useGlobalContext';
 import { useRequests } from '../../../shared/hooks/useRequests';
+import { useInsertManagerglobal } from '../hooks/useInsertManagerglobal';
 import { ManagerglobalRoutesEnum } from '../routes';
 import { ManagerglobalInsertContainer } from '../styles/managerglobalInsert.style';
 
 const ManagerglobalInsert = () => {
-  const [managerglobal, setManagerglobal] = useState<InsertManagerglobalDto>({
-    name: '',
-    age: 0,
-  });
+  const {
+    managerglobal,
+    loading,
+    disabledButton,
+    onChangeInput,
+    handleInsertManagerglobal,
+    handleChangeSelect,
+  } = useInsertManagerglobal();
+
   const { countries, setCountries } = useDataContext();
-  const { setNotification } = useGlobalContext();
   const { request } = useRequests();
 
   const navigate = useNavigate();
@@ -34,37 +36,8 @@ const ManagerglobalInsert = () => {
     }
   }, []);
 
-  const handleInsertManagerglobal = async () => {
-    await connectionAPIPost(URL_MANAGERGLOBAL, managerglobal)
-      .then(() => {
-        setNotification('Sucesso!', 'success', 'Treinador inserido com sucesso!');
-        navigate(ManagerglobalRoutesEnum.MANAGERGLOBAL);
-      })
-      .catch((error: Error) => {
-        setNotification(error.message, 'error');
-      });
-  };
-
   const handleOnClickCancel = () => {
     navigate(ManagerglobalRoutesEnum.MANAGERGLOBAL);
-  };
-
-  const onChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    nameObject: string,
-    isNumber?: boolean,
-  ) => {
-    setManagerglobal({
-      ...managerglobal,
-      [nameObject]: isNumber ? Number(event.target.value) : event.target.value,
-    });
-  };
-
-  const handleChange = (value: string) => {
-    setManagerglobal({
-      ...managerglobal,
-      countryId: Number(value),
-    });
   };
 
   return (
@@ -85,14 +58,14 @@ const ManagerglobalInsert = () => {
       <ManagerglobalInsertContainer>
         <LimitedContainer width={400}>
           <Input
-            onChange={(event) => onChange(event, 'name')}
+            onChange={(event) => onChangeInput(event, 'name')}
             value={managerglobal.name}
             margin="0px 0px 16px 0px"
             title="Nome"
             placeholder="Nome"
           />
           <Input
-            onChange={(event) => onChange(event, 'age', true)}
+            onChange={(event) => onChangeInput(event, 'age', true)}
             value={managerglobal.age}
             margin="0px 0px 16px 0px"
             title="Idade"
@@ -101,7 +74,7 @@ const ManagerglobalInsert = () => {
           <Select
             title="Nacionalidade"
             margin="0px 0px 32px 0px"
-            onChange={handleChange}
+            onChange={handleChangeSelect}
             options={countries.map((country) => ({
               value: `${country.id}`,
               label: `${country.name}`,
@@ -114,7 +87,12 @@ const ManagerglobalInsert = () => {
               </Button>
             </LimitedContainer>
             <LimitedContainer width={120}>
-              <Button onClick={handleInsertManagerglobal} type="primary">
+              <Button
+                loading={loading}
+                disabled={disabledButton}
+                onClick={handleInsertManagerglobal}
+                type="primary"
+              >
                 Inserir treinador
               </Button>
             </LimitedContainer>
