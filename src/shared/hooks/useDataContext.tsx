@@ -1,9 +1,11 @@
 import { createContext, useContext, useState } from 'react';
 
+import { CountryType } from '../types/CountryType';
 import { ManagerglobalType } from '../types/ManagerglobalType';
 
 interface DataContext {
   managersglobal?: ManagerglobalType[];
+  countries?: CountryType[];
 }
 
 interface DataContextProps {
@@ -33,8 +35,17 @@ export const useDataContext = () => {
     });
   };
 
+  const setCountries = (countries: CountryType[]) => {
+    setData({
+      ...data,
+      countries,
+    });
+  };
+
   return {
     managersglobal: data?.managersglobal || [],
+    countries: data?.countries || [],
     setManagersglobal,
+    setCountries,
   };
 };
