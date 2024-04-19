@@ -1,5 +1,6 @@
+import Search from 'antd/es/input/Search';
 import { ColumnsType } from 'antd/es/table';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../shared/components/buttons/button/Button';
@@ -11,6 +12,7 @@ import { useDataContext } from '../../../shared/hooks/useDataContext';
 import { useRequests } from '../../../shared/hooks/useRequests';
 import { ManagerglobalType } from '../../../shared/types/ManagerglobalType';
 import { ManagerglobalRoutesEnum } from '../routes';
+import { BoxButtons, LimiteSizeButton, LimiteSizeInput } from '../styles/managerglobal.style';
 
 const columns: ColumnsType<ManagerglobalType> = [
   {
@@ -23,6 +25,7 @@ const columns: ColumnsType<ManagerglobalType> = [
     title: 'Nome',
     dataIndex: 'name',
     key: 'name',
+    sorter: (a, b) => a.name.localeCompare(b.name),
     render: (text) => <a>{text}</a>,
   },
   {
@@ -44,12 +47,22 @@ const Managerglobal = () => {
   const { request } = useRequests();
   const navigate = useNavigate();
 
+  const [searchValue, setSearchValue] = useState('');
+
+  const managersglobalFiltered = managersglobal.filter((manager) =>
+    manager.name.toLowerCase().includes(searchValue.toLowerCase()),
+  );
+
   useEffect(() => {
     request<ManagerglobalType[]>(URL_MANAGERGLOBAL, MethodsEnum.GET, setManagersglobal);
   }, []);
 
   const handleOnClickInsert = () => {
     navigate(ManagerglobalRoutesEnum.MANAGERGLOBAL_INSERT);
+  };
+
+  const handleSearch = (value: string) => {
+    setSearchValue(value);
   };
 
   return (
@@ -63,8 +76,18 @@ const Managerglobal = () => {
         },
       ]}
     >
-      <Button onClick={handleOnClickInsert}>Inserir</Button>
-      <Table columns={columns} dataSource={managersglobal} />
+      <BoxButtons>
+        <LimiteSizeInput>
+          <Search placeholder="Buscar treinador" onSearch={handleSearch} enterButton />
+        </LimiteSizeInput>
+
+        <LimiteSizeButton>
+          <Button type="primary" onClick={handleOnClickInsert}>
+            Inserir
+          </Button>
+        </LimiteSizeButton>
+      </BoxButtons>
+      <Table columns={columns} dataSource={managersglobalFiltered} />
     </Screen>
   );
 };
