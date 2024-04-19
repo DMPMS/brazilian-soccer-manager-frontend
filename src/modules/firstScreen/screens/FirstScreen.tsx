@@ -13,7 +13,7 @@ const FirstScreen = () => {
     if (user) {
       navigate(ManagerglobalRoutesEnum.MANAGERGLOBAL);
     }
-  }, []);
+  }, [user]);
 
   return <Spin />;
 };
