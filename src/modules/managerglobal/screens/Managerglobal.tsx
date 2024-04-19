@@ -27,6 +27,12 @@ const columns: ColumnsType<ManagerglobalType> = [
     key: 'age',
     render: (text) => <a>{text}</a>,
   },
+  {
+    title: 'Nacionalidade',
+    dataIndex: 'country',
+    key: 'country',
+    render: (_, target) => <a>{target.country?.name}</a>,
+  },
 ];
 
 const Managerglobal = () => {
