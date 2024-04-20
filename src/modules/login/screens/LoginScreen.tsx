@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../shared/components/buttons/button/Button';
 import Input from '../../../shared/components/inputs/input/Input';
@@ -11,6 +12,7 @@ import {
 } from '../styles/loginScreen.style';
 
 const LoginScreen = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -25,7 +27,7 @@ const LoginScreen = () => {
   };
 
   const handleLogin = () => {
-    authRequest({
+    authRequest(navigate, {
       email: email,
       password: password,
     });
