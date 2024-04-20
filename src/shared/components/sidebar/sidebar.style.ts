@@ -1,36 +1,35 @@
-import { Typography } from 'antd';
 import styled from 'styled-components';
 
-const { Text } = Typography;
-
 export const ContainerSidebar = styled.div`
+  background-color: #eff2f5;
+  font-family: Arial, sans-serif;
+
+  max-width: 240px;
+
   position: fixed;
-  left: 0;
   top: 0;
   bottom: 0;
-  background-color: #001529;
-  width: 240px;
-  -webkit-box-shadow: 1px 0px 8px 0px rgba(0, 0, 0, 0.71);
-  -moz-box-shadow: 1px 0px 8px 0px rgba(0, 0, 0, 0.71);
-  box-shadow: 1px 0px 8px 0px rgba(0, 0, 0, 0.71);
+
+  margin: 10px 5px 10px 10px;
+  padding: 5px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.1);
 `;
 
 export const ContainerLogoName = styled.div`
-  width: 100%;
-  height: 72px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  -webkit-box-shadow: -2px 6px 4px 0px rgba(0, 0, 0, 0.47);
-  -moz-box-shadow: -2px 6px 4px 0px rgba(0, 0, 0, 0.47);
-  box-shadow: -2px 6px 4px 0px rgba(0, 0, 0, 0.47);
+  text-align: center;
 `;
 
 export const LogoSidebar = styled.img`
-  width: 50px;
-  height: 50px;
-  margin: 0px 16px;
+  width: 40%;
+  display: block;
+  padding: 5px;
 `;
 
-export const NameCompany = styled(Text)`
-  color: white;
+export const NameCompany = styled.text`
+  color: #052574;
+  padding: 5px;
 `;

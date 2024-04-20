@@ -82,9 +82,7 @@ const ManagerglobalInsert = () => {
           />
           <DisplayFlexJustifyRight>
             <LimitedContainer margin="0px 8px" width={120}>
-              <Button danger onClick={handleOnClickCancel}>
-                Cancelar
-              </Button>
+              <Button onClick={handleOnClickCancel}>Cancelar</Button>
             </LimitedContainer>
             <LimitedContainer width={120}>
               <Button
@@ -93,7 +91,7 @@ const ManagerglobalInsert = () => {
                 onClick={handleInsertManagerglobal}
                 type="primary"
               >
-                Inserir treinador
+                Inserir
               </Button>
             </LimitedContainer>
           </DisplayFlexJustifyRight>

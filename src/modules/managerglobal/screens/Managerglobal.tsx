@@ -16,29 +16,21 @@ import { BoxButtons, LimiteSizeButton, LimiteSizeInput } from '../styles/manager
 
 const columns: ColumnsType<ManagerglobalType> = [
   {
-    title: 'Id',
-    dataIndex: 'id',
-    key: 'id',
-    render: (text) => <a>{text}</a>,
-  },
-  {
     title: 'Nome',
     dataIndex: 'name',
     key: 'name',
     sorter: (a, b) => a.name.localeCompare(b.name),
-    render: (text) => <a>{text}</a>,
   },
   {
     title: 'Idade',
     dataIndex: 'age',
     key: 'age',
-    render: (text) => <a>{text}</a>,
   },
   {
     title: 'Nacionalidade',
     dataIndex: 'country',
     key: 'country',
-    render: (_, target) => <a>{target.country?.name}</a>,
+    render: (_, target) => <text>{target.country?.name}</text>,
   },
 ];
 

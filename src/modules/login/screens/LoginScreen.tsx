@@ -36,7 +36,7 @@ const LoginScreen = () => {
   return (
     <ContainerLoginScreen>
       <ContainerLogin>
-        <LogoImage src="./logo.png" />
+        <LogoImage src="../../../../public/logo.png" />
         <TitleLogin>Brazilian Soccer Manager</TitleLogin>
         <Input title="E-mail" margin="16px 0px 0px 0px" onChange={handleEmail} value={email} />
         <Input
