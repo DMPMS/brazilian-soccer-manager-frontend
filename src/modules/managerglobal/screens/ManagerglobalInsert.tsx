@@ -7,12 +7,14 @@ import Screen from '../../../shared/components/screen/Screen';
 import Select from '../../../shared/components/select/Select';
 import { DisplayFlexJustifyRight } from '../../../shared/components/styles/display.styled';
 import { LimitedContainer } from '../../../shared/components/styles/limited.styled';
+import CountrySVG from '../../../shared/components/svg/CountrySVG';
 import { URL_COUNTRY } from '../../../shared/constants/urls';
 import { MethodsEnum } from '../../../shared/enums/methods.enum';
 import { useDataContext } from '../../../shared/hooks/useDataContext';
 import { useRequests } from '../../../shared/hooks/useRequests';
 import { useInsertManagerglobal } from '../hooks/useInsertManagerglobal';
 import { ManagerglobalRoutesEnum } from '../routes';
+import { ContainerCountry, ContainerCountryImage } from '../styles/general.style';
 import { ManagerglobalInsertContainer } from '../styles/managerglobalInsert.style';
 
 const ManagerglobalInsert = () => {
@@ -77,7 +79,14 @@ const ManagerglobalInsert = () => {
             onChange={handleChangeSelect}
             options={countries.map((country) => ({
               value: `${country.id}`,
-              label: `${country.name}`,
+              label: (
+                <ContainerCountry>
+                  <ContainerCountryImage>
+                    <CountrySVG name={country.name} width={20} height={20} />
+                  </ContainerCountryImage>
+                  <text>{country.name}</text>
+                </ContainerCountry>
+              ),
             }))}
           />
           <DisplayFlexJustifyRight>

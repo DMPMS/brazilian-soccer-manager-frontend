@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../shared/components/buttons/button/Button';
 import Screen from '../../../shared/components/screen/Screen';
+import CountrySVG from '../../../shared/components/svg/CountrySVG';
 import Table from '../../../shared/components/table/Table';
 import { URL_MANAGERGLOBAL } from '../../../shared/constants/urls';
 import { MethodsEnum } from '../../../shared/enums/methods.enum';
@@ -12,6 +13,7 @@ import { useDataContext } from '../../../shared/hooks/useDataContext';
 import { useRequests } from '../../../shared/hooks/useRequests';
 import { ManagerglobalType } from '../../../shared/types/ManagerglobalType';
 import { ManagerglobalRoutesEnum } from '../routes';
+import { ContainerCountry, ContainerCountryImage } from '../styles/general.style';
 import { BoxButtons, LimiteSizeButton, LimiteSizeInput } from '../styles/managerglobal.style';
 
 const columns: ColumnsType<ManagerglobalType> = [
@@ -30,7 +32,14 @@ const columns: ColumnsType<ManagerglobalType> = [
     title: 'Nacionalidade',
     dataIndex: 'country',
     key: 'country',
-    render: (_, target) => <text>{target.country?.name}</text>,
+    render: (_, target) => (
+      <ContainerCountry>
+        <ContainerCountryImage>
+          <CountrySVG name={target.country?.name} width={20} height={20} />
+        </ContainerCountryImage>
+        <text>{target.country?.name}</text>
+      </ContainerCountry>
+    ),
   },
 ];
 
