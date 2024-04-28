@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../shared/components/buttons/button/Button';
@@ -14,10 +13,7 @@ import {
   LimitedContainerCard,
 } from '../../../shared/components/styles/limited.styled';
 import CountrySVG from '../../../shared/components/svg/CountrySVG';
-import { URL_COUNTRY } from '../../../shared/constants/urls';
-import { MethodsEnum } from '../../../shared/enums/methods.enum';
-import { useDataContext } from '../../../shared/hooks/useDataContext';
-import { useRequests } from '../../../shared/hooks/useRequests';
+import { useCountry } from '../../country/hooks/useCountry';
 import { useInsertManagerglobal } from '../hooks/useInsertManagerglobal';
 import { ManagerglobalRoutesEnum } from '../routes';
 import { ContainerCountry, ContainerCountryImage } from '../styles/general.style';
@@ -32,16 +28,9 @@ const ManagerglobalInsert = () => {
     handleChangeSelect,
   } = useInsertManagerglobal();
 
-  const { countries, setCountries } = useDataContext();
-  const { request } = useRequests();
+  const { countries } = useCountry();
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (countries.length === 0) {
-      request(URL_COUNTRY, MethodsEnum.GET, setCountries);
-    }
-  }, []);
 
   const handleOnClickCancel = () => {
     navigate(ManagerglobalRoutesEnum.MANAGERGLOBAL);
