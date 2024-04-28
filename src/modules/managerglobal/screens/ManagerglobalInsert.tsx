@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../shared/components/buttons/button/Button';
 import Input from '../../../shared/components/inputs/input/Input';
+import InputInteger from '../../../shared/components/inputs/inputInteger/InputInteger';
 import Screen from '../../../shared/components/screen/Screen';
 import Select from '../../../shared/components/select/Select';
 import {
@@ -60,7 +61,7 @@ const ManagerglobalInsert = () => {
             title="Nome"
             placeholder="Nome"
           />
-          <Input
+          <InputInteger
             onChange={(event) => onChangeInput(event, 'age', true)}
             value={managerglobal.age}
             margin="0px 0px 16px 0px"
