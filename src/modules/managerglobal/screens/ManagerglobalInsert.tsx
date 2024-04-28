@@ -5,8 +5,14 @@ import Button from '../../../shared/components/buttons/button/Button';
 import Input from '../../../shared/components/inputs/input/Input';
 import Screen from '../../../shared/components/screen/Screen';
 import Select from '../../../shared/components/select/Select';
-import { DisplayFlexJustifyRight } from '../../../shared/components/styles/display.styled';
-import { LimitedContainer } from '../../../shared/components/styles/limited.styled';
+import {
+  DisplayFlexJustifyCenter,
+  DisplayFlexJustifyRight,
+} from '../../../shared/components/styles/display.styled';
+import {
+  LimitedContainer,
+  LimitedContainerCard,
+} from '../../../shared/components/styles/limited.styled';
 import CountrySVG from '../../../shared/components/svg/CountrySVG';
 import { URL_COUNTRY } from '../../../shared/constants/urls';
 import { MethodsEnum } from '../../../shared/enums/methods.enum';
@@ -15,7 +21,6 @@ import { useRequests } from '../../../shared/hooks/useRequests';
 import { useInsertManagerglobal } from '../hooks/useInsertManagerglobal';
 import { ManagerglobalRoutesEnum } from '../routes';
 import { ContainerCountry, ContainerCountryImage } from '../styles/general.style';
-import { ManagerglobalInsertContainer } from '../styles/managerglobalInsert.style';
 
 const ManagerglobalInsert = () => {
   const {
@@ -57,8 +62,8 @@ const ManagerglobalInsert = () => {
         },
       ]}
     >
-      <ManagerglobalInsertContainer>
-        <LimitedContainer width={400}>
+      <DisplayFlexJustifyCenter>
+        <LimitedContainerCard width={400}>
           <Input
             onChange={(event) => onChangeInput(event, 'name')}
             value={managerglobal.name}
@@ -104,8 +109,8 @@ const ManagerglobalInsert = () => {
               </Button>
             </LimitedContainer>
           </DisplayFlexJustifyRight>
-        </LimitedContainer>
-      </ManagerglobalInsertContainer>
+        </LimitedContainerCard>
+      </DisplayFlexJustifyCenter>
     </Screen>
   );
 };

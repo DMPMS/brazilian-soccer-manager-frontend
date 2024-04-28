@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../shared/components/buttons/button/Button';
 import Screen from '../../../shared/components/screen/Screen';
+import { DisplayFlexJustifyBetween } from '../../../shared/components/styles/display.styled';
+import { LimitedContainer } from '../../../shared/components/styles/limited.styled';
 import CountrySVG from '../../../shared/components/svg/CountrySVG';
 import Table from '../../../shared/components/table/Table';
 import { URL_MANAGERGLOBAL } from '../../../shared/constants/urls';
@@ -14,7 +16,6 @@ import { useRequests } from '../../../shared/hooks/useRequests';
 import { ManagerglobalType } from '../../../shared/types/ManagerglobalType';
 import { ManagerglobalRoutesEnum } from '../routes';
 import { ContainerCountry, ContainerCountryImage } from '../styles/general.style';
-import { BoxButtons, LimiteSizeButton, LimiteSizeInput } from '../styles/managerglobal.style';
 
 const columns: ColumnsType<ManagerglobalType> = [
   {
@@ -77,17 +78,17 @@ const Managerglobal = () => {
         },
       ]}
     >
-      <BoxButtons>
-        <LimiteSizeInput>
+      <DisplayFlexJustifyBetween margin="0px 0px 16px 0px">
+        <LimitedContainer width={240}>
           <Search placeholder="Buscar treinador" onSearch={handleSearch} enterButton />
-        </LimiteSizeInput>
+        </LimitedContainer>
 
-        <LimiteSizeButton>
+        <LimitedContainer width={120}>
           <Button type="primary" onClick={handleOnClickInsert}>
             Inserir
           </Button>
-        </LimiteSizeButton>
-      </BoxButtons>
+        </LimitedContainer>
+      </DisplayFlexJustifyBetween>
       <Table columns={columns} dataSource={managersglobalFiltered} />
     </Screen>
   );
