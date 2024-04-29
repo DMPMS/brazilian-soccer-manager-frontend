@@ -8,12 +8,12 @@ import { DisplayFlexJustifyBetween } from '../../../shared/components/styles/dis
 import { LimitedContainer } from '../../../shared/components/styles/limited.styled';
 import CountrySVG from '../../../shared/components/svg/CountrySVG';
 import Table from '../../../shared/components/table/Table';
-import { TeamsglobalType } from '../../../shared/types/TeamsglobalType';
+import { TeamglobalType } from '../../../shared/types/TeamglobalType';
 import { ContainerCountry, ContainerCountryImage } from '../../managerglobal/styles/general.style';
 import { useTeamglobal } from '../hooks/useTeamglobal';
 import { TeamglobalRoutesEnum } from '../routes';
 
-const columns: ColumnsType<TeamsglobalType> = [
+const columns: ColumnsType<TeamglobalType> = [
   {
     title: 'Nome',
     dataIndex: 'name',

@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { TeamsglobalType } from '../../../shared/types/TeamsglobalType';
+import { TeamglobalType } from '../../../shared/types/TeamglobalType';
 
 interface TeamglobalState {
-  teamsglobal: TeamsglobalType[];
+  teamsglobal: TeamglobalType[];
 }
 
 const initialState: TeamglobalState = {
@@ -14,7 +14,7 @@ export const counterSlice = createSlice({
   name: 'teamglobalReducer',
   initialState,
   reducers: {
-    setTeamsglobalAction: (state, action: PayloadAction<TeamsglobalType[]>) => {
+    setTeamsglobalAction: (state, action: PayloadAction<TeamglobalType[]>) => {
       state.teamsglobal = action.payload;
     },
   },
