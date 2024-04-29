@@ -4,17 +4,17 @@ import { useNavigate } from 'react-router-dom';
 import { URL_TEAMGLOBAL } from '../../../shared/constants/urls';
 import { InsertTeamglobalDto } from '../../../shared/dtos/InsertTeamglobal.dto';
 import { MethodsEnum } from '../../../shared/enums/methods.enum';
-import { useDataContext } from '../../../shared/hooks/useDataContext';
-import { useGlobalContext } from '../../../shared/hooks/useGlobalContext';
 import { useRequests } from '../../../shared/hooks/useRequests';
+import { useGlobalReducer } from '../../../store/reducers/globalReducer/useGlobalReducer';
+import { useTeamglobalReducer } from '../../../store/reducers/teamglobalReducer/useTeamglobalReducer';
 import { TeamglobalRoutesEnum } from '../routes';
 
 export const useInsertTeamglobal = () => {
   const navigate = useNavigate();
 
   const { request } = useRequests();
-  const { setTeamsglobal } = useDataContext();
-  const { setNotification } = useGlobalContext();
+  const { setTeamsglobal } = useTeamglobalReducer();
+  const { setNotification } = useGlobalReducer();
 
   const [loading, setLoading] = useState(false);
   const [disabledButton, setDisabledButton] = useState(true);

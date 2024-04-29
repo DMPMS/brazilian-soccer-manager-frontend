@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 
 import { URL_MANAGERGLOBAL } from '../../../shared/constants/urls';
 import { MethodsEnum } from '../../../shared/enums/methods.enum';
-import { useDataContext } from '../../../shared/hooks/useDataContext';
 import { useRequests } from '../../../shared/hooks/useRequests';
+import { useManagerglobalReducer } from '../../../store/reducers/managerglobalReducer/useManagerglobalReducer';
 
 export const useManagerglobal = () => {
-  const { managersglobal, setManagersglobal } = useDataContext();
+  const { managersglobal, setManagersglobal } = useManagerglobalReducer();
   const { request } = useRequests();
 
   const [searchValue, setSearchValue] = useState('');

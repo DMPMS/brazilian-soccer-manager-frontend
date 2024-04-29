@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 
 import { URL_TEAMGLOBAL } from '../../../shared/constants/urls';
 import { MethodsEnum } from '../../../shared/enums/methods.enum';
-import { useDataContext } from '../../../shared/hooks/useDataContext';
 import { useRequests } from '../../../shared/hooks/useRequests';
+import { useTeamglobalReducer } from '../../../store/reducers/teamglobalReducer/useTeamglobalReducer';
 
 export const useTeamglobal = () => {
-  const { teamsglobal, setTeamsglobal } = useDataContext();
+  const { teamsglobal, setTeamsglobal } = useTeamglobalReducer();
   const { request } = useRequests();
 
   const [searchValue, setSearchValue] = useState('');

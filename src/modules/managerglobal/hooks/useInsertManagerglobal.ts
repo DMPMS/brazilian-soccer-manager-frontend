@@ -4,17 +4,17 @@ import { useNavigate } from 'react-router-dom';
 import { URL_MANAGERGLOBAL } from '../../../shared/constants/urls';
 import { InsertManagerglobalDto } from '../../../shared/dtos/InsertManagerglobal.dto';
 import { MethodsEnum } from '../../../shared/enums/methods.enum';
-import { useDataContext } from '../../../shared/hooks/useDataContext';
-import { useGlobalContext } from '../../../shared/hooks/useGlobalContext';
 import { useRequests } from '../../../shared/hooks/useRequests';
+import { useGlobalReducer } from '../../../store/reducers/globalReducer/useGlobalReducer';
+import { useManagerglobalReducer } from '../../../store/reducers/managerglobalReducer/useManagerglobalReducer';
 import { ManagerglobalRoutesEnum } from '../routes';
 
 export const useInsertManagerglobal = () => {
   const navigate = useNavigate();
 
   const { request } = useRequests();
-  const { setManagersglobal } = useDataContext();
-  const { setNotification } = useGlobalContext();
+  const { setManagersglobal } = useManagerglobalReducer();
+  const { setNotification } = useGlobalReducer();
 
   const [loading, setLoading] = useState(false);
   const [disabledButton, setDisabledButton] = useState(true);
