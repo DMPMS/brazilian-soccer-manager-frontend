@@ -1,23 +1,23 @@
 import { useEffect, useState } from 'react';
 
-import { URL_TEAMGLOBAL } from '../../../shared/constants/urls';
+import { URL_MANAGERGLOBAL } from '../../../shared/constants/urls';
 import { MethodsEnum } from '../../../shared/enums/methods.enum';
 import { useDataContext } from '../../../shared/hooks/useDataContext';
 import { useRequests } from '../../../shared/hooks/useRequests';
 
-export const useTeamglobal = () => {
-  const { teamsglobal, setTeamsglobal } = useDataContext();
+export const useManagerglobal = () => {
+  const { managersglobal, setManagersglobal } = useDataContext();
   const { request } = useRequests();
 
   const [searchValue, setSearchValue] = useState('');
 
-  const teamsglobalFiltered = teamsglobal.filter((teamglobal) =>
-    teamglobal.name.toLowerCase().includes(searchValue.toLowerCase()),
+  const managersglobalFiltered = managersglobal.filter((managerglobal) =>
+    managerglobal.name.toLowerCase().includes(searchValue.toLowerCase()),
   );
 
   useEffect(() => {
-    if (!teamsglobal || teamsglobal.length === 0) {
-      request(URL_TEAMGLOBAL, MethodsEnum.GET, setTeamsglobal);
+    if (!managersglobal || managersglobal.length === 0) {
+      request(URL_MANAGERGLOBAL, MethodsEnum.GET, setManagersglobal);
     }
   }, []);
 
@@ -26,7 +26,7 @@ export const useTeamglobal = () => {
   };
 
   return {
-    teamsglobal: teamsglobalFiltered,
+    managersglobal: managersglobalFiltered,
     handleOnSearch,
   };
 };
