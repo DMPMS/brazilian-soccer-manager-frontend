@@ -1,9 +1,10 @@
-import { HomeOutlined, LogoutOutlined, TeamOutlined } from '@ant-design/icons';
+import { HomeOutlined, LogoutOutlined, PartitionOutlined, TeamOutlined } from '@ant-design/icons';
 import { Menu as SidebarAntd, MenuProps as SidebarProps, Modal } from 'antd';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ManagerglobalRoutesEnum } from '../../../modules/managerglobal/routes';
+import { TeamglobalRoutesEnum } from '../../../modules/teamglobal/routes';
 import { logout } from '../../functions/connection/auth';
 import { ContainerLogoName, LogoSidebar, NameCompany } from './sidebar.style';
 import { ContainerSidebar } from './sidebar.style';
@@ -43,6 +44,23 @@ const Sidebar = () => {
           key: 'managersglobal_insert',
           label: 'Inserir',
           onClick: () => navigate(ManagerglobalRoutesEnum.MANAGERGLOBAL_INSERT),
+        },
+      ],
+    },
+    {
+      key: 'teamsglobal',
+      label: 'Times',
+      icon: <PartitionOutlined />,
+      children: [
+        {
+          key: 'teamsglobal_view',
+          label: 'Visualizar',
+          onClick: () => navigate(TeamglobalRoutesEnum.TEAMGLOBAL),
+        },
+        {
+          key: 'teamsglobal_insert',
+          label: 'Inserir',
+          onClick: () => navigate(TeamglobalRoutesEnum.TEAMGLOBAL_INSERT),
         },
       ],
     },

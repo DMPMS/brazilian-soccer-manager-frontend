@@ -5,6 +5,7 @@ import { createBrowserRouter, RouteObject, RouterProvider } from 'react-router-d
 import { firstScreenRoutes } from './modules/firstScreen/routes';
 import { loginRoutes } from './modules/login/routes';
 import { managerglobalRoutes } from './modules/managerglobal/routes';
+import { teamglobalRoutes } from './modules/teamglobal/routes';
 import { URL_USER } from './shared/constants/urls';
 import { MethodsEnum } from './shared/enums/methods.enum';
 import { getAuthorizationToken, verifyLoggedIn } from './shared/functions/connection/auth';
@@ -13,12 +14,14 @@ import { useNotification } from './shared/hooks/useNotification';
 import { useRequests } from './shared/hooks/useRequests';
 
 const routes: RouteObject[] = [...loginRoutes];
-const routesLoggedIn: RouteObject[] = [...managerglobalRoutes, ...firstScreenRoutes].map(
-  (route) => ({
-    ...route,
-    loader: verifyLoggedIn,
-  }),
-);
+const routesLoggedIn: RouteObject[] = [
+  ...managerglobalRoutes,
+  ...teamglobalRoutes,
+  ...firstScreenRoutes,
+].map((route) => ({
+  ...route,
+  loader: verifyLoggedIn,
+}));
 
 const router: RemixRouter = createBrowserRouter([...routes, ...routesLoggedIn]);
 

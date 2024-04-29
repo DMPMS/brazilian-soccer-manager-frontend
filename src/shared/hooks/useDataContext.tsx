@@ -2,9 +2,11 @@ import { createContext, useContext, useState } from 'react';
 
 import { CountryType } from '../types/CountryType';
 import { ManagerglobalType } from '../types/ManagerglobalType';
+import { TeamsglobalType } from '../types/TeamsglobalType';
 
 interface DataContext {
   managersglobal?: ManagerglobalType[];
+  teamsglobal?: TeamsglobalType[];
   countries?: CountryType[];
 }
 
@@ -35,6 +37,13 @@ export const useDataContext = () => {
     });
   };
 
+  const setTeamsglobal = (teamsglobal: TeamsglobalType[]) => {
+    setData({
+      ...data,
+      teamsglobal,
+    });
+  };
+
   const setCountries = (countries: CountryType[]) => {
     setData({
       ...data,
@@ -44,8 +53,10 @@ export const useDataContext = () => {
 
   return {
     managersglobal: data?.managersglobal || [],
+    teamsglobal: data?.teamsglobal || [],
     countries: data?.countries || [],
     setManagersglobal,
+    setTeamsglobal,
     setCountries,
   };
 };

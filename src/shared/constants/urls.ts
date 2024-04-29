@@ -5,3 +5,5 @@ export const URL_AUTH = 'http://localhost:8080/auth';
 export const URL_MANAGERGLOBAL = 'http://localhost:8080/managerglobal';
 
 export const URL_COUNTRY = 'http://localhost:8080/country';
+
+export const URL_TEAMGLOBAL = 'http://localhost:8080/teamglobal';
