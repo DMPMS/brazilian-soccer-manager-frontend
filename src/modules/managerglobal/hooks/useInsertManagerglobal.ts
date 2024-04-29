@@ -3,13 +3,19 @@ import { useNavigate } from 'react-router-dom';
 
 import { URL_MANAGERGLOBAL } from '../../../shared/constants/urls';
 import { InsertManagerglobalDto } from '../../../shared/dtos/InsertManagerglobal.dto';
-import { connectionAPIPost } from '../../../shared/functions/connection/connectionAPI';
+import { MethodsEnum } from '../../../shared/enums/methods.enum';
+import { useDataContext } from '../../../shared/hooks/useDataContext';
 import { useGlobalContext } from '../../../shared/hooks/useGlobalContext';
+import { useRequests } from '../../../shared/hooks/useRequests';
 import { ManagerglobalRoutesEnum } from '../routes';
 
 export const useInsertManagerglobal = () => {
   const navigate = useNavigate();
+
+  const { request } = useRequests();
+  const { setManagersglobal } = useDataContext();
   const { setNotification } = useGlobalContext();
+
   const [loading, setLoading] = useState(false);
   const [disabledButton, setDisabledButton] = useState(true);
   const [managerglobal, setManagerglobal] = useState<InsertManagerglobalDto>({
@@ -25,7 +31,7 @@ export const useInsertManagerglobal = () => {
     }
   }, [managerglobal]);
 
-  const onChangeInput = (
+  const handleOnChangeInput = (
     event: React.ChangeEvent<HTMLInputElement>,
     nameObject: string,
     isNumber?: boolean,
@@ -36,32 +42,33 @@ export const useInsertManagerglobal = () => {
     });
   };
 
-  const handleChangeSelect = (value: string) => {
+  const handleOnChangeCountrySelect = (value: string) => {
     setManagerglobal({
       ...managerglobal,
       countryId: Number(value),
     });
   };
 
-  const handleInsertManagerglobal = async () => {
+  const handleOnClickInsert = async () => {
     setLoading(true);
-    await connectionAPIPost(URL_MANAGERGLOBAL, managerglobal)
-      .then(() => {
-        setNotification('Sucesso!', 'success', 'Treinador inserido com sucesso!');
-        navigate(ManagerglobalRoutesEnum.MANAGERGLOBAL);
-      })
-      .catch((error: Error) => {
-        setNotification(error.message, 'error');
-      });
+
+    await request(URL_MANAGERGLOBAL, MethodsEnum.POST, undefined, managerglobal).then(() => {
+      setNotification('Sucesso!', 'success', 'Treinador inserido com sucesso!');
+    });
+
+    await request(URL_MANAGERGLOBAL, MethodsEnum.GET, setManagersglobal);
+
     setLoading(false);
+
+    navigate(ManagerglobalRoutesEnum.MANAGERGLOBAL);
   };
 
   return {
     managerglobal,
     loading,
     disabledButton,
-    onChangeInput,
-    handleInsertManagerglobal,
-    handleChangeSelect,
+    handleOnChangeInput,
+    handleOnClickInsert,
+    handleOnChangeCountrySelect,
   };
 };

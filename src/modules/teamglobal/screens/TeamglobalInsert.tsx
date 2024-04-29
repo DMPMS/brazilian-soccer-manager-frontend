@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../shared/components/buttons/button/Button';
 import Input from '../../../shared/components/inputs/input/Input';
-import InputInteger from '../../../shared/components/inputs/inputInteger/InputInteger';
 import Screen from '../../../shared/components/screen/Screen';
 import Select from '../../../shared/components/select/Select';
 import {
@@ -15,26 +14,29 @@ import {
 } from '../../../shared/components/styles/limited.styled';
 import CountrySVG from '../../../shared/components/svg/CountrySVG';
 import { useCountry } from '../../country/hooks/useCountry';
-import { useInsertManagerglobal } from '../hooks/useInsertManagerglobal';
-import { ManagerglobalRoutesEnum } from '../routes';
-import { ContainerCountry, ContainerCountryImage } from '../styles/general.style';
+import { useManagerglobal } from '../../managerglobal/hooks/useManagerglobal';
+import { ContainerCountry, ContainerCountryImage } from '../../managerglobal/styles/general.style';
+import { useInsertTeamglobal } from '../hooks/useInsertTeamglobal';
+import { TeamglobalRoutesEnum } from '../routes';
 
-const ManagerglobalInsert = () => {
+const TeamglobalInsert = () => {
   const {
-    managerglobal,
+    teamglobal,
     loading,
     disabledButton,
     handleOnChangeInput,
     handleOnClickInsert,
     handleOnChangeCountrySelect,
-  } = useInsertManagerglobal();
+    handleOnChangeManagerglobalSelect,
+  } = useInsertTeamglobal();
 
   const { countries } = useCountry();
+  const { managersglobal } = useManagerglobal();
 
   const navigate = useNavigate();
 
   const handleOnClickCancel = () => {
-    navigate(ManagerglobalRoutesEnum.MANAGERGLOBAL);
+    navigate(TeamglobalRoutesEnum.TEAMGLOBAL);
   };
 
   return (
@@ -44,11 +46,11 @@ const ManagerglobalInsert = () => {
           name: 'PÁGINA INICIAL',
         },
         {
-          name: 'TREINADORES',
-          navigateTo: ManagerglobalRoutesEnum.MANAGERGLOBAL,
+          name: 'TIMES',
+          navigateTo: TeamglobalRoutesEnum.TEAMGLOBAL,
         },
         {
-          name: 'INSERIR TREINADOR',
+          name: 'INSERIR TIME',
         },
       ]}
     >
@@ -56,17 +58,17 @@ const ManagerglobalInsert = () => {
         <LimitedContainerCard width={400}>
           <Input
             onChange={(event) => handleOnChangeInput(event, 'name')}
-            value={managerglobal.name}
+            value={teamglobal.name}
             margin="0px 0px 16px 0px"
             title="Nome"
             placeholder="Nome"
           />
-          <InputInteger
-            onChange={(event) => handleOnChangeInput(event, 'age', true)}
-            value={managerglobal.age}
+          <Input
+            onChange={(event) => handleOnChangeInput(event, 'srcImage')}
+            value={teamglobal.srcImage}
             margin="0px 0px 16px 0px"
-            title="Idade"
-            placeholder="Idade"
+            title="Caminho da imagem"
+            placeholder="Caminho da imagem"
           />
           <Select
             title="Nacionalidade"
@@ -84,6 +86,16 @@ const ManagerglobalInsert = () => {
               ),
             }))}
           />
+          <Select
+            title="Treinador"
+            margin="0px 0px 32px 0px"
+            onChange={handleOnChangeManagerglobalSelect}
+            options={managersglobal.map((managerglobal) => ({
+              value: `${managerglobal.id}`,
+              label: `${managerglobal.name}`,
+            }))}
+          />
+
           <DisplayFlexJustifyRight>
             <LimitedContainer margin="0px 8px" width={120}>
               <Button onClick={handleOnClickCancel}>Cancelar</Button>
@@ -105,4 +117,4 @@ const ManagerglobalInsert = () => {
   );
 };
 
-export default ManagerglobalInsert;
+export default TeamglobalInsert;

@@ -1,6 +1,7 @@
 import { RouteObject } from 'react-router-dom';
 
 import Teamglobal from './screens/Teamglobal';
+import TeamglobalInsert from './screens/TeamglobalInsert';
 
 export enum TeamglobalRoutesEnum {
   TEAMGLOBAL = '/teamglobal',
@@ -11,5 +12,9 @@ export const teamglobalRoutes: RouteObject[] = [
   {
     path: TeamglobalRoutesEnum.TEAMGLOBAL,
     element: <Teamglobal />,
+  },
+  {
+    path: TeamglobalRoutesEnum.TEAMGLOBAL_INSERT,
+    element: <TeamglobalInsert />,
   },
 ];
