@@ -1,3 +1,4 @@
+// import { Upload } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../shared/components/buttons/button/Button';
@@ -13,6 +14,8 @@ import {
   LimitedContainerCard,
 } from '../../../shared/components/styles/limited.styled';
 import CountrySVG from '../../../shared/components/svg/CountrySVG';
+// import UploadImage from '../../../shared/components/upload/uploadImage/UploadImage';
+// import { useGlobalReducer } from '../../../store/reducers/globalReducer/useGlobalReducer';
 import { useCountry } from '../../country/hooks/useCountry';
 import { useManagerglobal } from '../../managerglobal/hooks/useManagerglobal';
 import { ContainerCountry, ContainerCountryImage } from '../../managerglobal/styles/general.style';
@@ -28,10 +31,12 @@ const TeamglobalInsert = () => {
     handleOnClickInsert,
     handleOnChangeCountrySelect,
     handleOnChangeManagerglobalSelect,
+    // handleUploadImage,
   } = useInsertTeamglobal();
 
   const { countries } = useCountry();
   const { managersglobal } = useManagerglobal();
+  // const { setNotification } = useGlobalReducer();
 
   const navigate = useNavigate();
 
@@ -70,6 +75,21 @@ const TeamglobalInsert = () => {
             title="Caminho da imagem"
             placeholder="Caminho da imagem"
           />
+          {/* <UploadImage
+            beforeUpload={(file: File) => {
+              if (file.type === 'image/png') {
+                handleUploadImage(file, 'srcImage');
+                return false;
+              } else {
+                handleUploadImage(null, 'srcImage');
+                setNotification('Erro!', 'error', 'Selecione uma imagem PNG');
+                return Upload.LIST_IGNORE;
+              }
+            }}
+            onRemove={() => handleUploadImage(null, 'srcImage')}
+          >
+            Selecionar imagem PNG
+          </UploadImage> */}
           <Select
             title="Nacionalidade"
             margin="0px 0px 32px 0px"

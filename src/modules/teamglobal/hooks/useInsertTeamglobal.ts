@@ -23,6 +23,8 @@ export const useInsertTeamglobal = () => {
     srcImage: '',
   });
 
+  // const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
   useEffect(() => {
     if (
       teamglobal.name &&
@@ -42,6 +44,23 @@ export const useInsertTeamglobal = () => {
       [nameObject]: event.target.value,
     });
   };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // const handleUploadImage = (file: File | null, nameObject: string) => {
+  //   if (file !== null) {
+  //     setSelectedFile(file);
+  //     setTeamglobal({
+  //       ...teamglobal,
+  //       [nameObject]: file.name,
+  //     });
+  //   } else {
+  //     setSelectedFile(file);
+  //     setTeamglobal({
+  //       ...teamglobal,
+  //       [nameObject]: '',
+  //     });
+  //   }
+  // };
 
   const handleOnChangeCountrySelect = (value: string) => {
     setTeamglobal({
@@ -79,5 +98,6 @@ export const useInsertTeamglobal = () => {
     handleOnClickInsert,
     handleOnChangeCountrySelect,
     handleOnChangeManagerglobalSelect,
+    // handleUploadImage,
   };
 };
