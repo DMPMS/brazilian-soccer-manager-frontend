@@ -4,12 +4,15 @@ import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../shared/components/buttons/button/Button';
 import Screen from '../../../shared/components/screen/Screen';
-import { DisplayFlexJustifyBetween } from '../../../shared/components/styles/display.styled';
+import {
+  DisplayFlexAlignCenter,
+  DisplayFlexDirectionRow,
+  DisplayFlexJustifyBetween,
+} from '../../../shared/components/styles/display.styled';
 import { LimitedContainer } from '../../../shared/components/styles/limited.styled';
 import CountrySVG from '../../../shared/components/svg/CountrySVG';
 import Table from '../../../shared/components/table/Table';
 import { TeamglobalType } from '../../../shared/types/TeamglobalType';
-import { ContainerCountry, ContainerCountryImage } from '../../managerglobal/styles/general.style';
 import { useTeamglobal } from '../hooks/useTeamglobal';
 import { TeamglobalRoutesEnum } from '../routes';
 
@@ -31,12 +34,12 @@ const columns: ColumnsType<TeamglobalType> = [
     dataIndex: 'country',
     key: 'country',
     render: (_, target) => (
-      <ContainerCountry>
-        <ContainerCountryImage>
+      <DisplayFlexDirectionRow>
+        <DisplayFlexAlignCenter margin="0px 5px 0px 0px">
           <CountrySVG name={target.country?.name} width={20} height={20} />
-        </ContainerCountryImage>
+        </DisplayFlexAlignCenter>
         <text>{target.country?.name}</text>
-      </ContainerCountry>
+      </DisplayFlexDirectionRow>
     ),
   },
 ];

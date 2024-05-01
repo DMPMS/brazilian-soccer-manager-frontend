@@ -6,6 +6,8 @@ import InputInteger from '../../../shared/components/inputs/inputInteger/InputIn
 import Screen from '../../../shared/components/screen/Screen';
 import Select from '../../../shared/components/select/Select';
 import {
+  DisplayFlexAlignCenter,
+  DisplayFlexDirectionRow,
   DisplayFlexJustifyCenter,
   DisplayFlexJustifyRight,
 } from '../../../shared/components/styles/display.styled';
@@ -17,7 +19,6 @@ import CountrySVG from '../../../shared/components/svg/CountrySVG';
 import { useCountry } from '../../country/hooks/useCountry';
 import { useInsertManagerglobal } from '../hooks/useInsertManagerglobal';
 import { ManagerglobalRoutesEnum } from '../routes';
-import { ContainerCountry, ContainerCountryImage } from '../styles/general.style';
 
 const ManagerglobalInsert = () => {
   const {
@@ -75,12 +76,12 @@ const ManagerglobalInsert = () => {
             options={countries.map((country) => ({
               value: `${country.id}`,
               label: (
-                <ContainerCountry>
-                  <ContainerCountryImage>
+                <DisplayFlexDirectionRow>
+                  <DisplayFlexAlignCenter margin="0px 5px 0px 0px">
                     <CountrySVG name={country.name} width={20} height={20} />
-                  </ContainerCountryImage>
+                  </DisplayFlexAlignCenter>
                   <text>{country.name}</text>
-                </ContainerCountry>
+                </DisplayFlexDirectionRow>
               ),
             }))}
           />

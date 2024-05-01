@@ -21,3 +21,12 @@ export const DisplayFlexJustifyBetween = styled(DisplayFlex)<DisplayFlexProps>`
 export const DisplayFlexJustifyCenter = styled(DisplayFlex)`
   justify-content: center;
 `;
+
+export const DisplayFlexAlignCenter = styled(DisplayFlex)<DisplayFlexProps>`
+  align-items: center;
+  ${(props) => (props.margin ? `margin: ${props.margin}` : '')};
+`;
+
+export const DisplayFlexDirectionRow = styled(DisplayFlex)`
+  flex-direction: row;
+`;

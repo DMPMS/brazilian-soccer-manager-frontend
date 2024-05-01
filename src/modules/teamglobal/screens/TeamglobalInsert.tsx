@@ -6,6 +6,8 @@ import Input from '../../../shared/components/inputs/input/Input';
 import Screen from '../../../shared/components/screen/Screen';
 import Select from '../../../shared/components/select/Select';
 import {
+  DisplayFlexAlignCenter,
+  DisplayFlexDirectionRow,
   DisplayFlexJustifyCenter,
   DisplayFlexJustifyRight,
 } from '../../../shared/components/styles/display.styled';
@@ -18,7 +20,6 @@ import CountrySVG from '../../../shared/components/svg/CountrySVG';
 // import { useGlobalReducer } from '../../../store/reducers/globalReducer/useGlobalReducer';
 import { useCountry } from '../../country/hooks/useCountry';
 import { useManagerglobal } from '../../managerglobal/hooks/useManagerglobal';
-import { ContainerCountry, ContainerCountryImage } from '../../managerglobal/styles/general.style';
 import { useInsertTeamglobal } from '../hooks/useInsertTeamglobal';
 import { TeamglobalRoutesEnum } from '../routes';
 
@@ -91,18 +92,18 @@ const TeamglobalInsert = () => {
             Selecionar imagem PNG
           </UploadImage> */}
           <Select
-            title="Nacionalidade"
+            title="País"
             margin="0px 0px 32px 0px"
             onChange={handleOnChangeCountrySelect}
             options={countries.map((country) => ({
               value: `${country.id}`,
               label: (
-                <ContainerCountry>
-                  <ContainerCountryImage>
+                <DisplayFlexDirectionRow>
+                  <DisplayFlexAlignCenter margin="0px 5px 0px 0px">
                     <CountrySVG name={country.name} width={20} height={20} />
-                  </ContainerCountryImage>
+                  </DisplayFlexAlignCenter>
                   <text>{country.name}</text>
-                </ContainerCountry>
+                </DisplayFlexDirectionRow>
               ),
             }))}
           />
