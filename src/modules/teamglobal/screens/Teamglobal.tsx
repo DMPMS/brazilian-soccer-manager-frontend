@@ -3,6 +3,7 @@ import { ColumnsType } from 'antd/es/table';
 import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../shared/components/buttons/button/Button';
+import Image from '../../../shared/components/image/Image';
 import Screen from '../../../shared/components/screen/Screen';
 import {
   DisplayFlexAlignCenter,
@@ -22,6 +23,14 @@ const columns: ColumnsType<TeamglobalType> = [
     dataIndex: 'name',
     key: 'name',
     sorter: (a, b) => a.name.localeCompare(b.name),
+    render: (_, target) => (
+      <DisplayFlexDirectionRow>
+        <DisplayFlexAlignCenter margin="0px 5px 0px 0px">
+          <Image src={target.srcImage} width={20} height={20} />
+        </DisplayFlexAlignCenter>
+        <text>{target.name}</text>
+      </DisplayFlexDirectionRow>
+    ),
   },
   {
     title: 'Treinador',
