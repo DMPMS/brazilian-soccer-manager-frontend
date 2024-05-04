@@ -107,6 +107,12 @@ const TeamglobalInsert = () => {
                 </DisplayFlexDirectionRow>
               ),
             }))}
+            showSearch
+            filterOption={(input, option) =>
+              option.label.props.children[1].props.children
+                .toLowerCase()
+                .includes(input.toLowerCase())
+            }
           />
           <Select
             title="Treinador"
@@ -116,8 +122,11 @@ const TeamglobalInsert = () => {
               value: `${managerglobal.id}`,
               label: `${managerglobal.name}`,
             }))}
+            showSearch
+            filterOption={(input, option) =>
+              option.label.toLowerCase().includes(input.toLowerCase())
+            }
           />
-
           <DisplayFlexJustifyRight>
             <LimitedContainer margin="0px 8px" width={120}>
               <Button onClick={handleOnClickCancel}>Cancelar</Button>
