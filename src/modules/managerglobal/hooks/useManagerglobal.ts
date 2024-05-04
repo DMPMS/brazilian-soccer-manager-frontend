@@ -1,12 +1,20 @@
 import { useEffect, useState } from 'react';
 
-import { URL_MANAGERGLOBAL } from '../../../shared/constants/urls';
+import {
+  URL_MANAGERGLOBAL,
+  URL_MANAGERGLOBAL_WITHOUT_TEAMGLOBAL,
+} from '../../../shared/constants/urls';
 import { MethodsEnum } from '../../../shared/enums/methods.enum';
 import { useRequests } from '../../../shared/hooks/useRequests';
 import { useManagerglobalReducer } from '../../../store/reducers/managerglobalReducer/useManagerglobalReducer';
 
 export const useManagerglobal = () => {
-  const { managersglobal, setManagersglobal } = useManagerglobalReducer();
+  const {
+    managersglobal,
+    managersglobalWithoutTeamglobal,
+    setManagersglobal,
+    setManagersglobalWithoutTeamglobal,
+  } = useManagerglobalReducer();
   const { request } = useRequests();
 
   const [searchValue, setSearchValue] = useState('');
@@ -21,12 +29,23 @@ export const useManagerglobal = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (!managersglobalWithoutTeamglobal || managersglobalWithoutTeamglobal.length === 0) {
+      request(
+        URL_MANAGERGLOBAL_WITHOUT_TEAMGLOBAL,
+        MethodsEnum.GET,
+        setManagersglobalWithoutTeamglobal,
+      );
+    }
+  }, []);
+
   const handleOnSearch = (value: string) => {
     setSearchValue(value);
   };
 
   return {
     managersglobal: managersglobalFiltered,
+    managersglobalWithoutTeamglobal,
     handleOnSearch,
   };
 };

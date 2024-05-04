@@ -16,6 +16,7 @@ import {
   LimitedContainerCard,
 } from '../../../shared/components/styles/limited.styled';
 import CountrySVG from '../../../shared/components/svg/CountrySVG';
+import { ManagerglobalType } from '../../../shared/types/ManagerglobalType';
 // import UploadImage from '../../../shared/components/upload/uploadImage/UploadImage';
 // import { useGlobalReducer } from '../../../store/reducers/globalReducer/useGlobalReducer';
 import { useCountry } from '../../country/hooks/useCountry';
@@ -36,7 +37,7 @@ const TeamglobalInsert = () => {
   } = useInsertTeamglobal();
 
   const { countries } = useCountry();
-  const { managersglobal } = useManagerglobal();
+  const { managersglobalWithoutTeamglobal } = useManagerglobal();
   // const { setNotification } = useGlobalReducer();
 
   const navigate = useNavigate();
@@ -111,7 +112,7 @@ const TeamglobalInsert = () => {
             title="Treinador"
             margin="0px 0px 32px 0px"
             onChange={handleOnChangeManagerglobalSelect}
-            options={managersglobal.map((managerglobal) => ({
+            options={managersglobalWithoutTeamglobal.map((managerglobal: ManagerglobalType) => ({
               value: `${managerglobal.id}`,
               label: `${managerglobal.name}`,
             }))}

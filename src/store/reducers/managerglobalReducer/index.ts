@@ -4,10 +4,12 @@ import { ManagerglobalType } from '../../../shared/types/ManagerglobalType';
 
 interface ManagerglobalState {
   managersglobal: ManagerglobalType[];
+  managersglobalWithoutTeamglobal: ManagerglobalType[];
 }
 
 const initialState: ManagerglobalState = {
   managersglobal: [],
+  managersglobalWithoutTeamglobal: [],
 };
 
 export const counterSlice = createSlice({
@@ -17,9 +19,16 @@ export const counterSlice = createSlice({
     setManagersglobalAction: (state, action: PayloadAction<ManagerglobalType[]>) => {
       state.managersglobal = action.payload;
     },
+    setManagersglobalWithoutTeamglobalAction: (
+      state,
+      action: PayloadAction<ManagerglobalType[]>,
+    ) => {
+      state.managersglobalWithoutTeamglobal = action.payload;
+    },
   },
 });
 
-export const { setManagersglobalAction } = counterSlice.actions;
+export const { setManagersglobalAction, setManagersglobalWithoutTeamglobalAction } =
+  counterSlice.actions;
 
 export default counterSlice.reducer;

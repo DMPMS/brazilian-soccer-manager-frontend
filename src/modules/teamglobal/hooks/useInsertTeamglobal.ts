@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { URL_TEAMGLOBAL } from '../../../shared/constants/urls';
+import {
+  URL_MANAGERGLOBAL_WITHOUT_TEAMGLOBAL,
+  URL_TEAMGLOBAL,
+} from '../../../shared/constants/urls';
 import { InsertTeamglobalDto } from '../../../shared/dtos/InsertTeamglobal.dto';
 import { MethodsEnum } from '../../../shared/enums/methods.enum';
 import { useRequests } from '../../../shared/hooks/useRequests';
 import { useGlobalReducer } from '../../../store/reducers/globalReducer/useGlobalReducer';
+import { useManagerglobalReducer } from '../../../store/reducers/managerglobalReducer/useManagerglobalReducer';
 import { useTeamglobalReducer } from '../../../store/reducers/teamglobalReducer/useTeamglobalReducer';
 import { TeamglobalRoutesEnum } from '../routes';
 
@@ -14,6 +18,7 @@ export const useInsertTeamglobal = () => {
 
   const { request } = useRequests();
   const { setTeamsglobal } = useTeamglobalReducer();
+  const { setManagersglobalWithoutTeamglobal } = useManagerglobalReducer();
   const { setNotification } = useGlobalReducer();
 
   const [loading, setLoading] = useState(false);
@@ -84,6 +89,12 @@ export const useInsertTeamglobal = () => {
     });
 
     await request(URL_TEAMGLOBAL, MethodsEnum.GET, setTeamsglobal);
+
+    await request(
+      URL_MANAGERGLOBAL_WITHOUT_TEAMGLOBAL,
+      MethodsEnum.GET,
+      setManagersglobalWithoutTeamglobal,
+    );
 
     setLoading(false);
 
