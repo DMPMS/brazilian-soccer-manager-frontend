@@ -1,8 +1,15 @@
-import { HomeOutlined, LogoutOutlined, PartitionOutlined, TeamOutlined } from '@ant-design/icons';
+import {
+  AppstoreOutlined,
+  HomeOutlined,
+  LogoutOutlined,
+  PartitionOutlined,
+  TeamOutlined,
+} from '@ant-design/icons';
 import { Menu as SidebarAntd, MenuProps as SidebarProps, Modal } from 'antd';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { CompetitionglobalRoutesEnum } from '../../../modules/competitionglobal/routes';
 import { ManagerglobalRoutesEnum } from '../../../modules/managerglobal/routes';
 import { TeamglobalRoutesEnum } from '../../../modules/teamglobal/routes';
 import { logout } from '../../functions/connection/auth';
@@ -61,6 +68,23 @@ const Sidebar = () => {
           key: 'teamsglobal_insert',
           label: 'Inserir',
           onClick: () => navigate(TeamglobalRoutesEnum.TEAMGLOBAL_INSERT),
+        },
+      ],
+    },
+    {
+      key: 'competitionsglobal',
+      label: 'Competições',
+      icon: <AppstoreOutlined />,
+      children: [
+        {
+          key: 'competitionsglobal_view',
+          label: 'Visualizar',
+          onClick: () => navigate(CompetitionglobalRoutesEnum.COMPETITIONGLOBAL),
+        },
+        {
+          key: 'competitionsglobal_insert',
+          label: 'Inserir',
+          onClick: () => navigate(CompetitionglobalRoutesEnum.COMPETITIONGLOBAL_INSERT),
         },
       ],
     },

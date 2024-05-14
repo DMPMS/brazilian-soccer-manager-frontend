@@ -2,6 +2,7 @@ import type { Router as RemixRouter } from '@remix-run/router';
 import { useEffect } from 'react';
 import { createBrowserRouter, RouteObject, RouterProvider } from 'react-router-dom';
 
+import { competitionglobalRoutes } from './modules/competitionglobal/routes';
 import { firstScreenRoutes } from './modules/firstScreen/routes';
 import { loginRoutes } from './modules/login/routes';
 import { managerglobalRoutes } from './modules/managerglobal/routes';
@@ -16,6 +17,7 @@ import { useGlobalReducer } from './store/reducers/globalReducer/useGlobalReduce
 const routes: RouteObject[] = [...loginRoutes];
 const routesLoggedIn: RouteObject[] = [
   ...managerglobalRoutes,
+  ...competitionglobalRoutes,
   ...teamglobalRoutes,
   ...firstScreenRoutes,
 ].map((route) => ({
