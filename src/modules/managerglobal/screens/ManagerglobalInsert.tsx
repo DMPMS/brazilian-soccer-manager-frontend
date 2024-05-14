@@ -72,6 +72,7 @@ const ManagerglobalInsert = () => {
           />
           <Select
             title="Nacionalidade"
+            placeholder="Selecione um país"
             margin="0px 0px 32px 0px"
             onChange={handleOnChangeCountrySelect}
             options={countries.map((country: CountryType) => ({

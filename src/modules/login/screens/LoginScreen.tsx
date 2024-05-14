@@ -36,17 +36,17 @@ const LoginScreen = () => {
   return (
     <ContainerLoginScreen>
       <ContainerLogin>
-        <LogoImage src="../../../../public/logo.png" />
-        <TitleLogin>Brazilian Soccer Manager</TitleLogin>
-        <Input title="E-mail" margin="16px 0px 0px 0px" onChange={handleEmail} value={email} />
+        <LogoImage src="logo.png" />
+        <TitleLogin level={3}>Brazilian Soccer Manager</TitleLogin>
+        <Input title="E-mail" margin="0px 0px 16px 0px" onChange={handleEmail} value={email} />
         <Input
           type="password"
           title="Senha"
-          margin="16px 0px 0px"
+          margin="0px 0px 32px 0px"
           onChange={handlePassword}
           value={password}
         />
-        <Button loading={loading} type="primary" margin="32px 0px 0px 0px" onClick={handleLogin}>
+        <Button loading={loading} type="primary" onClick={handleLogin}>
           Entrar
         </Button>
       </ContainerLogin>

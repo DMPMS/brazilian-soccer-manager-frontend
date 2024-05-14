@@ -1,8 +1,10 @@
+import { Typography } from 'antd';
 import styled from 'styled-components';
+
+const { Title, Text } = Typography;
 
 export const ContainerPageNotFound = styled.div`
   background-color: #052574;
-  font-family: Arial, sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,15 +12,15 @@ export const ContainerPageNotFound = styled.div`
 `;
 
 export const DeflatedBallImage = styled.img`
-  width: 70%;
+  width: 100%;
   display: block;
 `;
 
-export const TitleError = styled.h3`
+export const TitleError = styled(Title)`
   color: #052574;
 `;
 
-export const DescriptionError = styled.p``;
+export const DescriptionError = styled(Text)``;
 
 export const ContainerError = styled.div`
   background-color: #ffffff;

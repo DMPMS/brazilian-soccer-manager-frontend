@@ -1,8 +1,10 @@
+import { Typography } from 'antd';
 import styled from 'styled-components';
+
+const { Title } = Typography;
 
 export const ContainerLoginScreen = styled.div`
   background-color: #052574;
-  font-family: Arial, sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,7 +16,7 @@ export const LogoImage = styled.img`
   display: block;
 `;
 
-export const TitleLogin = styled.h3`
+export const TitleLogin = styled(Title)`
   color: #052574;
 `;
 

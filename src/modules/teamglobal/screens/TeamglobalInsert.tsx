@@ -95,7 +95,8 @@ const TeamglobalInsert = () => {
           </UploadImage> */}
           <Select
             title="País"
-            margin="0px 0px 32px 0px"
+            placeholder="Selecione um país"
+            margin="0px 0px 16px 0px"
             onChange={handleOnChangeCountrySelect}
             options={countries.map((country: CountryType) => ({
               value: `${country.id}`,
@@ -117,6 +118,7 @@ const TeamglobalInsert = () => {
           />
           <Select
             title="Treinador"
+            placeholder="Selecione um treinador"
             margin="0px 0px 32px 0px"
             onChange={handleOnChangeManagerglobalSelect}
             options={managersglobalWithoutTeamglobal.map((managerglobal: ManagerglobalType) => ({

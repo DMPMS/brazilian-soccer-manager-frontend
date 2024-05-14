@@ -20,7 +20,7 @@ const PageNotFound = () => {
     <ContainerPageNotFound>
       <ContainerError>
         <DeflatedBallImage src="../../../../public/deflatedBall.png" />
-        <TitleError>Erro 404</TitleError>
+        <TitleError level={3}>Erro 404</TitleError>
         <DescriptionError>Ops! Parece que essa página está fora de jogo.</DescriptionError>
         <Button onClick={handleOnClickButton} margin="32px 0px 0px 0px" type="primary">
           Página de Login

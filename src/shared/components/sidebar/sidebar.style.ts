@@ -1,8 +1,10 @@
+import { Typography } from 'antd';
 import styled from 'styled-components';
+
+const { Text } = Typography;
 
 export const ContainerSidebar = styled.div`
   background-color: #eff2f5;
-  font-family: Arial, sans-serif;
 
   max-width: 240px;
 
@@ -29,7 +31,7 @@ export const LogoSidebar = styled.img`
   padding: 5px;
 `;
 
-export const NameCompany = styled.text`
+export const NameCompany = styled(Text)`
   color: #052574;
   padding: 5px;
 `;

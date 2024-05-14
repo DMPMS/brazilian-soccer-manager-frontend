@@ -7,6 +7,7 @@ import Select from '../../../shared/components/select/Select';
 import {
   DisplayFlexAlignCenter,
   DisplayFlexDirectionRow,
+  DisplayFlexJustifyBetween,
   DisplayFlexJustifyCenter,
   DisplayFlexJustifyRight,
 } from '../../../shared/components/styles/display.styled';
@@ -59,20 +60,26 @@ const CompetitionglobalInsert = () => {
     >
       <DisplayFlexJustifyCenter>
         <LimitedContainerCard width={400}>
-          <Input
-            onChange={(event) => handleOnChangeInput(event, 'name')}
-            value={competitionglobal.name}
-            margin="0px 0px 16px 0px"
-            title="Nome"
-            placeholder="Nome"
-          />
-          <Input
-            onChange={(event) => handleOnChangeInput(event, 'season')}
-            value={competitionglobal.season}
-            margin="0px 0px 16px 0px"
-            title="Temporada"
-            placeholder="Temporada"
-          />
+          <DisplayFlexJustifyBetween>
+            <LimitedContainer width={250}>
+              <Input
+                onChange={(event) => handleOnChangeInput(event, 'name')}
+                value={competitionglobal.name}
+                margin="0px 0px 16px 0px"
+                title="Nome"
+                placeholder="Nome"
+              />
+            </LimitedContainer>
+            <LimitedContainer width={100}>
+              <Input
+                onChange={(event) => handleOnChangeInput(event, 'season')}
+                value={competitionglobal.season}
+                margin="0px 0px 16px 0px"
+                title="Temporada"
+                placeholder="Temporada"
+              />
+            </LimitedContainer>
+          </DisplayFlexJustifyBetween>
           <Input
             onChange={(event) => handleOnChangeInput(event, 'srcImage')}
             value={competitionglobal.srcImage}
@@ -82,7 +89,8 @@ const CompetitionglobalInsert = () => {
           />
           <Select
             title="Regras"
-            margin="0px 0px 32px 0px"
+            placeholder="Selecione as regras"
+            margin="0px 0px 16px 0px"
             onChange={handleOnChangeRuleSelect}
             options={rules.map((rule: RuleType) => ({
               value: `${rule.id}`,
@@ -91,6 +99,7 @@ const CompetitionglobalInsert = () => {
           />
           <Select
             title="País"
+            placeholder="Selecione um país"
             margin="0px 0px 32px 0px"
             onChange={handleOnChangeCountrySelect}
             options={countries.map((country: CountryType) => ({

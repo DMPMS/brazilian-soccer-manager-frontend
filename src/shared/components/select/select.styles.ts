@@ -8,5 +8,6 @@ export const BoxSelect = styled.div`
 `;
 
 export const TitleSelect = styled(Text)`
-  margin: 8px;
+  display: flex;
+  margin: 0px 0px 5px 5px;
 `;
