@@ -16,6 +16,7 @@ import {
   LimitedContainerCard,
 } from '../../../shared/components/styles/limited.styled';
 import CountrySVG from '../../../shared/components/svg/CountrySVG';
+import { CountryType } from '../../../shared/types/CountryType';
 import { useCountry } from '../../country/hooks/useCountry';
 import { useInsertManagerglobal } from '../hooks/useInsertManagerglobal';
 import { ManagerglobalRoutesEnum } from '../routes';
@@ -73,7 +74,7 @@ const ManagerglobalInsert = () => {
             title="Nacionalidade"
             margin="0px 0px 32px 0px"
             onChange={handleOnChangeCountrySelect}
-            options={countries.map((country) => ({
+            options={countries.map((country: CountryType) => ({
               value: `${country.id}`,
               label: (
                 <DisplayFlexDirectionRow>

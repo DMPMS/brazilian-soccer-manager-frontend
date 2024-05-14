@@ -16,6 +16,7 @@ import {
   LimitedContainerCard,
 } from '../../../shared/components/styles/limited.styled';
 import CountrySVG from '../../../shared/components/svg/CountrySVG';
+import { CountryType } from '../../../shared/types/CountryType';
 import { ManagerglobalType } from '../../../shared/types/ManagerglobalType';
 // import UploadImage from '../../../shared/components/upload/uploadImage/UploadImage';
 // import { useGlobalReducer } from '../../../store/reducers/globalReducer/useGlobalReducer';
@@ -96,7 +97,7 @@ const TeamglobalInsert = () => {
             title="País"
             margin="0px 0px 32px 0px"
             onChange={handleOnChangeCountrySelect}
-            options={countries.map((country) => ({
+            options={countries.map((country: CountryType) => ({
               value: `${country.id}`,
               label: (
                 <DisplayFlexDirectionRow>
