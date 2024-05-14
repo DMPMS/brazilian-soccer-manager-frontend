@@ -5,7 +5,7 @@ import {
   URL_MANAGERGLOBAL_WITHOUT_TEAMGLOBAL,
   URL_TEAMGLOBAL,
 } from '../../../shared/constants/urls';
-import { InsertTeamglobalDto } from '../../../shared/dtos/InsertTeamglobal.dto';
+import { InsertTeamglobalDTO } from '../../../shared/dtos/InsertTeamglobal.dto';
 import { MethodsEnum } from '../../../shared/enums/methods.enum';
 import { useRequests } from '../../../shared/hooks/useRequests';
 import { useGlobalReducer } from '../../../store/reducers/globalReducer/useGlobalReducer';
@@ -23,7 +23,7 @@ export const useInsertTeamglobal = () => {
 
   const [loading, setLoading] = useState(false);
   const [disabledButton, setDisabledButton] = useState(true);
-  const [teamglobal, setTeamglobal] = useState<InsertTeamglobalDto>({
+  const [teamglobal, setTeamglobal] = useState<InsertTeamglobalDTO>({
     name: '',
     srcImage: '',
   });

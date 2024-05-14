@@ -5,7 +5,7 @@ import {
   URL_MANAGERGLOBAL,
   URL_MANAGERGLOBAL_WITHOUT_TEAMGLOBAL,
 } from '../../../shared/constants/urls';
-import { InsertManagerglobalDto } from '../../../shared/dtos/InsertManagerglobal.dto';
+import { InsertManagerglobalDTO } from '../../../shared/dtos/InsertManagerglobal.dto';
 import { MethodsEnum } from '../../../shared/enums/methods.enum';
 import { useRequests } from '../../../shared/hooks/useRequests';
 import { useGlobalReducer } from '../../../store/reducers/globalReducer/useGlobalReducer';
@@ -21,7 +21,7 @@ export const useInsertManagerglobal = () => {
 
   const [loading, setLoading] = useState(false);
   const [disabledButton, setDisabledButton] = useState(true);
-  const [managerglobal, setManagerglobal] = useState<InsertManagerglobalDto>({
+  const [managerglobal, setManagerglobal] = useState<InsertManagerglobalDTO>({
     name: '',
     age: 0,
   });

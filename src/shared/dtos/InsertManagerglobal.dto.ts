@@ -1,4 +1,4 @@
-export interface InsertManagerglobalDto {
+export interface InsertManagerglobalDTO {
   name: string;
   age: number;
   countryId?: number;

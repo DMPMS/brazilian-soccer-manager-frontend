@@ -1,4 +1,4 @@
-export interface InsertTeamglobalDto {
+export interface InsertTeamglobalDTO {
   name: string;
   srcImage: string;
   countryId?: number;

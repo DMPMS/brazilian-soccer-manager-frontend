@@ -1,4 +1,4 @@
-export interface InsertCompetitionglobalDto {
+export interface InsertCompetitionglobalDTO {
   name: string;
   season: string;
   srcImage: string;

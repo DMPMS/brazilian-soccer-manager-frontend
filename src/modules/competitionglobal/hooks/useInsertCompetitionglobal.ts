@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { URL_COMPETITIONGLOBAL } from '../../../shared/constants/urls';
-import { InsertCompetitionglobalDto } from '../../../shared/dtos/InsertCompetitonglobal.dto';
+import { InsertCompetitionglobalDTO } from '../../../shared/dtos/InsertCompetitonglobal.dto';
 import { MethodsEnum } from '../../../shared/enums/methods.enum';
 import { useRequests } from '../../../shared/hooks/useRequests';
 import { useCompetitionglobalReducer } from '../../../store/reducers/competitionglobalReducer/useCompetitionglobalReducer';
@@ -18,7 +18,7 @@ export const useInsertCompetitionglobal = () => {
 
   const [loading, setLoading] = useState(false);
   const [disabledButton, setDisabledButton] = useState(true);
-  const [competitionglobal, setCompetitionglobal] = useState<InsertCompetitionglobalDto>({
+  const [competitionglobal, setCompetitionglobal] = useState<InsertCompetitionglobalDTO>({
     name: '',
     season: '',
     srcImage: '',
