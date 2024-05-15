@@ -1,5 +1,6 @@
 import Search from 'antd/es/input/Search';
 import { ColumnsType } from 'antd/es/table';
+import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../shared/components/buttons/button/Button';
@@ -16,33 +17,6 @@ import { ManagerglobalType } from '../../../shared/types/ManagerglobalType';
 import { useManagerglobal } from '../hooks/useManagerglobal';
 import { ManagerglobalRoutesEnum } from '../routes';
 
-const columns: ColumnsType<ManagerglobalType> = [
-  {
-    title: 'Nome',
-    dataIndex: 'name',
-    key: 'name',
-    sorter: (a, b) => a.name.localeCompare(b.name),
-  },
-  {
-    title: 'Idade',
-    dataIndex: 'age',
-    key: 'age',
-  },
-  {
-    title: 'Nacionalidade',
-    dataIndex: 'country',
-    key: 'country',
-    render: (_, target) => (
-      <DisplayFlexDirectionRow>
-        <DisplayFlexAlignCenter margin="0px 5px 0px 0px">
-          <CountrySVG name={target.country?.name} width={20} height={20} />
-        </DisplayFlexAlignCenter>
-        <text>{target.country?.name}</text>
-      </DisplayFlexDirectionRow>
-    ),
-  },
-];
-
 const Managerglobal = () => {
   const { managersglobal, handleOnSearch } = useManagerglobal();
   const navigate = useNavigate();
@@ -50,6 +24,36 @@ const Managerglobal = () => {
   const handleOnClickInsert = () => {
     navigate(ManagerglobalRoutesEnum.MANAGERGLOBAL_INSERT);
   };
+
+  const columns: ColumnsType<ManagerglobalType> = useMemo(
+    () => [
+      {
+        title: 'Nome',
+        dataIndex: 'name',
+        key: 'name',
+        sorter: (a, b) => a.name.localeCompare(b.name),
+      },
+      {
+        title: 'Idade',
+        dataIndex: 'age',
+        key: 'age',
+      },
+      {
+        title: 'Nacionalidade',
+        dataIndex: 'country',
+        key: 'country',
+        render: (_, target) => (
+          <DisplayFlexDirectionRow>
+            <DisplayFlexAlignCenter margin="0px 5px 0px 0px">
+              <CountrySVG name={target.country?.name} width={20} height={20} />
+            </DisplayFlexAlignCenter>
+            <text>{target.country?.name}</text>
+          </DisplayFlexDirectionRow>
+        ),
+      },
+    ],
+    [],
+  );
 
   return (
     <Screen

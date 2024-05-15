@@ -1,5 +1,6 @@
 import Search from 'antd/es/input/Search';
 import { ColumnsType } from 'antd/es/table';
+import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../shared/components/buttons/button/Button';
@@ -17,52 +18,6 @@ import { CompetitionglobalType } from '../../../shared/types/CompetitionglobalTy
 import { useCompetitionglobal } from '../hooks/useCompetitionglobal';
 import { CompetitionglobalRoutesEnum } from '../routes';
 
-const columns: ColumnsType<CompetitionglobalType> = [
-  {
-    title: 'Nome',
-    dataIndex: 'name',
-    key: 'name',
-    sorter: (a, b) => a.name.localeCompare(b.name),
-    render: (_, target) => (
-      <DisplayFlexDirectionRow>
-        <DisplayFlexAlignCenter margin="0px 5px 0px 0px">
-          <Image src={target.srcImage} width={20} height={20} />
-        </DisplayFlexAlignCenter>
-        <text>
-          {target.name} {target.season}
-        </text>
-      </DisplayFlexDirectionRow>
-    ),
-  },
-  {
-    title: 'Tipo',
-    dataIndex: 'type',
-    key: 'type',
-    render: (_, target) => {
-      if (target.rule?.competitionType === 1) {
-        return 'Liga';
-      } else if (target.rule?.competitionType === 2) {
-        return 'Copa';
-      } else {
-        return '';
-      }
-    },
-  },
-  {
-    title: 'País',
-    dataIndex: 'country',
-    key: 'country',
-    render: (_, target) => (
-      <DisplayFlexDirectionRow>
-        <DisplayFlexAlignCenter margin="0px 5px 0px 0px">
-          <CountrySVG name={target.country?.name} width={20} height={20} />
-        </DisplayFlexAlignCenter>
-        <text>{target.country?.name}</text>
-      </DisplayFlexDirectionRow>
-    ),
-  },
-];
-
 const Competitionglobal = () => {
   const { competitionsglobal, handleOnSearch } = useCompetitionglobal();
   const navigate = useNavigate();
@@ -70,6 +25,55 @@ const Competitionglobal = () => {
   const handleOnClickInsert = () => {
     navigate(CompetitionglobalRoutesEnum.COMPETITIONGLOBAL_INSERT);
   };
+
+  const columns: ColumnsType<CompetitionglobalType> = useMemo(
+    () => [
+      {
+        title: 'Nome',
+        dataIndex: 'name',
+        key: 'name',
+        sorter: (a, b) => a.name.localeCompare(b.name),
+        render: (_, target) => (
+          <DisplayFlexDirectionRow>
+            <DisplayFlexAlignCenter margin="0px 5px 0px 0px">
+              <Image src={target.srcImage} width={20} height={20} />
+            </DisplayFlexAlignCenter>
+            <text>
+              {target.name} {target.season}
+            </text>
+          </DisplayFlexDirectionRow>
+        ),
+      },
+      {
+        title: 'Tipo',
+        dataIndex: 'type',
+        key: 'type',
+        render: (_, target) => {
+          if (target.rule?.competitionType === 1) {
+            return 'Liga';
+          } else if (target.rule?.competitionType === 2) {
+            return 'Copa';
+          } else {
+            return '';
+          }
+        },
+      },
+      {
+        title: 'País',
+        dataIndex: 'country',
+        key: 'country',
+        render: (_, target) => (
+          <DisplayFlexDirectionRow>
+            <DisplayFlexAlignCenter margin="0px 5px 0px 0px">
+              <CountrySVG name={target.country?.name} width={20} height={20} />
+            </DisplayFlexAlignCenter>
+            <text>{target.country?.name}</text>
+          </DisplayFlexDirectionRow>
+        ),
+      },
+    ],
+    [],
+  );
 
   return (
     <Screen
