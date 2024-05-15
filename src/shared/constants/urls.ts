@@ -3,6 +3,8 @@ export const URL_USER = 'http://localhost:8080/user';
 export const URL_AUTH = 'http://localhost:8080/auth';
 
 export const URL_COMPETITIONGLOBAL = 'http://localhost:8080/competitionglobal';
+export const URL_COMPETITIONGLOBAL_ID =
+  'http://localhost:8080/competitionglobal/{competitionglobalId}';
 
 export const URL_RULE = 'http://localhost:8080/rule';
 

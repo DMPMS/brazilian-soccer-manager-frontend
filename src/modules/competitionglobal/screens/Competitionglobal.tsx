@@ -1,3 +1,5 @@
+import { DeleteOutlined } from '@ant-design/icons';
+import { Modal } from 'antd';
 import Search from 'antd/es/input/Search';
 import { ColumnsType } from 'antd/es/table';
 import { useMemo } from 'react';
@@ -7,6 +9,7 @@ import Button from '../../../shared/components/buttons/button/Button';
 import Image from '../../../shared/components/image/Image';
 import Screen from '../../../shared/components/screen/Screen';
 import {
+  DisplayFlex,
   DisplayFlexAlignCenter,
   DisplayFlexDirectionRow,
   DisplayFlexJustifyBetween,
@@ -19,7 +22,14 @@ import { useCompetitionglobal } from '../hooks/useCompetitionglobal';
 import { CompetitionglobalRoutesEnum } from '../routes';
 
 const Competitionglobal = () => {
-  const { competitionsglobal, handleOnSearch } = useCompetitionglobal();
+  const {
+    competitionsglobal,
+    handleOnSearch,
+    handleOnDelete,
+    handleOnCloseModalDelete,
+    handleOnOpenModalDelete,
+    openModalDelete,
+  } = useCompetitionglobal();
   const navigate = useNavigate();
 
   const handleOnClickInsert = () => {
@@ -71,6 +81,23 @@ const Competitionglobal = () => {
           </DisplayFlexDirectionRow>
         ),
       },
+      {
+        title: 'Ações',
+        dataIndex: '',
+        key: 'x',
+        render: (_, target) => (
+          <LimitedContainer width={100}>
+            <DisplayFlex>
+              <Button
+                type="primary"
+                danger
+                onClick={() => handleOnOpenModalDelete(target.id)}
+                icon={<DeleteOutlined />}
+              ></Button>
+            </DisplayFlex>
+          </LimitedContainer>
+        ),
+      },
     ],
     [],
   );
@@ -86,6 +113,16 @@ const Competitionglobal = () => {
         },
       ]}
     >
+      <Modal
+        title="Atenção"
+        open={openModalDelete}
+        onOk={handleOnDelete}
+        onCancel={handleOnCloseModalDelete}
+        okText="Sim"
+        cancelText="Cancelar"
+      >
+        <p>Tem certeza que deseja excluir essa competição?</p>
+      </Modal>
       <DisplayFlexJustifyBetween margin="0px 0px 16px 0px">
         <LimitedContainer width={240}>
           <Search placeholder="Buscar competição" onSearch={handleOnSearch} enterButton />
