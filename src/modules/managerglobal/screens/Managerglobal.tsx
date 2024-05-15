@@ -1,11 +1,15 @@
+import { DeleteOutlined } from '@ant-design/icons';
+import { Modal } from 'antd';
 import Search from 'antd/es/input/Search';
 import { ColumnsType } from 'antd/es/table';
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../shared/components/buttons/button/Button';
+import Image from '../../../shared/components/image/Image';
 import Screen from '../../../shared/components/screen/Screen';
 import {
+  DisplayFlex,
   DisplayFlexAlignCenter,
   DisplayFlexDirectionRow,
   DisplayFlexJustifyBetween,
@@ -18,7 +22,14 @@ import { useManagerglobal } from '../hooks/useManagerglobal';
 import { ManagerglobalRoutesEnum } from '../routes';
 
 const Managerglobal = () => {
-  const { managersglobal, handleOnSearch } = useManagerglobal();
+  const {
+    managersglobal,
+    handleOnSearch,
+    handleOnDelete,
+    handleOnCloseModalDelete,
+    handleOnOpenModalDelete,
+    openModalDelete,
+  } = useManagerglobal();
   const navigate = useNavigate();
 
   const handleOnClickInsert = () => {
@@ -34,11 +45,6 @@ const Managerglobal = () => {
         sorter: (a, b) => a.name.localeCompare(b.name),
       },
       {
-        title: 'Idade',
-        dataIndex: 'age',
-        key: 'age',
-      },
-      {
         title: 'Nacionalidade',
         dataIndex: 'country',
         key: 'country',
@@ -49,6 +55,39 @@ const Managerglobal = () => {
             </DisplayFlexAlignCenter>
             <text>{target.country?.name}</text>
           </DisplayFlexDirectionRow>
+        ),
+      },
+      {
+        title: 'Time',
+        dataIndex: 'teamglobal',
+        key: 'teamglobal',
+        render: (_, target) =>
+          target.teamglobal && (
+            <DisplayFlexDirectionRow>
+              <DisplayFlexAlignCenter margin="0px 5px 0px 0px">
+                <Image src={target.teamglobal.srcImage} width={20} height={20} />
+              </DisplayFlexAlignCenter>
+              <text>{target.teamglobal.name}</text>
+            </DisplayFlexDirectionRow>
+          ),
+      },
+      {
+        title: 'Ações',
+        dataIndex: '',
+        key: 'x',
+        render: (_, target) => (
+          <LimitedContainer width={100}>
+            <DisplayFlex>
+              {!target.teamglobal && (
+                <Button
+                  type="primary"
+                  danger
+                  onClick={() => handleOnOpenModalDelete(target.id)}
+                  icon={<DeleteOutlined />}
+                ></Button>
+              )}
+            </DisplayFlex>
+          </LimitedContainer>
         ),
       },
     ],
@@ -66,6 +105,16 @@ const Managerglobal = () => {
         },
       ]}
     >
+      <Modal
+        title="Atenção"
+        open={openModalDelete}
+        onOk={handleOnDelete}
+        onCancel={handleOnCloseModalDelete}
+        okText="Sim"
+        cancelText="Cancelar"
+      >
+        <p>Tem certeza que deseja excluir esse treinador?</p>
+      </Modal>
       <DisplayFlexJustifyBetween margin="0px 0px 16px 0px">
         <LimitedContainer width={240}>
           <Search placeholder="Buscar treinador" onSearch={handleOnSearch} enterButton />
