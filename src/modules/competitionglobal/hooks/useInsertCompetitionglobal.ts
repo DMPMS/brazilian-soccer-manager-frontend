@@ -7,6 +7,7 @@ import { MethodsEnum } from '../../../shared/enums/methods.enum';
 import { useRequests } from '../../../shared/hooks/useRequests';
 import { useCompetitionglobalReducer } from '../../../store/reducers/competitionglobalReducer/useCompetitionglobalReducer';
 import { useGlobalReducer } from '../../../store/reducers/globalReducer/useGlobalReducer';
+import { useRule } from '../../rule/hooks/useRule';
 import { CompetitionglobalRoutesEnum } from '../routes';
 
 export const useInsertCompetitionglobal = () => {
@@ -24,13 +25,19 @@ export const useInsertCompetitionglobal = () => {
     srcImage: '',
   });
 
+  const { rules } = useRule();
+
+  const [ruleNumberOfTeams, setRuleNumberOfTeams] = useState<number>(0);
+  const [selectedTeamglobalIds, setSelectedTeamglobalIds] = useState<number[]>([]);
+
   useEffect(() => {
     if (
       competitionglobal.name &&
       competitionglobal.season &&
       competitionglobal.srcImage &&
       competitionglobal.ruleId &&
-      competitionglobal.countryId
+      competitionglobal.countryId &&
+      competitionglobal.teamglobalIds?.length === ruleNumberOfTeams
     ) {
       setDisabledButton(false);
     } else {
@@ -46,16 +53,34 @@ export const useInsertCompetitionglobal = () => {
   };
 
   const handleOnChangeRuleSelect = (value: string) => {
+    const selectedRuleId = Number(value);
+
     setCompetitionglobal({
       ...competitionglobal,
-      ruleId: Number(value),
+      ruleId: selectedRuleId,
     });
+
+    const selectedRule = rules.find((rule) => rule.id === selectedRuleId);
+    if (selectedRule) {
+      setRuleNumberOfTeams(selectedRule.numberOfTeams);
+    }
   };
 
   const handleOnChangeCountrySelect = (value: string) => {
     setCompetitionglobal({
       ...competitionglobal,
       countryId: Number(value),
+    });
+  };
+
+  const handleOnChangeTeamglobalSelect = (values: string[]) => {
+    const updatedValues = values.map((value) => Number(value));
+
+    setSelectedTeamglobalIds(updatedValues);
+
+    setCompetitionglobal({
+      ...competitionglobal,
+      teamglobalIds: updatedValues,
     });
   };
 
@@ -79,9 +104,12 @@ export const useInsertCompetitionglobal = () => {
     competitionglobal,
     loading,
     disabledButton,
+    ruleNumberOfTeams,
+    selectedTeamglobalIds,
     handleOnChangeInput,
     handleOnClickInsert,
     handleOnChangeCountrySelect,
     handleOnChangeRuleSelect,
+    handleOnChangeTeamglobalSelect,
   };
 };

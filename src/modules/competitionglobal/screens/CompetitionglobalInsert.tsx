@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../shared/components/buttons/button/Button';
+import Image from '../../../shared/components/image/Image';
 import Input from '../../../shared/components/inputs/input/Input';
 import Screen from '../../../shared/components/screen/Screen';
 import Select from '../../../shared/components/select/Select';
@@ -18,8 +19,10 @@ import {
 import CountrySVG from '../../../shared/components/svg/CountrySVG';
 import { CountryType } from '../../../shared/types/CountryType';
 import { RuleType } from '../../../shared/types/RuleType';
+import { TeamglobalType } from '../../../shared/types/TeamglobalType';
 import { useCountry } from '../../country/hooks/useCountry';
 import { useRule } from '../../rule/hooks/useRule';
+import { useTeamglobal } from '../../teamglobal/hooks/useTeamglobal';
 import { useInsertCompetitionglobal } from '../hooks/useInsertCompetitionglobal';
 import { CompetitionglobalRoutesEnum } from '../routes';
 
@@ -28,14 +31,18 @@ const CompetitionglobalInsert = () => {
     competitionglobal,
     loading,
     disabledButton,
+    ruleNumberOfTeams,
+    selectedTeamglobalIds,
     handleOnChangeInput,
     handleOnClickInsert,
     handleOnChangeCountrySelect,
     handleOnChangeRuleSelect,
+    handleOnChangeTeamglobalSelect,
   } = useInsertCompetitionglobal();
 
   const { countries } = useCountry();
   const { rules } = useRule();
+  const { teamsglobal } = useTeamglobal();
 
   const navigate = useNavigate();
 
@@ -59,69 +66,105 @@ const CompetitionglobalInsert = () => {
       ]}
     >
       <DisplayFlexJustifyCenter>
-        <LimitedContainerCard width={400}>
+        <LimitedContainerCard width={825}>
           <DisplayFlexJustifyBetween>
-            <LimitedContainer width={250}>
+            <LimitedContainer width={400}>
+              <DisplayFlexJustifyBetween>
+                <LimitedContainer width={250}>
+                  <Input
+                    onChange={(event) => handleOnChangeInput(event, 'name')}
+                    value={competitionglobal.name}
+                    margin="0px 0px 16px 0px"
+                    title="Nome"
+                    placeholder="Nome"
+                  />
+                </LimitedContainer>
+                <LimitedContainer width={100}>
+                  <Input
+                    onChange={(event) => handleOnChangeInput(event, 'season')}
+                    value={competitionglobal.season}
+                    margin="0px 0px 16px 0px"
+                    title="Temporada"
+                    placeholder="Temporada"
+                  />
+                </LimitedContainer>
+              </DisplayFlexJustifyBetween>
               <Input
-                onChange={(event) => handleOnChangeInput(event, 'name')}
-                value={competitionglobal.name}
+                onChange={(event) => handleOnChangeInput(event, 'srcImage')}
+                value={competitionglobal.srcImage}
                 margin="0px 0px 16px 0px"
-                title="Nome"
-                placeholder="Nome"
+                title="Caminho da imagem"
+                placeholder="Caminho da imagem"
+              />
+              <Select
+                title="Regras"
+                placeholder="Selecione as regras"
+                margin="0px 0px 16px 0px"
+                onChange={handleOnChangeRuleSelect}
+                options={rules.map((rule: RuleType) => ({
+                  value: `${rule.id}`,
+                  label: `${rule.name}: ${rule.numberOfTeams} times; Até ${rule.yellowCardsMax} cartões amarelos.`,
+                }))}
+              />
+              <Select
+                title="País"
+                placeholder="Selecione um país"
+                margin="0px 0px 32px 0px"
+                onChange={handleOnChangeCountrySelect}
+                options={countries.map((country: CountryType) => ({
+                  value: `${country.id}`,
+                  label: (
+                    <DisplayFlexDirectionRow>
+                      <DisplayFlexAlignCenter margin="0px 5px 0px 0px">
+                        <CountrySVG name={country.name} width={20} height={20} />
+                      </DisplayFlexAlignCenter>
+                      <text>{country.name}</text>
+                    </DisplayFlexDirectionRow>
+                  ),
+                }))}
+                showSearch
+                filterOption={(input, option) =>
+                  option.label.props.children[1].props.children
+                    .toLowerCase()
+                    .includes(input.toLowerCase())
+                }
               />
             </LimitedContainer>
-            <LimitedContainer width={100}>
-              <Input
-                onChange={(event) => handleOnChangeInput(event, 'season')}
-                value={competitionglobal.season}
+            <LimitedContainer width={400}>
+              <Select
+                title={
+                  ruleNumberOfTeams > 0
+                    ? `Times (${selectedTeamglobalIds.length} / ${ruleNumberOfTeams})`
+                    : `Times`
+                }
+                placeholder={ruleNumberOfTeams > 0 ? 'Selecione os times' : 'Selecione as regras'}
                 margin="0px 0px 16px 0px"
-                title="Temporada"
-                placeholder="Temporada"
+                mode="multiple"
+                maxCount={ruleNumberOfTeams}
+                disabled={ruleNumberOfTeams === 0}
+                onChange={handleOnChangeTeamglobalSelect}
+                options={teamsglobal.map((teamglobal: TeamglobalType) => ({
+                  value: `${teamglobal.id}`,
+                  label: (
+                    <DisplayFlexDirectionRow>
+                      <DisplayFlexAlignCenter margin="0px 5px 0px 0px">
+                        <Image src={teamglobal.srcImage} width={20} height={20} />
+                      </DisplayFlexAlignCenter>
+                      <text>{teamglobal.name}</text>
+                    </DisplayFlexDirectionRow>
+                  ),
+                }))}
+                showSearch
+                filterOption={(input, option) =>
+                  option.label.props.children[1].props.children
+                    .toLowerCase()
+                    .includes(input.toLowerCase())
+                }
               />
             </LimitedContainer>
           </DisplayFlexJustifyBetween>
-          <Input
-            onChange={(event) => handleOnChangeInput(event, 'srcImage')}
-            value={competitionglobal.srcImage}
-            margin="0px 0px 16px 0px"
-            title="Caminho da imagem"
-            placeholder="Caminho da imagem"
-          />
-          <Select
-            title="Regras"
-            placeholder="Selecione as regras"
-            margin="0px 0px 16px 0px"
-            onChange={handleOnChangeRuleSelect}
-            options={rules.map((rule: RuleType) => ({
-              value: `${rule.id}`,
-              label: `${rule.name}`,
-            }))}
-          />
-          <Select
-            title="País"
-            placeholder="Selecione um país"
-            margin="0px 0px 32px 0px"
-            onChange={handleOnChangeCountrySelect}
-            options={countries.map((country: CountryType) => ({
-              value: `${country.id}`,
-              label: (
-                <DisplayFlexDirectionRow>
-                  <DisplayFlexAlignCenter margin="0px 5px 0px 0px">
-                    <CountrySVG name={country.name} width={20} height={20} />
-                  </DisplayFlexAlignCenter>
-                  <text>{country.name}</text>
-                </DisplayFlexDirectionRow>
-              ),
-            }))}
-            showSearch
-            filterOption={(input, option) =>
-              option.label.props.children[1].props.children
-                .toLowerCase()
-                .includes(input.toLowerCase())
-            }
-          />
           <DisplayFlexJustifyRight>
-            <LimitedContainer margin="0px 8px" width={120}>
+            <LimitedContainer margin="0px 8px 0px 0px" width={120}>
               <Button onClick={handleOnClickCancel}>Cancelar</Button>
             </LimitedContainer>
             <LimitedContainer width={120}>
