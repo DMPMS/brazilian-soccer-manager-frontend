@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Input, { InputProps } from '../input/Input';
 
@@ -9,6 +9,12 @@ interface InputIntegerProps extends InputProps {
 
 const InputInteger = ({ value, onChange, ...props }: InputIntegerProps) => {
   const [currentValue, setCurrentValue] = useState<string>(`${value}`);
+
+  useEffect(() => {
+    if (!/\D/.test(`${value}`)) {
+      setCurrentValue(`${value}`);
+    }
+  }, [value]);
 
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
@@ -22,8 +28,6 @@ const InputInteger = ({ value, onChange, ...props }: InputIntegerProps) => {
         newValue = inputValue.replace(/^0+(?!$)/, '').replace(/\D/, '');
       }
     }
-
-    setCurrentValue(newValue);
 
     onChange({
       ...event,

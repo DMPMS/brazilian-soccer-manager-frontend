@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import {
   URL_MANAGERGLOBAL,
@@ -9,6 +10,7 @@ import { MethodsEnum } from '../../../shared/enums/methods.enum';
 import { useRequests } from '../../../shared/hooks/useRequests';
 import { useGlobalReducer } from '../../../store/reducers/globalReducer/useGlobalReducer';
 import { useManagerglobalReducer } from '../../../store/reducers/managerglobalReducer/useManagerglobalReducer';
+import { ManagerglobalRoutesEnum } from '../routes';
 
 export const useManagerglobal = () => {
   const {
@@ -19,6 +21,8 @@ export const useManagerglobal = () => {
   } = useManagerglobalReducer();
   const { request } = useRequests();
   const { setNotification } = useGlobalReducer();
+
+  const navigate = useNavigate();
 
   const [managerglobalIdDelete, setManagerglobalIdDelete] = useState<number | undefined>();
   const [searchValue, setSearchValue] = useState('');
@@ -47,6 +51,12 @@ export const useManagerglobal = () => {
     setSearchValue(value);
   };
 
+  const handleOnEdit = (managerglobalId: number) => {
+    navigate(
+      ManagerglobalRoutesEnum.MANAGERGLOBAL_EDIT.replace(':managerglobalId', `${managerglobalId}`),
+    );
+  };
+
   const handleOnDelete = async () => {
     await request(
       URL_MANAGERGLOBAL_ID.replace('{managerglobalId}', `${managerglobalIdDelete}`),
@@ -71,6 +81,7 @@ export const useManagerglobal = () => {
     managersglobal: managersglobalFiltered,
     managersglobalWithoutTeamglobal,
     handleOnSearch,
+    handleOnEdit,
     handleOnDelete,
     handleOnCloseModalDelete,
     handleOnOpenModalDelete,

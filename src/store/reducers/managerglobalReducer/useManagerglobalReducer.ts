@@ -2,11 +2,15 @@ import { useDispatch } from 'react-redux';
 
 import { ManagerglobalType } from '../../../shared/types/ManagerglobalType';
 import { useAppSelector } from '../../hooks';
-import { setManagersglobalAction, setManagersglobalWithoutTeamglobalAction } from '.';
+import {
+  setManagerglobalAction,
+  setManagersglobalAction,
+  setManagersglobalWithoutTeamglobalAction,
+} from '.';
 
 export const useManagerglobalReducer = () => {
   const dispatch = useDispatch();
-  const { managersglobal, managersglobalWithoutTeamglobal } = useAppSelector(
+  const { managersglobal, managersglobalWithoutTeamglobal, managerglobal } = useAppSelector(
     (state) => state.managerglobalReducer,
   );
 
@@ -20,10 +24,16 @@ export const useManagerglobalReducer = () => {
     dispatch(setManagersglobalWithoutTeamglobalAction(managersglobalWithoutTeamglobal));
   };
 
+  const setManagerglobal = (managerglobal?: ManagerglobalType) => {
+    dispatch(setManagerglobalAction(managerglobal));
+  };
+
   return {
     managersglobal,
     managersglobalWithoutTeamglobal,
+    managerglobal,
     setManagersglobal,
     setManagersglobalWithoutTeamglobal,
+    setManagerglobal,
   };
 };
