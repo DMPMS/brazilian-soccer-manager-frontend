@@ -1,9 +1,9 @@
-import { Spin } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import Button from '../../../shared/components/buttons/button/Button';
 import Input from '../../../shared/components/inputs/input/Input';
 import InputInteger from '../../../shared/components/inputs/inputInteger/InputInteger';
+import Loading from '../../../shared/components/loading/Loading';
 import Screen from '../../../shared/components/screen/Screen';
 import Select from '../../../shared/components/select/Select';
 import {
@@ -61,7 +61,11 @@ const ManagerglobalInsert = () => {
     >
       {loadingManagerglobal ? (
         <DisplayFlexJustifyCenter>
-          <Spin></Spin>
+          <LimitedContainerCard width={400}>
+            <DisplayFlexJustifyCenter>
+              <Loading size="large" />
+            </DisplayFlexJustifyCenter>
+          </LimitedContainerCard>
         </DisplayFlexJustifyCenter>
       ) : (
         <DisplayFlexJustifyCenter>
