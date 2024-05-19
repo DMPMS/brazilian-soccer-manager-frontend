@@ -106,7 +106,7 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
         URL_MANAGERGLOBAL,
         MethodsEnum.POST,
         undefined,
-        managerglobalId,
+        managerglobal,
         'Treinador inserido com sucesso!',
       );
 
