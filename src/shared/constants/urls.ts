@@ -16,3 +16,4 @@ export const URL_MANAGERGLOBAL_WITHOUT_TEAMGLOBAL =
 export const URL_COUNTRY = 'http://localhost:8080/country';
 
 export const URL_TEAMGLOBAL = 'http://localhost:8080/teamglobal';
+export const URL_TEAMGLOBAL_ID = 'http://localhost:8080/teamglobal/{teamglobalId}';

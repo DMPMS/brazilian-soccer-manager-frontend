@@ -1,3 +1,5 @@
+import { DeleteOutlined } from '@ant-design/icons';
+import { Modal } from 'antd';
 import Search from 'antd/es/input/Search';
 import { ColumnsType } from 'antd/es/table';
 import { useMemo } from 'react';
@@ -19,7 +21,14 @@ import { useTeamglobal } from '../hooks/useTeamglobal';
 import { TeamglobalRoutesEnum } from '../routes';
 
 const Teamglobal = () => {
-  const { teamsglobal, handleOnSearch } = useTeamglobal();
+  const {
+    teamsglobal,
+    handleOnSearch,
+    handleOnDelete,
+    handleOnCloseModalDelete,
+    handleOnOpenModalDelete,
+    openModalDelete,
+  } = useTeamglobal();
   const navigate = useNavigate();
 
   const handleOnClickInsert = () => {
@@ -61,6 +70,26 @@ const Teamglobal = () => {
           </DisplayFlexDirectionRow>
         ),
       },
+      {
+        title: 'Ações',
+        dataIndex: '',
+        key: 'x',
+        render: (_, target) => (
+          <LimitedContainer width={100}>
+            <DisplayFlexJustifyBetween>
+              {target.competitionsglobalTeamglobal &&
+                target.competitionsglobalTeamglobal?.length === 0 && (
+                  <Button
+                    type="primary"
+                    danger
+                    onClick={() => handleOnOpenModalDelete(target.id)}
+                    icon={<DeleteOutlined />}
+                  ></Button>
+                )}
+            </DisplayFlexJustifyBetween>
+          </LimitedContainer>
+        ),
+      },
     ],
     [],
   );
@@ -76,6 +105,16 @@ const Teamglobal = () => {
         },
       ]}
     >
+      <Modal
+        title="Atenção"
+        open={openModalDelete}
+        onOk={handleOnDelete}
+        onCancel={handleOnCloseModalDelete}
+        okText="Sim"
+        cancelText="Cancelar"
+      >
+        <p>Tem certeza que deseja excluir esse time?</p>
+      </Modal>
       <DisplayFlexJustifyBetween margin="0px 0px 16px 0px">
         <LimitedContainer width={240}>
           <Search placeholder="Buscar time" onSearch={handleOnSearch} enterButton />

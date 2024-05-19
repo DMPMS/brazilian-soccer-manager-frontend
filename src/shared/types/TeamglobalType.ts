@@ -1,3 +1,4 @@
+import { CompetitionglobalTeamglobalType } from './CompetitionglobalTeamglobal';
 import { CountryType } from './CountryType';
 import { ManagerglobalType } from './ManagerglobalType';
 
@@ -7,4 +8,5 @@ export interface TeamglobalType {
   srcImage: string;
   country?: CountryType;
   managerglobal?: ManagerglobalType;
+  competitionsglobalTeamglobal?: CompetitionglobalTeamglobalType[];
 }
