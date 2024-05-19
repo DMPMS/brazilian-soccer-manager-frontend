@@ -4,12 +4,10 @@ import { URL_COMPETITIONGLOBAL, URL_COMPETITIONGLOBAL_ID } from '../../../shared
 import { MethodsEnum } from '../../../shared/enums/methods.enum';
 import { useRequests } from '../../../shared/hooks/useRequests';
 import { useCompetitionglobalReducer } from '../../../store/reducers/competitionglobalReducer/useCompetitionglobalReducer';
-import { useGlobalReducer } from '../../../store/reducers/globalReducer/useGlobalReducer';
 
 export const useCompetitionglobal = () => {
   const { competitionsglobal, setCompetitionsglobal } = useCompetitionglobalReducer();
   const { request } = useRequests();
-  const { setNotification } = useGlobalReducer();
 
   const [competitionglobalIdDelete, setCompetitionglobalIdDelete] = useState<number | undefined>();
   const [searchValue, setSearchValue] = useState('');
@@ -32,9 +30,10 @@ export const useCompetitionglobal = () => {
     await request(
       URL_COMPETITIONGLOBAL_ID.replace('{competitionglobalId}', `${competitionglobalIdDelete}`),
       MethodsEnum.DELETE,
-    ).then(() => {
-      setNotification('Sucesso!', 'success', 'Competição excluída com sucesso!');
-    });
+      undefined,
+      undefined,
+      'Competição excluída com sucesso!',
+    );
 
     await request(URL_COMPETITIONGLOBAL, MethodsEnum.GET, setCompetitionsglobal);
 

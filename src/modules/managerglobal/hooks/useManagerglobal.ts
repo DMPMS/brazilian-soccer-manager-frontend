@@ -8,7 +8,6 @@ import {
 } from '../../../shared/constants/urls';
 import { MethodsEnum } from '../../../shared/enums/methods.enum';
 import { useRequests } from '../../../shared/hooks/useRequests';
-import { useGlobalReducer } from '../../../store/reducers/globalReducer/useGlobalReducer';
 import { useManagerglobalReducer } from '../../../store/reducers/managerglobalReducer/useManagerglobalReducer';
 import { ManagerglobalRoutesEnum } from '../routes';
 
@@ -20,7 +19,6 @@ export const useManagerglobal = () => {
     setManagersglobalWithoutTeamglobal,
   } = useManagerglobalReducer();
   const { request } = useRequests();
-  const { setNotification } = useGlobalReducer();
 
   const navigate = useNavigate();
 
@@ -61,9 +59,10 @@ export const useManagerglobal = () => {
     await request(
       URL_MANAGERGLOBAL_ID.replace('{managerglobalId}', `${managerglobalIdDelete}`),
       MethodsEnum.DELETE,
-    ).then(() => {
-      setNotification('Sucesso!', 'success', 'Treinador excluído com sucesso!');
-    });
+      undefined,
+      undefined,
+      'Treinador excluído com sucesso!',
+    );
 
     await request(URL_MANAGERGLOBAL, MethodsEnum.GET, setManagersglobal);
     setManagerglobalIdDelete(undefined);

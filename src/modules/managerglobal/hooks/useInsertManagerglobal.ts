@@ -9,7 +9,6 @@ import {
 import { InsertManagerglobalDTO } from '../../../shared/dtos/InsertManagerglobal.dto';
 import { MethodsEnum } from '../../../shared/enums/methods.enum';
 import { useRequests } from '../../../shared/hooks/useRequests';
-import { useGlobalReducer } from '../../../store/reducers/globalReducer/useGlobalReducer';
 import { useManagerglobalReducer } from '../../../store/reducers/managerglobalReducer/useManagerglobalReducer';
 import { ManagerglobalRoutesEnum } from '../routes';
 
@@ -29,7 +28,6 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
     managerglobal: managerglobalReducer,
     setManagerglobal: setManagerglobalReducer,
   } = useManagerglobalReducer();
-  const { setNotification } = useGlobalReducer();
 
   const [disabledButton, setDisabledButton] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
@@ -101,13 +99,16 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
         MethodsEnum.PUT,
         undefined,
         managerglobal,
-      ).then(() => {
-        setNotification('Sucesso!', 'success', 'Treinador editado com sucesso!');
-      });
+        'Treinador editado com sucesso!',
+      );
     } else {
-      await request(URL_MANAGERGLOBAL, MethodsEnum.POST, undefined, managerglobal).then(() => {
-        setNotification('Sucesso!', 'success', 'Treinador inserido com sucesso!');
-      });
+      await request(
+        URL_MANAGERGLOBAL,
+        MethodsEnum.POST,
+        undefined,
+        managerglobalId,
+        'Treinador inserido com sucesso!',
+      );
 
       await request(
         URL_MANAGERGLOBAL_WITHOUT_TEAMGLOBAL,

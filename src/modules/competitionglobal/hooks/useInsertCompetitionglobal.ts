@@ -6,7 +6,6 @@ import { InsertCompetitionglobalDTO } from '../../../shared/dtos/InsertCompetito
 import { MethodsEnum } from '../../../shared/enums/methods.enum';
 import { useRequests } from '../../../shared/hooks/useRequests';
 import { useCompetitionglobalReducer } from '../../../store/reducers/competitionglobalReducer/useCompetitionglobalReducer';
-import { useGlobalReducer } from '../../../store/reducers/globalReducer/useGlobalReducer';
 import { useRule } from '../../rule/hooks/useRule';
 import { CompetitionglobalRoutesEnum } from '../routes';
 
@@ -15,7 +14,6 @@ export const useInsertCompetitionglobal = () => {
 
   const { request } = useRequests();
   const { setCompetitionsglobal } = useCompetitionglobalReducer();
-  const { setNotification } = useGlobalReducer();
 
   const [loading, setLoading] = useState(false);
   const [disabledButton, setDisabledButton] = useState(true);
@@ -87,10 +85,12 @@ export const useInsertCompetitionglobal = () => {
   const handleOnClickInsert = async () => {
     setLoading(true);
 
-    await request(URL_COMPETITIONGLOBAL, MethodsEnum.POST, undefined, competitionglobal).then(
-      () => {
-        setNotification('Sucesso!', 'success', 'Competição inserida com sucesso!');
-      },
+    await request(
+      URL_COMPETITIONGLOBAL,
+      MethodsEnum.POST,
+      undefined,
+      competitionglobal,
+      'Competição inserida com sucesso!',
     );
 
     await request(URL_COMPETITIONGLOBAL, MethodsEnum.GET, setCompetitionsglobal);

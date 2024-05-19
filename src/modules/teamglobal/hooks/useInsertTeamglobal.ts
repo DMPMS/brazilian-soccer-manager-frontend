@@ -8,7 +8,6 @@ import {
 import { InsertTeamglobalDTO } from '../../../shared/dtos/InsertTeamglobal.dto';
 import { MethodsEnum } from '../../../shared/enums/methods.enum';
 import { useRequests } from '../../../shared/hooks/useRequests';
-import { useGlobalReducer } from '../../../store/reducers/globalReducer/useGlobalReducer';
 import { useManagerglobalReducer } from '../../../store/reducers/managerglobalReducer/useManagerglobalReducer';
 import { useTeamglobalReducer } from '../../../store/reducers/teamglobalReducer/useTeamglobalReducer';
 import { TeamglobalRoutesEnum } from '../routes';
@@ -19,7 +18,6 @@ export const useInsertTeamglobal = () => {
   const { request } = useRequests();
   const { setTeamsglobal } = useTeamglobalReducer();
   const { setManagersglobalWithoutTeamglobal } = useManagerglobalReducer();
-  const { setNotification } = useGlobalReducer();
 
   const [loading, setLoading] = useState(false);
   const [disabledButton, setDisabledButton] = useState(true);
@@ -84,9 +82,13 @@ export const useInsertTeamglobal = () => {
   const handleOnClickInsert = async () => {
     setLoading(true);
 
-    await request(URL_TEAMGLOBAL, MethodsEnum.POST, undefined, teamglobal).then(() => {
-      setNotification('Sucesso!', 'success', 'Time inserido com sucesso!');
-    });
+    await request(
+      URL_TEAMGLOBAL,
+      MethodsEnum.POST,
+      undefined,
+      teamglobal,
+      'Time inserido com sucesso!',
+    );
 
     await request(URL_TEAMGLOBAL, MethodsEnum.GET, setTeamsglobal);
 
