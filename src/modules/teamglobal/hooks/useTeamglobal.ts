@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import {
+  URL_MANAGERGLOBAL,
   URL_MANAGERGLOBAL_WITHOUT_TEAMGLOBAL,
   URL_TEAMGLOBAL,
   URL_TEAMGLOBAL_ID,
@@ -14,7 +15,7 @@ import { TeamglobalRoutesEnum } from '../routes';
 
 export const useTeamglobal = () => {
   const { teamsglobal, setTeamsglobal } = useTeamglobalReducer();
-  const { setManagersglobalWithoutTeamglobal } = useManagerglobalReducer();
+  const { setManagersglobalWithoutTeamglobal, setManagersglobal } = useManagerglobalReducer();
 
   const { request } = useRequests();
   const navigate = useNavigate();
@@ -56,6 +57,8 @@ export const useTeamglobal = () => {
       MethodsEnum.GET,
       setManagersglobalWithoutTeamglobal,
     );
+
+    await request(URL_MANAGERGLOBAL, MethodsEnum.GET, setManagersglobal);
 
     setTeamglobalIdDelete(undefined);
   };

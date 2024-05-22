@@ -109,13 +109,13 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
         managerglobal,
         'Treinador inserido com sucesso!',
       );
-
-      await request(
-        URL_MANAGERGLOBAL_WITHOUT_TEAMGLOBAL,
-        MethodsEnum.GET,
-        setManagersglobalWithoutTeamglobal,
-      );
     }
+
+    await request(
+      URL_MANAGERGLOBAL_WITHOUT_TEAMGLOBAL,
+      MethodsEnum.GET,
+      setManagersglobalWithoutTeamglobal,
+    );
 
     await request(URL_MANAGERGLOBAL, MethodsEnum.GET, setManagersglobal);
 

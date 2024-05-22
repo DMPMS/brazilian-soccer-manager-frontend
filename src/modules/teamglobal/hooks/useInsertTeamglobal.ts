@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import {
+  URL_MANAGERGLOBAL,
   URL_MANAGERGLOBAL_WITHOUT_TEAMGLOBAL,
   URL_TEAMGLOBAL,
   URL_TEAMGLOBAL_ID,
@@ -30,7 +31,7 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
     teamglobal: teamglobalReducer,
     setTeamglobal: setTeamglobalReducer,
   } = useTeamglobalReducer();
-  const { setManagersglobalWithoutTeamglobal } = useManagerglobalReducer();
+  const { setManagersglobalWithoutTeamglobal, setManagersglobal } = useManagerglobalReducer();
 
   const [disabledButton, setDisabledButton] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
@@ -164,6 +165,8 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
       MethodsEnum.GET,
       setManagersglobalWithoutTeamglobal,
     );
+
+    await request(URL_MANAGERGLOBAL, MethodsEnum.GET, setManagersglobal);
 
     navigate(TeamglobalRoutesEnum.TEAMGLOBAL);
   };

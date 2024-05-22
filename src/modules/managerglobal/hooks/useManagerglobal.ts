@@ -64,7 +64,14 @@ export const useManagerglobal = () => {
       'Treinador excluído com sucesso!',
     );
 
+    await request(
+      URL_MANAGERGLOBAL_WITHOUT_TEAMGLOBAL,
+      MethodsEnum.GET,
+      setManagersglobalWithoutTeamglobal,
+    );
+
     await request(URL_MANAGERGLOBAL, MethodsEnum.GET, setManagersglobal);
+
     setManagerglobalIdDelete(undefined);
   };
 
