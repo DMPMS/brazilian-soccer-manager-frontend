@@ -1,4 +1,4 @@
-import { DeleteOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Modal } from 'antd';
 import Search from 'antd/es/input/Search';
 import { ColumnsType } from 'antd/es/table';
@@ -9,7 +9,6 @@ import Button from '../../../shared/components/buttons/button/Button';
 import Image from '../../../shared/components/image/Image';
 import Screen from '../../../shared/components/screen/Screen';
 import {
-  DisplayFlex,
   DisplayFlexAlignCenter,
   DisplayFlexDirectionRow,
   DisplayFlexJustifyBetween,
@@ -25,6 +24,7 @@ const Competitionglobal = () => {
   const {
     competitionsglobal,
     handleOnSearch,
+    handleOnEdit,
     handleOnDelete,
     handleOnCloseModalDelete,
     handleOnOpenModalDelete,
@@ -87,14 +87,15 @@ const Competitionglobal = () => {
         key: 'x',
         render: (_, target) => (
           <LimitedContainer width={100}>
-            <DisplayFlex>
+            <DisplayFlexJustifyBetween>
+              <Button onClick={() => handleOnEdit(target.id)} icon={<EditOutlined />}></Button>
               <Button
                 type="primary"
                 danger
                 onClick={() => handleOnOpenModalDelete(target.id)}
                 icon={<DeleteOutlined />}
               ></Button>
-            </DisplayFlex>
+            </DisplayFlexJustifyBetween>
           </LimitedContainer>
         ),
       },

@@ -4,10 +4,12 @@ import { CompetitionglobalType } from '../../../shared/types/CompetitionglobalTy
 
 interface CompetitionglobalState {
   competitionsglobal: CompetitionglobalType[];
+  competitionglobal?: CompetitionglobalType;
 }
 
 const initialState: CompetitionglobalState = {
   competitionsglobal: [],
+  competitionglobal: undefined,
 };
 
 export const counterSlice = createSlice({
@@ -17,9 +19,15 @@ export const counterSlice = createSlice({
     setCompetitionsglobalAction: (state, action: PayloadAction<CompetitionglobalType[]>) => {
       state.competitionsglobal = action.payload;
     },
+    setCompetitionglobalAction: (
+      state,
+      action: PayloadAction<CompetitionglobalType | undefined>,
+    ) => {
+      state.competitionglobal = action.payload;
+    },
   },
 });
 
-export const { setCompetitionsglobalAction } = counterSlice.actions;
+export const { setCompetitionsglobalAction, setCompetitionglobalAction } = counterSlice.actions;
 
 export default counterSlice.reducer;

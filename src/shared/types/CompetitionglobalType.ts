@@ -1,3 +1,4 @@
+import { CompetitionglobalTeamglobalType } from './CompetitionglobalTeamglobal';
 import { CountryType } from './CountryType';
 import { RuleType } from './RuleType';
 
@@ -8,4 +9,5 @@ export interface CompetitionglobalType {
   srcImage: string;
   rule?: RuleType;
   country?: CountryType;
+  competitionsglobalTeamglobal?: CompetitionglobalTeamglobalType[];
 }

@@ -1,32 +1,97 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { URL_COMPETITIONGLOBAL } from '../../../shared/constants/urls';
+import {
+  URL_COMPETITIONGLOBAL,
+  URL_COMPETITIONGLOBAL_ID,
+  URL_TEAMGLOBAL,
+} from '../../../shared/constants/urls';
 import { InsertCompetitionglobalDTO } from '../../../shared/dtos/InsertCompetitonglobal.dto';
 import { MethodsEnum } from '../../../shared/enums/methods.enum';
 import { useRequests } from '../../../shared/hooks/useRequests';
 import { useCompetitionglobalReducer } from '../../../store/reducers/competitionglobalReducer/useCompetitionglobalReducer';
+import { useTeamglobalReducer } from '../../../store/reducers/teamglobalReducer/useTeamglobalReducer';
 import { useRule } from '../../rule/hooks/useRule';
 import { CompetitionglobalRoutesEnum } from '../routes';
 
-export const useInsertCompetitionglobal = () => {
+const DEFAULT_COMPETITIONGLOBAL = {
+  name: '',
+  season: '',
+  srcImage: '',
+};
+
+export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
   const navigate = useNavigate();
 
-  const { request } = useRequests();
-  const { setCompetitionsglobal } = useCompetitionglobalReducer();
+  const [loadingCompetitionglobal, setLoadingCompetitionglobal] = useState(false);
+  const { request, loading } = useRequests();
+  const {
+    setCompetitionsglobal,
+    competitionglobal: competitionglobalReducer,
+    setCompetitionglobal: setCompetitionglobalReducer,
+  } = useCompetitionglobalReducer();
+  const { setTeamsglobal } = useTeamglobalReducer();
 
-  const [loading, setLoading] = useState(false);
   const [disabledButton, setDisabledButton] = useState(true);
-  const [competitionglobal, setCompetitionglobal] = useState<InsertCompetitionglobalDTO>({
-    name: '',
-    season: '',
-    srcImage: '',
-  });
+  const [isEdit, setIsEdit] = useState(false);
+  const [competitionglobal, setCompetitionglobal] =
+    useState<InsertCompetitionglobalDTO>(DEFAULT_COMPETITIONGLOBAL);
 
   const { rules } = useRule();
 
   const [ruleNumberOfTeams, setRuleNumberOfTeams] = useState<number>(0);
   const [selectedTeamglobalIds, setSelectedTeamglobalIds] = useState<number[]>([]);
+
+  useEffect(() => {
+    if (competitionglobalReducer) {
+      const teamglobalIds: number[] = [];
+
+      competitionglobalReducer.competitionsglobalTeamglobal?.forEach(
+        (competitionglobalTeamglobal) => {
+          if (competitionglobalTeamglobal.teamglobal) {
+            teamglobalIds.push(competitionglobalTeamglobal.teamglobal.id);
+          }
+        },
+      );
+
+      setRuleNumberOfTeams(competitionglobalReducer.rule?.numberOfTeams || 0);
+      setSelectedTeamglobalIds(teamglobalIds);
+
+      setCompetitionglobal({
+        name: competitionglobalReducer.name,
+        season: competitionglobalReducer.season,
+        srcImage: competitionglobalReducer.srcImage,
+        ruleId: competitionglobalReducer.rule?.id,
+        countryId: competitionglobalReducer.country?.id,
+        teamglobalIds: teamglobalIds,
+      });
+    } else {
+      setCompetitionglobal(DEFAULT_COMPETITIONGLOBAL);
+    }
+  }, [competitionglobalReducer]);
+
+  useEffect(() => {
+    const findCompetitionglobalById = async (competitionglobalId: string) => {
+      setLoadingCompetitionglobal(true);
+      await request(
+        URL_COMPETITIONGLOBAL_ID.replace('{competitionglobalId}', competitionglobalId),
+        MethodsEnum.GET,
+        setCompetitionglobalReducer,
+      );
+      setLoadingCompetitionglobal(false);
+    };
+
+    if (competitionglobalId) {
+      setIsEdit(true);
+      findCompetitionglobalById(competitionglobalId);
+    } else {
+      setIsEdit(false);
+      setRuleNumberOfTeams(0);
+      setSelectedTeamglobalIds([]);
+      setCompetitionglobalReducer(undefined);
+      setCompetitionglobal(DEFAULT_COMPETITIONGLOBAL);
+    }
+  }, [competitionglobalId]);
 
   useEffect(() => {
     if (
@@ -83,19 +148,27 @@ export const useInsertCompetitionglobal = () => {
   };
 
   const handleOnClickInsert = async () => {
-    setLoading(true);
-
-    await request(
-      URL_COMPETITIONGLOBAL,
-      MethodsEnum.POST,
-      undefined,
-      competitionglobal,
-      'Competição inserida com sucesso!',
-    );
+    if (competitionglobalId) {
+      await request(
+        URL_COMPETITIONGLOBAL_ID.replace('{competitionglobalId}', competitionglobalId),
+        MethodsEnum.PUT,
+        undefined,
+        competitionglobal,
+        'Competição editada com sucesso!',
+      );
+    } else {
+      await request(
+        URL_COMPETITIONGLOBAL,
+        MethodsEnum.POST,
+        undefined,
+        competitionglobal,
+        'Competição inserida com sucesso!',
+      );
+    }
 
     await request(URL_COMPETITIONGLOBAL, MethodsEnum.GET, setCompetitionsglobal);
 
-    setLoading(false);
+    await request(URL_TEAMGLOBAL, MethodsEnum.GET, setTeamsglobal);
 
     navigate(CompetitionglobalRoutesEnum.COMPETITIONGLOBAL);
   };
@@ -104,6 +177,8 @@ export const useInsertCompetitionglobal = () => {
     competitionglobal,
     loading,
     disabledButton,
+    isEdit,
+    loadingCompetitionglobal,
     ruleNumberOfTeams,
     selectedTeamglobalIds,
     handleOnChangeInput,
