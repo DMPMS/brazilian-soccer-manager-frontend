@@ -4,29 +4,88 @@ import { useNavigate } from 'react-router-dom';
 import {
   URL_MANAGERGLOBAL_WITHOUT_TEAMGLOBAL,
   URL_TEAMGLOBAL,
+  URL_TEAMGLOBAL_ID,
 } from '../../../shared/constants/urls';
 import { InsertTeamglobalDTO } from '../../../shared/dtos/InsertTeamglobal.dto';
 import { MethodsEnum } from '../../../shared/enums/methods.enum';
 import { useRequests } from '../../../shared/hooks/useRequests';
+import { ManagerglobalType } from '../../../shared/types/ManagerglobalType';
 import { useManagerglobalReducer } from '../../../store/reducers/managerglobalReducer/useManagerglobalReducer';
 import { useTeamglobalReducer } from '../../../store/reducers/teamglobalReducer/useTeamglobalReducer';
+import { useManagerglobal } from '../../managerglobal/hooks/useManagerglobal';
 import { TeamglobalRoutesEnum } from '../routes';
 
-export const useInsertTeamglobal = () => {
+const DEFAULT_TEAMGLOBAL = {
+  name: '',
+  srcImage: '',
+};
+
+export const useInsertTeamglobal = (teamglobalId?: string) => {
   const navigate = useNavigate();
 
-  const { request } = useRequests();
-  const { setTeamsglobal } = useTeamglobalReducer();
+  const [loadingTeamglobal, setLoadingTeamglobal] = useState(false);
+  const { request, loading } = useRequests();
+  const {
+    setTeamsglobal,
+    teamglobal: teamglobalReducer,
+    setTeamglobal: setTeamglobalReducer,
+  } = useTeamglobalReducer();
   const { setManagersglobalWithoutTeamglobal } = useManagerglobalReducer();
 
-  const [loading, setLoading] = useState(false);
   const [disabledButton, setDisabledButton] = useState(true);
-  const [teamglobal, setTeamglobal] = useState<InsertTeamglobalDTO>({
-    name: '',
-    srcImage: '',
-  });
+  const [isEdit, setIsEdit] = useState(false);
+  const [teamglobal, setTeamglobal] = useState<InsertTeamglobalDTO>(DEFAULT_TEAMGLOBAL);
 
   // const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const { managersglobalWithoutTeamglobal } = useManagerglobal();
+  const [updatedManagersglobalWithoutTeamglobal, setUpdatedManagersglobalWithoutTeamglobal] =
+    useState<ManagerglobalType[]>(managersglobalWithoutTeamglobal);
+
+  useEffect(() => {
+    if (teamglobalReducer && teamglobalReducer.managerglobal) {
+      setUpdatedManagersglobalWithoutTeamglobal([
+        teamglobalReducer.managerglobal,
+        ...managersglobalWithoutTeamglobal,
+      ]);
+    } else {
+      setUpdatedManagersglobalWithoutTeamglobal(managersglobalWithoutTeamglobal);
+    }
+  }, [teamglobalReducer, managersglobalWithoutTeamglobal]); // Understanding why managersglobalWithoutTeamglobal is necessary.
+
+  useEffect(() => {
+    if (teamglobalReducer) {
+      setTeamglobal({
+        name: teamglobalReducer.name,
+        srcImage: teamglobalReducer.srcImage,
+        countryId: teamglobalReducer.country?.id,
+        managerglobalId: teamglobalReducer.managerglobal?.id,
+      });
+    } else {
+      setTeamglobal(DEFAULT_TEAMGLOBAL);
+    }
+  }, [teamglobalReducer]);
+
+  useEffect(() => {
+    const findTeamglobalById = async (teamglobalId: string) => {
+      setLoadingTeamglobal(true);
+      await request(
+        URL_TEAMGLOBAL_ID.replace('{teamglobalId}', teamglobalId),
+        MethodsEnum.GET,
+        setTeamglobalReducer,
+      );
+      setLoadingTeamglobal(false);
+    };
+
+    if (teamglobalId) {
+      setIsEdit(true);
+      findTeamglobalById(teamglobalId);
+    } else {
+      setIsEdit(false);
+      setTeamglobalReducer(undefined);
+      setTeamglobal(DEFAULT_TEAMGLOBAL);
+    }
+  }, [teamglobalId]);
 
   useEffect(() => {
     if (
@@ -80,15 +139,23 @@ export const useInsertTeamglobal = () => {
   };
 
   const handleOnClickInsert = async () => {
-    setLoading(true);
-
-    await request(
-      URL_TEAMGLOBAL,
-      MethodsEnum.POST,
-      undefined,
-      teamglobal,
-      'Time inserido com sucesso!',
-    );
+    if (teamglobalId) {
+      await request(
+        URL_TEAMGLOBAL_ID.replace('{teamglobalId}', teamglobalId),
+        MethodsEnum.PUT,
+        undefined,
+        teamglobal,
+        'Time editado com sucesso!',
+      );
+    } else {
+      await request(
+        URL_TEAMGLOBAL,
+        MethodsEnum.POST,
+        undefined,
+        teamglobal,
+        'Time inserido com sucesso!',
+      );
+    }
 
     await request(URL_TEAMGLOBAL, MethodsEnum.GET, setTeamsglobal);
 
@@ -98,8 +165,6 @@ export const useInsertTeamglobal = () => {
       setManagersglobalWithoutTeamglobal,
     );
 
-    setLoading(false);
-
     navigate(TeamglobalRoutesEnum.TEAMGLOBAL);
   };
 
@@ -107,6 +172,9 @@ export const useInsertTeamglobal = () => {
     teamglobal,
     loading,
     disabledButton,
+    isEdit,
+    loadingTeamglobal,
+    updatedManagersglobalWithoutTeamglobal,
     handleOnChangeInput,
     handleOnClickInsert,
     handleOnChangeCountrySelect,

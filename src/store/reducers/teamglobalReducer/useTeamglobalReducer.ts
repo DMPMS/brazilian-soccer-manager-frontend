@@ -2,18 +2,24 @@ import { useDispatch } from 'react-redux';
 
 import { TeamglobalType } from '../../../shared/types/TeamglobalType';
 import { useAppSelector } from '../../hooks';
-import { setTeamsglobalAction } from '.';
+import { setTeamglobalAction, setTeamsglobalAction } from '.';
 
 export const useTeamglobalReducer = () => {
   const dispatch = useDispatch();
-  const { teamsglobal } = useAppSelector((state) => state.teamglobalReducer);
+  const { teamsglobal, teamglobal } = useAppSelector((state) => state.teamglobalReducer);
 
   const setTeamsglobal = (teamsglobal: TeamglobalType[]) => {
     dispatch(setTeamsglobalAction(teamsglobal));
   };
 
+  const setTeamglobal = (teamglobal?: TeamglobalType) => {
+    dispatch(setTeamglobalAction(teamglobal));
+  };
+
   return {
     teamsglobal,
+    teamglobal,
     setTeamsglobal,
+    setTeamglobal,
   };
 };

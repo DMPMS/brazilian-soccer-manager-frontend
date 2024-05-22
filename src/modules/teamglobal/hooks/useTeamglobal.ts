@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import {
   URL_MANAGERGLOBAL_WITHOUT_TEAMGLOBAL,
@@ -9,12 +10,14 @@ import { MethodsEnum } from '../../../shared/enums/methods.enum';
 import { useRequests } from '../../../shared/hooks/useRequests';
 import { useManagerglobalReducer } from '../../../store/reducers/managerglobalReducer/useManagerglobalReducer';
 import { useTeamglobalReducer } from '../../../store/reducers/teamglobalReducer/useTeamglobalReducer';
+import { TeamglobalRoutesEnum } from '../routes';
 
 export const useTeamglobal = () => {
   const { teamsglobal, setTeamsglobal } = useTeamglobalReducer();
   const { setManagersglobalWithoutTeamglobal } = useManagerglobalReducer();
 
   const { request } = useRequests();
+  const navigate = useNavigate();
 
   const [teamglobalIdDelete, setTeamglobalIdDelete] = useState<number | undefined>();
   const [searchValue, setSearchValue] = useState('');
@@ -31,6 +34,10 @@ export const useTeamglobal = () => {
 
   const handleOnSearch = (value: string) => {
     setSearchValue(value);
+  };
+
+  const handleOnEdit = (teamglobalId: number) => {
+    navigate(TeamglobalRoutesEnum.TEAMGLOBAL_EDIT.replace(':teamglobalId', `${teamglobalId}`));
   };
 
   const handleOnDelete = async () => {
@@ -64,6 +71,7 @@ export const useTeamglobal = () => {
   return {
     teamsglobal: teamsglobalFiltered,
     handleOnSearch,
+    handleOnEdit,
     handleOnDelete,
     handleOnCloseModalDelete,
     handleOnOpenModalDelete,

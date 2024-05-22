@@ -1,4 +1,4 @@
-import { DeleteOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Modal } from 'antd';
 import Search from 'antd/es/input/Search';
 import { ColumnsType } from 'antd/es/table';
@@ -24,6 +24,7 @@ const Teamglobal = () => {
   const {
     teamsglobal,
     handleOnSearch,
+    handleOnEdit,
     handleOnDelete,
     handleOnCloseModalDelete,
     handleOnOpenModalDelete,
@@ -77,6 +78,7 @@ const Teamglobal = () => {
         render: (_, target) => (
           <LimitedContainer width={100}>
             <DisplayFlexJustifyBetween>
+              <Button onClick={() => handleOnEdit(target.id)} icon={<EditOutlined />}></Button>
               {target.competitionsglobalTeamglobal &&
                 target.competitionsglobalTeamglobal?.length === 0 && (
                   <Button
