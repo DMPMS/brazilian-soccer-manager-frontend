@@ -1,5 +1,5 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { Modal } from 'antd';
+import { Modal, Space } from 'antd';
 import Search from 'antd/es/input/Search';
 import { ColumnsType } from 'antd/es/table';
 import { useMemo } from 'react';
@@ -76,20 +76,18 @@ const Teamglobal = () => {
         dataIndex: '',
         key: 'x',
         render: (_, target) => (
-          <LimitedContainer width={100}>
-            <DisplayFlexJustifyBetween>
-              <Button onClick={() => handleOnEdit(target.id)} icon={<EditOutlined />}></Button>
-              {target.competitionsglobalTeamglobal &&
-                target.competitionsglobalTeamglobal?.length === 0 && (
-                  <Button
-                    type="primary"
-                    danger
-                    onClick={() => handleOnOpenModalDelete(target.id)}
-                    icon={<DeleteOutlined />}
-                  ></Button>
-                )}
-            </DisplayFlexJustifyBetween>
-          </LimitedContainer>
+          <Space>
+            <Button onClick={() => handleOnEdit(target.id)} icon={<EditOutlined />}></Button>
+            {target.competitionsglobalTeamglobal &&
+              target.competitionsglobalTeamglobal?.length === 0 && (
+                <Button
+                  type="primary"
+                  danger
+                  onClick={() => handleOnOpenModalDelete(target.id)}
+                  icon={<DeleteOutlined />}
+                ></Button>
+              )}
+          </Space>
         ),
       },
     ],
