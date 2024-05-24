@@ -34,6 +34,28 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
   const [managerglobal, setManagerglobal] = useState<InsertManagerglobalDTO>(DEFAULT_MANAGERGLOBAL);
 
   useEffect(() => {
+    if (managerglobalId) {
+      const findAndSetManagerglobalReducer = async (managerglobalId: string) => {
+        setLoadingManagerglobal(true);
+
+        await request(
+          URL_MANAGERGLOBAL_ID.replace('{managerglobalId}', managerglobalId),
+          MethodsEnum.GET,
+          setManagerglobalReducer,
+        );
+
+        setLoadingManagerglobal(false);
+      };
+
+      setIsEdit(true);
+      findAndSetManagerglobalReducer(managerglobalId);
+    } else {
+      setIsEdit(false);
+      setManagerglobalReducer(undefined);
+    }
+  }, [managerglobalId]);
+
+  useEffect(() => {
     if (managerglobalReducer) {
       setManagerglobal({
         name: managerglobalReducer.name,
@@ -44,27 +66,6 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
       setManagerglobal(DEFAULT_MANAGERGLOBAL);
     }
   }, [managerglobalReducer]);
-
-  useEffect(() => {
-    const findManagerglobalById = async (managerglobalId: string) => {
-      setLoadingManagerglobal(true);
-      await request(
-        URL_MANAGERGLOBAL_ID.replace('{managerglobalId}', managerglobalId),
-        MethodsEnum.GET,
-        setManagerglobalReducer,
-      );
-      setLoadingManagerglobal(false);
-    };
-
-    if (managerglobalId) {
-      setIsEdit(true);
-      findManagerglobalById(managerglobalId);
-    } else {
-      setIsEdit(false);
-      setManagerglobalReducer(undefined);
-      setManagerglobal(DEFAULT_MANAGERGLOBAL);
-    }
-  }, [managerglobalId]);
 
   useEffect(() => {
     if (managerglobal.name && managerglobal.countryId && managerglobal.age > 0) {

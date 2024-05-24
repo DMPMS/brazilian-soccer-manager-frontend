@@ -22,6 +22,7 @@ import { ManagerglobalType } from '../../../shared/types/ManagerglobalType';
 // import UploadImage from '../../../shared/components/upload/uploadImage/UploadImage';
 // import { useGlobalReducer } from '../../../store/reducers/globalReducer/useGlobalReducer';
 import { useCountry } from '../../country/hooks/useCountry';
+import { useManagerglobal } from '../../managerglobal/hooks/useManagerglobal';
 import { useInsertTeamglobal } from '../hooks/useInsertTeamglobal';
 import { TeamglobalRoutesEnum } from '../routes';
 
@@ -34,7 +35,7 @@ const TeamglobalInsert = () => {
     disabledButton,
     isEdit,
     loadingTeamglobal,
-    updatedManagersglobalWithoutTeamglobal,
+    managerglobalOfTeamglobalReducer,
     handleOnChangeInput,
     handleOnClickInsert,
     handleOnChangeCountrySelect,
@@ -43,6 +44,7 @@ const TeamglobalInsert = () => {
   } = useInsertTeamglobal(teamglobalId);
 
   const { countries } = useCountry();
+  const { managersglobalWithoutTeamglobal } = useManagerglobal();
   // const { setNotification } = useGlobalReducer();
 
   const navigate = useNavigate();
@@ -140,12 +142,20 @@ const TeamglobalInsert = () => {
                   ? `${teamglobal.managerglobalId}`
                   : undefined
               }
-              options={updatedManagersglobalWithoutTeamglobal.map(
-                (managerglobal: ManagerglobalType) => ({
+              options={[
+                ...(managerglobalOfTeamglobalReducer !== undefined
+                  ? [
+                      {
+                        value: `${managerglobalOfTeamglobalReducer.id}`,
+                        label: `${managerglobalOfTeamglobalReducer.name}`,
+                      },
+                    ]
+                  : []),
+                ...managersglobalWithoutTeamglobal.map((managerglobal: ManagerglobalType) => ({
                   value: `${managerglobal.id}`,
                   label: `${managerglobal.name}`,
-                }),
-              )}
+                })),
+              ]}
               showSearch
               filterOption={(input, option) =>
                 option.label.toLowerCase().includes(input.toLowerCase())

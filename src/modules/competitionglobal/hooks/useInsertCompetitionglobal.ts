@@ -43,6 +43,26 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
   const [selectedTeamglobalIds, setSelectedTeamglobalIds] = useState<number[]>([]);
 
   useEffect(() => {
+    if (competitionglobalId) {
+      const findAndSetCompetitionglobalReducer = async (competitionglobalId: string) => {
+        setLoadingCompetitionglobal(true);
+        await request(
+          URL_COMPETITIONGLOBAL_ID.replace('{competitionglobalId}', competitionglobalId),
+          MethodsEnum.GET,
+          setCompetitionglobalReducer,
+        );
+        setLoadingCompetitionglobal(false);
+      };
+
+      setIsEdit(true);
+      findAndSetCompetitionglobalReducer(competitionglobalId);
+    } else {
+      setIsEdit(false);
+      setCompetitionglobalReducer(undefined);
+    }
+  }, [competitionglobalId]);
+
+  useEffect(() => {
     if (competitionglobalReducer) {
       const teamglobalIds: number[] = [];
 
@@ -54,9 +74,6 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
         },
       );
 
-      setRuleNumberOfTeams(competitionglobalReducer.rule?.numberOfTeams || 0);
-      setSelectedTeamglobalIds(teamglobalIds);
-
       setCompetitionglobal({
         name: competitionglobalReducer.name,
         season: competitionglobalReducer.season,
@@ -65,33 +82,15 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
         countryId: competitionglobalReducer.country?.id,
         teamglobalIds: teamglobalIds,
       });
+
+      setRuleNumberOfTeams(competitionglobalReducer.rule?.numberOfTeams || 0);
+      setSelectedTeamglobalIds(teamglobalIds);
     } else {
       setCompetitionglobal(DEFAULT_COMPETITIONGLOBAL);
-    }
-  }, [competitionglobalReducer]);
-
-  useEffect(() => {
-    const findCompetitionglobalById = async (competitionglobalId: string) => {
-      setLoadingCompetitionglobal(true);
-      await request(
-        URL_COMPETITIONGLOBAL_ID.replace('{competitionglobalId}', competitionglobalId),
-        MethodsEnum.GET,
-        setCompetitionglobalReducer,
-      );
-      setLoadingCompetitionglobal(false);
-    };
-
-    if (competitionglobalId) {
-      setIsEdit(true);
-      findCompetitionglobalById(competitionglobalId);
-    } else {
-      setIsEdit(false);
       setRuleNumberOfTeams(0);
       setSelectedTeamglobalIds([]);
-      setCompetitionglobalReducer(undefined);
-      setCompetitionglobal(DEFAULT_COMPETITIONGLOBAL);
     }
-  }, [competitionglobalId]);
+  }, [competitionglobalReducer]);
 
   useEffect(() => {
     if (

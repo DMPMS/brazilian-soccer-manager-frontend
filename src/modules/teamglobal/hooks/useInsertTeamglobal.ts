@@ -13,7 +13,6 @@ import { useRequests } from '../../../shared/hooks/useRequests';
 import { ManagerglobalType } from '../../../shared/types/ManagerglobalType';
 import { useManagerglobalReducer } from '../../../store/reducers/managerglobalReducer/useManagerglobalReducer';
 import { useTeamglobalReducer } from '../../../store/reducers/teamglobalReducer/useTeamglobalReducer';
-import { useManagerglobal } from '../../managerglobal/hooks/useManagerglobal';
 import { TeamglobalRoutesEnum } from '../routes';
 
 const DEFAULT_TEAMGLOBAL = {
@@ -39,20 +38,29 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
 
   // const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-  const { managersglobalWithoutTeamglobal } = useManagerglobal();
-  const [updatedManagersglobalWithoutTeamglobal, setUpdatedManagersglobalWithoutTeamglobal] =
-    useState<ManagerglobalType[]>(managersglobalWithoutTeamglobal);
+  const [managerglobalOfTeamglobalReducer, setManagerglobalOfTeamglobalReducer] = useState<
+    ManagerglobalType | undefined
+  >(undefined);
 
   useEffect(() => {
-    if (teamglobalReducer && teamglobalReducer.managerglobal) {
-      setUpdatedManagersglobalWithoutTeamglobal([
-        teamglobalReducer.managerglobal,
-        ...managersglobalWithoutTeamglobal,
-      ]);
+    if (teamglobalId) {
+      const findAndSetTeamglobalReducer = async (teamglobalId: string) => {
+        setLoadingTeamglobal(true);
+        await request(
+          URL_TEAMGLOBAL_ID.replace('{teamglobalId}', teamglobalId),
+          MethodsEnum.GET,
+          setTeamglobalReducer,
+        );
+        setLoadingTeamglobal(false);
+      };
+
+      setIsEdit(true);
+      findAndSetTeamglobalReducer(teamglobalId);
     } else {
-      setUpdatedManagersglobalWithoutTeamglobal(managersglobalWithoutTeamglobal);
+      setIsEdit(false);
+      setTeamglobalReducer(undefined);
     }
-  }, [teamglobalReducer, managersglobalWithoutTeamglobal]); // Understanding why managersglobalWithoutTeamglobal is necessary.
+  }, [teamglobalId]);
 
   useEffect(() => {
     if (teamglobalReducer) {
@@ -62,31 +70,13 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
         countryId: teamglobalReducer.country?.id,
         managerglobalId: teamglobalReducer.managerglobal?.id,
       });
+
+      setManagerglobalOfTeamglobalReducer(teamglobalReducer.managerglobal);
     } else {
       setTeamglobal(DEFAULT_TEAMGLOBAL);
+      setManagerglobalOfTeamglobalReducer(undefined);
     }
   }, [teamglobalReducer]);
-
-  useEffect(() => {
-    const findTeamglobalById = async (teamglobalId: string) => {
-      setLoadingTeamglobal(true);
-      await request(
-        URL_TEAMGLOBAL_ID.replace('{teamglobalId}', teamglobalId),
-        MethodsEnum.GET,
-        setTeamglobalReducer,
-      );
-      setLoadingTeamglobal(false);
-    };
-
-    if (teamglobalId) {
-      setIsEdit(true);
-      findTeamglobalById(teamglobalId);
-    } else {
-      setIsEdit(false);
-      setTeamglobalReducer(undefined);
-      setTeamglobal(DEFAULT_TEAMGLOBAL);
-    }
-  }, [teamglobalId]);
 
   useEffect(() => {
     if (
@@ -177,7 +167,7 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
     disabledButton,
     isEdit,
     loadingTeamglobal,
-    updatedManagersglobalWithoutTeamglobal,
+    managerglobalOfTeamglobalReducer,
     handleOnChangeInput,
     handleOnClickInsert,
     handleOnChangeCountrySelect,
