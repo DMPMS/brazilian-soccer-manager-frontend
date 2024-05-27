@@ -18,10 +18,6 @@ const DEFAULT_MANAGERGLOBAL = {
 };
 
 export const useInsertManagerglobal = (managerglobalId?: string) => {
-  const navigate = useNavigate();
-
-  const [loadingManagerglobal, setLoadingManagerglobal] = useState(false);
-  const { request, loading } = useRequests();
   const {
     setManagersglobal,
     setManagersglobalWithoutTeamglobal,
@@ -29,6 +25,10 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
     setManagerglobal: setManagerglobalReducer,
   } = useManagerglobalReducer();
 
+  const { request, loading } = useRequests();
+  const navigate = useNavigate();
+
+  const [loadingManagerglobal, setLoadingManagerglobal] = useState(false);
   const [disabledButton, setDisabledButton] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
   const [managerglobal, setManagerglobal] = useState<InsertManagerglobalDTO>(DEFAULT_MANAGERGLOBAL);
@@ -112,13 +112,12 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
       );
     }
 
+    await request(URL_MANAGERGLOBAL, MethodsEnum.GET, setManagersglobal);
     await request(
       URL_MANAGERGLOBAL_WITHOUT_TEAMGLOBAL,
       MethodsEnum.GET,
       setManagersglobalWithoutTeamglobal,
     );
-
-    await request(URL_MANAGERGLOBAL, MethodsEnum.GET, setManagersglobal);
 
     navigate(ManagerglobalRoutesEnum.MANAGERGLOBAL);
   };

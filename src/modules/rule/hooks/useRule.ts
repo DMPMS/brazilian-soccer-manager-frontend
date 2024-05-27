@@ -7,6 +7,7 @@ import { useRuleReducer } from '../../../store/reducers/ruleReducer/useRuleReduc
 
 export const useRule = () => {
   const { rules, setRules } = useRuleReducer();
+
   const { request } = useRequests();
 
   useEffect(() => {

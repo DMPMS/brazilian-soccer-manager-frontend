@@ -52,13 +52,12 @@ export const useTeamglobal = () => {
 
     await request(URL_TEAMGLOBAL, MethodsEnum.GET, setTeamsglobal);
 
+    await request(URL_MANAGERGLOBAL, MethodsEnum.GET, setManagersglobal);
     await request(
       URL_MANAGERGLOBAL_WITHOUT_TEAMGLOBAL,
       MethodsEnum.GET,
       setManagersglobalWithoutTeamglobal,
     );
-
-    await request(URL_MANAGERGLOBAL, MethodsEnum.GET, setManagersglobal);
 
     setTeamglobalIdDelete(undefined);
   };

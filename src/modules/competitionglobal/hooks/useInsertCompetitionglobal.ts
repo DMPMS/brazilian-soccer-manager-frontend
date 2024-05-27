@@ -21,10 +21,6 @@ const DEFAULT_COMPETITIONGLOBAL = {
 };
 
 export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
-  const navigate = useNavigate();
-
-  const [loadingCompetitionglobal, setLoadingCompetitionglobal] = useState(false);
-  const { request, loading } = useRequests();
   const {
     setCompetitionsglobal,
     competitionglobal: competitionglobalReducer,
@@ -32,6 +28,10 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
   } = useCompetitionglobalReducer();
   const { setTeamsglobal } = useTeamglobalReducer();
 
+  const { request, loading } = useRequests();
+  const navigate = useNavigate();
+
+  const [loadingCompetitionglobal, setLoadingCompetitionglobal] = useState(false);
   const [disabledButton, setDisabledButton] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
   const [competitionglobal, setCompetitionglobal] =

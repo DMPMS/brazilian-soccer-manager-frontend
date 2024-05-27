@@ -30,6 +30,7 @@ const Competitionglobal = () => {
     handleOnOpenModalDelete,
     openModalDelete,
   } = useCompetitionglobal();
+
   const navigate = useNavigate();
 
   const handleOnClickInsert = () => {

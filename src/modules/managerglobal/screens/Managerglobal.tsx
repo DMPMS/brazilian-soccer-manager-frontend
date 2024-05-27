@@ -30,6 +30,7 @@ const Managerglobal = () => {
     handleOnOpenModalDelete,
     openModalDelete,
   } = useManagerglobal();
+
   const navigate = useNavigate();
 
   const handleOnClickInsert = () => {

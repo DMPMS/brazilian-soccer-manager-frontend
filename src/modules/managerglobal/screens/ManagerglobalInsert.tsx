@@ -36,9 +36,9 @@ const ManagerglobalInsert = () => {
     handleOnChangeCountrySelect,
   } = useInsertManagerglobal(managerglobalId);
 
-  const { countries } = useCountry();
-
   const navigate = useNavigate();
+
+  const { countries } = useCountry();
 
   const handleOnClickCancel = () => {
     navigate(ManagerglobalRoutesEnum.MANAGERGLOBAL);

@@ -21,10 +21,6 @@ const DEFAULT_TEAMGLOBAL = {
 };
 
 export const useInsertTeamglobal = (teamglobalId?: string) => {
-  const navigate = useNavigate();
-
-  const [loadingTeamglobal, setLoadingTeamglobal] = useState(false);
-  const { request, loading } = useRequests();
   const {
     setTeamsglobal,
     teamglobal: teamglobalReducer,
@@ -32,6 +28,10 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
   } = useTeamglobalReducer();
   const { setManagersglobalWithoutTeamglobal, setManagersglobal } = useManagerglobalReducer();
 
+  const { request, loading } = useRequests();
+  const navigate = useNavigate();
+
+  const [loadingTeamglobal, setLoadingTeamglobal] = useState(false);
   const [disabledButton, setDisabledButton] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
   const [teamglobal, setTeamglobal] = useState<InsertTeamglobalDTO>(DEFAULT_TEAMGLOBAL);
@@ -150,13 +150,12 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
 
     await request(URL_TEAMGLOBAL, MethodsEnum.GET, setTeamsglobal);
 
+    await request(URL_MANAGERGLOBAL, MethodsEnum.GET, setManagersglobal);
     await request(
       URL_MANAGERGLOBAL_WITHOUT_TEAMGLOBAL,
       MethodsEnum.GET,
       setManagersglobalWithoutTeamglobal,
     );
-
-    await request(URL_MANAGERGLOBAL, MethodsEnum.GET, setManagersglobal);
 
     navigate(TeamglobalRoutesEnum.TEAMGLOBAL);
   };

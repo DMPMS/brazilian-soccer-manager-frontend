@@ -45,11 +45,11 @@ const CompetitionglobalInsert = () => {
     handleOnChangeTeamglobalSelect,
   } = useInsertCompetitionglobal(competitionglobalId);
 
+  const navigate = useNavigate();
+
   const { countries } = useCountry();
   const { rules } = useRule();
   const { teamsglobal } = useTeamglobal();
-
-  const navigate = useNavigate();
 
   const handleOnClickCancel = () => {
     navigate(CompetitionglobalRoutesEnum.COMPETITIONGLOBAL);

@@ -30,6 +30,7 @@ const Teamglobal = () => {
     handleOnOpenModalDelete,
     openModalDelete,
   } = useTeamglobal();
+
   const navigate = useNavigate();
 
   const handleOnClickInsert = () => {

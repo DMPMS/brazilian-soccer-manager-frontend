@@ -43,11 +43,11 @@ const TeamglobalInsert = () => {
     // handleUploadImage,
   } = useInsertTeamglobal(teamglobalId);
 
+  const navigate = useNavigate();
+
   const { countries } = useCountry();
   const { managersglobalWithoutTeamglobal } = useManagerglobal();
   // const { setNotification } = useGlobalReducer();
-
-  const navigate = useNavigate();
 
   const handleOnClickCancel = () => {
     navigate(TeamglobalRoutesEnum.TEAMGLOBAL);

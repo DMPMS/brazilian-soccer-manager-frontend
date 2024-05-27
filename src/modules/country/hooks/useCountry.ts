@@ -7,6 +7,7 @@ import { useCountryReducer } from '../../../store/reducers/countryReducer/useCou
 
 export const useCountry = () => {
   const { countries, setCountries } = useCountryReducer();
+
   const { request } = useRequests();
 
   useEffect(() => {
