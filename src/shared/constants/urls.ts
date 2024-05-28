@@ -11,7 +11,7 @@ export const URL_RULE = 'http://localhost:8080/rule';
 export const URL_MANAGERGLOBAL = 'http://localhost:8080/managerglobal';
 export const URL_MANAGERGLOBAL_ID = 'http://localhost:8080/managerglobal/{managerglobalId}';
 export const URL_MANAGERGLOBAL_WITHOUT_TEAMGLOBAL =
-  'http://localhost:8080/managerglobal/withoutTeamglobal';
+  'http://localhost:8080/managerglobal?isWithoutTeamglobal=true';
 
 export const URL_COUNTRY = 'http://localhost:8080/country';
 
