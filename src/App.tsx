@@ -6,6 +6,7 @@ import { competitionglobalRoutes } from './modules/competitionglobal/routes';
 import { firstScreenRoutes } from './modules/firstScreen/routes';
 import { loginRoutes } from './modules/login/routes';
 import { managerglobalRoutes } from './modules/managerglobal/routes';
+import { playerglobalRoutes } from './modules/playerglobal/routes';
 import { teamglobalRoutes } from './modules/teamglobal/routes';
 import { URL_USER } from './shared/constants/urls';
 import { MethodsEnum } from './shared/enums/methods.enum';
@@ -19,6 +20,7 @@ const routesLoggedIn: RouteObject[] = [
   ...managerglobalRoutes,
   ...competitionglobalRoutes,
   ...teamglobalRoutes,
+  ...playerglobalRoutes,
   ...firstScreenRoutes,
 ].map((route) => ({
   ...route,

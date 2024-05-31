@@ -4,6 +4,7 @@ import {
   LogoutOutlined,
   PartitionOutlined,
   TeamOutlined,
+  UnorderedListOutlined,
 } from '@ant-design/icons';
 import { Menu as SidebarAntd, MenuProps as SidebarProps, Modal } from 'antd';
 import { useState } from 'react';
@@ -11,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { CompetitionglobalRoutesEnum } from '../../../modules/competitionglobal/routes';
 import { ManagerglobalRoutesEnum } from '../../../modules/managerglobal/routes';
+import { PlayerglobalRoutesEnum } from '../../../modules/playerglobal/routes';
 import { TeamglobalRoutesEnum } from '../../../modules/teamglobal/routes';
 import { logout } from '../../functions/connection/auth';
 import { ContainerLogoName, LogoSidebar, NameCompany } from './sidebar.style';
@@ -36,6 +38,23 @@ const Sidebar = () => {
       key: 'home',
       label: 'Página Inicial',
       icon: <HomeOutlined />,
+    },
+    {
+      key: 'playersglobal',
+      label: 'Jogadores',
+      icon: <UnorderedListOutlined />,
+      children: [
+        {
+          key: 'playersglobal_view',
+          label: 'Visualizar',
+          onClick: () => navigate(PlayerglobalRoutesEnum.PLAYERGLOBAL),
+        },
+        {
+          key: 'playersglobal_insert',
+          label: 'Inserir',
+          onClick: () => navigate(PlayerglobalRoutesEnum.PLAYERGLOBAL_INSERT),
+        },
+      ],
     },
     {
       key: 'managersglobal',

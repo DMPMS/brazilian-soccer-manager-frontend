@@ -17,3 +17,8 @@ export const URL_COUNTRY = 'http://localhost:8080/country';
 
 export const URL_TEAMGLOBAL = 'http://localhost:8080/teamglobal';
 export const URL_TEAMGLOBAL_ID = 'http://localhost:8080/teamglobal/{teamglobalId}';
+
+export const URL_POSITION = 'http://localhost:8080/position';
+
+export const URL_PLAYERGLOBAL = 'http://localhost:8080/playerglobal';
+export const URL_PLAYERGLOBAL_ID = 'http://localhost:8080/playerglobal/{playerglobalId}';
