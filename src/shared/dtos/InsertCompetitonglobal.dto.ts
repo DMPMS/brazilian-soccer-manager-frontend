@@ -4,5 +4,5 @@ export interface InsertCompetitionglobalDTO {
   srcImage: string;
   ruleId?: number;
   countryId?: number;
-  teamglobalIds?: number[];
+  teamglobalIds: number[];
 }

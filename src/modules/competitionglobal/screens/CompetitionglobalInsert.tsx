@@ -37,7 +37,7 @@ const CompetitionglobalInsert = () => {
     isEdit,
     loadingCompetitionglobal,
     ruleNumberOfTeams,
-    selectedTeamglobalIds,
+    teamglobalIdsCount,
     handleOnChangeInput,
     handleOnClickInsert,
     handleOnChangeCountrySelect,
@@ -128,7 +128,6 @@ const CompetitionglobalInsert = () => {
                 <Select
                   title="País"
                   placeholder="Selecione um país"
-                  margin="0px 0px 32px 0px"
                   onChange={handleOnChangeCountrySelect}
                   value={
                     competitionglobal.countryId !== undefined
@@ -159,7 +158,7 @@ const CompetitionglobalInsert = () => {
                 <Select
                   title={
                     ruleNumberOfTeams > 0
-                      ? `Times (${selectedTeamglobalIds.length} / ${ruleNumberOfTeams})`
+                      ? `Times (${teamglobalIdsCount} / ${ruleNumberOfTeams})`
                       : `Times`
                   }
                   placeholder={ruleNumberOfTeams > 0 ? 'Selecione os times' : 'Selecione as regras'}

@@ -18,6 +18,7 @@ const DEFAULT_COMPETITIONGLOBAL = {
   name: '',
   season: '',
   srcImage: '',
+  teamglobalIds: [],
 };
 
 export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
@@ -40,7 +41,7 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
   const { rules } = useRule();
 
   const [ruleNumberOfTeams, setRuleNumberOfTeams] = useState<number>(0);
-  const [selectedTeamglobalIds, setSelectedTeamglobalIds] = useState<number[]>([]);
+  const [teamglobalIdsCount, setTeamglobalIdsCount] = useState<number>();
 
   useEffect(() => {
     if (competitionglobalId) {
@@ -84,11 +85,11 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
       });
 
       setRuleNumberOfTeams(competitionglobalReducer.rule?.numberOfTeams || 0);
-      setSelectedTeamglobalIds(teamglobalIds);
+      setTeamglobalIdsCount(teamglobalIds.length);
     } else {
       setCompetitionglobal(DEFAULT_COMPETITIONGLOBAL);
       setRuleNumberOfTeams(0);
-      setSelectedTeamglobalIds([]);
+      setTeamglobalIdsCount(0);
     }
   }, [competitionglobalReducer]);
 
@@ -99,7 +100,7 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
       competitionglobal.srcImage &&
       competitionglobal.ruleId &&
       competitionglobal.countryId &&
-      competitionglobal.teamglobalIds?.length === ruleNumberOfTeams
+      competitionglobal.teamglobalIds.length === ruleNumberOfTeams
     ) {
       setDisabledButton(false);
     } else {
@@ -138,7 +139,7 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
   const handleOnChangeTeamglobalSelect = (values: string[]) => {
     const updatedValues = values.map((value) => Number(value));
 
-    setSelectedTeamglobalIds(updatedValues);
+    setTeamglobalIdsCount(updatedValues.length);
 
     setCompetitionglobal({
       ...competitionglobal,
@@ -179,7 +180,7 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
     isEdit,
     loadingCompetitionglobal,
     ruleNumberOfTeams,
-    selectedTeamglobalIds,
+    teamglobalIdsCount,
     handleOnChangeInput,
     handleOnClickInsert,
     handleOnChangeCountrySelect,

@@ -135,7 +135,7 @@ const TeamglobalInsert = () => {
             <Select
               title="Treinador"
               placeholder="Selecione um treinador"
-              margin="0px 0px 32px 0px"
+              margin="0px 0px 16px 0px"
               onChange={handleOnChangeManagerglobalSelect}
               value={
                 teamglobal.managerglobalId !== undefined
@@ -162,7 +162,7 @@ const TeamglobalInsert = () => {
               }
             />
             <DisplayFlexJustifyRight>
-              <LimitedContainer margin="0px 8px" width={120}>
+              <LimitedContainer margin="0px 8px 0px 0px" width={120}>
                 <Button onClick={handleOnClickCancel}>Cancelar</Button>
               </LimitedContainer>
               <LimitedContainer width={120}>

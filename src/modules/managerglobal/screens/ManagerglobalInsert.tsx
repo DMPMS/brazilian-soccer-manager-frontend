@@ -87,7 +87,7 @@ const ManagerglobalInsert = () => {
             <Select
               title="Nacionalidade"
               placeholder="Selecione um país"
-              margin="0px 0px 32px 0px"
+              margin="0px 0px 16px 0px"
               onChange={handleOnChangeCountrySelect}
               value={
                 managerglobal.countryId !== undefined ? `${managerglobal.countryId}` : undefined
@@ -111,7 +111,7 @@ const ManagerglobalInsert = () => {
               }
             />
             <DisplayFlexJustifyRight>
-              <LimitedContainer margin="0px 8px" width={120}>
+              <LimitedContainer margin="0px 8px 0px 0px" width={120}>
                 <Button onClick={handleOnClickCancel}>Cancelar</Button>
               </LimitedContainer>
               <LimitedContainer width={120}>

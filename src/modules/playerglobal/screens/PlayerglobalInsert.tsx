@@ -107,7 +107,6 @@ const PlayerglobalInsert = () => {
                 <Select
                   title="Nacionalidade"
                   placeholder="Selecione um país"
-                  margin="0px 0px 16px 0px"
                   onChange={handleOnChangeCountrySelect}
                   value={
                     playerglobal.countryId !== undefined ? `${playerglobal.countryId}` : undefined
@@ -168,7 +167,6 @@ const PlayerglobalInsert = () => {
                 <Select
                   title={`Posições secundárias (${selectedSecondaryPositionIds.length} / ${SECONDARY_POSITIONS_MAX})`}
                   placeholder="Selecione as posições"
-                  margin="0px 0px 32px 0px"
                   mode="multiple"
                   maxCount={SECONDARY_POSITIONS_MAX}
                   onChange={handleOnChangeSecondaryPositionSelect}
@@ -202,7 +200,7 @@ const PlayerglobalInsert = () => {
             </DisplayFlexJustifyBetween>
 
             <DisplayFlexJustifyRight>
-              <LimitedContainer margin="0px 8px" width={120}>
+              <LimitedContainer margin="0px 8px 0px 0px" width={120}>
                 <Button onClick={handleOnClickCancel}>Cancelar</Button>
               </LimitedContainer>
               <LimitedContainer width={120}>

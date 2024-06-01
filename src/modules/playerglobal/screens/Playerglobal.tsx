@@ -56,17 +56,15 @@ const Playerglobal = () => {
         dataIndex: 'positions',
         key: 'positions',
         render: (_, target) => (
-          <Space>
+          <>
             {target.playersglobalPosition
               ?.filter((playerglobalPosition) => playerglobalPosition.rating === 1)
               .map((playerglobalPosition, index) => (
-                <Space key={index}>
-                  <PositionTag area={playerglobalPosition.position?.area}>
-                    {playerglobalPosition.position?.abbreviation}
-                  </PositionTag>
-                </Space>
+                <PositionTag area={playerglobalPosition.position?.area} key={index}>
+                  {playerglobalPosition.position?.abbreviation}
+                </PositionTag>
               ))}
-          </Space>
+          </>
         ),
       },
       {

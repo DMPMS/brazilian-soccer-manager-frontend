@@ -151,7 +151,6 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
 
   const handleOnClickInsert = async () => {
     if (playerglobalId) {
-      console.log(playerglobal);
       await request(
         URL_PLAYERGLOBAL_ID.replace('{playerglobalId}', playerglobalId),
         MethodsEnum.PUT,
