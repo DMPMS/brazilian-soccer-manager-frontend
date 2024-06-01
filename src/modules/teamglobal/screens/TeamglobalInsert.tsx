@@ -160,6 +160,9 @@ const TeamglobalInsert = () => {
               filterOption={(input, option) =>
                 option.label.toLowerCase().includes(input.toLowerCase())
               }
+              filterSort={(optionA, optionB) =>
+                optionA.label.toLowerCase().localeCompare(optionB.label.toLowerCase())
+              }
             />
             <DisplayFlexJustifyRight>
               <LimitedContainer margin="0px 8px 0px 0px" width={120}>

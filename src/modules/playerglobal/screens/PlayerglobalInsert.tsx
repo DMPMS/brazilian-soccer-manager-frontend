@@ -138,6 +138,7 @@ const PlayerglobalInsert = () => {
                   mode="multiple"
                   maxCount={PRIMARY_POSITIONS_MAX}
                   onChange={handleOnChangePrimaryPositionSelect}
+                  allowClear
                   value={
                     playerglobal.primaryPositionIds !== undefined
                       ? playerglobal.primaryPositionIds.map(
@@ -170,6 +171,7 @@ const PlayerglobalInsert = () => {
                   mode="multiple"
                   maxCount={SECONDARY_POSITIONS_MAX}
                   onChange={handleOnChangeSecondaryPositionSelect}
+                  allowClear
                   value={
                     playerglobal.secondaryPositionIds !== undefined
                       ? playerglobal.secondaryPositionIds.map(

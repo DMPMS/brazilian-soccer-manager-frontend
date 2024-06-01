@@ -167,6 +167,7 @@ const CompetitionglobalInsert = () => {
                   maxCount={ruleNumberOfTeams}
                   disabled={ruleNumberOfTeams === 0}
                   onChange={handleOnChangeTeamglobalSelect}
+                  allowClear
                   value={
                     competitionglobal.teamglobalIds !== undefined
                       ? competitionglobal.teamglobalIds.map((teamglobalId) => `${teamglobalId}`)
@@ -188,6 +189,11 @@ const CompetitionglobalInsert = () => {
                     option.label.props.children[1].props.children
                       .toLowerCase()
                       .includes(input.toLowerCase())
+                  }
+                  filterSort={(optionA, optionB) =>
+                    optionA.label.props.children[1].props.children
+                      .toLowerCase()
+                      .localeCompare(optionB.label.props.children[1].props.children.toLowerCase())
                   }
                 />
               </LimitedContainer>
