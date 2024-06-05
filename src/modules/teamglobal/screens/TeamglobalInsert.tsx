@@ -57,14 +57,14 @@ const TeamglobalInsert = () => {
     <Screen
       listBreadcrumb={[
         {
-          name: 'PÁGINA INICIAL',
+          name: 'Página inicial',
         },
         {
-          name: 'TIMES',
+          name: 'Times',
           navigateTo: TeamglobalRoutesEnum.TEAMGLOBAL,
         },
         {
-          name: `${isEdit ? 'EDITAR' : 'INSERIR'} TIME`,
+          name: `${isEdit ? 'Editar' : 'Inserir'} time`,
         },
       ]}
     >

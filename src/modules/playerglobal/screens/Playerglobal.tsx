@@ -120,10 +120,10 @@ const Playerglobal = () => {
     <Screen
       listBreadcrumb={[
         {
-          name: 'PÁGINA INICIAL',
+          name: 'Página inicial',
         },
         {
-          name: 'JOGADORES',
+          name: 'Jogadores',
         },
       ]}
     >

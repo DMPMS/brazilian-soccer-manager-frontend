@@ -1,19 +1,29 @@
+import { Layout } from 'antd';
 import styled from 'styled-components';
 
-export const ScreenContainer = styled.div`
-  background-color: #eff2f5;
+import Breadcrumb from '../breadcrumb/Breadcrumb';
 
-  margin: 10px 10px 10px auto;
+const { Content } = Layout;
+
+export const SIDEBAR_WIDTH = 94;
+
+export const BreadcrumbStyled = styled(Breadcrumb)`
+  margin: 0px 0px 5px 0px;
+`;
+
+export const ContentStyled = styled(Content)`
+  background-color: #f0f0f0;
+
+  margin: 7px 7px 7px 94px;
+
+  width: calc(100% - ${SIDEBAR_WIDTH}px - 7px);
+
   padding: 15px;
   border-radius: 10px;
-  box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.1);
-
-  width: calc(100% - 265px - 45px); // 100% - sidebar - margin and paddin screen
-
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
 
   overflow: auto;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
 `;

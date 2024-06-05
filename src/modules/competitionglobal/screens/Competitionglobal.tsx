@@ -106,10 +106,10 @@ const Competitionglobal = () => {
     <Screen
       listBreadcrumb={[
         {
-          name: 'PÁGINA INICIAL',
+          name: 'Página inicial',
         },
         {
-          name: 'COMPETIÇÕES',
+          name: 'Competições',
         },
       ]}
     >

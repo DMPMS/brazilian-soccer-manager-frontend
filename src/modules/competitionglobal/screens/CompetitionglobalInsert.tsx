@@ -59,14 +59,14 @@ const CompetitionglobalInsert = () => {
     <Screen
       listBreadcrumb={[
         {
-          name: 'PÁGINA INICIAL',
+          name: 'Página inicial',
         },
         {
-          name: 'COMPETIÇÕES',
+          name: 'Competições',
           navigateTo: CompetitionglobalRoutesEnum.COMPETITIONGLOBAL,
         },
         {
-          name: `${isEdit ? 'EDITAR' : 'INSERIR'} COMPETIÇÃO`,
+          name: `${isEdit ? 'Editar' : 'Inserir'} competição`,
         },
       ]}
     >
@@ -80,9 +80,9 @@ const CompetitionglobalInsert = () => {
         </DisplayFlexJustifyCenter>
       ) : (
         <DisplayFlexJustifyCenter>
-          <LimitedContainerCard width={825}>
+          <LimitedContainer width={805}>
             <DisplayFlexJustifyBetween>
-              <LimitedContainer width={400}>
+              <LimitedContainerCard width={400}>
                 <DisplayFlexJustifyBetween>
                   <LimitedContainer width={250}>
                     <Input
@@ -134,6 +134,7 @@ const CompetitionglobalInsert = () => {
                       ? `${competitionglobal.countryId}`
                       : undefined
                   }
+                  margin="0px 0px 16px 0px"
                   options={countries.map((country: CountryType) => ({
                     value: `${country.id}`,
                     label: (
@@ -153,8 +154,23 @@ const CompetitionglobalInsert = () => {
                   }
                   disabled={isEdit}
                 />
-              </LimitedContainer>
-              <LimitedContainer width={400}>
+                <DisplayFlexJustifyRight>
+                  <LimitedContainer margin="0px 8px 0px 0px" width={120}>
+                    <Button onClick={handleOnClickCancel}>Cancelar</Button>
+                  </LimitedContainer>
+                  <LimitedContainer width={120}>
+                    <Button
+                      loading={loading}
+                      disabled={disabledButton}
+                      onClick={handleOnClickInsert}
+                      type="primary"
+                    >
+                      {isEdit ? 'Salvar' : 'Inserir'}
+                    </Button>
+                  </LimitedContainer>
+                </DisplayFlexJustifyRight>
+              </LimitedContainerCard>
+              <LimitedContainerCard width={400}>
                 <Select
                   title={
                     ruleNumberOfTeams > 0
@@ -196,24 +212,9 @@ const CompetitionglobalInsert = () => {
                       .localeCompare(optionB.label.props.children[1].props.children.toLowerCase())
                   }
                 />
-              </LimitedContainer>
+              </LimitedContainerCard>
             </DisplayFlexJustifyBetween>
-            <DisplayFlexJustifyRight>
-              <LimitedContainer margin="0px 8px 0px 0px" width={120}>
-                <Button onClick={handleOnClickCancel}>Cancelar</Button>
-              </LimitedContainer>
-              <LimitedContainer width={120}>
-                <Button
-                  loading={loading}
-                  disabled={disabledButton}
-                  onClick={handleOnClickInsert}
-                  type="primary"
-                >
-                  {isEdit ? 'Salvar' : 'Inserir'}
-                </Button>
-              </LimitedContainer>
-            </DisplayFlexJustifyRight>
-          </LimitedContainerCard>
+          </LimitedContainer>
         </DisplayFlexJustifyCenter>
       )}
     </Screen>

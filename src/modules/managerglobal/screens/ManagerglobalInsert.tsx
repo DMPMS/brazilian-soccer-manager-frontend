@@ -48,14 +48,14 @@ const ManagerglobalInsert = () => {
     <Screen
       listBreadcrumb={[
         {
-          name: 'PÁGINA INICIAL',
+          name: 'Página inicial',
         },
         {
-          name: 'TREINADORES',
+          name: 'Treinadores',
           navigateTo: ManagerglobalRoutesEnum.MANAGERGLOBAL,
         },
         {
-          name: `${isEdit ? 'EDITAR' : 'INSERIR'} TREINADOR`,
+          name: `${isEdit ? 'Editar' : 'Inserir'} treinador`,
         },
       ]}
     >

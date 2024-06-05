@@ -98,10 +98,10 @@ const Managerglobal = () => {
     <Screen
       listBreadcrumb={[
         {
-          name: 'PÁGINA INICIAL',
+          name: 'Página inicial',
         },
         {
-          name: 'TREINADORES',
+          name: 'Treinadores',
         },
       ]}
     >

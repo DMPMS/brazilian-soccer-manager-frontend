@@ -1,8 +1,8 @@
-import { Divider } from 'antd';
+import { Layout } from 'antd';
 
-import Breadcrumb, { ListBreadcrumb } from '../breadcrumb/Breadcrumb';
+import { ListBreadcrumb } from '../breadcrumb/Breadcrumb';
 import Sidebar from '../sidebar/Sidebar';
-import { ScreenContainer } from './screen.style';
+import { BreadcrumbStyled, ContentStyled, SIDEBAR_WIDTH } from './screen.style';
 
 interface ScreenProps {
   children: React.ReactNode;
@@ -11,18 +11,16 @@ interface ScreenProps {
 
 const Screen = ({ children, listBreadcrumb }: ScreenProps) => {
   return (
-    <>
+    <Layout style={{ backgroundColor: '#052574', minHeight: '100vh' }}>
       <Sidebar />
-      <ScreenContainer>
-        {listBreadcrumb && (
-          <>
-            <Breadcrumb listBreadcrumb={listBreadcrumb} />
-            <Divider />
-          </>
-        )}
-        {children}
-      </ScreenContainer>
-    </>
+      <Layout style={{ backgroundColor: '#052574', margin: `7px 7px 7px ${SIDEBAR_WIDTH}px` }}>
+        <ContentStyled>
+          {listBreadcrumb && <BreadcrumbStyled listBreadcrumb={listBreadcrumb} />}
+          <br></br>
+          {children}
+        </ContentStyled>
+      </Layout>
+    </Layout>
   );
 };
 

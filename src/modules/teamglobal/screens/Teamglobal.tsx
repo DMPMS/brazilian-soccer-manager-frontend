@@ -99,10 +99,10 @@ const Teamglobal = () => {
     <Screen
       listBreadcrumb={[
         {
-          name: 'PÁGINA INICIAL',
+          name: 'Página inicial',
         },
         {
-          name: 'TIMES',
+          name: 'Times',
         },
       ]}
     >
