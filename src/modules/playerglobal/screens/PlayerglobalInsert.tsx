@@ -1,18 +1,12 @@
 import { useNavigate, useParams } from 'react-router-dom';
 
 import Button from '../../../shared/components/buttons/button/Button';
+import FlexProject from '../../../shared/components/flex/FlexProject';
 import Input from '../../../shared/components/inputs/input/Input';
 import InputInteger from '../../../shared/components/inputs/inputInteger/InputInteger';
 import Loading from '../../../shared/components/loading/Loading';
 import Screen from '../../../shared/components/screen/Screen';
 import Select from '../../../shared/components/select/Select';
-import {
-  DisplayFlexAlignCenter,
-  DisplayFlexDirectionRow,
-  DisplayFlexJustifyBetween,
-  DisplayFlexJustifyCenter,
-  DisplayFlexJustifyRight,
-} from '../../../shared/components/styles/display.styled';
 import {
   LimitedContainer,
   LimitedContainerCard,
@@ -71,17 +65,17 @@ const PlayerglobalInsert = () => {
       ]}
     >
       {loadingPlayerglobal ? (
-        <DisplayFlexJustifyCenter>
+        <FlexProject justify="center">
           <LimitedContainerCard width={400}>
-            <DisplayFlexJustifyCenter>
+            <FlexProject justify="center">
               <Loading size="large" />
-            </DisplayFlexJustifyCenter>
+            </FlexProject>
           </LimitedContainerCard>
-        </DisplayFlexJustifyCenter>
+        </FlexProject>
       ) : (
-        <DisplayFlexJustifyCenter>
+        <FlexProject justify="center">
           <LimitedContainer width={805}>
-            <DisplayFlexJustifyBetween>
+            <FlexProject justify="space-between">
               <LimitedContainerCard width={400}>
                 <Input
                   onChange={(event) => handleOnChangeInput(event, 'name')}
@@ -115,12 +109,15 @@ const PlayerglobalInsert = () => {
                   options={countries.map((country: CountryType) => ({
                     value: `${country.id}`,
                     label: (
-                      <DisplayFlexDirectionRow>
-                        <DisplayFlexAlignCenter margin="0px 5px 0px 0px">
-                          <CountrySVG name={country.name} width={20} height={20} />
-                        </DisplayFlexAlignCenter>
+                      <FlexProject justify="flex-start" align="center">
+                        <CountrySVG
+                          name={country.name}
+                          width={20}
+                          height={20}
+                          style={{ margin: '0px 5px 0px 0px' }}
+                        />
                         <text>{country.name}</text>
-                      </DisplayFlexDirectionRow>
+                      </FlexProject>
                     ),
                   }))}
                   showSearch
@@ -131,7 +128,7 @@ const PlayerglobalInsert = () => {
                   }
                 />
 
-                <DisplayFlexJustifyRight>
+                <FlexProject justify="flex-end">
                   <LimitedContainer margin="0px 8px 0px 0px" width={120}>
                     <Button onClick={handleOnClickCancel}>Cancelar</Button>
                   </LimitedContainer>
@@ -145,7 +142,7 @@ const PlayerglobalInsert = () => {
                       {isEdit ? 'Salvar' : 'Inserir'}
                     </Button>
                   </LimitedContainer>
-                </DisplayFlexJustifyRight>
+                </FlexProject>
               </LimitedContainerCard>
               <LimitedContainerCard width={400}>
                 <Select
@@ -167,12 +164,10 @@ const PlayerglobalInsert = () => {
                     value: `${position.id}`,
                     disabled: selectedSecondaryPositionIds.includes(position.id) ? true : false,
                     label: (
-                      <DisplayFlexDirectionRow>
-                        <DisplayFlexAlignCenter>
-                          <PositionTag area={position?.area}>{position?.abbreviation}</PositionTag>
-                        </DisplayFlexAlignCenter>
+                      <FlexProject justify="flex-start" align="center">
+                        <PositionTag area={position?.area}>{position?.abbreviation}</PositionTag>
                         <text>{position.name}</text>
-                      </DisplayFlexDirectionRow>
+                      </FlexProject>
                     ),
                   }))}
                   showSearch
@@ -200,12 +195,10 @@ const PlayerglobalInsert = () => {
                     value: `${position.id}`,
                     disabled: selectedPrimaryPositionIds.includes(position.id) ? true : false,
                     label: (
-                      <DisplayFlexDirectionRow>
-                        <DisplayFlexAlignCenter>
-                          <PositionTag area={position?.area}>{position?.abbreviation}</PositionTag>
-                        </DisplayFlexAlignCenter>
+                      <FlexProject justify="flex-start" align="center">
+                        <PositionTag area={position?.area}>{position?.abbreviation}</PositionTag>
                         <text>{position.name}</text>
-                      </DisplayFlexDirectionRow>
+                      </FlexProject>
                     ),
                   }))}
                   showSearch
@@ -216,9 +209,9 @@ const PlayerglobalInsert = () => {
                   }
                 />
               </LimitedContainerCard>
-            </DisplayFlexJustifyBetween>
+            </FlexProject>
           </LimitedContainer>
-        </DisplayFlexJustifyCenter>
+        </FlexProject>
       )}
     </Screen>
   );

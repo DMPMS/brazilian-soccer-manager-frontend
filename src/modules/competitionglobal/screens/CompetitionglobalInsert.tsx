@@ -1,18 +1,12 @@
 import { useNavigate, useParams } from 'react-router-dom';
 
 import Button from '../../../shared/components/buttons/button/Button';
+import FlexProject from '../../../shared/components/flex/FlexProject';
 import Image from '../../../shared/components/image/Image';
 import Input from '../../../shared/components/inputs/input/Input';
 import Loading from '../../../shared/components/loading/Loading';
 import Screen from '../../../shared/components/screen/Screen';
 import Select from '../../../shared/components/select/Select';
-import {
-  DisplayFlexAlignCenter,
-  DisplayFlexDirectionRow,
-  DisplayFlexJustifyBetween,
-  DisplayFlexJustifyCenter,
-  DisplayFlexJustifyRight,
-} from '../../../shared/components/styles/display.styled';
 import {
   LimitedContainer,
   LimitedContainerCard,
@@ -71,19 +65,19 @@ const CompetitionglobalInsert = () => {
       ]}
     >
       {loadingCompetitionglobal ? (
-        <DisplayFlexJustifyCenter>
+        <FlexProject justify="center">
           <LimitedContainerCard width={400}>
-            <DisplayFlexJustifyCenter>
+            <FlexProject justify="center">
               <Loading size="large" />
-            </DisplayFlexJustifyCenter>
+            </FlexProject>
           </LimitedContainerCard>
-        </DisplayFlexJustifyCenter>
+        </FlexProject>
       ) : (
-        <DisplayFlexJustifyCenter>
+        <FlexProject justify="center">
           <LimitedContainer width={805}>
-            <DisplayFlexJustifyBetween>
+            <FlexProject justify="space-between">
               <LimitedContainerCard width={400}>
-                <DisplayFlexJustifyBetween>
+                <FlexProject justify="space-between">
                   <LimitedContainer width={250}>
                     <Input
                       onChange={(event) => handleOnChangeInput(event, 'name')}
@@ -102,7 +96,7 @@ const CompetitionglobalInsert = () => {
                       placeholder="Temporada"
                     />
                   </LimitedContainer>
-                </DisplayFlexJustifyBetween>
+                </FlexProject>
                 <Input
                   onChange={(event) => handleOnChangeInput(event, 'srcImage')}
                   value={competitionglobal.srcImage}
@@ -138,12 +132,15 @@ const CompetitionglobalInsert = () => {
                   options={countries.map((country: CountryType) => ({
                     value: `${country.id}`,
                     label: (
-                      <DisplayFlexDirectionRow>
-                        <DisplayFlexAlignCenter margin="0px 5px 0px 0px">
-                          <CountrySVG name={country.name} width={20} height={20} />
-                        </DisplayFlexAlignCenter>
+                      <FlexProject justify="flex-start" align="center">
+                        <CountrySVG
+                          name={country.name}
+                          width={20}
+                          height={20}
+                          style={{ margin: '0px 5px 0px 0px' }}
+                        />
                         <text>{country.name}</text>
-                      </DisplayFlexDirectionRow>
+                      </FlexProject>
                     ),
                   }))}
                   showSearch
@@ -154,7 +151,7 @@ const CompetitionglobalInsert = () => {
                   }
                   disabled={isEdit}
                 />
-                <DisplayFlexJustifyRight>
+                <FlexProject justify="flex-end">
                   <LimitedContainer margin="0px 8px 0px 0px" width={120}>
                     <Button onClick={handleOnClickCancel}>Cancelar</Button>
                   </LimitedContainer>
@@ -168,7 +165,7 @@ const CompetitionglobalInsert = () => {
                       {isEdit ? 'Salvar' : 'Inserir'}
                     </Button>
                   </LimitedContainer>
-                </DisplayFlexJustifyRight>
+                </FlexProject>
               </LimitedContainerCard>
               <LimitedContainerCard width={400}>
                 <Select
@@ -192,12 +189,15 @@ const CompetitionglobalInsert = () => {
                   options={teamsglobal.map((teamglobal: TeamglobalType) => ({
                     value: `${teamglobal.id}`,
                     label: (
-                      <DisplayFlexDirectionRow>
-                        <DisplayFlexAlignCenter margin="0px 5px 0px 0px">
-                          <Image src={teamglobal.srcImage} width={20} height={20} />
-                        </DisplayFlexAlignCenter>
+                      <FlexProject justify="flex-start" align="center">
+                        <Image
+                          src={teamglobal.srcImage}
+                          width={20}
+                          height={20}
+                          margin="0px 5px 0px 0px"
+                        />
                         <text>{teamglobal.name}</text>
-                      </DisplayFlexDirectionRow>
+                      </FlexProject>
                     ),
                   }))}
                   showSearch
@@ -213,9 +213,9 @@ const CompetitionglobalInsert = () => {
                   }
                 />
               </LimitedContainerCard>
-            </DisplayFlexJustifyBetween>
+            </FlexProject>
           </LimitedContainer>
-        </DisplayFlexJustifyCenter>
+        </FlexProject>
       )}
     </Screen>
   );

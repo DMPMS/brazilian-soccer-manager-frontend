@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import FlexProject from '../../../shared/components/flex/FlexProject';
 import Loading from '../../../shared/components/loading/Loading';
-import { DisplayFlexJustifyCenter } from '../../../shared/components/styles/display.styled';
 import { useGlobalReducer } from '../../../store/reducers/globalReducer/useGlobalReducer';
 import { ManagerglobalRoutesEnum } from '../../managerglobal/routes';
 
@@ -17,9 +17,9 @@ const FirstScreen = () => {
   }, [user]);
 
   return (
-    <DisplayFlexJustifyCenter>
+    <FlexProject justify="center">
       <Loading size="large" />
-    </DisplayFlexJustifyCenter>
+    </FlexProject>
   );
 };
 

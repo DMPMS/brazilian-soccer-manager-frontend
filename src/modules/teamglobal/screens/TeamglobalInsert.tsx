@@ -2,16 +2,11 @@
 import { useNavigate, useParams } from 'react-router-dom';
 
 import Button from '../../../shared/components/buttons/button/Button';
+import FlexProject from '../../../shared/components/flex/FlexProject';
 import Input from '../../../shared/components/inputs/input/Input';
 import Loading from '../../../shared/components/loading/Loading';
 import Screen from '../../../shared/components/screen/Screen';
 import Select from '../../../shared/components/select/Select';
-import {
-  DisplayFlexAlignCenter,
-  DisplayFlexDirectionRow,
-  DisplayFlexJustifyCenter,
-  DisplayFlexJustifyRight,
-} from '../../../shared/components/styles/display.styled';
 import {
   LimitedContainer,
   LimitedContainerCard,
@@ -69,15 +64,15 @@ const TeamglobalInsert = () => {
       ]}
     >
       {loadingTeamglobal ? (
-        <DisplayFlexJustifyCenter>
+        <FlexProject justify="center">
           <LimitedContainerCard width={400}>
-            <DisplayFlexJustifyCenter>
+            <FlexProject justify="center">
               <Loading size="large" />
-            </DisplayFlexJustifyCenter>
+            </FlexProject>
           </LimitedContainerCard>
-        </DisplayFlexJustifyCenter>
+        </FlexProject>
       ) : (
-        <DisplayFlexJustifyCenter>
+        <FlexProject justify="center">
           <LimitedContainerCard width={400}>
             <Input
               onChange={(event) => handleOnChangeInput(event, 'name')}
@@ -117,12 +112,15 @@ const TeamglobalInsert = () => {
               options={countries.map((country: CountryType) => ({
                 value: `${country.id}`,
                 label: (
-                  <DisplayFlexDirectionRow>
-                    <DisplayFlexAlignCenter margin="0px 5px 0px 0px">
-                      <CountrySVG name={country.name} width={20} height={20} />
-                    </DisplayFlexAlignCenter>
+                  <FlexProject justify="flex-start" align="center">
+                    <CountrySVG
+                      name={country.name}
+                      width={20}
+                      height={20}
+                      style={{ margin: '0px 5px 0px 0px' }}
+                    />
                     <text>{country.name}</text>
-                  </DisplayFlexDirectionRow>
+                  </FlexProject>
                 ),
               }))}
               showSearch
@@ -164,7 +162,7 @@ const TeamglobalInsert = () => {
                 optionA.label.toLowerCase().localeCompare(optionB.label.toLowerCase())
               }
             />
-            <DisplayFlexJustifyRight>
+            <FlexProject justify="flex-end">
               <LimitedContainer margin="0px 8px 0px 0px" width={120}>
                 <Button onClick={handleOnClickCancel}>Cancelar</Button>
               </LimitedContainer>
@@ -178,9 +176,9 @@ const TeamglobalInsert = () => {
                   {isEdit ? 'Salvar' : 'Inserir'}
                 </Button>
               </LimitedContainer>
-            </DisplayFlexJustifyRight>
+            </FlexProject>
           </LimitedContainerCard>
-        </DisplayFlexJustifyCenter>
+        </FlexProject>
       )}
     </Screen>
   );
