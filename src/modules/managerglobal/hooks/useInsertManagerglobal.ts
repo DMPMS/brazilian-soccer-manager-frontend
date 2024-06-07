@@ -1,3 +1,4 @@
+import { useForm } from 'antd/es/form/Form';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,6 +16,7 @@ import { ManagerglobalRoutesEnum } from '../routes';
 const DEFAULT_MANAGERGLOBAL = {
   name: '',
   age: 0,
+  countryId: undefined,
 };
 
 export const useInsertManagerglobal = (managerglobalId?: string) => {
@@ -32,6 +34,8 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
   const [disabledButton, setDisabledButton] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
   const [managerglobal, setManagerglobal] = useState<InsertManagerglobalDTO>(DEFAULT_MANAGERGLOBAL);
+
+  const [formManagerglobal] = useForm();
 
   useEffect(() => {
     if (managerglobalId) {
@@ -62,28 +66,55 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
         age: managerglobalReducer.age,
         countryId: managerglobalReducer.country?.id,
       });
+
+      formManagerglobal.setFieldsValue({
+        name: managerglobalReducer.name,
+        age: managerglobalReducer.age,
+        countryId:
+          managerglobalReducer.country?.id !== undefined
+            ? `${managerglobalReducer.country.id}`
+            : undefined,
+      });
     } else {
       setManagerglobal(DEFAULT_MANAGERGLOBAL);
+      formManagerglobal.resetFields();
     }
   }, [managerglobalReducer]);
 
   useEffect(() => {
-    if (managerglobal.name && managerglobal.countryId && managerglobal.age > 0) {
+    console.log(managerglobal);
+    if (
+      managerglobal.name.length >= 3 &&
+      managerglobal.name.length <= 40 &&
+      managerglobal.age >= 18 &&
+      managerglobal.age <= 90 &&
+      managerglobal.countryId
+    ) {
       setDisabledButton(false);
     } else {
       setDisabledButton(true);
     }
   }, [managerglobal]);
 
-  const handleOnChangeInput = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    nameObject: string,
-    isNumber?: boolean,
-  ) => {
+  const handleOnChangeInput = (event: React.ChangeEvent<HTMLInputElement>, nameObject: string) => {
     setManagerglobal({
       ...managerglobal,
-      [nameObject]: isNumber ? Number(event.target.value) : event.target.value,
+      [nameObject]: event.target.value,
     });
+  };
+
+  const handleOnChangeInputNumber = (value: number | string | null, nameObject: string) => {
+    if (typeof value === 'number') {
+      setManagerglobal({
+        ...managerglobal,
+        [nameObject]: value,
+      });
+    } else {
+      setManagerglobal({
+        ...managerglobal,
+        [nameObject]: 0,
+      });
+    }
   };
 
   const handleOnChangeCountrySelect = (value: string) => {
@@ -123,12 +154,13 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
   };
 
   return {
-    managerglobal,
     loading,
     disabledButton,
     isEdit,
     loadingManagerglobal,
+    formManagerglobal,
     handleOnChangeInput,
+    handleOnChangeInputNumber,
     handleOnClickInsert,
     handleOnChangeCountrySelect,
   };

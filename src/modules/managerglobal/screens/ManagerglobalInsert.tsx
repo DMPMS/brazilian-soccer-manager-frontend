@@ -1,12 +1,13 @@
+import { Form } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import Button from '../../../shared/components/buttons/button/Button';
 import FlexProject from '../../../shared/components/flex/FlexProject';
-import Input from '../../../shared/components/inputs/input/Input';
-import InputInteger from '../../../shared/components/inputs/inputInteger/InputInteger';
+import InputProject from '../../../shared/components/inputs/input/InputProject';
+import InputIntegerProject from '../../../shared/components/inputs/inputInteger/InputIntegerProject';
 import Loading from '../../../shared/components/loading/Loading';
 import Screen from '../../../shared/components/screen/Screen';
-import Select from '../../../shared/components/select/Select';
+import SelectProject from '../../../shared/components/select/SelectProject';
 import {
   LimitedContainer,
   LimitedContainerCard,
@@ -21,12 +22,13 @@ const ManagerglobalInsert = () => {
   const { managerglobalId } = useParams<{ managerglobalId: string }>();
 
   const {
-    managerglobal,
     loading,
     disabledButton,
     isEdit,
     loadingManagerglobal,
+    formManagerglobal,
     handleOnChangeInput,
+    handleOnChangeInputNumber,
     handleOnClickInsert,
     handleOnChangeCountrySelect,
   } = useInsertManagerglobal(managerglobalId);
@@ -65,49 +67,74 @@ const ManagerglobalInsert = () => {
       ) : (
         <FlexProject justify="center">
           <LimitedContainerCard width={400}>
-            <Input
-              onChange={(event) => handleOnChangeInput(event, 'name')}
-              value={managerglobal.name}
-              margin="0px 0px 16px 0px"
-              title="Nome"
-              placeholder="Nome"
-            />
-            <InputInteger
-              onChange={(event) => handleOnChangeInput(event, 'age', true)}
-              value={managerglobal.age}
-              margin="0px 0px 16px 0px"
-              title="Idade"
-              placeholder="Idade"
-            />
-            <Select
-              title="Nacionalidade"
-              placeholder="Selecione um país"
-              margin="0px 0px 16px 0px"
-              onChange={handleOnChangeCountrySelect}
-              value={
-                managerglobal.countryId !== undefined ? `${managerglobal.countryId}` : undefined
-              }
-              options={countries.map((country: CountryType) => ({
-                value: `${country.id}`,
-                label: (
-                  <FlexProject justify="flex-start" align="center">
-                    <CountrySVG
-                      name={country.name}
-                      width={20}
-                      height={20}
-                      style={{ margin: '0px 5px 0px 0px' }}
-                    />
-                    <text>{country.name}</text>
-                  </FlexProject>
-                ),
-              }))}
-              showSearch
-              filterOption={(input, option) =>
-                option.label.props.children[1].props.children
-                  .toLowerCase()
-                  .includes(input.toLowerCase())
-              }
-            />
+            <Form layout="vertical" form={formManagerglobal}>
+              <Form.Item
+                label="Nome"
+                name="name"
+                required
+                rules={[
+                  { required: true, message: 'Este campo deve ser preenchido.' },
+                  { min: 3, message: 'Inclua pelo menos 3 caracteres.' },
+                  { max: 40, message: 'Inclua até 40 caracteres.' },
+                ]}
+              >
+                <InputProject
+                  placeholder="Nome"
+                  onChange={(event) => handleOnChangeInput(event, 'name')}
+                />
+              </Form.Item>
+
+              <Form.Item
+                label="Idade"
+                name="age"
+                required
+                rules={[
+                  { required: true, message: 'Este campo deve ser preenchido.' },
+                  { type: 'number', min: 18, message: 'A idade mínima é 18.' },
+                  { type: 'number', max: 90, message: 'A idade máxima é 90.' },
+                ]}
+              >
+                <InputIntegerProject
+                  placeholder="Idade"
+                  onChange={(value) => {
+                    handleOnChangeInputNumber(value, 'age');
+                  }}
+                />
+              </Form.Item>
+
+              <Form.Item
+                label="Nacionalidade"
+                name="countryId"
+                required
+                rules={[{ required: true, message: 'Este campo deve ser preenchido.' }]}
+              >
+                <SelectProject
+                  placeholder="Selecione um país"
+                  onChange={handleOnChangeCountrySelect}
+                  options={countries.map((country: CountryType) => ({
+                    value: `${country.id}`,
+                    label: (
+                      <FlexProject justify="flex-start" align="center">
+                        <CountrySVG
+                          name={country.name}
+                          width={20}
+                          height={20}
+                          style={{ margin: '0px 5px 0px 0px' }}
+                        />
+                        <text>{country.name}</text>
+                      </FlexProject>
+                    ),
+                  }))}
+                  showSearch
+                  filterOption={(input, option) =>
+                    option.label.props.children[1].props.children
+                      .toLowerCase()
+                      .includes(input.toLowerCase())
+                  }
+                />
+              </Form.Item>
+            </Form>
+
             <FlexProject justify="flex-end">
               <LimitedContainer margin="0px 8px 0px 0px" width={120}>
                 <Button onClick={handleOnClickCancel}>Cancelar</Button>
