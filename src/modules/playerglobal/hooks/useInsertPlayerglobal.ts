@@ -1,3 +1,4 @@
+import { useForm } from 'antd/es/form/Form';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,6 +15,8 @@ const DEFAULT_PLAYERGLOBAL = {
   overall: 0,
   primaryPositionIds: [],
   secondaryPositionIds: [],
+  countryId: undefined,
+  teamglobalId: undefined,
 };
 
 const PRIMARY_POSITIONS_MIN = 1;
@@ -37,6 +40,8 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
 
   const [selectedPrimaryPositionIds, setSelectedPrimaryPositionIds] = useState<number[]>([]);
   const [selectedSecondaryPositionIds, setSelectedSecondaryPositionIds] = useState<number[]>([]);
+
+  const [formPlayerglobal] = useForm();
 
   useEffect(() => {
     if (playerglobalId) {
@@ -84,10 +89,29 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
         secondaryPositionIds: secondaryPositionIds,
       });
 
+      formPlayerglobal.setFieldsValue({
+        name: playerglobalReducer.name,
+        age: playerglobalReducer.age,
+        overall: playerglobalReducer.overall,
+        countryId:
+          playerglobalReducer.country?.id !== undefined
+            ? `${playerglobalReducer.country.id}`
+            : undefined,
+        primaryPositionIds:
+          primaryPositionIds.length !== 0
+            ? primaryPositionIds.map((primaryPositionId) => `${primaryPositionId}`)
+            : undefined,
+        secondaryPositionIds:
+          secondaryPositionIds.length !== 0
+            ? secondaryPositionIds.map((secondaryPositionId) => `${secondaryPositionId}`)
+            : undefined,
+      });
+
       setSelectedPrimaryPositionIds(primaryPositionIds);
       setSelectedSecondaryPositionIds(secondaryPositionIds);
     } else {
       setPlayerglobal(DEFAULT_PLAYERGLOBAL);
+      formPlayerglobal.resetFields();
       setSelectedPrimaryPositionIds([]);
       setSelectedSecondaryPositionIds([]);
     }
@@ -95,10 +119,13 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
 
   useEffect(() => {
     if (
-      playerglobal.name &&
+      playerglobal.name.length >= 3 &&
+      playerglobal.name.length <= 40 &&
+      playerglobal.age >= 14 &&
+      playerglobal.age <= 50 &&
+      playerglobal.overall >= 1 &&
+      playerglobal.overall <= 100 &&
       playerglobal.countryId &&
-      playerglobal.overall > 0 &&
-      playerglobal.age > 0 &&
       playerglobal.primaryPositionIds.length >= PRIMARY_POSITIONS_MIN &&
       playerglobal.primaryPositionIds.length <= PRIMARY_POSITIONS_MAX &&
       playerglobal.secondaryPositionIds.length <= SECONDARY_POSITIONS_MAX
@@ -109,15 +136,25 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
     }
   }, [playerglobal]);
 
-  const handleOnChangeInput = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    nameObject: string,
-    isNumber?: boolean,
-  ) => {
+  const handleOnChangeInput = (event: React.ChangeEvent<HTMLInputElement>, nameObject: string) => {
     setPlayerglobal({
       ...playerglobal,
-      [nameObject]: isNumber ? Number(event.target.value) : event.target.value,
+      [nameObject]: event.target.value,
     });
+  };
+
+  const handleOnChangeInputNumber = (value: number | string | null, nameObject: string) => {
+    if (typeof value === 'number') {
+      setPlayerglobal({
+        ...playerglobal,
+        [nameObject]: value,
+      });
+    } else {
+      setPlayerglobal({
+        ...playerglobal,
+        [nameObject]: 0,
+      });
+    }
   };
 
   const handleOnChangeCountrySelect = (value: string) => {
@@ -174,16 +211,17 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
   };
 
   return {
-    playerglobal,
     loading,
     disabledButton,
     isEdit,
     loadingPlayerglobal,
+    formPlayerglobal,
     selectedPrimaryPositionIds,
     selectedSecondaryPositionIds,
     PRIMARY_POSITIONS_MAX,
     SECONDARY_POSITIONS_MAX,
     handleOnChangeInput,
+    handleOnChangeInputNumber,
     handleOnClickInsert,
     handleOnChangeCountrySelect,
     handleOnChangePrimaryPositionSelect,

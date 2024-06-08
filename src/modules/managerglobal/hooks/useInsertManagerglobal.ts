@@ -82,7 +82,6 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
   }, [managerglobalReducer]);
 
   useEffect(() => {
-    console.log(managerglobal);
     if (
       managerglobal.name.length >= 3 &&
       managerglobal.name.length <= 40 &&
