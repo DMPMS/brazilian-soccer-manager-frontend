@@ -1,3 +1,4 @@
+import { useForm } from 'antd/es/form/Form';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,6 +19,8 @@ import { TeamglobalRoutesEnum } from '../routes';
 const DEFAULT_TEAMGLOBAL = {
   name: '',
   srcImage: '',
+  countryId: undefined,
+  managerglobalId: undefined,
 };
 
 export const useInsertTeamglobal = (teamglobalId?: string) => {
@@ -37,6 +40,8 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
   const [teamglobal, setTeamglobal] = useState<InsertTeamglobalDTO>(DEFAULT_TEAMGLOBAL);
 
   // const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const [formTeamglobal] = useForm();
 
   const [managerglobalOfTeamglobalReducer, setManagerglobalOfTeamglobalReducer] = useState<
     ManagerglobalType | undefined
@@ -71,16 +76,31 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
         managerglobalId: teamglobalReducer.managerglobal?.id,
       });
 
+      formTeamglobal.setFieldsValue({
+        name: teamglobalReducer.name,
+        srcImage: teamglobalReducer.srcImage,
+        countryId:
+          teamglobalReducer.country?.id !== undefined
+            ? `${teamglobalReducer.country.id}`
+            : undefined,
+        managerglobalId:
+          teamglobalReducer.managerglobal?.id !== undefined
+            ? `${teamglobalReducer.managerglobal.id}`
+            : undefined,
+      });
+
       setManagerglobalOfTeamglobalReducer(teamglobalReducer.managerglobal);
     } else {
       setTeamglobal(DEFAULT_TEAMGLOBAL);
+      formTeamglobal.resetFields();
       setManagerglobalOfTeamglobalReducer(undefined);
     }
   }, [teamglobalReducer]);
 
   useEffect(() => {
     if (
-      teamglobal.name &&
+      teamglobal.name.length >= 3 &&
+      teamglobal.name.length <= 40 &&
       teamglobal.srcImage &&
       teamglobal.countryId &&
       teamglobal.managerglobalId
@@ -161,11 +181,11 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
   };
 
   return {
-    teamglobal,
     loading,
     disabledButton,
     isEdit,
     loadingTeamglobal,
+    formTeamglobal,
     managerglobalOfTeamglobalReducer,
     handleOnChangeInput,
     handleOnClickInsert,

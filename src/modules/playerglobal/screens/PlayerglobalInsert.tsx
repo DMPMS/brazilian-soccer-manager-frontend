@@ -188,7 +188,7 @@ const PlayerglobalInsert = () => {
                     rules={[{ required: true, message: 'Este campo deve ser preenchido.' }]}
                   >
                     <SelectProject
-                      placeholder="Selecione as posições"
+                      placeholder="Selecione pelo menos uma posição"
                       mode="multiple"
                       maxCount={PRIMARY_POSITIONS_MAX}
                       onChange={handleOnChangePrimaryPositionSelect}
@@ -216,8 +216,6 @@ const PlayerglobalInsert = () => {
                   <Form.Item
                     label={`Posições secundárias (${selectedSecondaryPositionIds.length} / ${SECONDARY_POSITIONS_MAX})`}
                     name="secondaryPositionIds"
-                    required
-                    rules={[{ required: true, message: 'Este campo deve ser preenchido.' }]}
                   >
                     <SelectProject
                       placeholder="Selecione as posições"
