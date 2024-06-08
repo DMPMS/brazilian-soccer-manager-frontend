@@ -1,3 +1,4 @@
+import { useForm } from 'antd/es/form/Form';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -19,6 +20,8 @@ const DEFAULT_COMPETITIONGLOBAL = {
   season: '',
   srcImage: '',
   teamglobalIds: [],
+  ruleId: undefined,
+  countryId: undefined,
 };
 
 export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
@@ -37,6 +40,8 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
   const [isEdit, setIsEdit] = useState(false);
   const [competitionglobal, setCompetitionglobal] =
     useState<InsertCompetitionglobalDTO>(DEFAULT_COMPETITIONGLOBAL);
+
+  const [formCompetitionglobal] = useForm();
 
   const { rules } = useRule();
 
@@ -84,10 +89,29 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
         teamglobalIds: teamglobalIds,
       });
 
+      formCompetitionglobal.setFieldsValue({
+        name: competitionglobalReducer.name,
+        season: competitionglobalReducer.season,
+        srcImage: competitionglobalReducer.srcImage,
+        ruleId:
+          competitionglobalReducer.rule?.id !== undefined
+            ? `${competitionglobalReducer.rule.id}`
+            : undefined,
+        countryId:
+          competitionglobalReducer.country?.id !== undefined
+            ? `${competitionglobalReducer.country.id}`
+            : undefined,
+        teamglobalIds:
+          teamglobalIds.length !== 0
+            ? teamglobalIds.map((teamglobalId) => `${teamglobalId}`)
+            : undefined,
+      });
+
       setRuleNumberOfTeams(competitionglobalReducer.rule?.numberOfTeams || 0);
       setTeamglobalIdsCount(teamglobalIds.length);
     } else {
       setCompetitionglobal(DEFAULT_COMPETITIONGLOBAL);
+      formCompetitionglobal.resetFields();
       setRuleNumberOfTeams(0);
       setTeamglobalIdsCount(0);
     }
@@ -95,8 +119,10 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
 
   useEffect(() => {
     if (
-      competitionglobal.name &&
-      competitionglobal.season &&
+      competitionglobal.name.length >= 3 &&
+      competitionglobal.name.length <= 40 &&
+      competitionglobal.season.length >= 3 &&
+      competitionglobal.season.length <= 12 &&
       competitionglobal.srcImage &&
       competitionglobal.ruleId &&
       competitionglobal.countryId &&
@@ -174,11 +200,11 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
   };
 
   return {
-    competitionglobal,
     loading,
     disabledButton,
     isEdit,
     loadingCompetitionglobal,
+    formCompetitionglobal,
     ruleNumberOfTeams,
     teamglobalIdsCount,
     handleOnChangeInput,
