@@ -1,10 +1,10 @@
 import { Form } from 'antd';
 
-import Button from '../../../shared/components/buttons/button/Button';
+import ButtonProject from '../../../shared/components/buttons/button/ButtonProject';
 import FlexProject from '../../../shared/components/flex/FlexProject';
 import InputProject from '../../../shared/components/inputs/input/InputProject';
 import InputPasswordProject from '../../../shared/components/inputs/inputPassword/InputPasswordProject';
-import { LimitedContainerCard } from '../../../shared/components/styles/limited.styled';
+import { LimitedContainerProjectCardProject } from '../../../shared/components/styles/limited.styled';
 import { useLogin } from '../hooks/useLogin';
 import { LogoLogin, TitleLogin } from '../styles/loginScreen.style';
 
@@ -13,7 +13,7 @@ const LoginScreen = () => {
 
   return (
     <FlexProject justify="center" align="center" style={{ height: '100vh' }}>
-      <LimitedContainerCard width={300} margin="10px">
+      <LimitedContainerProjectCardProject width={300} margin="10px">
         <FlexProject justify="center" align="center" vertical style={{ textAlign: 'center' }}>
           <LogoLogin src="logo.png" />
           <TitleLogin level={3}>Brazilian Soccer Manager</TitleLogin>
@@ -46,15 +46,15 @@ const LoginScreen = () => {
           </Form.Item>
         </Form>
 
-        <Button
+        <ButtonProject
           loading={loading}
           disabled={disabledButton}
           type="primary"
           onClick={handleOnClickLogin}
         >
           Entrar
-        </Button>
-      </LimitedContainerCard>
+        </ButtonProject>
+      </LimitedContainerProjectCardProject>
     </FlexProject>
   );
 };

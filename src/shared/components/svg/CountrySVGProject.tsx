@@ -1,4 +1,4 @@
-const CountrySVG = ({ name, ...props }: React.SVGProps<SVGSVGElement>) => {
+const CountrySVGProject = ({ name, ...props }: React.SVGProps<SVGSVGElement>) => {
   let content = null;
 
   switch (name) {
@@ -4450,4 +4450,4 @@ const CountrySVG = ({ name, ...props }: React.SVGProps<SVGSVGElement>) => {
   );
 };
 
-export default CountrySVG;
+export default CountrySVGProject;

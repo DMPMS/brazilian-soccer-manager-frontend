@@ -2,17 +2,17 @@
 import { Form } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import Button from '../../../shared/components/buttons/button/Button';
+import ButtonProject from '../../../shared/components/buttons/button/ButtonProject';
 import FlexProject from '../../../shared/components/flex/FlexProject';
 import InputProject from '../../../shared/components/inputs/input/InputProject';
-import Loading from '../../../shared/components/loading/Loading';
-import Screen from '../../../shared/components/screen/Screen';
+import LoadingProject from '../../../shared/components/loading/LoadingProject';
+import Screen from '../../../shared/components/screen/ScreenProject';
 import SelectProject from '../../../shared/components/select/SelectProject';
 import {
-  LimitedContainer,
-  LimitedContainerCard,
+  LimitedContainerProject,
+  LimitedContainerProjectCardProject,
 } from '../../../shared/components/styles/limited.styled';
-import CountrySVG from '../../../shared/components/svg/CountrySVG';
+import CountrySVGProject from '../../../shared/components/svg/CountrySVGProject';
 import { CountryType } from '../../../shared/types/CountryType';
 import { ManagerglobalType } from '../../../shared/types/ManagerglobalType';
 // import UploadImage from '../../../shared/components/upload/uploadImage/UploadImage';
@@ -66,15 +66,15 @@ const TeamglobalInsert = () => {
     >
       {loadingTeamglobal ? (
         <FlexProject justify="center">
-          <LimitedContainerCard width={400}>
+          <LimitedContainerProjectCardProject width={400}>
             <FlexProject justify="center">
-              <Loading size="large" />
+              <LoadingProject size="large" />
             </FlexProject>
-          </LimitedContainerCard>
+          </LimitedContainerProjectCardProject>
         </FlexProject>
       ) : (
         <FlexProject justify="center">
-          <LimitedContainerCard width={400}>
+          <LimitedContainerProjectCardProject width={400}>
             <Form layout="vertical" form={formTeamglobal}>
               <Form.Item
                 label="Nome"
@@ -131,7 +131,7 @@ const TeamglobalInsert = () => {
                     value: `${country.id}`,
                     label: (
                       <FlexProject justify="flex-start" align="center">
-                        <CountrySVG
+                        <CountrySVGProject
                           name={country.name}
                           width={20}
                           height={20}
@@ -184,22 +184,22 @@ const TeamglobalInsert = () => {
               </Form.Item>
 
               <FlexProject justify="flex-end">
-                <LimitedContainer margin="0px 8px 0px 0px" width={120}>
-                  <Button onClick={handleOnClickCancel}>Cancelar</Button>
-                </LimitedContainer>
-                <LimitedContainer width={120}>
-                  <Button
+                <LimitedContainerProject margin="0px 8px 0px 0px" width={120}>
+                  <ButtonProject onClick={handleOnClickCancel}>Cancelar</ButtonProject>
+                </LimitedContainerProject>
+                <LimitedContainerProject width={120}>
+                  <ButtonProject
                     loading={loading}
                     disabled={disabledButton}
                     onClick={handleOnClickInsert}
                     type="primary"
                   >
                     {isEdit ? 'Salvar' : 'Inserir'}
-                  </Button>
-                </LimitedContainer>
+                  </ButtonProject>
+                </LimitedContainerProject>
               </FlexProject>
             </Form>
-          </LimitedContainerCard>
+          </LimitedContainerProjectCardProject>
         </FlexProject>
       )}
     </Screen>

@@ -1,12 +1,12 @@
-import { TagProps as TagAntdProps } from 'antd';
+import { TagProps } from 'antd';
 
-import { TagAntd } from './positionTag.style';
+import { TagStyled } from './positionTagProject.style';
 
-interface TagProps extends TagAntdProps {
+interface PositionTagProjectProps extends TagProps {
   area?: string;
 }
 
-const PositionTag = ({ area, ...props }: TagProps) => {
+const PositionTagProject = ({ area, ...props }: PositionTagProjectProps) => {
   let color: string;
 
   if (area === 'Ataque') {
@@ -21,7 +21,7 @@ const PositionTag = ({ area, ...props }: TagProps) => {
     color = 'default';
   }
 
-  return <TagAntd color={color} {...props} />;
+  return <TagStyled color={color} {...props} />;
 };
 
-export default PositionTag;
+export default PositionTagProject;

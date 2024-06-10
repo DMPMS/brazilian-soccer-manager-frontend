@@ -1,16 +1,16 @@
 import styled from 'styled-components';
 
-interface LimitedContainerProps {
+interface LimitedContainerProjectProjectProps {
   width: number;
   margin?: string;
 }
 
-export const LimitedContainer = styled.div<LimitedContainerProps>`
+export const LimitedContainerProject = styled.div<LimitedContainerProjectProjectProps>`
   width: ${(props) => props.width}px;
   ${(props) => (props.margin ? `margin: ${props.margin}` : '')};
 `;
 
-export const LimitedContainerCard = styled(LimitedContainer)`
+export const LimitedContainerProjectCardProject = styled(LimitedContainerProject)`
   background-color: #ffffff;
 
   padding: 15px;

@@ -1,19 +1,19 @@
 import { Form } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import Button from '../../../shared/components/buttons/button/Button';
+import ButtonProject from '../../../shared/components/buttons/button/ButtonProject';
 import FlexProject from '../../../shared/components/flex/FlexProject';
 import InputProject from '../../../shared/components/inputs/input/InputProject';
 import InputIntegerProject from '../../../shared/components/inputs/inputInteger/InputIntegerProject';
-import Loading from '../../../shared/components/loading/Loading';
-import Screen from '../../../shared/components/screen/Screen';
+import LoadingProject from '../../../shared/components/loading/LoadingProject';
+import Screen from '../../../shared/components/screen/ScreenProject';
 import SelectProject from '../../../shared/components/select/SelectProject';
 import {
-  LimitedContainer,
-  LimitedContainerCard,
+  LimitedContainerProject,
+  LimitedContainerProjectCardProject,
 } from '../../../shared/components/styles/limited.styled';
-import CountrySVG from '../../../shared/components/svg/CountrySVG';
-import PositionTag from '../../../shared/components/tags/positionTag/PositionTag';
+import CountrySVGProject from '../../../shared/components/svg/CountrySVGProject';
+import PositionTagProject from '../../../shared/components/tags/positionTag/PositionTagProject';
 import { CountryType } from '../../../shared/types/CountryType';
 import { PositionType } from '../../../shared/types/PositionType';
 import { useCountry } from '../../country/hooks/useCountry';
@@ -68,18 +68,18 @@ const PlayerglobalInsert = () => {
     >
       {loadingPlayerglobal ? (
         <FlexProject justify="center">
-          <LimitedContainerCard width={400}>
+          <LimitedContainerProjectCardProject width={400}>
             <FlexProject justify="center">
-              <Loading size="large" />
+              <LoadingProject size="large" />
             </FlexProject>
-          </LimitedContainerCard>
+          </LimitedContainerProjectCardProject>
         </FlexProject>
       ) : (
         <FlexProject justify="center">
-          <LimitedContainer width={805}>
+          <LimitedContainerProject width={805}>
             <Form layout="vertical" form={formPlayerglobal}>
               <FlexProject justify="space-between">
-                <LimitedContainerCard width={400}>
+                <LimitedContainerProjectCardProject width={400}>
                   <Form.Item
                     label="Nome"
                     name="name"
@@ -145,7 +145,7 @@ const PlayerglobalInsert = () => {
                         value: `${country.id}`,
                         label: (
                           <FlexProject justify="flex-start" align="center">
-                            <CountrySVG
+                            <CountrySVGProject
                               name={country.name}
                               width={20}
                               height={20}
@@ -165,22 +165,22 @@ const PlayerglobalInsert = () => {
                   </Form.Item>
 
                   <FlexProject justify="flex-end">
-                    <LimitedContainer margin="0px 8px 0px 0px" width={120}>
-                      <Button onClick={handleOnClickCancel}>Cancelar</Button>
-                    </LimitedContainer>
-                    <LimitedContainer width={120}>
-                      <Button
+                    <LimitedContainerProject margin="0px 8px 0px 0px" width={120}>
+                      <ButtonProject onClick={handleOnClickCancel}>Cancelar</ButtonProject>
+                    </LimitedContainerProject>
+                    <LimitedContainerProject width={120}>
+                      <ButtonProject
                         loading={loading}
                         disabled={disabledButton}
                         onClick={handleOnClickInsert}
                         type="primary"
                       >
                         {isEdit ? 'Salvar' : 'Inserir'}
-                      </Button>
-                    </LimitedContainer>
+                      </ButtonProject>
+                    </LimitedContainerProject>
                   </FlexProject>
-                </LimitedContainerCard>
-                <LimitedContainerCard width={400}>
+                </LimitedContainerProjectCardProject>
+                <LimitedContainerProjectCardProject width={400}>
                   <Form.Item
                     label={`Posições primárias (${selectedPrimaryPositionIds.length} / ${PRIMARY_POSITIONS_MAX})`}
                     name="primaryPositionIds"
@@ -197,9 +197,9 @@ const PlayerglobalInsert = () => {
                         disabled: selectedSecondaryPositionIds.includes(position.id) ? true : false,
                         label: (
                           <FlexProject justify="flex-start" align="center">
-                            <PositionTag area={position?.area}>
+                            <PositionTagProject area={position?.area}>
                               {position?.abbreviation}
-                            </PositionTag>
+                            </PositionTagProject>
                             <text>{position.name}</text>
                           </FlexProject>
                         ),
@@ -227,9 +227,9 @@ const PlayerglobalInsert = () => {
                         disabled: selectedPrimaryPositionIds.includes(position.id) ? true : false,
                         label: (
                           <FlexProject justify="flex-start" align="center">
-                            <PositionTag area={position?.area}>
+                            <PositionTagProject area={position?.area}>
                               {position?.abbreviation}
-                            </PositionTag>
+                            </PositionTagProject>
                             <text>{position.name}</text>
                           </FlexProject>
                         ),
@@ -242,10 +242,10 @@ const PlayerglobalInsert = () => {
                       }
                     />
                   </Form.Item>
-                </LimitedContainerCard>
+                </LimitedContainerProjectCardProject>
               </FlexProject>
             </Form>
-          </LimitedContainer>
+          </LimitedContainerProject>
         </FlexProject>
       )}
     </Screen>

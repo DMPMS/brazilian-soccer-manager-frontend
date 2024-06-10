@@ -1,4 +1,4 @@
-import { Breadcrumb as BreadcrumbAntd } from 'antd';
+import { Breadcrumb } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 export interface ListBreadcrumb {
@@ -6,11 +6,11 @@ export interface ListBreadcrumb {
   navigateTo?: string;
 }
 
-interface BreadcrumbProps {
+interface BreadcrumbProjectProps {
   listBreadcrumb: ListBreadcrumb[];
 }
 
-const Breadcrumb = ({ listBreadcrumb }: BreadcrumbProps) => {
+const BreadcrumbProject = ({ listBreadcrumb }: BreadcrumbProjectProps) => {
   const navigate = useNavigate();
 
   const handleGoToClick = (navigateTo: string) => {
@@ -18,18 +18,18 @@ const Breadcrumb = ({ listBreadcrumb }: BreadcrumbProps) => {
   };
 
   return (
-    <BreadcrumbAntd>
+    <Breadcrumb>
       {listBreadcrumb.map((breadcrumb, index) => (
-        <BreadcrumbAntd.Item key={`breadcrumb_${index}`}>
+        <Breadcrumb.Item key={`breadcrumb_${index}`}>
           {breadcrumb.navigateTo ? (
             <a onClick={() => handleGoToClick(breadcrumb.navigateTo || '')}>{breadcrumb.name}</a>
           ) : (
             breadcrumb.name
           )}
-        </BreadcrumbAntd.Item>
+        </Breadcrumb.Item>
       ))}
-    </BreadcrumbAntd>
+    </Breadcrumb>
   );
 };
 
-export default Breadcrumb;
+export default BreadcrumbProject;

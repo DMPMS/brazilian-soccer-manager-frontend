@@ -5,14 +5,14 @@ import { ColumnsType } from 'antd/es/table';
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Button from '../../../shared/components/buttons/button/Button';
+import ButtonProject from '../../../shared/components/buttons/button/ButtonProject';
 import FlexProject from '../../../shared/components/flex/FlexProject';
-import Image from '../../../shared/components/image/Image';
-import Screen from '../../../shared/components/screen/Screen';
-import { LimitedContainer } from '../../../shared/components/styles/limited.styled';
-import CountrySVG from '../../../shared/components/svg/CountrySVG';
-import Table from '../../../shared/components/table/Table';
-import PositionTag from '../../../shared/components/tags/positionTag/PositionTag';
+import ImageProject from '../../../shared/components/image/ImageProject';
+import Screen from '../../../shared/components/screen/ScreenProject';
+import { LimitedContainerProject } from '../../../shared/components/styles/limited.styled';
+import CountrySVGProject from '../../../shared/components/svg/CountrySVGProject';
+import TableProject from '../../../shared/components/table/TableProject';
+import PositionTagProject from '../../../shared/components/tags/positionTag/PositionTagProject';
 import { PlayerglobalType } from '../../../shared/types/PlayerglobalType';
 import { usePlayerglobal } from '../hooks/usePlayerglobal';
 import { PlayerglobalRoutesEnum } from '../routes';
@@ -56,9 +56,9 @@ const Playerglobal = () => {
             {target.playersglobalPosition
               ?.filter((playerglobalPosition) => playerglobalPosition.rating === 1)
               .map((playerglobalPosition, index) => (
-                <PositionTag area={playerglobalPosition.position?.area} key={index}>
+                <PositionTagProject area={playerglobalPosition.position?.area} key={index}>
                   {playerglobalPosition.position?.abbreviation}
-                </PositionTag>
+                </PositionTagProject>
               ))}
           </>
         ),
@@ -69,7 +69,7 @@ const Playerglobal = () => {
         key: 'country',
         render: (_, target) => (
           <FlexProject justify="flex-start" align="center">
-            <CountrySVG
+            <CountrySVGProject
               name={target.country?.name}
               width={20}
               height={20}
@@ -86,7 +86,7 @@ const Playerglobal = () => {
         render: (_, target) =>
           target.teamglobal && (
             <FlexProject justify="flex-start" align="center">
-              <Image
+              <ImageProject
                 src={target.teamglobal.srcImage}
                 width={20}
                 height={20}
@@ -102,14 +102,17 @@ const Playerglobal = () => {
         key: 'x',
         render: (_, target) => (
           <Space>
-            <Button onClick={() => handleOnEdit(target.id)} icon={<EditOutlined />}></Button>
+            <ButtonProject
+              onClick={() => handleOnEdit(target.id)}
+              icon={<EditOutlined />}
+            ></ButtonProject>
             {!target.teamglobal && (
-              <Button
+              <ButtonProject
                 type="primary"
                 danger
                 onClick={() => handleOnOpenModalDelete(target.id)}
                 icon={<DeleteOutlined />}
-              ></Button>
+              ></ButtonProject>
             )}
           </Space>
         ),
@@ -140,17 +143,17 @@ const Playerglobal = () => {
         <p>Tem certeza que deseja excluir esse jogador?</p>
       </Modal>
       <FlexProject justify="space-between" margin="0px 0px 16px 0px">
-        <LimitedContainer width={240}>
+        <LimitedContainerProject width={240}>
           <Search placeholder="Buscar jogador" onSearch={handleOnSearch} enterButton />
-        </LimitedContainer>
+        </LimitedContainerProject>
 
-        <LimitedContainer width={120}>
-          <Button type="primary" onClick={handleOnClickInsert}>
+        <LimitedContainerProject width={120}>
+          <ButtonProject type="primary" onClick={handleOnClickInsert}>
             Inserir
-          </Button>
-        </LimitedContainer>
+          </ButtonProject>
+        </LimitedContainerProject>
       </FlexProject>
-      <Table columns={columns} dataSource={playersglobal} />
+      <TableProject columns={columns} dataSource={playersglobal} />
     </Screen>
   );
 };
