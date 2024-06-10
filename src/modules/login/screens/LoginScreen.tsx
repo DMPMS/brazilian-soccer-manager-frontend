@@ -1,56 +1,61 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Form } from 'antd';
 
 import Button from '../../../shared/components/buttons/button/Button';
-import Input from '../../../shared/components/inputs/input/Input';
-import { useRequests } from '../../../shared/hooks/useRequests';
-import {
-  ContainerLogin,
-  ContainerLoginScreen,
-  LogoImage,
-  TitleLogin,
-} from '../styles/loginScreen.style';
+import FlexProject from '../../../shared/components/flex/FlexProject';
+import InputProject from '../../../shared/components/inputs/input/InputProject';
+import InputPasswordProject from '../../../shared/components/inputs/inputPassword/InputPasswordProject';
+import { LimitedContainerCard } from '../../../shared/components/styles/limited.styled';
+import { useLogin } from '../hooks/useLogin';
+import { LogoLogin, TitleLogin } from '../styles/loginScreen.style';
 
 const LoginScreen = () => {
-  const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const { authRequest, loading } = useRequests();
-
-  const handleEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-  };
-
-  const handleLogin = () => {
-    authRequest(navigate, {
-      email: email,
-      password: password,
-    });
-  };
+  const { loading, disabledButton, handleOnChangeInput, handleOnClickLogin } = useLogin();
 
   return (
-    <ContainerLoginScreen>
-      <ContainerLogin>
-        <LogoImage src="logo.png" />
-        <TitleLogin level={3}>Brazilian Soccer Manager</TitleLogin>
-        <Input title="E-mail" margin="0px 0px 16px 0px" onChange={handleEmail} value={email} />
-        <Input
-          type="password"
-          title="Senha"
-          margin="0px 0px 32px 0px"
-          onChange={handlePassword}
-          value={password}
-        />
-        <Button loading={loading} type="primary" onClick={handleLogin}>
+    <FlexProject justify="center" align="center" style={{ height: '100vh' }}>
+      <LimitedContainerCard width={300} margin="10px">
+        <FlexProject justify="center" align="center" vertical style={{ textAlign: 'center' }}>
+          <LogoLogin src="logo.png" />
+          <TitleLogin level={3}>Brazilian Soccer Manager</TitleLogin>
+        </FlexProject>
+
+        <Form layout="vertical">
+          <Form.Item
+            name="email"
+            required
+            rules={[
+              { required: true, message: 'Insira seu e-mail.' },
+              { type: 'email', message: 'Insira um e-mail válido.' },
+            ]}
+          >
+            <InputProject
+              placeholder="E-mail"
+              onChange={(event) => handleOnChangeInput(event, 'email')}
+            />
+          </Form.Item>
+
+          <Form.Item
+            name="password"
+            required
+            rules={[{ required: true, message: 'Insira sua senha.' }]}
+          >
+            <InputPasswordProject
+              placeholder="Senha"
+              onChange={(event) => handleOnChangeInput(event, 'password')}
+            />
+          </Form.Item>
+        </Form>
+
+        <Button
+          loading={loading}
+          disabled={disabledButton}
+          type="primary"
+          onClick={handleOnClickLogin}
+        >
           Entrar
         </Button>
-      </ContainerLogin>
-    </ContainerLoginScreen>
+      </LimitedContainerCard>
+    </FlexProject>
   );
 };
 
