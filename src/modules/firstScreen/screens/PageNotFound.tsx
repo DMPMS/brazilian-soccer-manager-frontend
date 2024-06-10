@@ -1,14 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../shared/components/buttons/button/Button';
+import FlexProject from '../../../shared/components/flex/FlexProject';
+import { LimitedContainerCard } from '../../../shared/components/styles/limited.styled';
 import { LoginRoutesEnum } from '../../login/routes';
-import {
-  ContainerError,
-  ContainerPageNotFound,
-  DeflatedBallImage,
-  DescriptionError,
-  TitleError,
-} from '../styles/pageNotFound.styles';
+import { DescriptionNotFound, ImageNotFound, TitleNotFound } from '../styles/pageNotFound.styles';
 
 const PageNotFound = () => {
   const navigate = useNavigate();
@@ -16,17 +12,20 @@ const PageNotFound = () => {
   const handleOnClickButton = () => {
     navigate(LoginRoutesEnum.LOGIN);
   };
+
   return (
-    <ContainerPageNotFound>
-      <ContainerError>
-        <DeflatedBallImage src="../../../../public/deflatedBall.png" />
-        <TitleError level={3}>Erro 404</TitleError>
-        <DescriptionError>Ops! Parece que essa página está fora de jogo.</DescriptionError>
-        <Button onClick={handleOnClickButton} margin="32px 0px 0px 0px" type="primary">
+    <FlexProject justify="center" align="center" style={{ height: '100vh' }}>
+      <LimitedContainerCard width={300} margin="10px">
+        <FlexProject justify="center" align="center" vertical style={{ textAlign: 'center' }}>
+          <ImageNotFound src="../../../../public/deflatedBall.png" />
+          <TitleNotFound level={3}>Erro 404</TitleNotFound>
+        </FlexProject>
+        <DescriptionNotFound>Ops! Parece que essa página está fora de jogo.</DescriptionNotFound>
+        <Button onClick={handleOnClickButton} type="primary" margin="16px 0px 0px 0px">
           Página de Login
         </Button>
-      </ContainerError>
-    </ContainerPageNotFound>
+      </LimitedContainerCard>
+    </FlexProject>
   );
 };
 
