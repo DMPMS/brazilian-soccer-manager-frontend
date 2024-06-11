@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import ButtonProject from '../../../shared/components/buttons/button/ButtonProject';
 import FlexProject from '../../../shared/components/flex/FlexProject';
+import ImageProject from '../../../shared/components/image/ImageProject';
 import InputProject from '../../../shared/components/inputs/input/InputProject';
 import InputIntegerProject from '../../../shared/components/inputs/inputInteger/InputIntegerProject';
 import LoadingProject from '../../../shared/components/loading/LoadingProject';
@@ -16,8 +17,10 @@ import CountrySVGProject from '../../../shared/components/svg/CountrySVGProject'
 import PositionTagProject from '../../../shared/components/tags/positionTag/PositionTagProject';
 import { CountryType } from '../../../shared/types/CountryType';
 import { PositionType } from '../../../shared/types/PositionType';
+import { TeamglobalType } from '../../../shared/types/TeamglobalType';
 import { useCountry } from '../../country/hooks/useCountry';
 import { usePosition } from '../../position/hooks/usePosition';
+import { useTeamglobal } from '../../teamglobal/hooks/useTeamglobal';
 import { useInsertPlayerglobal } from '../hooks/useInsertPlayerglobal';
 import { PlayerglobalRoutesEnum } from '../routes';
 
@@ -38,6 +41,7 @@ const PlayerglobalInsert = () => {
     handleOnChangeInputNumber,
     handleOnClickInsert,
     handleOnChangeCountrySelect,
+    handleOnChangeTeamglobalSelect,
     handleOnChangePrimaryPositionSelect,
     handleOnChangeSecondaryPositionSelect,
   } = useInsertPlayerglobal(playerglobalId);
@@ -45,6 +49,7 @@ const PlayerglobalInsert = () => {
   const navigate = useNavigate();
 
   const { countries } = useCountry();
+  const { teamsglobal } = useTeamglobal();
   const { positions } = usePosition();
 
   const handleOnClickCancel = () => {
@@ -182,6 +187,34 @@ const PlayerglobalInsert = () => {
                   </FlexProject>
                 </LimitedContainerProjectCardProject>
                 <LimitedContainerProjectCardProject width={400}>
+                  <Form.Item label="Time" name="teamglobalId">
+                    <SelectProject
+                      placeholder="Selecione um time"
+                      allowClear
+                      onChange={handleOnChangeTeamglobalSelect}
+                      options={teamsglobal.map((teamglobal: TeamglobalType) => ({
+                        value: `${teamglobal.id}`,
+                        label: (
+                          <FlexProject justify="flex-start" align="center">
+                            <ImageProject
+                              src={teamglobal.srcImage}
+                              width={20}
+                              height={20}
+                              margin="0px 5px 0px 0px"
+                            />
+                            <text>{teamglobal.name}</text>
+                          </FlexProject>
+                        ),
+                      }))}
+                      showSearch
+                      filterOption={(input, option) =>
+                        option.label.props.children[1].props.children
+                          .toLowerCase()
+                          .includes(input.toLowerCase())
+                      }
+                    />
+                  </Form.Item>
+
                   <Form.Item
                     label={`Posições primárias (${selectedPrimaryPositionIds.length} / ${PRIMARY_POSITIONS_MAX})`}
                     name="primaryPositionIds"

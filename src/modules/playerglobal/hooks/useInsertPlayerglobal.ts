@@ -85,6 +85,7 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
         age: playerglobalReducer.age,
         overall: playerglobalReducer.overall,
         countryId: playerglobalReducer.country?.id,
+        teamglobalId: playerglobalReducer.teamglobal?.id,
         primaryPositionIds: primaryPositionIds,
         secondaryPositionIds: secondaryPositionIds,
       });
@@ -96,6 +97,10 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
         countryId:
           playerglobalReducer.country?.id !== undefined
             ? `${playerglobalReducer.country.id}`
+            : undefined,
+        teamglobalId:
+          playerglobalReducer.teamglobal?.id !== undefined
+            ? `${playerglobalReducer.teamglobal.id}`
             : undefined,
         primaryPositionIds:
           primaryPositionIds.length !== 0
@@ -164,6 +169,13 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
     });
   };
 
+  const handleOnChangeTeamglobalSelect = (value: string) => {
+    setPlayerglobal({
+      ...playerglobal,
+      teamglobalId: value ? Number(value) : undefined,
+    });
+  };
+
   const handleOnChangePrimaryPositionSelect = (values: string[]) => {
     const updatedValues = values.map((value) => Number(value));
 
@@ -224,6 +236,7 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
     handleOnChangeInputNumber,
     handleOnClickInsert,
     handleOnChangeCountrySelect,
+    handleOnChangeTeamglobalSelect,
     handleOnChangePrimaryPositionSelect,
     handleOnChangeSecondaryPositionSelect,
   };
