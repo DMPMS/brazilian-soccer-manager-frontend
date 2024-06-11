@@ -119,7 +119,7 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
   const handleOnChangeCountrySelect = (value: string) => {
     setManagerglobal({
       ...managerglobal,
-      countryId: Number(value),
+      countryId: value ? Number(value) : undefined,
     });
   };
 

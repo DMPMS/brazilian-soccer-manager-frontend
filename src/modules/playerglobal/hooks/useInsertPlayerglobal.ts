@@ -160,7 +160,7 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
   const handleOnChangeCountrySelect = (value: string) => {
     setPlayerglobal({
       ...playerglobal,
-      countryId: Number(value),
+      countryId: value ? Number(value) : undefined,
     });
   };
 

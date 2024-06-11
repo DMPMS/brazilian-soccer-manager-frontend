@@ -110,6 +110,7 @@ const ManagerglobalInsert = () => {
               >
                 <SelectProject
                   placeholder="Selecione um país"
+                  allowClear
                   onChange={handleOnChangeCountrySelect}
                   options={countries.map((country: CountryType) => ({
                     value: `${country.id}`,

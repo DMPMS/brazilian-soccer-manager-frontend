@@ -136,6 +136,7 @@ const CompetitionglobalInsert = () => {
                   >
                     <SelectProject
                       placeholder="Selecione as regras"
+                      allowClear
                       onChange={handleOnChangeRuleSelect}
                       options={rules.map((rule: RuleType) => ({
                         value: `${rule.id}`,
@@ -152,6 +153,7 @@ const CompetitionglobalInsert = () => {
                   >
                     <SelectProject
                       placeholder="Selecione um país"
+                      allowClear
                       onChange={handleOnChangeCountrySelect}
                       options={countries.map((country: CountryType) => ({
                         value: `${country.id}`,
@@ -208,6 +210,7 @@ const CompetitionglobalInsert = () => {
                       placeholder={
                         ruleNumberOfTeams > 0 ? 'Selecione os times' : 'Selecione as regras'
                       }
+                      allowClear
                       mode="multiple"
                       maxCount={ruleNumberOfTeams}
                       disabled={ruleNumberOfTeams === 0}

@@ -138,14 +138,14 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
   const handleOnChangeCountrySelect = (value: string) => {
     setTeamglobal({
       ...teamglobal,
-      countryId: Number(value),
+      countryId: value ? Number(value) : undefined,
     });
   };
 
   const handleOnChangeManagerglobalSelect = (value: string) => {
     setTeamglobal({
       ...teamglobal,
-      managerglobalId: Number(value),
+      managerglobalId: value ? Number(value) : undefined,
     });
   };
 

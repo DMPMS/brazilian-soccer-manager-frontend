@@ -126,6 +126,7 @@ const TeamglobalInsert = () => {
               >
                 <SelectProject
                   placeholder="Selecione um país"
+                  allowClear
                   onChange={handleOnChangeCountrySelect}
                   options={countries.map((country: CountryType) => ({
                     value: `${country.id}`,
@@ -158,6 +159,7 @@ const TeamglobalInsert = () => {
               >
                 <SelectProject
                   placeholder="Selecione um treinador"
+                  allowClear
                   onChange={handleOnChangeManagerglobalSelect}
                   options={[
                     ...(managerglobalOfTeamglobalReducer !== undefined

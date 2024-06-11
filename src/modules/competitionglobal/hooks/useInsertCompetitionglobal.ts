@@ -142,23 +142,35 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
   };
 
   const handleOnChangeRuleSelect = (value: string) => {
-    const selectedRuleId = Number(value);
+    if (value) {
+      const selectedRuleId = Number(value);
 
-    setCompetitionglobal({
-      ...competitionglobal,
-      ruleId: selectedRuleId,
-    });
+      setCompetitionglobal({
+        ...competitionglobal,
+        ruleId: selectedRuleId,
+      });
 
-    const selectedRule = rules.find((rule) => rule.id === selectedRuleId);
-    if (selectedRule) {
-      setRuleNumberOfTeams(selectedRule.numberOfTeams);
+      const selectedRule = rules.find((rule) => rule.id === selectedRuleId);
+      if (selectedRule) {
+        setRuleNumberOfTeams(selectedRule.numberOfTeams);
+      }
+    } else {
+      setCompetitionglobal({
+        ...competitionglobal,
+        ruleId: undefined,
+        teamglobalIds: [],
+      });
+      setRuleNumberOfTeams(0);
+      setTeamglobalIdsCount(0);
+
+      formCompetitionglobal.setFieldValue('teamglobalIds', undefined);
     }
   };
 
   const handleOnChangeCountrySelect = (value: string) => {
     setCompetitionglobal({
       ...competitionglobal,
-      countryId: Number(value),
+      countryId: value ? Number(value) : undefined,
     });
   };
 

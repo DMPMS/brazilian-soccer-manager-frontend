@@ -140,6 +140,7 @@ const PlayerglobalInsert = () => {
                   >
                     <SelectProject
                       placeholder="Selecione um país"
+                      allowClear
                       onChange={handleOnChangeCountrySelect}
                       options={countries.map((country: CountryType) => ({
                         value: `${country.id}`,
@@ -189,6 +190,7 @@ const PlayerglobalInsert = () => {
                   >
                     <SelectProject
                       placeholder="Selecione pelo menos uma posição"
+                      allowClear
                       mode="multiple"
                       maxCount={PRIMARY_POSITIONS_MAX}
                       onChange={handleOnChangePrimaryPositionSelect}
@@ -219,6 +221,7 @@ const PlayerglobalInsert = () => {
                   >
                     <SelectProject
                       placeholder="Selecione as posições"
+                      allowClear
                       mode="multiple"
                       maxCount={SECONDARY_POSITIONS_MAX}
                       onChange={handleOnChangeSecondaryPositionSelect}
