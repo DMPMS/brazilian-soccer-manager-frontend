@@ -2,7 +2,11 @@ import { useForm } from 'antd/es/form/Form';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { URL_PLAYERGLOBAL, URL_PLAYERGLOBAL_ID } from '../../../shared/constants/urls';
+import {
+  URL_PLAYERGLOBAL,
+  URL_PLAYERGLOBAL_ID,
+  URL_PLAYERGLOBAL_WITHOUT_TEAMGLOBAL,
+} from '../../../shared/constants/urls';
 import { InsertPlayerglobalDTO } from '../../../shared/dtos/InsertPlayerglobal.dto';
 import { MethodsEnum } from '../../../shared/enums/methods.enum';
 import { useRequests } from '../../../shared/hooks/useRequests';
@@ -26,6 +30,7 @@ const SECONDARY_POSITIONS_MAX = 5;
 export const useInsertPlayerglobal = (playerglobalId?: string) => {
   const {
     setPlayersglobal,
+    setPlayersglobalWithoutTeamglobal,
     playerglobal: playerglobalReducer,
     setPlayerglobal: setPlayerglobalReducer,
   } = usePlayerglobalReducer();
@@ -218,6 +223,11 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
     }
 
     await request(URL_PLAYERGLOBAL, MethodsEnum.GET, setPlayersglobal);
+    await request(
+      URL_PLAYERGLOBAL_WITHOUT_TEAMGLOBAL,
+      MethodsEnum.GET,
+      setPlayersglobalWithoutTeamglobal,
+    );
 
     navigate(PlayerglobalRoutesEnum.PLAYERGLOBAL);
   };

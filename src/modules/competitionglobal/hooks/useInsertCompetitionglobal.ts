@@ -46,7 +46,7 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
   const { rules } = useRule();
 
   const [ruleNumberOfTeams, setRuleNumberOfTeams] = useState<number>(0);
-  const [teamglobalIdsCount, setTeamglobalIdsCount] = useState<number>();
+  const [teamglobalIdsCount, setTeamglobalIdsCount] = useState<number>(0);
 
   useEffect(() => {
     if (competitionglobalId) {

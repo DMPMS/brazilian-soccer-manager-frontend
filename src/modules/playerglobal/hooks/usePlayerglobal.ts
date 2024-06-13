@@ -1,14 +1,23 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { URL_PLAYERGLOBAL, URL_PLAYERGLOBAL_ID } from '../../../shared/constants/urls';
+import {
+  URL_PLAYERGLOBAL,
+  URL_PLAYERGLOBAL_ID,
+  URL_PLAYERGLOBAL_WITHOUT_TEAMGLOBAL,
+} from '../../../shared/constants/urls';
 import { MethodsEnum } from '../../../shared/enums/methods.enum';
 import { useRequests } from '../../../shared/hooks/useRequests';
 import { usePlayerglobalReducer } from '../../../store/reducers/playerglobalReducer/usePlayerglobalReducer';
 import { PlayerglobalRoutesEnum } from '../routes';
 
 export const usePlayerglobal = () => {
-  const { playersglobal, setPlayersglobal } = usePlayerglobalReducer();
+  const {
+    playersglobal,
+    playersglobalWithoutTeamglobal,
+    setPlayersglobal,
+    setPlayersglobalWithoutTeamglobal,
+  } = usePlayerglobalReducer();
 
   const { request } = useRequests();
   const navigate = useNavigate();
@@ -23,6 +32,16 @@ export const usePlayerglobal = () => {
   useEffect(() => {
     if (!playersglobal || playersglobal.length === 0) {
       request(URL_PLAYERGLOBAL, MethodsEnum.GET, setPlayersglobal);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!playersglobalWithoutTeamglobal || playersglobalWithoutTeamglobal.length === 0) {
+      request(
+        URL_PLAYERGLOBAL_WITHOUT_TEAMGLOBAL,
+        MethodsEnum.GET,
+        setPlayersglobalWithoutTeamglobal,
+      );
     }
   }, []);
 
@@ -46,6 +65,11 @@ export const usePlayerglobal = () => {
     );
 
     await request(URL_PLAYERGLOBAL, MethodsEnum.GET, setPlayersglobal);
+    await request(
+      URL_PLAYERGLOBAL_WITHOUT_TEAMGLOBAL,
+      MethodsEnum.GET,
+      setPlayersglobalWithoutTeamglobal,
+    );
 
     setPlayerglobalIdDelete(undefined);
   };
@@ -60,6 +84,7 @@ export const usePlayerglobal = () => {
 
   return {
     playersglobal: playersglobalFiltered,
+    playersglobalWithoutTeamglobal,
     handleOnSearch,
     handleOnEdit,
     handleOnDelete,

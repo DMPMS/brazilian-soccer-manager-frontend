@@ -15,10 +15,12 @@ import {
 import CountrySVGProject from '../../../shared/components/svg/CountrySVGProject';
 import { CountryType } from '../../../shared/types/CountryType';
 import { ManagerglobalType } from '../../../shared/types/ManagerglobalType';
+import { PlayerglobalType } from '../../../shared/types/PlayerglobalType';
 // import UploadImage from '../../../shared/components/upload/uploadImage/UploadImage';
 // import { useGlobalReducer } from '../../../store/reducers/globalReducer/useGlobalReducer';
 import { useCountry } from '../../country/hooks/useCountry';
 import { useManagerglobal } from '../../managerglobal/hooks/useManagerglobal';
+import { usePlayerglobal } from '../../playerglobal/hooks/usePlayerglobal';
 import { useInsertTeamglobal } from '../hooks/useInsertTeamglobal';
 import { TeamglobalRoutesEnum } from '../routes';
 
@@ -31,17 +33,23 @@ const TeamglobalInsert = () => {
     isEdit,
     loadingTeamglobal,
     formTeamglobal,
+    playerglobalIdsCount,
+    PLAYERSGLOBAL_MIN,
+    PLAYERSGLOBAL_MAX,
     managerglobalOfTeamglobalReducer,
+    playersglobalOfTeamglobalReducer,
     handleOnChangeInput,
     handleOnClickInsert,
     handleOnChangeCountrySelect,
     handleOnChangeManagerglobalSelect,
+    handleOnChangePlayerglobalSelect,
     // handleUploadImage,
   } = useInsertTeamglobal(teamglobalId);
 
   const navigate = useNavigate();
 
   const { countries } = useCountry();
+  const { playersglobalWithoutTeamglobal } = usePlayerglobal();
   const { managersglobalWithoutTeamglobal } = useManagerglobal();
   // const { setNotification } = useGlobalReducer();
 
@@ -74,36 +82,38 @@ const TeamglobalInsert = () => {
         </FlexProject>
       ) : (
         <FlexProject justify="center">
-          <LimitedContainerProjectCardProject width={400}>
+          <LimitedContainerProject width={805}>
             <Form layout="vertical" form={formTeamglobal}>
-              <Form.Item
-                label="Nome"
-                name="name"
-                required
-                rules={[
-                  { required: true, message: 'Este campo deve ser preenchido.' },
-                  { min: 3, message: 'Inclua pelo menos 3 caracteres.' },
-                  { max: 40, message: 'Inclua até 40 caracteres.' },
-                ]}
-              >
-                <InputProject
-                  placeholder="Nome"
-                  onChange={(event) => handleOnChangeInput(event, 'name')}
-                />
-              </Form.Item>
+              <FlexProject justify="space-between">
+                <LimitedContainerProjectCardProject width={400}>
+                  <Form.Item
+                    label="Nome"
+                    name="name"
+                    required
+                    rules={[
+                      { required: true, message: 'Este campo deve ser preenchido.' },
+                      { min: 3, message: 'Inclua pelo menos 3 caracteres.' },
+                      { max: 40, message: 'Inclua até 40 caracteres.' },
+                    ]}
+                  >
+                    <InputProject
+                      placeholder="Nome"
+                      onChange={(event) => handleOnChangeInput(event, 'name')}
+                    />
+                  </Form.Item>
 
-              <Form.Item
-                label="Caminho da imagem"
-                name="srcImage"
-                required
-                rules={[{ required: true, message: 'Este campo deve ser preenchido.' }]}
-              >
-                <InputProject
-                  placeholder="Caminho da imagem"
-                  onChange={(event) => handleOnChangeInput(event, 'srcImage')}
-                />
-              </Form.Item>
-              {/* <UploadImage
+                  <Form.Item
+                    label="Caminho da imagem"
+                    name="srcImage"
+                    required
+                    rules={[{ required: true, message: 'Este campo deve ser preenchido.' }]}
+                  >
+                    <InputProject
+                      placeholder="Caminho da imagem"
+                      onChange={(event) => handleOnChangeInput(event, 'srcImage')}
+                    />
+                  </Form.Item>
+                  {/* <UploadImage
             beforeUpload={(file: File) => {
               if (file.type === 'image/png') {
                 handleUploadImage(file, 'srcImage');
@@ -118,90 +128,143 @@ const TeamglobalInsert = () => {
           >
             Selecionar imagem PNG
           </UploadImage> */}
-              <Form.Item
-                label="Nacionalidade"
-                name="countryId"
-                required
-                rules={[{ required: true, message: 'Este campo deve ser preenchido.' }]}
-              >
-                <SelectProject
-                  placeholder="Selecione um país"
-                  allowClear
-                  onChange={handleOnChangeCountrySelect}
-                  options={countries.map((country: CountryType) => ({
-                    value: `${country.id}`,
-                    label: (
-                      <FlexProject justify="flex-start" align="center">
-                        <CountrySVGProject
-                          name={country.name}
-                          width={20}
-                          height={20}
-                          style={{ margin: '0px 5px 0px 0px' }}
-                        />
-                        <text>{country.name}</text>
-                      </FlexProject>
-                    ),
-                  }))}
-                  showSearch
-                  filterOption={(input, option) =>
-                    option.label.props.children[1].props.children
-                      .toLowerCase()
-                      .includes(input.toLowerCase())
-                  }
-                />
-              </Form.Item>
-
-              <Form.Item
-                label="Treinador"
-                name="managerglobalId"
-                required
-                rules={[{ required: true, message: 'Este campo deve ser preenchido.' }]}
-              >
-                <SelectProject
-                  placeholder="Selecione um treinador"
-                  allowClear
-                  onChange={handleOnChangeManagerglobalSelect}
-                  options={[
-                    ...(managerglobalOfTeamglobalReducer !== undefined
-                      ? [
-                          {
-                            value: `${managerglobalOfTeamglobalReducer.id}`,
-                            label: `${managerglobalOfTeamglobalReducer.name}`,
-                          },
-                        ]
-                      : []),
-                    ...managersglobalWithoutTeamglobal.map((managerglobal: ManagerglobalType) => ({
-                      value: `${managerglobal.id}`,
-                      label: `${managerglobal.name}`,
-                    })),
-                  ]}
-                  showSearch
-                  filterOption={(input, option) =>
-                    option.label.toLowerCase().includes(input.toLowerCase())
-                  }
-                  filterSort={(optionA, optionB) =>
-                    optionA.label.toLowerCase().localeCompare(optionB.label.toLowerCase())
-                  }
-                />
-              </Form.Item>
-
-              <FlexProject justify="flex-end">
-                <LimitedContainerProject margin="0px 8px 0px 0px" width={120}>
-                  <ButtonProject onClick={handleOnClickCancel}>Cancelar</ButtonProject>
-                </LimitedContainerProject>
-                <LimitedContainerProject width={120}>
-                  <ButtonProject
-                    loading={loading}
-                    disabled={disabledButton}
-                    onClick={handleOnClickInsert}
-                    type="primary"
+                  <Form.Item
+                    label="Nacionalidade"
+                    name="countryId"
+                    required
+                    rules={[{ required: true, message: 'Este campo deve ser preenchido.' }]}
                   >
-                    {isEdit ? 'Salvar' : 'Inserir'}
-                  </ButtonProject>
-                </LimitedContainerProject>
+                    <SelectProject
+                      placeholder="Selecione um país"
+                      allowClear
+                      onChange={handleOnChangeCountrySelect}
+                      options={countries.map((country: CountryType) => ({
+                        value: `${country.id}`,
+                        label: (
+                          <FlexProject justify="flex-start" align="center">
+                            <CountrySVGProject
+                              name={country.name}
+                              width={20}
+                              height={20}
+                              style={{ margin: '0px 5px 0px 0px' }}
+                            />
+                            <text>{country.name}</text>
+                          </FlexProject>
+                        ),
+                      }))}
+                      showSearch
+                      filterOption={(input, option) =>
+                        option.label.props.children[1].props.children
+                          .toLowerCase()
+                          .includes(input.toLowerCase())
+                      }
+                    />
+                  </Form.Item>
+
+                  <Form.Item
+                    label="Treinador"
+                    name="managerglobalId"
+                    required
+                    rules={[{ required: true, message: 'Este campo deve ser preenchido.' }]}
+                  >
+                    <SelectProject
+                      placeholder="Selecione um treinador"
+                      allowClear
+                      onChange={handleOnChangeManagerglobalSelect}
+                      options={[
+                        ...(managerglobalOfTeamglobalReducer !== undefined
+                          ? [
+                              {
+                                value: `${managerglobalOfTeamglobalReducer.id}`,
+                                label: `${managerglobalOfTeamglobalReducer.name}`,
+                              },
+                            ]
+                          : []),
+                        ...managersglobalWithoutTeamglobal.map(
+                          (managerglobal: ManagerglobalType) => ({
+                            value: `${managerglobal.id}`,
+                            label: `${managerglobal.name}`,
+                          }),
+                        ),
+                      ]}
+                      showSearch
+                      filterOption={(input, option) =>
+                        option.label.toLowerCase().includes(input.toLowerCase())
+                      }
+                      filterSort={(optionA, optionB) =>
+                        optionA.label.toLowerCase().localeCompare(optionB.label.toLowerCase())
+                      }
+                    />
+                  </Form.Item>
+
+                  <FlexProject justify="flex-end">
+                    <LimitedContainerProject margin="0px 8px 0px 0px" width={120}>
+                      <ButtonProject onClick={handleOnClickCancel}>Cancelar</ButtonProject>
+                    </LimitedContainerProject>
+                    <LimitedContainerProject width={120}>
+                      <ButtonProject
+                        loading={loading}
+                        disabled={disabledButton}
+                        onClick={handleOnClickInsert}
+                        type="primary"
+                      >
+                        {isEdit ? 'Salvar' : 'Inserir'}
+                      </ButtonProject>
+                    </LimitedContainerProject>
+                  </FlexProject>
+                </LimitedContainerProjectCardProject>
+                <LimitedContainerProjectCardProject width={400}>
+                  <Form.Item
+                    label={`Jogadores (${playerglobalIdsCount} / ${PLAYERSGLOBAL_MAX})`}
+                    name="playerglobalIds"
+                    required
+                    rules={[
+                      { required: true, message: 'Este campo deve ser preenchido.' },
+                      {
+                        validator: (_, value) =>
+                          !value || value.length === 0
+                            ? Promise.resolve()
+                            : value.length >= PLAYERSGLOBAL_MIN
+                              ? Promise.resolve()
+                              : Promise.reject(
+                                  new Error(
+                                    `Você deve selecionar pelo menos ${PLAYERSGLOBAL_MIN} jogadores.`,
+                                  ),
+                                ),
+                      },
+                    ]}
+                  >
+                    <SelectProject
+                      placeholder="Selecione os jogadores"
+                      allowClear
+                      mode="multiple"
+                      maxCount={PLAYERSGLOBAL_MAX}
+                      onChange={handleOnChangePlayerglobalSelect}
+                      options={[
+                        ...playersglobalOfTeamglobalReducer.map(
+                          (playerglobal: PlayerglobalType) => ({
+                            value: `${playerglobal.id}`,
+                            label: `${playerglobal.name}`,
+                          }),
+                        ),
+                        ...playersglobalWithoutTeamglobal.map((playerglobal: PlayerglobalType) => ({
+                          value: `${playerglobal.id}`,
+                          label: `${playerglobal.name}`,
+                        })),
+                      ]}
+                      showSearch
+                      filterOption={(input, option) =>
+                        option.label.toLowerCase().includes(input.toLowerCase())
+                      }
+                      filterSort={(optionA, optionB) =>
+                        optionA.label.toLowerCase().localeCompare(optionB.label.toLowerCase())
+                      }
+                    />
+                  </Form.Item>
+                </LimitedContainerProjectCardProject>
               </FlexProject>
             </Form>
-          </LimitedContainerProjectCardProject>
+          </LimitedContainerProject>
         </FlexProject>
       )}
     </Screen>

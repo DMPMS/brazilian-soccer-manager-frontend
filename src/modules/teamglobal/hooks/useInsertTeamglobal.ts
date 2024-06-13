@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import {
   URL_MANAGERGLOBAL,
   URL_MANAGERGLOBAL_WITHOUT_TEAMGLOBAL,
+  URL_PLAYERGLOBAL,
+  URL_PLAYERGLOBAL_WITHOUT_TEAMGLOBAL,
   URL_TEAMGLOBAL,
   URL_TEAMGLOBAL_ID,
 } from '../../../shared/constants/urls';
@@ -12,7 +14,9 @@ import { InsertTeamglobalDTO } from '../../../shared/dtos/InsertTeamglobal.dto';
 import { MethodsEnum } from '../../../shared/enums/methods.enum';
 import { useRequests } from '../../../shared/hooks/useRequests';
 import { ManagerglobalType } from '../../../shared/types/ManagerglobalType';
+import { PlayerglobalType } from '../../../shared/types/PlayerglobalType';
 import { useManagerglobalReducer } from '../../../store/reducers/managerglobalReducer/useManagerglobalReducer';
+import { usePlayerglobalReducer } from '../../../store/reducers/playerglobalReducer/usePlayerglobalReducer';
 import { useTeamglobalReducer } from '../../../store/reducers/teamglobalReducer/useTeamglobalReducer';
 import { TeamglobalRoutesEnum } from '../routes';
 
@@ -21,7 +25,11 @@ const DEFAULT_TEAMGLOBAL = {
   srcImage: '',
   countryId: undefined,
   managerglobalId: undefined,
+  playerglobalIds: [],
 };
+
+const PLAYERSGLOBAL_MIN = 3;
+const PLAYERSGLOBAL_MAX = 40;
 
 export const useInsertTeamglobal = (teamglobalId?: string) => {
   const {
@@ -30,6 +38,7 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
     setTeamglobal: setTeamglobalReducer,
   } = useTeamglobalReducer();
   const { setManagersglobalWithoutTeamglobal, setManagersglobal } = useManagerglobalReducer();
+  const { setPlayersglobalWithoutTeamglobal, setPlayersglobal } = usePlayerglobalReducer();
 
   const { request, loading } = useRequests();
   const navigate = useNavigate();
@@ -43,9 +52,15 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
 
   const [formTeamglobal] = useForm();
 
+  const [playerglobalIdsCount, setPlayerglobalIdsCount] = useState<number>(0);
+
   const [managerglobalOfTeamglobalReducer, setManagerglobalOfTeamglobalReducer] = useState<
     ManagerglobalType | undefined
   >(undefined);
+
+  const [playersglobalOfTeamglobalReducer, setPlayersglobalOfTeamglobalReducer] = useState<
+    PlayerglobalType[]
+  >([]);
 
   useEffect(() => {
     if (teamglobalId) {
@@ -69,11 +84,18 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
 
   useEffect(() => {
     if (teamglobalReducer) {
+      const playerglobalIds: number[] = [];
+
+      teamglobalReducer.playersglobal?.forEach((playerglobal) => {
+        playerglobalIds.push(playerglobal.id);
+      });
+
       setTeamglobal({
         name: teamglobalReducer.name,
         srcImage: teamglobalReducer.srcImage,
         countryId: teamglobalReducer.country?.id,
         managerglobalId: teamglobalReducer.managerglobal?.id,
+        playerglobalIds: playerglobalIds,
       });
 
       formTeamglobal.setFieldsValue({
@@ -87,13 +109,21 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
           teamglobalReducer.managerglobal?.id !== undefined
             ? `${teamglobalReducer.managerglobal.id}`
             : undefined,
+        playerglobalIds:
+          playerglobalIds.length !== 0
+            ? playerglobalIds.map((playerglobalId) => `${playerglobalId}`)
+            : undefined,
       });
 
+      setPlayerglobalIdsCount(teamglobalReducer.playersglobal?.length || 0);
       setManagerglobalOfTeamglobalReducer(teamglobalReducer.managerglobal);
+      setPlayersglobalOfTeamglobalReducer(teamglobalReducer.playersglobal || []);
     } else {
       setTeamglobal(DEFAULT_TEAMGLOBAL);
       formTeamglobal.resetFields();
+      setPlayerglobalIdsCount(0);
       setManagerglobalOfTeamglobalReducer(undefined);
+      setPlayersglobalOfTeamglobalReducer([]);
     }
   }, [teamglobalReducer]);
 
@@ -103,7 +133,9 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
       teamglobal.name.length <= 40 &&
       teamglobal.srcImage &&
       teamglobal.countryId &&
-      teamglobal.managerglobalId
+      teamglobal.managerglobalId &&
+      teamglobal.playerglobalIds.length >= PLAYERSGLOBAL_MIN &&
+      teamglobal.playerglobalIds.length <= PLAYERSGLOBAL_MAX
     ) {
       setDisabledButton(false);
     } else {
@@ -149,6 +181,17 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
     });
   };
 
+  const handleOnChangePlayerglobalSelect = (values: string[]) => {
+    const updatedValues = values.map((value) => Number(value));
+
+    setPlayerglobalIdsCount(updatedValues.length);
+
+    setTeamglobal({
+      ...teamglobal,
+      playerglobalIds: updatedValues,
+    });
+  };
+
   const handleOnClickInsert = async () => {
     if (teamglobalId) {
       await request(
@@ -170,6 +213,13 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
 
     await request(URL_TEAMGLOBAL, MethodsEnum.GET, setTeamsglobal);
 
+    await request(URL_PLAYERGLOBAL, MethodsEnum.GET, setPlayersglobal);
+    await request(
+      URL_PLAYERGLOBAL_WITHOUT_TEAMGLOBAL,
+      MethodsEnum.GET,
+      setPlayersglobalWithoutTeamglobal,
+    );
+
     await request(URL_MANAGERGLOBAL, MethodsEnum.GET, setManagersglobal);
     await request(
       URL_MANAGERGLOBAL_WITHOUT_TEAMGLOBAL,
@@ -186,11 +236,16 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
     isEdit,
     loadingTeamglobal,
     formTeamglobal,
+    playerglobalIdsCount,
+    PLAYERSGLOBAL_MIN,
+    PLAYERSGLOBAL_MAX,
     managerglobalOfTeamglobalReducer,
+    playersglobalOfTeamglobalReducer,
     handleOnChangeInput,
     handleOnClickInsert,
     handleOnChangeCountrySelect,
     handleOnChangeManagerglobalSelect,
+    handleOnChangePlayerglobalSelect,
     // handleUploadImage,
   };
 };

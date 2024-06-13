@@ -3,4 +3,5 @@ export interface InsertTeamglobalDTO {
   srcImage: string;
   countryId?: number;
   managerglobalId?: number;
+  playerglobalIds: number[];
 }
