@@ -2,6 +2,13 @@ import { useForm } from 'antd/es/form/Form';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { DEFAULT_MANAGERGLOBAL } from '../../../shared/constants/dtos';
+import {
+  MANAGERGLOBAL_MAX_AGE,
+  MANAGERGLOBAL_MAX_LENGH_NAME,
+  MANAGERGLOBAL_MIN_AGE,
+  MANAGERGLOBAL_MIN_LENGH_NAME,
+} from '../../../shared/constants/others';
 import {
   URL_MANAGERGLOBAL,
   URL_MANAGERGLOBAL_ID,
@@ -12,12 +19,6 @@ import { MethodsEnum } from '../../../shared/enums/methods.enum';
 import { useRequests } from '../../../shared/hooks/useRequests';
 import { useManagerglobalReducer } from '../../../store/reducers/managerglobalReducer/useManagerglobalReducer';
 import { ManagerglobalRoutesEnum } from '../routes';
-
-const DEFAULT_MANAGERGLOBAL = {
-  name: '',
-  age: 0,
-  countryId: undefined,
-};
 
 export const useInsertManagerglobal = (managerglobalId?: string) => {
   const {
@@ -83,10 +84,10 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
 
   useEffect(() => {
     if (
-      managerglobal.name.length >= 3 &&
-      managerglobal.name.length <= 40 &&
-      managerglobal.age >= 18 &&
-      managerglobal.age <= 90 &&
+      managerglobal.name.length >= MANAGERGLOBAL_MIN_LENGH_NAME &&
+      managerglobal.name.length <= MANAGERGLOBAL_MAX_LENGH_NAME &&
+      managerglobal.age >= MANAGERGLOBAL_MIN_AGE &&
+      managerglobal.age <= MANAGERGLOBAL_MAX_AGE &&
       managerglobal.countryId
     ) {
       setDisabledButton(false);

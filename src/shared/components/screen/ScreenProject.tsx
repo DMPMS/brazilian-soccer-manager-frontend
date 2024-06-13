@@ -1,8 +1,9 @@
 import { Layout } from 'antd';
 
+import { SIDEBAR_WIDTH } from '../../constants/components';
 import { ListBreadcrumb } from '../breadcrumb/BreadcrumbProject';
 import SidebarProject from '../sidebar/SidebarProject';
-import { BreadcrumbProjectStyled, ContentStyled, SIDEBAR_WIDTH } from './screenProject.style';
+import { BreadcrumbProjectStyled, ContentStyled } from './screenProject.style';
 
 interface ScreenProps {
   children: React.ReactNode;

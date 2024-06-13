@@ -12,6 +12,10 @@ import Screen from '../../../shared/components/screen/ScreenProject';
 import { LimitedContainerProject } from '../../../shared/components/styles/limited.styled';
 import CountrySVGProject from '../../../shared/components/svg/CountrySVGProject';
 import TableProject from '../../../shared/components/table/TableProject';
+import {
+  RULE_COMPETITIONTYPE_CUP,
+  RULE_COMPETITIONTYPE_LEAGUE,
+} from '../../../shared/constants/others';
 import { CompetitionglobalType } from '../../../shared/types/CompetitionglobalType';
 import { useCompetitionglobal } from '../hooks/useCompetitionglobal';
 import { CompetitionglobalRoutesEnum } from '../routes';
@@ -54,9 +58,9 @@ const Competitionglobal = () => {
         dataIndex: 'type',
         key: 'type',
         render: (_, target) => {
-          if (target.rule?.competitionType === 1) {
+          if (target.rule?.competitionType === RULE_COMPETITIONTYPE_LEAGUE) {
             return 'Liga';
-          } else if (target.rule?.competitionType === 2) {
+          } else if (target.rule?.competitionType === RULE_COMPETITIONTYPE_CUP) {
             return 'Copa';
           } else {
             return '';

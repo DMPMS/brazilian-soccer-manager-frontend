@@ -13,6 +13,12 @@ import {
   LimitedContainerProjectCardProject,
 } from '../../../shared/components/styles/limited.styled';
 import CountrySVGProject from '../../../shared/components/svg/CountrySVGProject';
+import {
+  COMPETITIONGLOBAL_MAX_LENGH_NAME,
+  COMPETITIONGLOBAL_MAX_LENGH_SEASON,
+  COMPETITIONGLOBAL_MIN_LENGH_NAME,
+  COMPETITIONGLOBAL_MIN_LENGH_SEASON,
+} from '../../../shared/constants/others';
 import { CountryType } from '../../../shared/types/CountryType';
 import { RuleType } from '../../../shared/types/RuleType';
 import { TeamglobalType } from '../../../shared/types/TeamglobalType';
@@ -87,8 +93,14 @@ const CompetitionglobalInsert = () => {
                         required
                         rules={[
                           { required: true, message: 'Este campo deve ser preenchido.' },
-                          { min: 3, message: 'Inclua pelo menos 3 caracteres.' },
-                          { max: 40, message: 'Inclua até 40 caracteres.' },
+                          {
+                            min: COMPETITIONGLOBAL_MIN_LENGH_NAME,
+                            message: `Inclua pelo menos ${COMPETITIONGLOBAL_MIN_LENGH_NAME} caracteres.`,
+                          },
+                          {
+                            max: COMPETITIONGLOBAL_MAX_LENGH_NAME,
+                            message: `Inclua até ${COMPETITIONGLOBAL_MAX_LENGH_NAME} caracteres.`,
+                          },
                         ]}
                       >
                         <InputProject
@@ -104,8 +116,14 @@ const CompetitionglobalInsert = () => {
                         required
                         rules={[
                           { required: true, message: 'Este campo deve ser preenchido.' },
-                          { min: 3, message: 'Inclua pelo menos 3 caracteres.' },
-                          { max: 12, message: 'Inclua até 12 caracteres.' },
+                          {
+                            min: COMPETITIONGLOBAL_MIN_LENGH_SEASON,
+                            message: `Inclua pelo menos ${COMPETITIONGLOBAL_MIN_LENGH_SEASON} caracteres.`,
+                          },
+                          {
+                            max: COMPETITIONGLOBAL_MAX_LENGH_SEASON,
+                            message: `Inclua até ${COMPETITIONGLOBAL_MAX_LENGH_SEASON} caracteres.`,
+                          },
                         ]}
                       >
                         <InputProject

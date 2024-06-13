@@ -4,10 +4,13 @@ import { InputNumberStyled } from './inputIntegerProject.style';
 
 interface InputIntegerProjectProps extends InputNumberProps {}
 
+const NUMERIC_CHAR_CODE_START = 48;
+const NUMERIC_CHAR_CODE_END = 57;
+
 const InputIntegerProject = ({ ...props }: InputIntegerProjectProps) => {
   const handleOnKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const charCode = e.which ? e.which : e.keyCode;
-    if (charCode > 57 || charCode < 48) {
+    if (charCode > NUMERIC_CHAR_CODE_END || charCode < NUMERIC_CHAR_CODE_START) {
       e.preventDefault();
     }
   };

@@ -13,6 +13,7 @@ import { LimitedContainerProject } from '../../../shared/components/styles/limit
 import CountrySVGProject from '../../../shared/components/svg/CountrySVGProject';
 import TableProject from '../../../shared/components/table/TableProject';
 import PositionTagProject from '../../../shared/components/tags/positionTag/PositionTagProject';
+import { PLAYERGLOBAL_PRIMARY_POSITION_RATING } from '../../../shared/constants/others';
 import { PlayerglobalType } from '../../../shared/types/PlayerglobalType';
 import { usePlayerglobal } from '../hooks/usePlayerglobal';
 import { PlayerglobalRoutesEnum } from '../routes';
@@ -54,7 +55,10 @@ const Playerglobal = () => {
         render: (_, target) => (
           <>
             {target.playersglobalPosition
-              ?.filter((playerglobalPosition) => playerglobalPosition.rating === 1)
+              ?.filter(
+                (playerglobalPosition) =>
+                  playerglobalPosition.rating === PLAYERGLOBAL_PRIMARY_POSITION_RATING,
+              )
               .map((playerglobalPosition, index) => (
                 <PositionTagProject area={playerglobalPosition.position?.area} key={index}>
                   {playerglobalPosition.position?.abbreviation}

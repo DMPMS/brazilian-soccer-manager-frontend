@@ -19,7 +19,9 @@ export const useCompetitionglobal = () => {
   const { request } = useRequests();
   const navigate = useNavigate();
 
-  const [competitionglobalIdDelete, setCompetitionglobalIdDelete] = useState<number | undefined>();
+  const [competitionglobalIdDelete, setCompetitionglobalIdDelete] = useState<number | undefined>(
+    undefined,
+  );
   const [searchValue, setSearchValue] = useState('');
 
   const competitionsglobalFiltered = competitionsglobal.filter((competitionglobal) =>

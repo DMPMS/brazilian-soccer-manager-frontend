@@ -13,6 +13,12 @@ import {
   LimitedContainerProjectCardProject,
 } from '../../../shared/components/styles/limited.styled';
 import CountrySVGProject from '../../../shared/components/svg/CountrySVGProject';
+import {
+  MANAGERGLOBAL_MAX_AGE,
+  MANAGERGLOBAL_MAX_LENGH_NAME,
+  MANAGERGLOBAL_MIN_AGE,
+  MANAGERGLOBAL_MIN_LENGH_NAME,
+} from '../../../shared/constants/others';
 import { CountryType } from '../../../shared/types/CountryType';
 import { useCountry } from '../../country/hooks/useCountry';
 import { useInsertManagerglobal } from '../hooks/useInsertManagerglobal';
@@ -74,8 +80,14 @@ const ManagerglobalInsert = () => {
                 required
                 rules={[
                   { required: true, message: 'Este campo deve ser preenchido.' },
-                  { min: 3, message: 'Inclua pelo menos 3 caracteres.' },
-                  { max: 40, message: 'Inclua até 40 caracteres.' },
+                  {
+                    min: MANAGERGLOBAL_MIN_LENGH_NAME,
+                    message: `Inclua pelo menos ${MANAGERGLOBAL_MIN_LENGH_NAME} caracteres.`,
+                  },
+                  {
+                    max: MANAGERGLOBAL_MAX_LENGH_NAME,
+                    message: `Inclua até ${MANAGERGLOBAL_MAX_LENGH_NAME} caracteres.`,
+                  },
                 ]}
               >
                 <InputProject
@@ -90,8 +102,16 @@ const ManagerglobalInsert = () => {
                 required
                 rules={[
                   { required: true, message: 'Este campo deve ser preenchido.' },
-                  { type: 'number', min: 18, message: 'A idade mínima é 18.' },
-                  { type: 'number', max: 90, message: 'A idade máxima é 90.' },
+                  {
+                    type: 'number',
+                    min: MANAGERGLOBAL_MIN_AGE,
+                    message: `A idade mínima é ${MANAGERGLOBAL_MIN_AGE}.`,
+                  },
+                  {
+                    type: 'number',
+                    max: MANAGERGLOBAL_MAX_AGE,
+                    message: `A idade máxima é ${MANAGERGLOBAL_MAX_AGE}.`,
+                  },
                 ]}
               >
                 <InputIntegerProject

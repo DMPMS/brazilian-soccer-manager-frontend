@@ -2,6 +2,20 @@ import { useForm } from 'antd/es/form/Form';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { DEFAULT_PLAYERGLOBAL } from '../../../shared/constants/dtos';
+import {
+  PLAYERGLOBAL_MAX_AGE,
+  PLAYERGLOBAL_MAX_LENGH_NAME,
+  PLAYERGLOBAL_MAX_OVERALL,
+  PLAYERGLOBAL_MAX_PRIMARY_POSITIONS,
+  PLAYERGLOBAL_MAX_SECONDARY_POSITIONS,
+  PLAYERGLOBAL_MIN_AGE,
+  PLAYERGLOBAL_MIN_LENGH_NAME,
+  PLAYERGLOBAL_MIN_OVERALL,
+  PLAYERGLOBAL_MIN_PRIMARY_POSITIONS,
+  PLAYERGLOBAL_PRIMARY_POSITION_RATING,
+  PLAYERGLOBAL_SECONDARY_POSITION_RATING,
+} from '../../../shared/constants/others';
 import {
   URL_PLAYERGLOBAL,
   URL_PLAYERGLOBAL_ID,
@@ -12,20 +26,6 @@ import { MethodsEnum } from '../../../shared/enums/methods.enum';
 import { useRequests } from '../../../shared/hooks/useRequests';
 import { usePlayerglobalReducer } from '../../../store/reducers/playerglobalReducer/usePlayerglobalReducer';
 import { PlayerglobalRoutesEnum } from '../routes';
-
-const DEFAULT_PLAYERGLOBAL = {
-  name: '',
-  age: 0,
-  overall: 0,
-  primaryPositionIds: [],
-  secondaryPositionIds: [],
-  countryId: undefined,
-  teamglobalId: undefined,
-};
-
-const PRIMARY_POSITIONS_MIN = 1;
-const PRIMARY_POSITIONS_MAX = 3;
-const SECONDARY_POSITIONS_MAX = 5;
 
 export const useInsertPlayerglobal = (playerglobalId?: string) => {
   const {
@@ -77,9 +77,9 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
 
       playerglobalReducer.playersglobalPosition?.forEach((playerglobalPosition) => {
         if (playerglobalPosition.position) {
-          if (playerglobalPosition.rating === 1) {
+          if (playerglobalPosition.rating === PLAYERGLOBAL_PRIMARY_POSITION_RATING) {
             primaryPositionIds.push(playerglobalPosition.position.id);
-          } else if (playerglobalPosition.rating === 0.95) {
+          } else if (playerglobalPosition.rating === PLAYERGLOBAL_SECONDARY_POSITION_RATING) {
             secondaryPositionIds.push(playerglobalPosition.position.id);
           }
         }
@@ -129,16 +129,16 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
 
   useEffect(() => {
     if (
-      playerglobal.name.length >= 3 &&
-      playerglobal.name.length <= 40 &&
-      playerglobal.age >= 14 &&
-      playerglobal.age <= 50 &&
-      playerglobal.overall >= 1 &&
-      playerglobal.overall <= 100 &&
+      playerglobal.name.length >= PLAYERGLOBAL_MIN_LENGH_NAME &&
+      playerglobal.name.length <= PLAYERGLOBAL_MAX_LENGH_NAME &&
+      playerglobal.age >= PLAYERGLOBAL_MIN_AGE &&
+      playerglobal.age <= PLAYERGLOBAL_MAX_AGE &&
+      playerglobal.overall >= PLAYERGLOBAL_MIN_OVERALL &&
+      playerglobal.overall <= PLAYERGLOBAL_MAX_OVERALL &&
       playerglobal.countryId &&
-      playerglobal.primaryPositionIds.length >= PRIMARY_POSITIONS_MIN &&
-      playerglobal.primaryPositionIds.length <= PRIMARY_POSITIONS_MAX &&
-      playerglobal.secondaryPositionIds.length <= SECONDARY_POSITIONS_MAX
+      playerglobal.primaryPositionIds.length >= PLAYERGLOBAL_MIN_PRIMARY_POSITIONS &&
+      playerglobal.primaryPositionIds.length <= PLAYERGLOBAL_MAX_PRIMARY_POSITIONS &&
+      playerglobal.secondaryPositionIds.length <= PLAYERGLOBAL_MAX_SECONDARY_POSITIONS
     ) {
       setDisabledButton(false);
     } else {
@@ -240,8 +240,6 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
     formPlayerglobal,
     selectedPrimaryPositionIds,
     selectedSecondaryPositionIds,
-    PRIMARY_POSITIONS_MAX,
-    SECONDARY_POSITIONS_MAX,
     handleOnChangeInput,
     handleOnChangeInputNumber,
     handleOnClickInsert,

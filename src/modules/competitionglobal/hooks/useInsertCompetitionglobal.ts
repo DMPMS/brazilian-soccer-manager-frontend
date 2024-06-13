@@ -2,6 +2,13 @@ import { useForm } from 'antd/es/form/Form';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { DEFAULT_COMPETITIONGLOBAL } from '../../../shared/constants/dtos';
+import {
+  COMPETITIONGLOBAL_MAX_LENGH_NAME,
+  COMPETITIONGLOBAL_MAX_LENGH_SEASON,
+  COMPETITIONGLOBAL_MIN_LENGH_NAME,
+  COMPETITIONGLOBAL_MIN_LENGH_SEASON,
+} from '../../../shared/constants/others';
 import {
   URL_COMPETITIONGLOBAL,
   URL_COMPETITIONGLOBAL_ID,
@@ -14,15 +21,6 @@ import { useCompetitionglobalReducer } from '../../../store/reducers/competition
 import { useTeamglobalReducer } from '../../../store/reducers/teamglobalReducer/useTeamglobalReducer';
 import { useRule } from '../../rule/hooks/useRule';
 import { CompetitionglobalRoutesEnum } from '../routes';
-
-const DEFAULT_COMPETITIONGLOBAL = {
-  name: '',
-  season: '',
-  srcImage: '',
-  teamglobalIds: [],
-  ruleId: undefined,
-  countryId: undefined,
-};
 
 export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
   const {
@@ -119,10 +117,10 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
 
   useEffect(() => {
     if (
-      competitionglobal.name.length >= 3 &&
-      competitionglobal.name.length <= 40 &&
-      competitionglobal.season.length >= 3 &&
-      competitionglobal.season.length <= 12 &&
+      competitionglobal.name.length >= COMPETITIONGLOBAL_MIN_LENGH_NAME &&
+      competitionglobal.name.length <= COMPETITIONGLOBAL_MAX_LENGH_NAME &&
+      competitionglobal.season.length >= COMPETITIONGLOBAL_MIN_LENGH_SEASON &&
+      competitionglobal.season.length <= COMPETITIONGLOBAL_MAX_LENGH_SEASON &&
       competitionglobal.srcImage &&
       competitionglobal.ruleId &&
       competitionglobal.countryId &&

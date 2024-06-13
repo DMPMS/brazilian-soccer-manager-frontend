@@ -1,11 +1,10 @@
 import { Layout } from 'antd';
 import styled from 'styled-components';
 
+import { SIDEBAR_WIDTH } from '../../constants/components';
 import BreadcrumbProject from '../breadcrumb/BreadcrumbProject';
 
 const { Content } = Layout;
-
-export const SIDEBAR_WIDTH = 94;
 
 export const BreadcrumbProjectStyled = styled(BreadcrumbProject)`
   margin: 0px 0px 5px 0px;

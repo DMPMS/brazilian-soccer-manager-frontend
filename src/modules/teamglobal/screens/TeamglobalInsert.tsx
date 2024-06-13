@@ -13,6 +13,12 @@ import {
   LimitedContainerProjectCardProject,
 } from '../../../shared/components/styles/limited.styled';
 import CountrySVGProject from '../../../shared/components/svg/CountrySVGProject';
+import {
+  TEAMGLOBAL_MAX_LENGH_NAME,
+  TEAMGLOBAL_MAX_PLAYERSGLOBAL,
+  TEAMGLOBAL_MIN_LENGH_NAME,
+  TEAMGLOBAL_MIN_PLAYERSGLOBAL,
+} from '../../../shared/constants/others';
 import { CountryType } from '../../../shared/types/CountryType';
 import { ManagerglobalType } from '../../../shared/types/ManagerglobalType';
 import { PlayerglobalType } from '../../../shared/types/PlayerglobalType';
@@ -34,8 +40,6 @@ const TeamglobalInsert = () => {
     loadingTeamglobal,
     formTeamglobal,
     playerglobalIdsCount,
-    PLAYERSGLOBAL_MIN,
-    PLAYERSGLOBAL_MAX,
     managerglobalOfTeamglobalReducer,
     playersglobalOfTeamglobalReducer,
     handleOnChangeInput,
@@ -92,8 +96,14 @@ const TeamglobalInsert = () => {
                     required
                     rules={[
                       { required: true, message: 'Este campo deve ser preenchido.' },
-                      { min: 3, message: 'Inclua pelo menos 3 caracteres.' },
-                      { max: 40, message: 'Inclua até 40 caracteres.' },
+                      {
+                        min: TEAMGLOBAL_MIN_LENGH_NAME,
+                        message: `Inclua pelo menos ${TEAMGLOBAL_MIN_LENGH_NAME} caracteres.`,
+                      },
+                      {
+                        max: TEAMGLOBAL_MAX_LENGH_NAME,
+                        message: `Inclua até ${TEAMGLOBAL_MAX_LENGH_NAME} caracteres.`,
+                      },
                     ]}
                   >
                     <InputProject
@@ -215,7 +225,7 @@ const TeamglobalInsert = () => {
                 </LimitedContainerProjectCardProject>
                 <LimitedContainerProjectCardProject width={400}>
                   <Form.Item
-                    label={`Jogadores (${playerglobalIdsCount} / ${PLAYERSGLOBAL_MAX})`}
+                    label={`Jogadores (${playerglobalIdsCount} / ${TEAMGLOBAL_MAX_PLAYERSGLOBAL})`}
                     name="playerglobalIds"
                     required
                     rules={[
@@ -224,11 +234,11 @@ const TeamglobalInsert = () => {
                         validator: (_, value) =>
                           !value || value.length === 0
                             ? Promise.resolve()
-                            : value.length >= PLAYERSGLOBAL_MIN
+                            : value.length >= TEAMGLOBAL_MIN_PLAYERSGLOBAL
                               ? Promise.resolve()
                               : Promise.reject(
                                   new Error(
-                                    `Você deve selecionar pelo menos ${PLAYERSGLOBAL_MIN} jogadores.`,
+                                    `Você deve selecionar pelo menos ${TEAMGLOBAL_MIN_PLAYERSGLOBAL} jogadores.`,
                                   ),
                                 ),
                       },
@@ -238,7 +248,7 @@ const TeamglobalInsert = () => {
                       placeholder="Selecione os jogadores"
                       allowClear
                       mode="multiple"
-                      maxCount={PLAYERSGLOBAL_MAX}
+                      maxCount={TEAMGLOBAL_MAX_PLAYERSGLOBAL}
                       onChange={handleOnChangePlayerglobalSelect}
                       options={[
                         ...playersglobalOfTeamglobalReducer.map(

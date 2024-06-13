@@ -2,6 +2,13 @@ import { useForm } from 'antd/es/form/Form';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { DEFAULT_TEAMGLOBAL } from '../../../shared/constants/dtos';
+import {
+  TEAMGLOBAL_MAX_LENGH_NAME,
+  TEAMGLOBAL_MAX_PLAYERSGLOBAL,
+  TEAMGLOBAL_MIN_LENGH_NAME,
+  TEAMGLOBAL_MIN_PLAYERSGLOBAL,
+} from '../../../shared/constants/others';
 import {
   URL_MANAGERGLOBAL,
   URL_MANAGERGLOBAL_WITHOUT_TEAMGLOBAL,
@@ -19,17 +26,6 @@ import { useManagerglobalReducer } from '../../../store/reducers/managerglobalRe
 import { usePlayerglobalReducer } from '../../../store/reducers/playerglobalReducer/usePlayerglobalReducer';
 import { useTeamglobalReducer } from '../../../store/reducers/teamglobalReducer/useTeamglobalReducer';
 import { TeamglobalRoutesEnum } from '../routes';
-
-const DEFAULT_TEAMGLOBAL = {
-  name: '',
-  srcImage: '',
-  countryId: undefined,
-  managerglobalId: undefined,
-  playerglobalIds: [],
-};
-
-const PLAYERSGLOBAL_MIN = 3;
-const PLAYERSGLOBAL_MAX = 40;
 
 export const useInsertTeamglobal = (teamglobalId?: string) => {
   const {
@@ -129,13 +125,13 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
 
   useEffect(() => {
     if (
-      teamglobal.name.length >= 3 &&
-      teamglobal.name.length <= 40 &&
+      teamglobal.name.length >= TEAMGLOBAL_MIN_LENGH_NAME &&
+      teamglobal.name.length <= TEAMGLOBAL_MAX_LENGH_NAME &&
       teamglobal.srcImage &&
       teamglobal.countryId &&
       teamglobal.managerglobalId &&
-      teamglobal.playerglobalIds.length >= PLAYERSGLOBAL_MIN &&
-      teamglobal.playerglobalIds.length <= PLAYERSGLOBAL_MAX
+      teamglobal.playerglobalIds.length >= TEAMGLOBAL_MIN_PLAYERSGLOBAL &&
+      teamglobal.playerglobalIds.length <= TEAMGLOBAL_MAX_PLAYERSGLOBAL
     ) {
       setDisabledButton(false);
     } else {
@@ -237,8 +233,6 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
     loadingTeamglobal,
     formTeamglobal,
     playerglobalIdsCount,
-    PLAYERSGLOBAL_MIN,
-    PLAYERSGLOBAL_MAX,
     managerglobalOfTeamglobalReducer,
     playersglobalOfTeamglobalReducer,
     handleOnChangeInput,

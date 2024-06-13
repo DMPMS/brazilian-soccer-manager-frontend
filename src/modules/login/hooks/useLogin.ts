@@ -1,14 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { DEFAULT_LOGIN } from '../../../shared/constants/dtos';
 import { LoginDTO } from '../../../shared/dtos/login.dto.';
 import { isValidEmail } from '../../../shared/functions/isValideEmail';
 import { useRequests } from '../../../shared/hooks/useRequests';
-
-const DEFAULT_LOGIN = {
-  email: '',
-  password: '',
-};
 
 export const useLogin = () => {
   const { authRequest, loading } = useRequests();

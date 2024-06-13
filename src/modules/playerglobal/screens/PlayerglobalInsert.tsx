@@ -15,6 +15,16 @@ import {
 } from '../../../shared/components/styles/limited.styled';
 import CountrySVGProject from '../../../shared/components/svg/CountrySVGProject';
 import PositionTagProject from '../../../shared/components/tags/positionTag/PositionTagProject';
+import {
+  PLAYERGLOBAL_MAX_AGE,
+  PLAYERGLOBAL_MAX_LENGH_NAME,
+  PLAYERGLOBAL_MAX_OVERALL,
+  PLAYERGLOBAL_MAX_PRIMARY_POSITIONS,
+  PLAYERGLOBAL_MAX_SECONDARY_POSITIONS,
+  PLAYERGLOBAL_MIN_AGE,
+  PLAYERGLOBAL_MIN_LENGH_NAME,
+  PLAYERGLOBAL_MIN_OVERALL,
+} from '../../../shared/constants/others';
 import { CountryType } from '../../../shared/types/CountryType';
 import { PositionType } from '../../../shared/types/PositionType';
 import { TeamglobalType } from '../../../shared/types/TeamglobalType';
@@ -35,8 +45,6 @@ const PlayerglobalInsert = () => {
     formPlayerglobal,
     selectedPrimaryPositionIds,
     selectedSecondaryPositionIds,
-    PRIMARY_POSITIONS_MAX,
-    SECONDARY_POSITIONS_MAX,
     handleOnChangeInput,
     handleOnChangeInputNumber,
     handleOnClickInsert,
@@ -91,8 +99,14 @@ const PlayerglobalInsert = () => {
                     required
                     rules={[
                       { required: true, message: 'Este campo deve ser preenchido.' },
-                      { min: 3, message: 'Inclua pelo menos 3 caracteres.' },
-                      { max: 40, message: 'Inclua até 40 caracteres.' },
+                      {
+                        min: PLAYERGLOBAL_MIN_LENGH_NAME,
+                        message: `Inclua pelo menos ${PLAYERGLOBAL_MIN_LENGH_NAME} caracteres.`,
+                      },
+                      {
+                        max: PLAYERGLOBAL_MAX_LENGH_NAME,
+                        message: `Inclua até ${PLAYERGLOBAL_MAX_LENGH_NAME} caracteres.`,
+                      },
                     ]}
                   >
                     <InputProject
@@ -107,8 +121,16 @@ const PlayerglobalInsert = () => {
                     required
                     rules={[
                       { required: true, message: 'Este campo deve ser preenchido.' },
-                      { type: 'number', min: 14, message: 'A idade mínima é 14.' },
-                      { type: 'number', max: 50, message: 'A idade máxima é 50.' },
+                      {
+                        type: 'number',
+                        min: PLAYERGLOBAL_MIN_AGE,
+                        message: `A idade mínima é ${PLAYERGLOBAL_MIN_AGE}.`,
+                      },
+                      {
+                        type: 'number',
+                        max: PLAYERGLOBAL_MAX_AGE,
+                        message: `A idade máxima é ${PLAYERGLOBAL_MAX_AGE}.`,
+                      },
                     ]}
                   >
                     <InputIntegerProject
@@ -125,8 +147,16 @@ const PlayerglobalInsert = () => {
                     required
                     rules={[
                       { required: true, message: 'Este campo deve ser preenchido.' },
-                      { type: 'number', min: 1, message: 'O geral mínimo é 1.' },
-                      { type: 'number', max: 100, message: 'O geral máximo é 100.' },
+                      {
+                        type: 'number',
+                        min: PLAYERGLOBAL_MIN_OVERALL,
+                        message: `O geral mínimo é ${PLAYERGLOBAL_MIN_OVERALL}.`,
+                      },
+                      {
+                        type: 'number',
+                        max: PLAYERGLOBAL_MAX_OVERALL,
+                        message: `O geral máximo é ${PLAYERGLOBAL_MAX_OVERALL}.`,
+                      },
                     ]}
                   >
                     <InputIntegerProject
@@ -216,7 +246,7 @@ const PlayerglobalInsert = () => {
                   </Form.Item>
 
                   <Form.Item
-                    label={`Posições primárias (${selectedPrimaryPositionIds.length} / ${PRIMARY_POSITIONS_MAX})`}
+                    label={`Posições primárias (${selectedPrimaryPositionIds.length} / ${PLAYERGLOBAL_MAX_PRIMARY_POSITIONS})`}
                     name="primaryPositionIds"
                     required
                     rules={[{ required: true, message: 'Este campo deve ser preenchido.' }]}
@@ -225,7 +255,7 @@ const PlayerglobalInsert = () => {
                       placeholder="Selecione pelo menos uma posição"
                       allowClear
                       mode="multiple"
-                      maxCount={PRIMARY_POSITIONS_MAX}
+                      maxCount={PLAYERGLOBAL_MAX_PRIMARY_POSITIONS}
                       onChange={handleOnChangePrimaryPositionSelect}
                       options={positions.map((position: PositionType) => ({
                         value: `${position.id}`,
@@ -249,14 +279,14 @@ const PlayerglobalInsert = () => {
                   </Form.Item>
 
                   <Form.Item
-                    label={`Posições secundárias (${selectedSecondaryPositionIds.length} / ${SECONDARY_POSITIONS_MAX})`}
+                    label={`Posições secundárias (${selectedSecondaryPositionIds.length} / ${PLAYERGLOBAL_MAX_SECONDARY_POSITIONS})`}
                     name="secondaryPositionIds"
                   >
                     <SelectProject
                       placeholder="Selecione as posições"
                       allowClear
                       mode="multiple"
-                      maxCount={SECONDARY_POSITIONS_MAX}
+                      maxCount={PLAYERGLOBAL_MAX_SECONDARY_POSITIONS}
                       onChange={handleOnChangeSecondaryPositionSelect}
                       options={positions.map((position: PositionType) => ({
                         value: `${position.id}`,
