@@ -2,12 +2,12 @@ import type { Router as RemixRouter } from '@remix-run/router';
 import { useEffect } from 'react';
 import { createBrowserRouter, RouteObject, RouterProvider } from 'react-router-dom';
 
-import { competitionglobalRoutes } from './modules/competitionglobal/routes';
+import { competitionglobalRoutes } from './modules/admin/competitionglobal/routes';
+import { managerglobalRoutes } from './modules/admin/managerglobal/routes';
+import { playerglobalRoutes } from './modules/admin/playerglobal/routes';
+import { teamglobalRoutes } from './modules/admin/teamglobal/routes';
 import { firstScreenRoutes } from './modules/firstScreen/routes';
-import { loginRoutes } from './modules/login/routes';
-import { managerglobalRoutes } from './modules/managerglobal/routes';
-import { playerglobalRoutes } from './modules/playerglobal/routes';
-import { teamglobalRoutes } from './modules/teamglobal/routes';
+import { loginRoutes } from './modules/shared/login/routes';
 import { URL_USER } from './shared/constants/urls';
 import { MethodsEnum } from './shared/enums/methods.enum';
 import { getAuthorizationToken, verifyLoggedIn } from './shared/functions/connection/auth';

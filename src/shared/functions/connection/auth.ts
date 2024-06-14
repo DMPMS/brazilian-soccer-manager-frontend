@@ -1,7 +1,7 @@
 import { NavigateFunction, redirect } from 'react-router-dom';
 
-import { LoginRoutesEnum } from '../../../modules/login/routes';
-import { UserType } from '../../../modules/login/types/UserType';
+import { LoginRoutesEnum } from '../../../modules/shared/login/routes';
+import { UserType } from '../../../modules/shared/login/types/UserType';
 import { AUTHORIZATION_KEY } from '../../constants/authorizationConstants';
 import { URL_USER } from '../../constants/urls';
 import { connectionAPIGet } from './connectionAPI';

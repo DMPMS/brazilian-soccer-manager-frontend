@@ -10,13 +10,13 @@ import { Layout, Menu, Modal } from 'antd';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { CompetitionglobalRoutesEnum } from '../../../modules/competitionglobal/routes';
-import { ManagerglobalRoutesEnum } from '../../../modules/managerglobal/routes';
-import { PlayerglobalRoutesEnum } from '../../../modules/playerglobal/routes';
-import { TeamglobalRoutesEnum } from '../../../modules/teamglobal/routes';
+import { CompetitionglobalRoutesEnum } from '../../../modules/admin/competitionglobal/routes';
+import { ManagerglobalRoutesEnum } from '../../../modules/admin/managerglobal/routes';
+import { PlayerglobalRoutesEnum } from '../../../modules/admin/playerglobal/routes';
+import { TeamglobalRoutesEnum } from '../../../modules/admin/teamglobal/routes';
 import { logout } from '../../functions/connection/auth';
 import { LogoSidebar } from './sidebarProject.style';
-import { SidebarItem } from './types/sidebarItem';
+import { SidebarItem } from './types/SidebarItem';
 
 const { Sider } = Layout;
 

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import FlexProject from '../../../shared/components/flex/FlexProject';
 import LoadingProject from '../../../shared/components/loading/LoadingProject';
 import { useGlobalReducer } from '../../../store/reducers/globalReducer/useGlobalReducer';
-import { ManagerglobalRoutesEnum } from '../../managerglobal/routes';
+import { ManagerglobalRoutesEnum } from '../../admin/managerglobal/routes';
 
 const FirstScreen = () => {
   const { user } = useGlobalReducer();

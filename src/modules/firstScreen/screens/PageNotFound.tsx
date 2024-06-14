@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import ButtonProject from '../../../shared/components/buttons/button/ButtonProject';
 import FlexProject from '../../../shared/components/flex/FlexProject';
 import { LimitedContainerProjectCardProject } from '../../../shared/components/styles/limited.styled';
-import { LoginRoutesEnum } from '../../login/routes';
+import { LoginRoutesEnum } from '../../shared/login/routes';
 import { DescriptionNotFound, ImageNotFound, TitleNotFound } from '../styles/pageNotFound.styles';
 
 const PageNotFound = () => {
