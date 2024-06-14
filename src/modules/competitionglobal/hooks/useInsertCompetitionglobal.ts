@@ -161,7 +161,7 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
       setRuleNumberOfTeams(0);
       setTeamglobalIdsCount(0);
 
-      formCompetitionglobal.setFieldValue('teamglobalIds', undefined);
+      formCompetitionglobal.resetFields(['teamglobalIds']);
     }
   };
 

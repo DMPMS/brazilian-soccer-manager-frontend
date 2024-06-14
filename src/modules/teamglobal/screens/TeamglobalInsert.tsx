@@ -1,5 +1,5 @@
 // import { Upload } from 'antd';
-import { Form } from 'antd';
+import { Form, Typography } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import ButtonProject from '../../../shared/components/buttons/button/ButtonProject';
@@ -225,7 +225,12 @@ const TeamglobalInsert = () => {
                 </LimitedContainerProjectCardProject>
                 <LimitedContainerProjectCardProject width={400}>
                   <Form.Item
-                    label={`Jogadores (${playerglobalIdsCount} / ${TEAMGLOBAL_MAX_PLAYERSGLOBAL})`}
+                    label={
+                      <Typography.Text type="secondary">
+                        <Typography.Text>Jogadores</Typography.Text> ({playerglobalIdsCount} /{' '}
+                        {TEAMGLOBAL_MAX_PLAYERSGLOBAL})
+                      </Typography.Text>
+                    }
                     name="playerglobalIds"
                     required
                     rules={[

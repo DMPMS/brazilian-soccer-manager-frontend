@@ -1,4 +1,4 @@
-import { Form } from 'antd';
+import { Form, Typography } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import ButtonProject from '../../../shared/components/buttons/button/ButtonProject';
@@ -216,13 +216,30 @@ const CompetitionglobalInsert = () => {
                 <LimitedContainerProjectCardProject width={400}>
                   <Form.Item
                     label={
-                      ruleNumberOfTeams > 0
-                        ? `Times (${teamglobalIdsCount} / ${ruleNumberOfTeams})`
-                        : `Times`
+                      ruleNumberOfTeams > 0 ? (
+                        <Typography.Text type="secondary">
+                          <Typography.Text>Times</Typography.Text> ({teamglobalIdsCount} /{' '}
+                          {ruleNumberOfTeams})
+                        </Typography.Text>
+                      ) : (
+                        `Times`
+                      )
                     }
                     name="teamglobalIds"
                     required
-                    rules={[{ required: true, message: 'Este campo deve ser preenchido.' }]}
+                    rules={[
+                      { required: true, message: 'Este campo deve ser preenchido.' },
+                      {
+                        validator: (_, value) =>
+                          !value || value.length === 0
+                            ? Promise.resolve()
+                            : value.length === ruleNumberOfTeams
+                              ? Promise.resolve()
+                              : Promise.reject(
+                                  new Error(`Você deve selecionar ${ruleNumberOfTeams} times.`),
+                                ),
+                      },
+                    ]}
                   >
                     <SelectProject
                       placeholder={

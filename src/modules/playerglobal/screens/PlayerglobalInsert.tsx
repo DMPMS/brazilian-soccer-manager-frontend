@@ -1,4 +1,4 @@
-import { Form } from 'antd';
+import { Form, Typography } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import ButtonProject from '../../../shared/components/buttons/button/ButtonProject';
@@ -25,6 +25,7 @@ import {
   PLAYERGLOBAL_MIN_LENGH_NAME,
   PLAYERGLOBAL_MIN_OVERALL,
 } from '../../../shared/constants/others';
+import { PLAYERGLOBAL_MIN_PRIMARY_POSITIONS } from '../../../shared/constants/others';
 import { CountryType } from '../../../shared/types/CountryType';
 import { PositionType } from '../../../shared/types/PositionType';
 import { TeamglobalType } from '../../../shared/types/TeamglobalType';
@@ -246,13 +247,32 @@ const PlayerglobalInsert = () => {
                   </Form.Item>
 
                   <Form.Item
-                    label={`Posições primárias (${selectedPrimaryPositionIds.length} / ${PLAYERGLOBAL_MAX_PRIMARY_POSITIONS})`}
+                    label={
+                      <Typography.Text type="secondary">
+                        <Typography.Text>Posições primárias</Typography.Text> (
+                        {selectedPrimaryPositionIds.length} / {PLAYERGLOBAL_MAX_PRIMARY_POSITIONS})
+                      </Typography.Text>
+                    }
                     name="primaryPositionIds"
                     required
-                    rules={[{ required: true, message: 'Este campo deve ser preenchido.' }]}
+                    rules={[
+                      { required: true, message: 'Este campo deve ser preenchido.' },
+                      {
+                        validator: (_, value) =>
+                          !value || value.length === 0
+                            ? Promise.resolve()
+                            : value.length >= PLAYERGLOBAL_MIN_PRIMARY_POSITIONS
+                              ? Promise.resolve()
+                              : Promise.reject(
+                                  new Error(
+                                    `Você deve selecionar pelo menos ${PLAYERGLOBAL_MIN_PRIMARY_POSITIONS} posições.`,
+                                  ),
+                                ),
+                      },
+                    ]}
                   >
                     <SelectProject
-                      placeholder="Selecione pelo menos uma posição"
+                      placeholder="Selecione as posição"
                       allowClear
                       mode="multiple"
                       maxCount={PLAYERGLOBAL_MAX_PRIMARY_POSITIONS}
@@ -279,7 +299,13 @@ const PlayerglobalInsert = () => {
                   </Form.Item>
 
                   <Form.Item
-                    label={`Posições secundárias (${selectedSecondaryPositionIds.length} / ${PLAYERGLOBAL_MAX_SECONDARY_POSITIONS})`}
+                    label={
+                      <Typography.Text type="secondary">
+                        <Typography.Text>Posições secundárias</Typography.Text> (
+                        {selectedSecondaryPositionIds.length} /{' '}
+                        {PLAYERGLOBAL_MAX_SECONDARY_POSITIONS})
+                      </Typography.Text>
+                    }
                     name="secondaryPositionIds"
                   >
                     <SelectProject
