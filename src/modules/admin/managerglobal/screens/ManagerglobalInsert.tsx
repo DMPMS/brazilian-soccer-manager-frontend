@@ -21,6 +21,7 @@ import {
 } from '../../../../shared/constants/others';
 import { CountryType } from '../../../../shared/types/CountryType';
 import { useCountry } from '../../../shared/country/hooks/useCountry';
+import { HomeRoutesEnum } from '../../home/routes';
 import { useInsertManagerglobal } from '../hooks/useInsertManagerglobal';
 import { ManagerglobalRoutesEnum } from '../routes';
 
@@ -52,6 +53,7 @@ const ManagerglobalInsert = () => {
       listBreadcrumb={[
         {
           name: 'Página inicial',
+          navigateTo: HomeRoutesEnum.HOME,
         },
         {
           name: 'Treinadores',

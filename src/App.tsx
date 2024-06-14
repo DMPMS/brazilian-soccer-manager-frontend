@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { createBrowserRouter, RouteObject, RouterProvider } from 'react-router-dom';
 
 import { competitionglobalRoutes } from './modules/admin/competitionglobal/routes';
+import { homeRoutes } from './modules/admin/home/routes';
 import { managerglobalRoutes } from './modules/admin/managerglobal/routes';
 import { playerglobalRoutes } from './modules/admin/playerglobal/routes';
 import { teamglobalRoutes } from './modules/admin/teamglobal/routes';
@@ -17,6 +18,7 @@ import { useGlobalReducer } from './store/reducers/globalReducer/useGlobalReduce
 
 const routes: RouteObject[] = [...loginRoutes];
 const routesLoggedIn: RouteObject[] = [
+  ...homeRoutes,
   ...managerglobalRoutes,
   ...competitionglobalRoutes,
   ...teamglobalRoutes,

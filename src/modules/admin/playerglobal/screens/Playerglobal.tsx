@@ -15,6 +15,7 @@ import TableProject from '../../../../shared/components/table/TableProject';
 import PositionTagProject from '../../../../shared/components/tags/positionTag/PositionTagProject';
 import { PLAYERGLOBAL_PRIMARY_POSITION_RATING } from '../../../../shared/constants/others';
 import { PlayerglobalType } from '../../../../shared/types/PlayerglobalType';
+import { HomeRoutesEnum } from '../../home/routes';
 import { usePlayerglobal } from '../hooks/usePlayerglobal';
 import { PlayerglobalRoutesEnum } from '../routes';
 
@@ -130,6 +131,7 @@ const Playerglobal = () => {
       listBreadcrumb={[
         {
           name: 'Página inicial',
+          navigateTo: HomeRoutesEnum.HOME,
         },
         {
           name: 'Jogadores',

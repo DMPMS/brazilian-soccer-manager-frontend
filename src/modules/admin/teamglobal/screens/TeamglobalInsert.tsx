@@ -25,6 +25,7 @@ import { PlayerglobalType } from '../../../../shared/types/PlayerglobalType';
 // import UploadImage from '../../../../shared/components/upload/uploadImage/UploadImage';
 // import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';
 import { useCountry } from '../../../shared/country/hooks/useCountry';
+import { HomeRoutesEnum } from '../../home/routes';
 import { useManagerglobal } from '../../managerglobal/hooks/useManagerglobal';
 import { usePlayerglobal } from '../../playerglobal/hooks/usePlayerglobal';
 import { useInsertTeamglobal } from '../hooks/useInsertTeamglobal';
@@ -66,6 +67,7 @@ const TeamglobalInsert = () => {
       listBreadcrumb={[
         {
           name: 'Página inicial',
+          navigateTo: HomeRoutesEnum.HOME,
         },
         {
           name: 'Times',

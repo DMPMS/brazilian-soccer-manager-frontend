@@ -24,6 +24,7 @@ import { RuleType } from '../../../../shared/types/RuleType';
 import { TeamglobalType } from '../../../../shared/types/TeamglobalType';
 import { useCountry } from '../../../shared/country/hooks/useCountry';
 import { useRule } from '../../../shared/rule/hooks/useRule';
+import { HomeRoutesEnum } from '../../home/routes';
 import { useTeamglobal } from '../../teamglobal/hooks/useTeamglobal';
 import { useInsertCompetitionglobal } from '../hooks/useInsertCompetitionglobal';
 import { CompetitionglobalRoutesEnum } from '../routes';
@@ -61,6 +62,7 @@ const CompetitionglobalInsert = () => {
       listBreadcrumb={[
         {
           name: 'Página inicial',
+          navigateTo: HomeRoutesEnum.HOME,
         },
         {
           name: 'Competições',

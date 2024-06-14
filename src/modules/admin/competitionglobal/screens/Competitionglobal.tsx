@@ -17,6 +17,7 @@ import {
   RULE_COMPETITIONTYPE_LEAGUE,
 } from '../../../../shared/constants/others';
 import { CompetitionglobalType } from '../../../../shared/types/CompetitionglobalType';
+import { HomeRoutesEnum } from '../../home/routes';
 import { useCompetitionglobal } from '../hooks/useCompetitionglobal';
 import { CompetitionglobalRoutesEnum } from '../routes';
 
@@ -111,6 +112,7 @@ const Competitionglobal = () => {
       listBreadcrumb={[
         {
           name: 'Página inicial',
+          navigateTo: HomeRoutesEnum.HOME,
         },
         {
           name: 'Competições',

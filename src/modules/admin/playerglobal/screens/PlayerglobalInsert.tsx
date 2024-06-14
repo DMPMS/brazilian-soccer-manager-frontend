@@ -31,6 +31,7 @@ import { PositionType } from '../../../../shared/types/PositionType';
 import { TeamglobalType } from '../../../../shared/types/TeamglobalType';
 import { useCountry } from '../../../shared/country/hooks/useCountry';
 import { usePosition } from '../../../shared/position/hooks/usePosition';
+import { HomeRoutesEnum } from '../../home/routes';
 import { useTeamglobal } from '../../teamglobal/hooks/useTeamglobal';
 import { useInsertPlayerglobal } from '../hooks/useInsertPlayerglobal';
 import { PlayerglobalRoutesEnum } from '../routes';
@@ -70,6 +71,7 @@ const PlayerglobalInsert = () => {
       listBreadcrumb={[
         {
           name: 'Página inicial',
+          navigateTo: HomeRoutesEnum.HOME,
         },
         {
           name: 'Jogadores',

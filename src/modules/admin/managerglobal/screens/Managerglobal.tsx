@@ -13,6 +13,7 @@ import { LimitedContainerProject } from '../../../../shared/components/styles/li
 import CountrySVGProject from '../../../../shared/components/svg/CountrySVGProject';
 import TableProject from '../../../../shared/components/table/TableProject';
 import { ManagerglobalType } from '../../../../shared/types/ManagerglobalType';
+import { HomeRoutesEnum } from '../../home/routes';
 import { useManagerglobal } from '../hooks/useManagerglobal';
 import { ManagerglobalRoutesEnum } from '../routes';
 
@@ -104,6 +105,7 @@ const Managerglobal = () => {
       listBreadcrumb={[
         {
           name: 'Página inicial',
+          navigateTo: HomeRoutesEnum.HOME,
         },
         {
           name: 'Treinadores',

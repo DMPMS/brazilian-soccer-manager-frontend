@@ -13,6 +13,7 @@ import { LimitedContainerProject } from '../../../../shared/components/styles/li
 import CountrySVGProject from '../../../../shared/components/svg/CountrySVGProject';
 import TableProject from '../../../../shared/components/table/TableProject';
 import { TeamglobalType } from '../../../../shared/types/TeamglobalType';
+import { HomeRoutesEnum } from '../../home/routes';
 import { useTeamglobal } from '../hooks/useTeamglobal';
 import { TeamglobalRoutesEnum } from '../routes';
 
@@ -100,6 +101,7 @@ const Teamglobal = () => {
       listBreadcrumb={[
         {
           name: 'Página inicial',
+          navigateTo: HomeRoutesEnum.HOME,
         },
         {
           name: 'Times',

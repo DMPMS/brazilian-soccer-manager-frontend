@@ -1,20 +1,19 @@
-import {
-  AppstoreOutlined,
-  HomeOutlined,
-  LogoutOutlined,
-  PartitionOutlined,
-  TeamOutlined,
-  UnorderedListOutlined,
-} from '@ant-design/icons';
 import { Layout, Menu, Modal } from 'antd';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { CompetitionglobalRoutesEnum } from '../../../modules/admin/competitionglobal/routes';
+import { HomeRoutesEnum } from '../../../modules/admin/home/routes';
 import { ManagerglobalRoutesEnum } from '../../../modules/admin/managerglobal/routes';
 import { PlayerglobalRoutesEnum } from '../../../modules/admin/playerglobal/routes';
 import { TeamglobalRoutesEnum } from '../../../modules/admin/teamglobal/routes';
 import { logout } from '../../functions/connection/auth';
+import CompetitionIconSVGProject from '../svg/CompetitionIconSVGProject';
+import HomeIconSVGProject from '../svg/HomeIconSVGProject';
+import LogoutIconSVGProject from '../svg/LogoutIconSVGProject';
+import ManagerIconSVGProject from '../svg/ManagerIconSVGProject';
+import PlayerIconSVGProject from '../svg/PlayeIconSVGProject';
+import TeamIconSVGProject from '../svg/TeamIconSVGProject';
 import { LogoSidebar } from './sidebarProject.style';
 import { SidebarItem } from './types/SidebarItem';
 
@@ -37,12 +36,13 @@ const SidebarProject = () => {
     {
       key: 'home',
       label: 'Página inicial',
-      icon: <HomeOutlined />,
+      icon: <HomeIconSVGProject />,
+      onClick: () => navigate(HomeRoutesEnum.HOME),
     },
     {
       key: 'playersglobal',
       label: 'Jogadores',
-      icon: <UnorderedListOutlined />,
+      icon: <PlayerIconSVGProject />,
       children: [
         {
           key: 'playersglobal_view',
@@ -59,7 +59,7 @@ const SidebarProject = () => {
     {
       key: 'managersglobal',
       label: 'Treinadores',
-      icon: <TeamOutlined />,
+      icon: <ManagerIconSVGProject />,
       children: [
         {
           key: 'managersglobal_view',
@@ -76,7 +76,7 @@ const SidebarProject = () => {
     {
       key: 'teamsglobal',
       label: 'Times',
-      icon: <PartitionOutlined />,
+      icon: <TeamIconSVGProject />,
       children: [
         {
           key: 'teamsglobal_view',
@@ -93,7 +93,7 @@ const SidebarProject = () => {
     {
       key: 'competitionsglobal',
       label: 'Competições',
-      icon: <AppstoreOutlined />,
+      icon: <CompetitionIconSVGProject />,
       children: [
         {
           key: 'competitionsglobal_view',
@@ -110,7 +110,7 @@ const SidebarProject = () => {
     {
       key: 'logout',
       label: 'Sair',
-      icon: <LogoutOutlined />,
+      icon: <LogoutIconSVGProject />,
       onClick: () => showModal(),
     },
   ];
