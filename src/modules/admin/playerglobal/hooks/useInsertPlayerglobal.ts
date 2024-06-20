@@ -38,7 +38,7 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
   const { request, loading } = useRequests();
   const navigate = useNavigate();
 
-  const [loadingPlayerglobal, setLoadingPlayerglobal] = useState(false);
+  const [loadingPlayerglobal, setLoadingPlayerglobal] = useState(true);
   const [disabledButton, setDisabledButton] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
   const [playerglobal, setPlayerglobal] = useState<InsertPlayerglobalDTO>(DEFAULT_PLAYERGLOBAL);
@@ -51,8 +51,6 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
   useEffect(() => {
     if (playerglobalId) {
       const findAndSetPlayerglobalReducer = async (playerglobalId: string) => {
-        setLoadingPlayerglobal(true);
-
         await request(
           URL_PLAYERGLOBAL_ID.replace('{playerglobalId}', playerglobalId),
           MethodsEnum.GET,
@@ -67,6 +65,7 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
     } else {
       setIsEdit(false);
       setPlayerglobalReducer(undefined);
+      setLoadingPlayerglobal(false);
     }
   }, [playerglobalId]);
 

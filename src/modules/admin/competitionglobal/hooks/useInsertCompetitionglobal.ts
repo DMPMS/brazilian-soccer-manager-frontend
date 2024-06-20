@@ -33,7 +33,7 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
   const { request, loading } = useRequests();
   const navigate = useNavigate();
 
-  const [loadingCompetitionglobal, setLoadingCompetitionglobal] = useState(false);
+  const [loadingCompetitionglobal, setLoadingCompetitionglobal] = useState(true);
   const [disabledButton, setDisabledButton] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
   const [competitionglobal, setCompetitionglobal] =
@@ -49,12 +49,12 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
   useEffect(() => {
     if (competitionglobalId) {
       const findAndSetCompetitionglobalReducer = async (competitionglobalId: string) => {
-        setLoadingCompetitionglobal(true);
         await request(
           URL_COMPETITIONGLOBAL_ID.replace('{competitionglobalId}', competitionglobalId),
           MethodsEnum.GET,
           setCompetitionglobalReducer,
         );
+
         setLoadingCompetitionglobal(false);
       };
 
@@ -63,6 +63,7 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
     } else {
       setIsEdit(false);
       setCompetitionglobalReducer(undefined);
+      setLoadingCompetitionglobal(false);
     }
   }, [competitionglobalId]);
 

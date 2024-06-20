@@ -39,7 +39,7 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
   const { request, loading } = useRequests();
   const navigate = useNavigate();
 
-  const [loadingTeamglobal, setLoadingTeamglobal] = useState(false);
+  const [loadingTeamglobal, setLoadingTeamglobal] = useState(true);
   const [disabledButton, setDisabledButton] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
   const [teamglobal, setTeamglobal] = useState<InsertTeamglobalDTO>(DEFAULT_TEAMGLOBAL);
@@ -61,12 +61,12 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
   useEffect(() => {
     if (teamglobalId) {
       const findAndSetTeamglobalReducer = async (teamglobalId: string) => {
-        setLoadingTeamglobal(true);
         await request(
           URL_TEAMGLOBAL_ID.replace('{teamglobalId}', teamglobalId),
           MethodsEnum.GET,
           setTeamglobalReducer,
         );
+
         setLoadingTeamglobal(false);
       };
 
@@ -75,6 +75,7 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
     } else {
       setIsEdit(false);
       setTeamglobalReducer(undefined);
+      setLoadingTeamglobal(false);
     }
   }, [teamglobalId]);
 

@@ -31,7 +31,7 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
   const { request, loading } = useRequests();
   const navigate = useNavigate();
 
-  const [loadingManagerglobal, setLoadingManagerglobal] = useState(false);
+  const [loadingManagerglobal, setLoadingManagerglobal] = useState(true);
   const [disabledButton, setDisabledButton] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
   const [managerglobal, setManagerglobal] = useState<InsertManagerglobalDTO>(DEFAULT_MANAGERGLOBAL);
@@ -41,8 +41,6 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
   useEffect(() => {
     if (managerglobalId) {
       const findAndSetManagerglobalReducer = async (managerglobalId: string) => {
-        setLoadingManagerglobal(true);
-
         await request(
           URL_MANAGERGLOBAL_ID.replace('{managerglobalId}', managerglobalId),
           MethodsEnum.GET,
@@ -57,6 +55,7 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
     } else {
       setIsEdit(false);
       setManagerglobalReducer(undefined);
+      setLoadingManagerglobal(false);
     }
   }, [managerglobalId]);
 
