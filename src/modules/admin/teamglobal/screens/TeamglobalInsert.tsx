@@ -80,11 +80,7 @@ const TeamglobalInsert = () => {
     >
       {loadingTeamglobal ? (
         <FlexProject justify="center">
-          <LimitedContainerProjectCardProject width={400}>
-            <FlexProject justify="center">
-              <LoadingProject size="large" />
-            </FlexProject>
-          </LimitedContainerProjectCardProject>
+          <LoadingProject width={50} height={50} />
         </FlexProject>
       ) : (
         <FlexProject justify="center">

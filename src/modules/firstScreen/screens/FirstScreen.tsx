@@ -17,8 +17,8 @@ const FirstScreen = () => {
   }, [user]);
 
   return (
-    <FlexProject justify="center">
-      <LoadingProject size="large" />
+    <FlexProject justify="center" align="center" style={{ minHeight: '100vh' }}>
+      <LoadingProject width={50} height={50} />
     </FlexProject>
   );
 };

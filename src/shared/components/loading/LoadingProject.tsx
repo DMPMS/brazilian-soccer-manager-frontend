@@ -1,7 +1,12 @@
-import { Spin, SpinProps } from 'antd';
+import { RotatingBallIcon } from './loadingProject.style';
 
-const LoadingProject = ({ ...props }: SpinProps) => {
-  return <Spin {...props} />;
+interface LoadingProjectProps {
+  width: number;
+  height: number;
+}
+
+const LoadingProject = ({ width, height }: LoadingProjectProps) => {
+  return <RotatingBallIcon width={width} height={height} />;
 };
 
 export default LoadingProject;

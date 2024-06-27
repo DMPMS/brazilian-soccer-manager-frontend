@@ -74,12 +74,8 @@ const CompetitionglobalInsert = () => {
       ]}
     >
       {loadingCompetitionglobal ? (
-        <FlexProject justify="center">
-          <LimitedContainerProjectCardProject width={400}>
-            <FlexProject justify="center">
-              <LoadingProject size="large" />
-            </FlexProject>
-          </LimitedContainerProjectCardProject>
+        <FlexProject justify="center" align="center">
+          <LoadingProject width={50} height={50} />
         </FlexProject>
       ) : (
         <FlexProject justify="center">

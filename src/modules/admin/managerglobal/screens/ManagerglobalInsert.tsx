@@ -65,12 +65,9 @@ const ManagerglobalInsert = () => {
       ]}
     >
       {loadingManagerglobal ? (
+        // style={{ minHeight: 'calc(100vh - 125px)' }
         <FlexProject justify="center">
-          <LimitedContainerProjectCardProject width={400}>
-            <FlexProject justify="center">
-              <LoadingProject size="large" />
-            </FlexProject>
-          </LimitedContainerProjectCardProject>
+          <LoadingProject width={50} height={50} />
         </FlexProject>
       ) : (
         <FlexProject justify="center">
