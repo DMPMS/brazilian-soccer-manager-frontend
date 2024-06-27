@@ -42,6 +42,7 @@ const CompetitionglobalInsert = () => {
     teamglobalIdsCount,
     handleOnChangeInput,
     handleOnClickInsert,
+    handleOnClickReset,
     handleOnChangeCountrySelect,
     handleOnChangeRuleSelect,
     handleOnChangeTeamglobalSelect,
@@ -195,11 +196,15 @@ const CompetitionglobalInsert = () => {
                     />
                   </Form.Item>
 
-                  <FlexProject justify="flex-end">
-                    <LimitedContainerProject margin="0px 8px 0px 0px" width={120}>
+                  <FlexProject justify="space-between">
+                    <div>
                       <ButtonProject onClick={handleOnClickCancel}>Cancelar</ButtonProject>
-                    </LimitedContainerProject>
-                    <LimitedContainerProject width={120}>
+                    </div>
+                    <div>
+                      <ButtonProject onClick={handleOnClickReset} margin="0px 8px 0px 0px">
+                        Resetar
+                      </ButtonProject>
+
                       <ButtonProject
                         loading={loading}
                         disabled={disabledButton}
@@ -208,7 +213,7 @@ const CompetitionglobalInsert = () => {
                       >
                         {isEdit ? 'Salvar' : 'Inserir'}
                       </ButtonProject>
-                    </LimitedContainerProject>
+                    </div>
                   </FlexProject>
                 </LimitedContainerProjectCardProject>
                 <LimitedContainerProjectCardProject width={400}>

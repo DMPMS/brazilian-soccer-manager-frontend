@@ -227,6 +227,12 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
     navigate(TeamglobalRoutesEnum.TEAMGLOBAL);
   };
 
+  const handleOnClickReset = () => {
+    setTeamglobal(DEFAULT_TEAMGLOBAL);
+    formTeamglobal.resetFields();
+    setPlayerglobalIdsCount(0);
+  };
+
   return {
     loading,
     disabledButton,
@@ -238,6 +244,7 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
     playersglobalOfTeamglobalReducer,
     handleOnChangeInput,
     handleOnClickInsert,
+    handleOnClickReset,
     handleOnChangeCountrySelect,
     handleOnChangeManagerglobalSelect,
     handleOnChangePlayerglobalSelect,

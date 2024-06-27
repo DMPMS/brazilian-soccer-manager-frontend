@@ -21,7 +21,12 @@ const PageNotFound = () => {
           <TitleNotFound level={3}>Erro 404</TitleNotFound>
         </FlexProject>
         <DescriptionNotFound>Ops! Parece que essa página está fora de jogo.</DescriptionNotFound>
-        <ButtonProject onClick={handleOnClickButton} type="primary" margin="16px 0px 0px 0px">
+        <ButtonProject
+          onClick={handleOnClickButton}
+          type="primary"
+          width="100%"
+          margin="16px 0px 0px 0px"
+        >
           Página de Login
         </ButtonProject>
       </LimitedContainerProjectCardProject>

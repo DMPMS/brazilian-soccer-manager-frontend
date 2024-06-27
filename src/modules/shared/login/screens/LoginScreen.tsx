@@ -51,6 +51,7 @@ const LoginScreen = () => {
           disabled={disabledButton}
           type="primary"
           onClick={handleOnClickLogin}
+          width="100%"
         >
           Entrar
         </ButtonProject>

@@ -231,6 +231,13 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
     navigate(PlayerglobalRoutesEnum.PLAYERGLOBAL);
   };
 
+  const handleOnClickReset = () => {
+    setPlayerglobal(DEFAULT_PLAYERGLOBAL);
+    formPlayerglobal.resetFields();
+    setSelectedPrimaryPositionIds([]);
+    setSelectedSecondaryPositionIds([]);
+  };
+
   return {
     loading,
     disabledButton,
@@ -242,6 +249,7 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
     handleOnChangeInput,
     handleOnChangeInputNumber,
     handleOnClickInsert,
+    handleOnClickReset,
     handleOnChangeCountrySelect,
     handleOnChangeTeamglobalSelect,
     handleOnChangePrimaryPositionSelect,

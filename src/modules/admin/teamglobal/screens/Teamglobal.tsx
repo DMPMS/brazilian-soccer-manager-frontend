@@ -123,11 +123,9 @@ const Teamglobal = () => {
           <Search placeholder="Buscar time" onSearch={handleOnSearch} enterButton />
         </LimitedContainerProject>
 
-        <LimitedContainerProject width={120}>
-          <ButtonProject type="primary" onClick={handleOnClickInsert}>
-            Inserir
-          </ButtonProject>
-        </LimitedContainerProject>
+        <ButtonProject type="primary" onClick={handleOnClickInsert}>
+          Inserir
+        </ButtonProject>
       </FlexProject>
 
       <TableProject columns={columns} dataSource={teamsglobal} />

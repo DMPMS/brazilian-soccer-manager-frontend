@@ -127,11 +127,9 @@ const Managerglobal = () => {
           <Search placeholder="Buscar treinador" onSearch={handleOnSearch} enterButton />
         </LimitedContainerProject>
 
-        <LimitedContainerProject width={120}>
-          <ButtonProject type="primary" onClick={handleOnClickInsert}>
-            Inserir
-          </ButtonProject>
-        </LimitedContainerProject>
+        <ButtonProject type="primary" onClick={handleOnClickInsert}>
+          Inserir
+        </ButtonProject>
       </FlexProject>
       <TableProject columns={columns} dataSource={managersglobal} />
     </Screen>

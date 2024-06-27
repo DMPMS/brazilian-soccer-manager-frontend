@@ -210,6 +210,13 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
     navigate(CompetitionglobalRoutesEnum.COMPETITIONGLOBAL);
   };
 
+  const handleOnClickReset = () => {
+    setCompetitionglobal(DEFAULT_COMPETITIONGLOBAL);
+    formCompetitionglobal.resetFields();
+    setRuleNumberOfTeams(0);
+    setTeamglobalIdsCount(0);
+  };
+
   return {
     loading,
     disabledButton,
@@ -220,6 +227,7 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
     teamglobalIdsCount,
     handleOnChangeInput,
     handleOnClickInsert,
+    handleOnClickReset,
     handleOnChangeCountrySelect,
     handleOnChangeRuleSelect,
     handleOnChangeTeamglobalSelect,

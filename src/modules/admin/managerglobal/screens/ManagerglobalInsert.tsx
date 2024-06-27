@@ -8,10 +8,7 @@ import InputIntegerProject from '../../../../shared/components/inputs/inputInteg
 import LoadingProject from '../../../../shared/components/loading/LoadingProject';
 import Screen from '../../../../shared/components/screen/ScreenProject';
 import SelectProject from '../../../../shared/components/select/SelectProject';
-import {
-  LimitedContainerProject,
-  LimitedContainerProjectCardProject,
-} from '../../../../shared/components/styles/limited.styled';
+import { LimitedContainerProjectCardProject } from '../../../../shared/components/styles/limited.styled';
 import CountrySVGProject from '../../../../shared/components/svg/CountrySVGProject';
 import {
   MANAGERGLOBAL_MAX_AGE,
@@ -37,6 +34,7 @@ const ManagerglobalInsert = () => {
     handleOnChangeInput,
     handleOnChangeInputNumber,
     handleOnClickInsert,
+    handleOnClickReset,
     handleOnChangeCountrySelect,
   } = useInsertManagerglobal(managerglobalId);
 
@@ -155,11 +153,15 @@ const ManagerglobalInsert = () => {
               </Form.Item>
             </Form>
 
-            <FlexProject justify="flex-end">
-              <LimitedContainerProject margin="0px 8px 0px 0px" width={120}>
+            <FlexProject justify="space-between">
+              <div>
                 <ButtonProject onClick={handleOnClickCancel}>Cancelar</ButtonProject>
-              </LimitedContainerProject>
-              <LimitedContainerProject width={120}>
+              </div>
+              <div>
+                <ButtonProject onClick={handleOnClickReset} margin="0px 8px 0px 0px">
+                  Resetar
+                </ButtonProject>
+
                 <ButtonProject
                   loading={loading}
                   disabled={disabledButton}
@@ -168,7 +170,7 @@ const ManagerglobalInsert = () => {
                 >
                   {isEdit ? 'Salvar' : 'Inserir'}
                 </ButtonProject>
-              </LimitedContainerProject>
+              </div>
             </FlexProject>
           </LimitedContainerProjectCardProject>
         </FlexProject>
