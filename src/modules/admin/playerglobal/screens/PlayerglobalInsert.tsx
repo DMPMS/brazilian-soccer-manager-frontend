@@ -11,7 +11,7 @@ import Screen from '../../../../shared/components/screen/ScreenProject';
 import SelectProject from '../../../../shared/components/select/SelectProject';
 import {
   LimitedContainerProject,
-  LimitedContainerProjectCardProject,
+  LimitedContainerCardProject,
 } from '../../../../shared/components/styles/limited.styled';
 import CountrySVGProject from '../../../../shared/components/svg/CountrySVGProject';
 import PositionTagProject from '../../../../shared/components/tags/positionTag/PositionTagProject';
@@ -92,7 +92,7 @@ const PlayerglobalInsert = () => {
           <LimitedContainerProject width={805}>
             <Form layout="vertical" form={formPlayerglobal}>
               <FlexProject justify="space-between">
-                <LimitedContainerProjectCardProject width={400}>
+                <LimitedContainerCardProject width={400}>
                   <Form.Item
                     label="Nome"
                     name="name"
@@ -219,8 +219,8 @@ const PlayerglobalInsert = () => {
                       </ButtonProject>
                     </div>
                   </FlexProject>
-                </LimitedContainerProjectCardProject>
-                <LimitedContainerProjectCardProject width={400}>
+                </LimitedContainerCardProject>
+                <LimitedContainerCardProject width={400}>
                   <Form.Item label="Time" name="teamglobalId">
                     <SelectProject
                       placeholder="Selecione um time"
@@ -337,7 +337,7 @@ const PlayerglobalInsert = () => {
                       }
                     />
                   </Form.Item>
-                </LimitedContainerProjectCardProject>
+                </LimitedContainerCardProject>
               </FlexProject>
             </Form>
           </LimitedContainerProject>

@@ -10,7 +10,7 @@ import Screen from '../../../../shared/components/screen/ScreenProject';
 import SelectProject from '../../../../shared/components/select/SelectProject';
 import {
   LimitedContainerProject,
-  LimitedContainerProjectCardProject,
+  LimitedContainerCardProject,
 } from '../../../../shared/components/styles/limited.styled';
 import CountrySVGProject from '../../../../shared/components/svg/CountrySVGProject';
 import {
@@ -83,7 +83,7 @@ const CompetitionglobalInsert = () => {
           <LimitedContainerProject width={805}>
             <Form layout="vertical" form={formCompetitionglobal}>
               <FlexProject justify="space-between">
-                <LimitedContainerProjectCardProject width={400}>
+                <LimitedContainerCardProject width={400}>
                   <FlexProject justify="space-between">
                     <LimitedContainerProject width={250}>
                       <Form.Item
@@ -215,8 +215,8 @@ const CompetitionglobalInsert = () => {
                       </ButtonProject>
                     </div>
                   </FlexProject>
-                </LimitedContainerProjectCardProject>
-                <LimitedContainerProjectCardProject width={400}>
+                </LimitedContainerCardProject>
+                <LimitedContainerCardProject width={400}>
                   <Form.Item
                     label={
                       ruleNumberOfTeams > 0 ? (
@@ -282,7 +282,7 @@ const CompetitionglobalInsert = () => {
                       }
                     />
                   </Form.Item>
-                </LimitedContainerProjectCardProject>
+                </LimitedContainerCardProject>
               </FlexProject>
             </Form>
           </LimitedContainerProject>

@@ -8,7 +8,7 @@ import InputIntegerProject from '../../../../shared/components/inputs/inputInteg
 import LoadingProject from '../../../../shared/components/loading/LoadingProject';
 import Screen from '../../../../shared/components/screen/ScreenProject';
 import SelectProject from '../../../../shared/components/select/SelectProject';
-import { LimitedContainerProjectCardProject } from '../../../../shared/components/styles/limited.styled';
+import { LimitedContainerCardProject } from '../../../../shared/components/styles/limited.styled';
 import CountrySVGProject from '../../../../shared/components/svg/CountrySVGProject';
 import {
   MANAGERGLOBAL_MAX_AGE,
@@ -69,7 +69,7 @@ const ManagerglobalInsert = () => {
         </FlexProject>
       ) : (
         <FlexProject justify="center">
-          <LimitedContainerProjectCardProject width={400}>
+          <LimitedContainerCardProject width={400}>
             <Form layout="vertical" form={formManagerglobal}>
               <Form.Item
                 label="Nome"
@@ -172,7 +172,7 @@ const ManagerglobalInsert = () => {
                 </ButtonProject>
               </div>
             </FlexProject>
-          </LimitedContainerProjectCardProject>
+          </LimitedContainerCardProject>
         </FlexProject>
       )}
     </Screen>

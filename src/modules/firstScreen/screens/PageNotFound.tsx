@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 import ButtonProject from '../../../shared/components/buttons/button/ButtonProject';
 import FlexProject from '../../../shared/components/flex/FlexProject';
-import { LimitedContainerProjectCardProject } from '../../../shared/components/styles/limited.styled';
+import { LimitedContainerCardProject } from '../../../shared/components/styles/limited.styled';
 import { LoginRoutesEnum } from '../../shared/login/routes';
 import { DescriptionNotFound, ImageNotFound, TitleNotFound } from '../styles/pageNotFound.styles';
 
@@ -15,7 +15,7 @@ const PageNotFound = () => {
 
   return (
     <FlexProject justify="center" align="center" style={{ height: '100vh' }}>
-      <LimitedContainerProjectCardProject width={300} margin="10px">
+      <LimitedContainerCardProject width={300} margin="10px">
         <FlexProject justify="center" align="center" vertical style={{ textAlign: 'center' }}>
           <ImageNotFound src="../../../../public/deflatedBall.png" />
           <TitleNotFound level={3}>Erro 404</TitleNotFound>
@@ -29,7 +29,7 @@ const PageNotFound = () => {
         >
           Página de Login
         </ButtonProject>
-      </LimitedContainerProjectCardProject>
+      </LimitedContainerCardProject>
     </FlexProject>
   );
 };

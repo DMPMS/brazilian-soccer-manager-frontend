@@ -10,7 +10,7 @@ export const LimitedContainerProject = styled.div<LimitedContainerProjectProject
   ${(props) => (props.margin ? `margin: ${props.margin}` : '')};
 `;
 
-export const LimitedContainerProjectCardProject = styled(LimitedContainerProject)`
+export const LimitedContainerCardProject = styled(LimitedContainerProject)`
   background-color: #ffffff;
 
   padding: 15px;

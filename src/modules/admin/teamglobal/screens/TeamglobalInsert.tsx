@@ -10,7 +10,7 @@ import Screen from '../../../../shared/components/screen/ScreenProject';
 import SelectProject from '../../../../shared/components/select/SelectProject';
 import {
   LimitedContainerProject,
-  LimitedContainerProjectCardProject,
+  LimitedContainerCardProject,
 } from '../../../../shared/components/styles/limited.styled';
 import CountrySVGProject from '../../../../shared/components/svg/CountrySVGProject';
 import {
@@ -88,7 +88,7 @@ const TeamglobalInsert = () => {
           <LimitedContainerProject width={805}>
             <Form layout="vertical" form={formTeamglobal}>
               <FlexProject justify="space-between">
-                <LimitedContainerProjectCardProject width={400}>
+                <LimitedContainerCardProject width={400}>
                   <Form.Item
                     label="Nome"
                     name="name"
@@ -225,8 +225,8 @@ const TeamglobalInsert = () => {
                       </ButtonProject>
                     </div>
                   </FlexProject>
-                </LimitedContainerProjectCardProject>
-                <LimitedContainerProjectCardProject width={400}>
+                </LimitedContainerCardProject>
+                <LimitedContainerCardProject width={400}>
                   <Form.Item
                     label={
                       <Typography.Text type="secondary">
@@ -279,7 +279,7 @@ const TeamglobalInsert = () => {
                       }
                     />
                   </Form.Item>
-                </LimitedContainerProjectCardProject>
+                </LimitedContainerCardProject>
               </FlexProject>
             </Form>
           </LimitedContainerProject>

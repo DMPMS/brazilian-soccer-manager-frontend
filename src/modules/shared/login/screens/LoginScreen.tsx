@@ -4,7 +4,7 @@ import ButtonProject from '../../../../shared/components/buttons/button/ButtonPr
 import FlexProject from '../../../../shared/components/flex/FlexProject';
 import InputProject from '../../../../shared/components/inputs/input/InputProject';
 import InputPasswordProject from '../../../../shared/components/inputs/inputPassword/InputPasswordProject';
-import { LimitedContainerProjectCardProject } from '../../../../shared/components/styles/limited.styled';
+import { LimitedContainerCardProject } from '../../../../shared/components/styles/limited.styled';
 import { useLogin } from '../hooks/useLogin';
 import { LogoLogin, TitleLogin } from '../styles/loginScreen.style';
 
@@ -13,7 +13,7 @@ const LoginScreen = () => {
 
   return (
     <FlexProject justify="center" align="center" style={{ height: '100vh' }}>
-      <LimitedContainerProjectCardProject width={300} margin="10px">
+      <LimitedContainerCardProject width={300} margin="10px">
         <FlexProject justify="center" align="center" vertical style={{ textAlign: 'center' }}>
           <LogoLogin src="logo.png" />
           <TitleLogin level={3}>Brazilian Soccer Manager</TitleLogin>
@@ -55,7 +55,7 @@ const LoginScreen = () => {
         >
           Entrar
         </ButtonProject>
-      </LimitedContainerProjectCardProject>
+      </LimitedContainerCardProject>
     </FlexProject>
   );
 };
