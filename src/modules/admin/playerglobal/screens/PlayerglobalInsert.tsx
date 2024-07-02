@@ -10,8 +10,8 @@ import LoadingProject from '../../../../shared/components/loading/LoadingProject
 import Screen from '../../../../shared/components/screen/ScreenProject';
 import SelectProject from '../../../../shared/components/select/SelectProject';
 import {
-  LimitedContainerProject,
   LimitedContainerCardProject,
+  LimitedContainerProject,
 } from '../../../../shared/components/styles/limited.styled';
 import CountrySVGProject from '../../../../shared/components/svg/CountrySVGProject';
 import PositionTagProject from '../../../../shared/components/tags/positionTag/PositionTagProject';
@@ -24,6 +24,7 @@ import {
   PLAYERGLOBAL_MIN_AGE,
   PLAYERGLOBAL_MIN_LENGH_NAME,
   PLAYERGLOBAL_MIN_OVERALL,
+  TEAMGLOBAL_MAX_PLAYERSGLOBAL,
 } from '../../../../shared/constants/others';
 import { PLAYERGLOBAL_MIN_PRIMARY_POSITIONS } from '../../../../shared/constants/others';
 import { CountryType } from '../../../../shared/types/CountryType';
@@ -47,6 +48,7 @@ const PlayerglobalInsert = () => {
     formPlayerglobal,
     selectedPrimaryPositionIds,
     selectedSecondaryPositionIds,
+    playerglobalReducerTeamglobalId,
     handleOnChangeInput,
     handleOnChangeInputNumber,
     handleOnClickInsert,
@@ -228,6 +230,12 @@ const PlayerglobalInsert = () => {
                       onChange={handleOnChangeTeamglobalSelect}
                       options={teamsglobal.map((teamglobal: TeamglobalType) => ({
                         value: `${teamglobal.id}`,
+                        disabled:
+                          teamglobal.playersglobalCount === TEAMGLOBAL_MAX_PLAYERSGLOBAL
+                            ? teamglobal.id === playerglobalReducerTeamglobalId
+                              ? false
+                              : true
+                            : false,
                         label: (
                           <FlexProject justify="flex-start" align="center">
                             <ImageProject

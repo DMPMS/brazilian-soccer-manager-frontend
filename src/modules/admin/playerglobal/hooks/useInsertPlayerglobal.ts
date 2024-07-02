@@ -20,11 +20,13 @@ import {
   URL_PLAYERGLOBAL,
   URL_PLAYERGLOBAL_ID,
   URL_PLAYERGLOBAL_WITHOUT_TEAMGLOBAL,
+  URL_TEAMGLOBAL,
 } from '../../../../shared/constants/urls';
 import { InsertPlayerglobalDTO } from '../../../../shared/dtos/InsertPlayerglobal.dto';
 import { MethodsEnum } from '../../../../shared/enums/methods.enum';
 import { useRequests } from '../../../../shared/hooks/useRequests';
 import { usePlayerglobalReducer } from '../../../../store/reducers/playerglobalReducer/usePlayerglobalReducer';
+import { useTeamglobalReducer } from '../../../../store/reducers/teamglobalReducer/useTeamglobalReducer';
 import { PlayerglobalRoutesEnum } from '../routes';
 
 export const useInsertPlayerglobal = (playerglobalId?: string) => {
@@ -34,6 +36,7 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
     playerglobal: playerglobalReducer,
     setPlayerglobal: setPlayerglobalReducer,
   } = usePlayerglobalReducer();
+  const { setTeamsglobal } = useTeamglobalReducer();
 
   const { request, loading } = useRequests();
   const navigate = useNavigate();
@@ -228,6 +231,8 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
       setPlayersglobalWithoutTeamglobal,
     );
 
+    await request(URL_TEAMGLOBAL, MethodsEnum.GET, setTeamsglobal);
+
     navigate(PlayerglobalRoutesEnum.PLAYERGLOBAL);
   };
 
@@ -246,6 +251,7 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
     formPlayerglobal,
     selectedPrimaryPositionIds,
     selectedSecondaryPositionIds,
+    playerglobalReducerTeamglobalId: playerglobalReducer?.teamglobal?.id,
     handleOnChangeInput,
     handleOnChangeInputNumber,
     handleOnClickInsert,

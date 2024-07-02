@@ -10,5 +10,6 @@ export interface TeamglobalType {
   country?: CountryType;
   managerglobal?: ManagerglobalType;
   playersglobal?: PlayerglobalType[];
+  playersglobalCount: number;
   competitionsglobalTeamglobal?: CompetitionglobalTeamglobalType[];
 }

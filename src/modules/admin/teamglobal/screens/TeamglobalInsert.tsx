@@ -9,8 +9,8 @@ import LoadingProject from '../../../../shared/components/loading/LoadingProject
 import Screen from '../../../../shared/components/screen/ScreenProject';
 import SelectProject from '../../../../shared/components/select/SelectProject';
 import {
-  LimitedContainerProject,
   LimitedContainerCardProject,
+  LimitedContainerProject,
 } from '../../../../shared/components/styles/limited.styled';
 import CountrySVGProject from '../../../../shared/components/svg/CountrySVGProject';
 import {
