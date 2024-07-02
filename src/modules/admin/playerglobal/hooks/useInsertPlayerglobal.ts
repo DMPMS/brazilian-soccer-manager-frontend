@@ -252,6 +252,7 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
     selectedPrimaryPositionIds,
     selectedSecondaryPositionIds,
     playerglobalReducerTeamglobalId: playerglobalReducer?.teamglobal?.id,
+    playerglobal,
     handleOnChangeInput,
     handleOnChangeInputNumber,
     handleOnClickInsert,

@@ -7,6 +7,7 @@ import ImageProject from '../../../../shared/components/image/ImageProject';
 import InputProject from '../../../../shared/components/inputs/input/InputProject';
 import InputIntegerProject from '../../../../shared/components/inputs/inputInteger/InputIntegerProject';
 import LoadingProject from '../../../../shared/components/loading/LoadingProject';
+import PlayerPositionsRating from '../../../../shared/components/others/playerPositionsRating/playerPositionsRating';
 import Screen from '../../../../shared/components/screen/ScreenProject';
 import SelectProject from '../../../../shared/components/select/SelectProject';
 import {
@@ -49,6 +50,7 @@ const PlayerglobalInsert = () => {
     selectedPrimaryPositionIds,
     selectedSecondaryPositionIds,
     playerglobalReducerTeamglobalId,
+    playerglobal,
     handleOnChangeInput,
     handleOnChangeInputNumber,
     handleOnClickInsert,
@@ -91,7 +93,7 @@ const PlayerglobalInsert = () => {
         </FlexProject>
       ) : (
         <FlexProject justify="center">
-          <LimitedContainerProject width={805}>
+          <LimitedContainerProject width={1110}>
             <Form layout="vertical" form={formPlayerglobal}>
               <FlexProject justify="space-between">
                 <LimitedContainerCardProject width={400}>
@@ -345,6 +347,13 @@ const PlayerglobalInsert = () => {
                       }
                     />
                   </Form.Item>
+                </LimitedContainerCardProject>
+                <LimitedContainerCardProject width={300}>
+                  <PlayerPositionsRating
+                    playerOverall={playerglobal.overall}
+                    primaryPositionIds={selectedPrimaryPositionIds}
+                    secondaryPositionIds={selectedSecondaryPositionIds}
+                  ></PlayerPositionsRating>
                 </LimitedContainerCardProject>
               </FlexProject>
             </Form>
