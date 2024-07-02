@@ -47,8 +47,6 @@ const PlayerglobalInsert = () => {
     isEdit,
     loadingPlayerglobal,
     formPlayerglobal,
-    selectedPrimaryPositionIds,
-    selectedSecondaryPositionIds,
     playerglobalReducerTeamglobalId,
     playerglobal,
     handleOnChangeInput,
@@ -263,7 +261,8 @@ const PlayerglobalInsert = () => {
                     label={
                       <Typography.Text type="secondary">
                         <Typography.Text>Posições primárias</Typography.Text> (
-                        {selectedPrimaryPositionIds.length} / {PLAYERGLOBAL_MAX_PRIMARY_POSITIONS})
+                        {playerglobal.primaryPositionIds.length} /{' '}
+                        {PLAYERGLOBAL_MAX_PRIMARY_POSITIONS})
                       </Typography.Text>
                     }
                     name="primaryPositionIds"
@@ -292,7 +291,9 @@ const PlayerglobalInsert = () => {
                       onChange={handleOnChangePrimaryPositionSelect}
                       options={positions.map((position: PositionType) => ({
                         value: `${position.id}`,
-                        disabled: selectedSecondaryPositionIds.includes(position.id) ? true : false,
+                        disabled: playerglobal.secondaryPositionIds.includes(position.id)
+                          ? true
+                          : false,
                         label: (
                           <FlexProject justify="flex-start" align="center">
                             <PositionTagProject area={position?.area}>
@@ -315,7 +316,7 @@ const PlayerglobalInsert = () => {
                     label={
                       <Typography.Text type="secondary">
                         <Typography.Text>Posições secundárias</Typography.Text> (
-                        {selectedSecondaryPositionIds.length} /{' '}
+                        {playerglobal.secondaryPositionIds.length} /{' '}
                         {PLAYERGLOBAL_MAX_SECONDARY_POSITIONS})
                       </Typography.Text>
                     }
@@ -329,7 +330,9 @@ const PlayerglobalInsert = () => {
                       onChange={handleOnChangeSecondaryPositionSelect}
                       options={positions.map((position: PositionType) => ({
                         value: `${position.id}`,
-                        disabled: selectedPrimaryPositionIds.includes(position.id) ? true : false,
+                        disabled: playerglobal.primaryPositionIds.includes(position.id)
+                          ? true
+                          : false,
                         label: (
                           <FlexProject justify="flex-start" align="center">
                             <PositionTagProject area={position?.area}>
@@ -351,8 +354,8 @@ const PlayerglobalInsert = () => {
                 <LimitedContainerCardProject width={300}>
                   <PlayerPositionsRating
                     playerOverall={playerglobal.overall}
-                    primaryPositionIds={selectedPrimaryPositionIds}
-                    secondaryPositionIds={selectedSecondaryPositionIds}
+                    primaryPositionIds={playerglobal.primaryPositionIds}
+                    secondaryPositionIds={playerglobal.secondaryPositionIds}
                   ></PlayerPositionsRating>
                 </LimitedContainerCardProject>
               </FlexProject>

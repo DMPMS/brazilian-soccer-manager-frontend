@@ -1,5 +1,7 @@
 import {
   PLAYERGLOBAL_DEFAULT_GOALKEEPER_POSITION_RATING,
+  PLAYERGLOBAL_MAX_OVERALL,
+  PLAYERGLOBAL_MIN_OVERALL,
   PLAYERGLOBAL_NON_PLAYING_POSITION_RATING,
   PLAYERGLOBAL_PRIMARY_POSITION_RATING,
   PLAYERGLOBAL_SAME_AREA_PRIMARY_POSITION_RATING,
@@ -52,6 +54,10 @@ const calculateOverall = (
   primaryPositionIds: number[],
   secondaryPositionIds: number[],
 ) => {
+  if (playerOverall < PLAYERGLOBAL_MIN_OVERALL || playerOverall > PLAYERGLOBAL_MAX_OVERALL) {
+    return '?';
+  }
+
   if (primaryPositionIds.includes(positionId)) {
     return playerOverall * PLAYERGLOBAL_PRIMARY_POSITION_RATING;
   }

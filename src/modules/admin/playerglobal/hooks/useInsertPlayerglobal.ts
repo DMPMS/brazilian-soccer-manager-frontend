@@ -46,9 +46,6 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
   const [isEdit, setIsEdit] = useState(false);
   const [playerglobal, setPlayerglobal] = useState<InsertPlayerglobalDTO>(DEFAULT_PLAYERGLOBAL);
 
-  const [selectedPrimaryPositionIds, setSelectedPrimaryPositionIds] = useState<number[]>([]);
-  const [selectedSecondaryPositionIds, setSelectedSecondaryPositionIds] = useState<number[]>([]);
-
   const [formPlayerglobal] = useForm();
 
   useEffect(() => {
@@ -118,14 +115,9 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
             ? secondaryPositionIds.map((secondaryPositionId) => `${secondaryPositionId}`)
             : undefined,
       });
-
-      setSelectedPrimaryPositionIds(primaryPositionIds);
-      setSelectedSecondaryPositionIds(secondaryPositionIds);
     } else {
       setPlayerglobal(DEFAULT_PLAYERGLOBAL);
       formPlayerglobal.resetFields();
-      setSelectedPrimaryPositionIds([]);
-      setSelectedSecondaryPositionIds([]);
     }
   }, [playerglobalReducer]);
 
@@ -186,8 +178,6 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
   const handleOnChangePrimaryPositionSelect = (values: string[]) => {
     const updatedValues = values.map((value) => Number(value));
 
-    setSelectedPrimaryPositionIds(updatedValues);
-
     setPlayerglobal({
       ...playerglobal,
       primaryPositionIds: updatedValues,
@@ -196,8 +186,6 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
 
   const handleOnChangeSecondaryPositionSelect = (values: string[]) => {
     const updatedValues = values.map((value) => Number(value));
-
-    setSelectedSecondaryPositionIds(updatedValues);
 
     setPlayerglobal({
       ...playerglobal,
@@ -239,8 +227,6 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
   const handleOnClickReset = () => {
     setPlayerglobal(DEFAULT_PLAYERGLOBAL);
     formPlayerglobal.resetFields();
-    setSelectedPrimaryPositionIds([]);
-    setSelectedSecondaryPositionIds([]);
   };
 
   return {
@@ -249,8 +235,6 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
     isEdit,
     loadingPlayerglobal,
     formPlayerglobal,
-    selectedPrimaryPositionIds,
-    selectedSecondaryPositionIds,
     playerglobalReducerTeamglobalId: playerglobalReducer?.teamglobal?.id,
     playerglobal,
     handleOnChangeInput,
