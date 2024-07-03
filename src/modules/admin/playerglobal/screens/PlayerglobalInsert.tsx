@@ -249,6 +249,13 @@ const PlayerglobalInsert = () => {
                           .toLowerCase()
                           .includes(input.toLowerCase())
                       }
+                      filterSort={(optionA, optionB) =>
+                        optionA.label.props.children[1].props.children
+                          .toLowerCase()
+                          .localeCompare(
+                            optionB.label.props.children[1].props.children.toLowerCase(),
+                          )
+                      }
                     />
                   </Form.Item>
 
