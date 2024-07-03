@@ -45,6 +45,10 @@ export const useManagerglobal = () => {
     }
   }, []);
 
+  const handleOnClickInsert = () => {
+    navigate(ManagerglobalRoutesEnum.MANAGERGLOBAL_INSERT);
+  };
+
   const handleOnSearch = (value: string) => {
     setSearchValue(value);
   };
@@ -85,6 +89,7 @@ export const useManagerglobal = () => {
   return {
     managersglobal: managersglobalFiltered,
     managersglobalWithoutTeamglobal,
+    handleOnClickInsert,
     handleOnSearch,
     handleOnEdit,
     handleOnDelete,

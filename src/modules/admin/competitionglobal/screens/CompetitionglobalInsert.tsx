@@ -1,5 +1,5 @@
 import { Form, Typography } from 'antd';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import ButtonProject from '../../../../shared/components/buttons/button/ButtonProject';
 import FlexProject from '../../../../shared/components/flex/FlexProject';
@@ -43,20 +43,15 @@ const CompetitionglobalInsert = () => {
     handleOnChangeInput,
     handleOnClickInsert,
     handleOnClickReset,
+    handleOnClickCancel,
     handleOnChangeCountrySelect,
     handleOnChangeRuleSelect,
     handleOnChangeTeamglobalSelect,
   } = useInsertCompetitionglobal(competitionglobalId);
 
-  const navigate = useNavigate();
-
   const { countries } = useCountry();
   const { rules } = useRule();
   const { teamsglobal } = useTeamglobal();
-
-  const handleOnClickCancel = () => {
-    navigate(CompetitionglobalRoutesEnum.COMPETITIONGLOBAL);
-  };
 
   return (
     <Screen

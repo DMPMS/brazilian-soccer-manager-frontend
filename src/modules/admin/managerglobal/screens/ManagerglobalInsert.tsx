@@ -1,5 +1,5 @@
 import { Form } from 'antd';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import ButtonProject from '../../../../shared/components/buttons/button/ButtonProject';
 import FlexProject from '../../../../shared/components/flex/FlexProject';
@@ -35,16 +35,11 @@ const ManagerglobalInsert = () => {
     handleOnChangeInputNumber,
     handleOnClickInsert,
     handleOnClickReset,
+    handleOnClickCancel,
     handleOnChangeCountrySelect,
   } = useInsertManagerglobal(managerglobalId);
 
-  const navigate = useNavigate();
-
   const { countries } = useCountry();
-
-  const handleOnClickCancel = () => {
-    navigate(ManagerglobalRoutesEnum.MANAGERGLOBAL);
-  };
 
   return (
     <Screen

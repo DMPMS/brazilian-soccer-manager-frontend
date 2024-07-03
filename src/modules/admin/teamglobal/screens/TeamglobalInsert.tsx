@@ -1,6 +1,6 @@
 // import { Upload } from 'antd';
 import { Form, Typography } from 'antd';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import ButtonProject from '../../../../shared/components/buttons/button/ButtonProject';
 import FlexProject from '../../../../shared/components/flex/FlexProject';
@@ -46,22 +46,17 @@ const TeamglobalInsert = () => {
     handleOnChangeInput,
     handleOnClickInsert,
     handleOnClickReset,
+    handleOnClickCancel,
     handleOnChangeCountrySelect,
     handleOnChangeManagerglobalSelect,
     handleOnChangePlayerglobalSelect,
     // handleUploadImage,
   } = useInsertTeamglobal(teamglobalId);
 
-  const navigate = useNavigate();
-
   const { countries } = useCountry();
   const { playersglobalWithoutTeamglobal } = usePlayerglobal();
   const { managersglobalWithoutTeamglobal } = useManagerglobal();
   // const { setNotification } = useGlobalReducer();
-
-  const handleOnClickCancel = () => {
-    navigate(TeamglobalRoutesEnum.TEAMGLOBAL);
-  };
 
   return (
     <Screen

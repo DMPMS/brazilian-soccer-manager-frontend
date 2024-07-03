@@ -3,7 +3,6 @@ import { Modal, Space } from 'antd';
 import Search from 'antd/es/input/Search';
 import { ColumnsType } from 'antd/es/table';
 import { useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import ButtonProject from '../../../../shared/components/buttons/button/ButtonProject';
 import FlexProject from '../../../../shared/components/flex/FlexProject';
@@ -15,11 +14,11 @@ import TableProject from '../../../../shared/components/table/TableProject';
 import { TeamglobalType } from '../../../../shared/types/TeamglobalType';
 import { HomeRoutesEnum } from '../../home/routes';
 import { useTeamglobal } from '../hooks/useTeamglobal';
-import { TeamglobalRoutesEnum } from '../routes';
 
 const Teamglobal = () => {
   const {
     teamsglobal,
+    handleOnClickInsert,
     handleOnSearch,
     handleOnEdit,
     handleOnDelete,
@@ -27,12 +26,6 @@ const Teamglobal = () => {
     handleOnOpenModalDelete,
     openModalDelete,
   } = useTeamglobal();
-
-  const navigate = useNavigate();
-
-  const handleOnClickInsert = () => {
-    navigate(TeamglobalRoutesEnum.TEAMGLOBAL_INSERT);
-  };
 
   const columns: ColumnsType<TeamglobalType> = useMemo(
     () => [

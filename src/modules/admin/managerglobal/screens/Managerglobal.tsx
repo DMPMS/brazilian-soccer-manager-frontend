@@ -3,7 +3,6 @@ import { Modal, Space } from 'antd';
 import Search from 'antd/es/input/Search';
 import { ColumnsType } from 'antd/es/table';
 import { useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import ButtonProject from '../../../../shared/components/buttons/button/ButtonProject';
 import FlexProject from '../../../../shared/components/flex/FlexProject';
@@ -15,11 +14,11 @@ import TableProject from '../../../../shared/components/table/TableProject';
 import { ManagerglobalType } from '../../../../shared/types/ManagerglobalType';
 import { HomeRoutesEnum } from '../../home/routes';
 import { useManagerglobal } from '../hooks/useManagerglobal';
-import { ManagerglobalRoutesEnum } from '../routes';
 
 const Managerglobal = () => {
   const {
     managersglobal,
+    handleOnClickInsert,
     handleOnSearch,
     handleOnEdit,
     handleOnDelete,
@@ -27,12 +26,6 @@ const Managerglobal = () => {
     handleOnOpenModalDelete,
     openModalDelete,
   } = useManagerglobal();
-
-  const navigate = useNavigate();
-
-  const handleOnClickInsert = () => {
-    navigate(ManagerglobalRoutesEnum.MANAGERGLOBAL_INSERT);
-  };
 
   const columns: ColumnsType<ManagerglobalType> = useMemo(
     () => [

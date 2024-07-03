@@ -3,7 +3,6 @@ import { Modal, Space } from 'antd';
 import Search from 'antd/es/input/Search';
 import { ColumnsType } from 'antd/es/table';
 import { useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import ButtonProject from '../../../../shared/components/buttons/button/ButtonProject';
 import FlexProject from '../../../../shared/components/flex/FlexProject';
@@ -19,11 +18,11 @@ import {
 import { CompetitionglobalType } from '../../../../shared/types/CompetitionglobalType';
 import { HomeRoutesEnum } from '../../home/routes';
 import { useCompetitionglobal } from '../hooks/useCompetitionglobal';
-import { CompetitionglobalRoutesEnum } from '../routes';
 
 const Competitionglobal = () => {
   const {
     competitionsglobal,
+    handleOnClickInsert,
     handleOnSearch,
     handleOnEdit,
     handleOnDelete,
@@ -31,12 +30,6 @@ const Competitionglobal = () => {
     handleOnOpenModalDelete,
     openModalDelete,
   } = useCompetitionglobal();
-
-  const navigate = useNavigate();
-
-  const handleOnClickInsert = () => {
-    navigate(CompetitionglobalRoutesEnum.COMPETITIONGLOBAL_INSERT);
-  };
 
   const columns: ColumnsType<CompetitionglobalType> = useMemo(
     () => [

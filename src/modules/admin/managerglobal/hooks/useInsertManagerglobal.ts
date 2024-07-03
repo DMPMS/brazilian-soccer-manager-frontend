@@ -157,6 +157,10 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
     formManagerglobal.resetFields();
   };
 
+  const handleOnClickCancel = () => {
+    navigate(ManagerglobalRoutesEnum.MANAGERGLOBAL);
+  };
+
   return {
     loading,
     disabledButton,
@@ -167,6 +171,7 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
     handleOnChangeInputNumber,
     handleOnClickInsert,
     handleOnClickReset,
+    handleOnClickCancel,
     handleOnChangeCountrySelect,
   };
 };

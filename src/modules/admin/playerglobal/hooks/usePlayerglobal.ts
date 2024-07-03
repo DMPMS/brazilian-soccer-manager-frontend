@@ -45,6 +45,10 @@ export const usePlayerglobal = () => {
     }
   }, []);
 
+  const handleOnClickInsert = () => {
+    navigate(PlayerglobalRoutesEnum.PLAYERGLOBAL_INSERT);
+  };
+
   const handleOnSearch = (value: string) => {
     setSearchValue(value);
   };
@@ -85,6 +89,7 @@ export const usePlayerglobal = () => {
   return {
     playersglobal: playersglobalFiltered,
     playersglobalWithoutTeamglobal,
+    handleOnClickInsert,
     handleOnSearch,
     handleOnEdit,
     handleOnDelete,

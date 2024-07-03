@@ -233,6 +233,10 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
     setPlayerglobalIdsCount(0);
   };
 
+  const handleOnClickCancel = () => {
+    navigate(TeamglobalRoutesEnum.TEAMGLOBAL);
+  };
+
   return {
     loading,
     disabledButton,
@@ -245,6 +249,7 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
     handleOnChangeInput,
     handleOnClickInsert,
     handleOnClickReset,
+    handleOnClickCancel,
     handleOnChangeCountrySelect,
     handleOnChangeManagerglobalSelect,
     handleOnChangePlayerglobalSelect,

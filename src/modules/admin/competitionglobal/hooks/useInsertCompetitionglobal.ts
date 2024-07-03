@@ -217,6 +217,10 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
     setTeamglobalIdsCount(0);
   };
 
+  const handleOnClickCancel = () => {
+    navigate(CompetitionglobalRoutesEnum.COMPETITIONGLOBAL);
+  };
+
   return {
     loading,
     disabledButton,
@@ -228,6 +232,7 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
     handleOnChangeInput,
     handleOnClickInsert,
     handleOnClickReset,
+    handleOnClickCancel,
     handleOnChangeCountrySelect,
     handleOnChangeRuleSelect,
     handleOnChangeTeamglobalSelect,

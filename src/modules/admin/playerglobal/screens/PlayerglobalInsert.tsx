@@ -1,5 +1,5 @@
 import { Form, Typography } from 'antd';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import ButtonProject from '../../../../shared/components/buttons/button/ButtonProject';
 import FlexProject from '../../../../shared/components/flex/FlexProject';
@@ -53,21 +53,16 @@ const PlayerglobalInsert = () => {
     handleOnChangeInputNumber,
     handleOnClickInsert,
     handleOnClickReset,
+    handleOnClickCancel,
     handleOnChangeCountrySelect,
     handleOnChangeTeamglobalSelect,
     handleOnChangePrimaryPositionSelect,
     handleOnChangeSecondaryPositionSelect,
   } = useInsertPlayerglobal(playerglobalId);
 
-  const navigate = useNavigate();
-
   const { countries } = useCountry();
   const { teamsglobal } = useTeamglobal();
   const { positions } = usePosition();
-
-  const handleOnClickCancel = () => {
-    navigate(PlayerglobalRoutesEnum.PLAYERGLOBAL);
-  };
 
   return (
     <Screen

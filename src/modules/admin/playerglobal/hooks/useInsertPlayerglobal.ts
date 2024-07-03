@@ -229,6 +229,10 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
     formPlayerglobal.resetFields();
   };
 
+  const handleOnClickCancel = () => {
+    navigate(PlayerglobalRoutesEnum.PLAYERGLOBAL);
+  };
+
   return {
     loading,
     disabledButton,
@@ -241,6 +245,7 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
     handleOnChangeInputNumber,
     handleOnClickInsert,
     handleOnClickReset,
+    handleOnClickCancel,
     handleOnChangeCountrySelect,
     handleOnChangeTeamglobalSelect,
     handleOnChangePrimaryPositionSelect,

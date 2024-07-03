@@ -33,6 +33,10 @@ export const useTeamglobal = () => {
     }
   }, []);
 
+  const handleOnClickInsert = () => {
+    navigate(TeamglobalRoutesEnum.TEAMGLOBAL_INSERT);
+  };
+
   const handleOnSearch = (value: string) => {
     setSearchValue(value);
   };
@@ -72,6 +76,7 @@ export const useTeamglobal = () => {
 
   return {
     teamsglobal: teamsglobalFiltered,
+    handleOnClickInsert,
     handleOnSearch,
     handleOnEdit,
     handleOnDelete,

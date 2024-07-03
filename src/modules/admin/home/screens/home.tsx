@@ -33,7 +33,6 @@ const Home = () => {
         <Card
           bordered={true}
           hoverable
-          onClick={handleOnClickPlayerglobalCardView}
           style={{ width: 300 }}
           actions={[
             <PlusCircleOutlined
@@ -43,7 +42,7 @@ const Home = () => {
             />,
           ]}
         >
-          <FlexProject justify="space-between">
+          <FlexProject justify="space-between" onClick={handleOnClickPlayerglobalCardView}>
             <Typography.Title level={5} style={{ margin: 0 }}>
               Jogadores
             </Typography.Title>
@@ -54,7 +53,6 @@ const Home = () => {
         <Card
           bordered={true}
           hoverable
-          onClick={handleOnClickManagerglobalCardView}
           style={{ width: 300 }}
           actions={[
             <PlusCircleOutlined
@@ -64,7 +62,7 @@ const Home = () => {
             />,
           ]}
         >
-          <FlexProject justify="space-between">
+          <FlexProject justify="space-between" onClick={handleOnClickManagerglobalCardView}>
             <Typography.Title level={5} style={{ margin: 0 }}>
               Treinadores
             </Typography.Title>
@@ -76,7 +74,6 @@ const Home = () => {
           bordered={true}
           hoverable
           style={{ width: 300 }}
-          onClick={handleOnClickTeamglobalCardView}
           actions={[
             <PlusCircleOutlined
               title="Inserir time"
@@ -85,7 +82,7 @@ const Home = () => {
             />,
           ]}
         >
-          <FlexProject justify="space-between">
+          <FlexProject justify="space-between" onClick={handleOnClickTeamglobalCardView}>
             <Typography.Title level={5} style={{ margin: 0 }}>
               Times
             </Typography.Title>
@@ -96,7 +93,6 @@ const Home = () => {
         <Card
           bordered={true}
           hoverable
-          onClick={handleOnClickCompetitionglobalCardView}
           style={{ width: 300 }}
           actions={[
             <PlusCircleOutlined
@@ -106,7 +102,7 @@ const Home = () => {
             />,
           ]}
         >
-          <FlexProject justify="space-between">
+          <FlexProject justify="space-between" onClick={handleOnClickCompetitionglobalCardView}>
             <Typography.Title level={5} style={{ margin: 0 }}>
               Competições
             </Typography.Title>

@@ -34,6 +34,10 @@ export const useCompetitionglobal = () => {
     }
   }, []);
 
+  const handleOnClickInsert = () => {
+    navigate(CompetitionglobalRoutesEnum.COMPETITIONGLOBAL_INSERT);
+  };
+
   const handleOnSearch = (value: string) => {
     setSearchValue(value);
   };
@@ -73,6 +77,7 @@ export const useCompetitionglobal = () => {
 
   return {
     competitionsglobal: competitionsglobalFiltered,
+    handleOnClickInsert,
     handleOnSearch,
     handleOnEdit,
     handleOnDelete,
