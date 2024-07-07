@@ -7,16 +7,18 @@ import {
   URL_TEAMGLOBAL,
 } from '../../../../shared/constants/urls';
 import { MethodsEnum } from '../../../../shared/enums/methods.enum';
-import { useRequests } from '../../../../shared/hooks/useRequests';
+import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
 import { useCompetitionglobalReducer } from '../../../../store/reducers/competitionglobalReducer/useCompetitionglobalReducer';
+import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';
 import { useTeamglobalReducer } from '../../../../store/reducers/teamglobalReducer/useTeamglobalReducer';
 import { CompetitionglobalRoutesEnum } from '../routes';
 
 export const useCompetitionglobal = () => {
   const { competitionsglobal, setCompetitionsglobal } = useCompetitionglobalReducer();
   const { setTeamsglobal } = useTeamglobalReducer();
+  const { setNotification } = useGlobalReducer();
 
-  const { request } = useRequests();
+  const { newRequest } = useNewRequests();
   const navigate = useNavigate();
 
   const [competitionglobalIdDelete, setCompetitionglobalIdDelete] = useState<number | undefined>(
@@ -30,7 +32,9 @@ export const useCompetitionglobal = () => {
 
   useEffect(() => {
     if (!competitionsglobal || competitionsglobal.length === 0) {
-      request(URL_COMPETITIONGLOBAL, MethodsEnum.GET, setCompetitionsglobal);
+      newRequest(MethodsEnum.GET, URL_COMPETITIONGLOBAL).then((data) => {
+        setCompetitionsglobal(data);
+      });
     }
   }, []);
 
@@ -52,17 +56,20 @@ export const useCompetitionglobal = () => {
   };
 
   const handleOnDelete = async () => {
-    await request(
-      URL_COMPETITIONGLOBAL_ID.replace('{competitionglobalId}', `${competitionglobalIdDelete}`),
+    await newRequest(
       MethodsEnum.DELETE,
-      undefined,
-      undefined,
-      'Competição excluída com sucesso!',
-    );
+      URL_COMPETITIONGLOBAL_ID.replace('{competitionglobalId}', `${competitionglobalIdDelete}`),
+    ).then(() => {
+      setNotification('Competição excluída com sucesso!', 'success');
+    });
 
-    await request(URL_COMPETITIONGLOBAL, MethodsEnum.GET, setCompetitionsglobal);
+    await newRequest(MethodsEnum.GET, URL_COMPETITIONGLOBAL).then((data) => {
+      setCompetitionsglobal(data);
+    });
 
-    await request(URL_TEAMGLOBAL, MethodsEnum.GET, setTeamsglobal);
+    await newRequest(MethodsEnum.GET, URL_TEAMGLOBAL).then((data) => {
+      setTeamsglobal(data);
+    });
 
     setCompetitionglobalIdDelete(undefined);
   };

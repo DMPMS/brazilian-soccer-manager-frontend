@@ -3,21 +3,25 @@ import { useNavigate } from 'react-router-dom';
 
 import {
   URL_MANAGERGLOBAL,
-  URL_MANAGERGLOBAL_WITHOUT_TEAMGLOBAL,
+  URL_PLAYERGLOBAL,
   URL_TEAMGLOBAL,
   URL_TEAMGLOBAL_ID,
 } from '../../../../shared/constants/urls';
 import { MethodsEnum } from '../../../../shared/enums/methods.enum';
-import { useRequests } from '../../../../shared/hooks/useRequests';
+import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
+import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';
 import { useManagerglobalReducer } from '../../../../store/reducers/managerglobalReducer/useManagerglobalReducer';
+import { usePlayerglobalReducer } from '../../../../store/reducers/playerglobalReducer/usePlayerglobalReducer';
 import { useTeamglobalReducer } from '../../../../store/reducers/teamglobalReducer/useTeamglobalReducer';
 import { TeamglobalRoutesEnum } from '../routes';
 
 export const useTeamglobal = () => {
   const { teamsglobal, setTeamsglobal } = useTeamglobalReducer();
   const { setManagersglobalWithoutTeamglobal, setManagersglobal } = useManagerglobalReducer();
+  const { setPlayersglobalWithoutTeamglobal, setPlayersglobal } = usePlayerglobalReducer();
+  const { setNotification } = useGlobalReducer();
 
-  const { request } = useRequests();
+  const { newRequest } = useNewRequests();
   const navigate = useNavigate();
 
   const [teamglobalIdDelete, setTeamglobalIdDelete] = useState<number | undefined>();
@@ -29,7 +33,9 @@ export const useTeamglobal = () => {
 
   useEffect(() => {
     if (!teamsglobal || teamsglobal.length === 0) {
-      request(URL_TEAMGLOBAL, MethodsEnum.GET, setTeamsglobal);
+      newRequest(MethodsEnum.GET, URL_TEAMGLOBAL).then((data) => {
+        setTeamsglobal(data);
+      });
     }
   }, []);
 
@@ -46,21 +52,35 @@ export const useTeamglobal = () => {
   };
 
   const handleOnDelete = async () => {
-    await request(
-      URL_TEAMGLOBAL_ID.replace('{teamglobalId}', `${teamglobalIdDelete}`),
+    await newRequest(
       MethodsEnum.DELETE,
-      undefined,
-      undefined,
-      'Time excluído com sucesso!',
+      URL_TEAMGLOBAL_ID.replace('{teamglobalId}', `${teamglobalIdDelete}`),
+    ).then(() => {
+      setNotification('Time excluído com sucesso!', 'success');
+    });
+
+    await newRequest(MethodsEnum.GET, URL_TEAMGLOBAL).then((data) => {
+      setTeamsglobal(data);
+    });
+
+    await newRequest(MethodsEnum.GET, URL_PLAYERGLOBAL).then((data) => {
+      setPlayersglobal(data);
+    });
+
+    await newRequest(MethodsEnum.GET, URL_PLAYERGLOBAL, { isWithoutTeamglobal: true }).then(
+      (data) => {
+        setPlayersglobalWithoutTeamglobal(data);
+      },
     );
 
-    await request(URL_TEAMGLOBAL, MethodsEnum.GET, setTeamsglobal);
+    await newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL).then((data) => {
+      setManagersglobal(data);
+    });
 
-    await request(URL_MANAGERGLOBAL, MethodsEnum.GET, setManagersglobal);
-    await request(
-      URL_MANAGERGLOBAL_WITHOUT_TEAMGLOBAL,
-      MethodsEnum.GET,
-      setManagersglobalWithoutTeamglobal,
+    await newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL, { isWithoutTeamglobal: true }).then(
+      (data) => {
+        setManagersglobalWithoutTeamglobal(data);
+      },
     );
 
     setTeamglobalIdDelete(undefined);

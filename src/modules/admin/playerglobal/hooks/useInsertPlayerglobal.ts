@@ -19,12 +19,12 @@ import {
 import {
   URL_PLAYERGLOBAL,
   URL_PLAYERGLOBAL_ID,
-  URL_PLAYERGLOBAL_WITHOUT_TEAMGLOBAL,
   URL_TEAMGLOBAL,
 } from '../../../../shared/constants/urls';
 import { InsertPlayerglobalDTO } from '../../../../shared/dtos/InsertPlayerglobal.dto';
 import { MethodsEnum } from '../../../../shared/enums/methods.enum';
-import { useRequests } from '../../../../shared/hooks/useRequests';
+import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
+import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';
 import { usePlayerglobalReducer } from '../../../../store/reducers/playerglobalReducer/usePlayerglobalReducer';
 import { useTeamglobalReducer } from '../../../../store/reducers/teamglobalReducer/useTeamglobalReducer';
 import { PlayerglobalRoutesEnum } from '../routes';
@@ -37,8 +37,9 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
     setPlayerglobal: setPlayerglobalReducer,
   } = usePlayerglobalReducer();
   const { setTeamsglobal } = useTeamglobalReducer();
+  const { setNotification } = useGlobalReducer();
 
-  const { request, loading } = useRequests();
+  const { newRequest, loading } = useNewRequests();
   const navigate = useNavigate();
 
   const [loadingPlayerglobal, setLoadingPlayerglobal] = useState(true);
@@ -51,11 +52,12 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
   useEffect(() => {
     if (playerglobalId) {
       const findAndSetPlayerglobalReducer = async (playerglobalId: string) => {
-        await request(
-          URL_PLAYERGLOBAL_ID.replace('{playerglobalId}', playerglobalId),
+        await newRequest(
           MethodsEnum.GET,
-          setPlayerglobalReducer,
-        );
+          URL_PLAYERGLOBAL_ID.replace('{playerglobalId}', playerglobalId),
+        ).then((data) => {
+          setPlayerglobalReducer(data);
+        });
 
         setLoadingPlayerglobal(false);
       };
@@ -195,31 +197,34 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
 
   const handleOnClickInsert = async () => {
     if (playerglobalId) {
-      await request(
-        URL_PLAYERGLOBAL_ID.replace('{playerglobalId}', playerglobalId),
+      await newRequest(
         MethodsEnum.PUT,
-        undefined,
+        URL_PLAYERGLOBAL_ID.replace('{playerglobalId}', playerglobalId),
+        {},
         playerglobal,
-        'Jogador editado com sucesso!',
-      );
+      ).then(() => {
+        setNotification('Jogador editado com sucesso!', 'success');
+      });
     } else {
-      await request(
-        URL_PLAYERGLOBAL,
-        MethodsEnum.POST,
-        undefined,
-        playerglobal,
-        'Jogador inserido com sucesso!',
-      );
+      await newRequest(MethodsEnum.POST, URL_PLAYERGLOBAL, {}, playerglobal).then(() => {
+        setNotification('Jogador inserido com sucesso!', 'success');
+      });
     }
 
-    await request(URL_PLAYERGLOBAL, MethodsEnum.GET, setPlayersglobal);
-    await request(
-      URL_PLAYERGLOBAL_WITHOUT_TEAMGLOBAL,
-      MethodsEnum.GET,
-      setPlayersglobalWithoutTeamglobal,
+    await newRequest(MethodsEnum.GET, URL_PLAYERGLOBAL).then((data) => {
+      setPlayersglobal(data);
+    });
+
+    await newRequest(MethodsEnum.GET, URL_PLAYERGLOBAL, { isWithoutTeamglobal: true }).then(
+      (data) => {
+        setPlayersglobalWithoutTeamglobal(data);
+      },
     );
 
-    await request(URL_TEAMGLOBAL, MethodsEnum.GET, setTeamsglobal);
+    // Just by inserting.
+    await newRequest(MethodsEnum.GET, URL_TEAMGLOBAL).then((data) => {
+      setTeamsglobal(data);
+    });
 
     navigate(PlayerglobalRoutesEnum.PLAYERGLOBAL);
   };

@@ -16,8 +16,9 @@ import {
 } from '../../../../shared/constants/urls';
 import { InsertCompetitionglobalDTO } from '../../../../shared/dtos/InsertCompetitonglobal.dto';
 import { MethodsEnum } from '../../../../shared/enums/methods.enum';
-import { useRequests } from '../../../../shared/hooks/useRequests';
+import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
 import { useCompetitionglobalReducer } from '../../../../store/reducers/competitionglobalReducer/useCompetitionglobalReducer';
+import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';
 import { useTeamglobalReducer } from '../../../../store/reducers/teamglobalReducer/useTeamglobalReducer';
 import { useRule } from '../../../shared/rule/hooks/useRule';
 import { CompetitionglobalRoutesEnum } from '../routes';
@@ -29,8 +30,9 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
     setCompetitionglobal: setCompetitionglobalReducer,
   } = useCompetitionglobalReducer();
   const { setTeamsglobal } = useTeamglobalReducer();
+  const { setNotification } = useGlobalReducer();
 
-  const { request, loading } = useRequests();
+  const { newRequest, loading } = useNewRequests();
   const navigate = useNavigate();
 
   const [loadingCompetitionglobal, setLoadingCompetitionglobal] = useState(true);
@@ -49,11 +51,12 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
   useEffect(() => {
     if (competitionglobalId) {
       const findAndSetCompetitionglobalReducer = async (competitionglobalId: string) => {
-        await request(
-          URL_COMPETITIONGLOBAL_ID.replace('{competitionglobalId}', competitionglobalId),
+        await newRequest(
           MethodsEnum.GET,
-          setCompetitionglobalReducer,
-        );
+          URL_COMPETITIONGLOBAL_ID.replace('{competitionglobalId}', competitionglobalId),
+        ).then((data) => {
+          setCompetitionglobalReducer(data);
+        });
 
         setLoadingCompetitionglobal(false);
       };
@@ -186,26 +189,27 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
 
   const handleOnClickInsert = async () => {
     if (competitionglobalId) {
-      await request(
-        URL_COMPETITIONGLOBAL_ID.replace('{competitionglobalId}', competitionglobalId),
+      await newRequest(
         MethodsEnum.PUT,
-        undefined,
+        URL_COMPETITIONGLOBAL_ID.replace('{competitionglobalId}', competitionglobalId),
+        {},
         competitionglobal,
-        'Competição editada com sucesso!',
-      );
+      ).then(() => {
+        setNotification('Competição editada com sucesso!', 'success');
+      });
     } else {
-      await request(
-        URL_COMPETITIONGLOBAL,
-        MethodsEnum.POST,
-        undefined,
-        competitionglobal,
-        'Competição inserida com sucesso!',
-      );
+      await newRequest(MethodsEnum.POST, URL_COMPETITIONGLOBAL, {}, competitionglobal).then(() => {
+        setNotification('Competição inserida com sucesso!', 'success');
+      });
     }
 
-    await request(URL_COMPETITIONGLOBAL, MethodsEnum.GET, setCompetitionsglobal);
+    await newRequest(MethodsEnum.GET, URL_COMPETITIONGLOBAL).then((data) => {
+      setCompetitionsglobal(data);
+    });
 
-    await request(URL_TEAMGLOBAL, MethodsEnum.GET, setTeamsglobal);
+    await newRequest(MethodsEnum.GET, URL_TEAMGLOBAL).then((data) => {
+      setTeamsglobal(data);
+    });
 
     navigate(CompetitionglobalRoutesEnum.COMPETITIONGLOBAL);
   };

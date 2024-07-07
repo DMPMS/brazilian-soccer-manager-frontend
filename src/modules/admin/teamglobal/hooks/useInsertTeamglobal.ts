@@ -11,17 +11,16 @@ import {
 } from '../../../../shared/constants/others';
 import {
   URL_MANAGERGLOBAL,
-  URL_MANAGERGLOBAL_WITHOUT_TEAMGLOBAL,
   URL_PLAYERGLOBAL,
-  URL_PLAYERGLOBAL_WITHOUT_TEAMGLOBAL,
   URL_TEAMGLOBAL,
   URL_TEAMGLOBAL_ID,
 } from '../../../../shared/constants/urls';
 import { InsertTeamglobalDTO } from '../../../../shared/dtos/InsertTeamglobal.dto';
 import { MethodsEnum } from '../../../../shared/enums/methods.enum';
-import { useRequests } from '../../../../shared/hooks/useRequests';
+import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
 import { ManagerglobalType } from '../../../../shared/types/ManagerglobalType';
 import { PlayerglobalType } from '../../../../shared/types/PlayerglobalType';
+import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';
 import { useManagerglobalReducer } from '../../../../store/reducers/managerglobalReducer/useManagerglobalReducer';
 import { usePlayerglobalReducer } from '../../../../store/reducers/playerglobalReducer/usePlayerglobalReducer';
 import { useTeamglobalReducer } from '../../../../store/reducers/teamglobalReducer/useTeamglobalReducer';
@@ -35,8 +34,9 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
   } = useTeamglobalReducer();
   const { setManagersglobalWithoutTeamglobal, setManagersglobal } = useManagerglobalReducer();
   const { setPlayersglobalWithoutTeamglobal, setPlayersglobal } = usePlayerglobalReducer();
+  const { setNotification } = useGlobalReducer();
 
-  const { request, loading } = useRequests();
+  const { newRequest, loading } = useNewRequests();
   const navigate = useNavigate();
 
   const [loadingTeamglobal, setLoadingTeamglobal] = useState(true);
@@ -61,11 +61,12 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
   useEffect(() => {
     if (teamglobalId) {
       const findAndSetTeamglobalReducer = async (teamglobalId: string) => {
-        await request(
-          URL_TEAMGLOBAL_ID.replace('{teamglobalId}', teamglobalId),
+        await newRequest(
           MethodsEnum.GET,
-          setTeamglobalReducer,
-        );
+          URL_TEAMGLOBAL_ID.replace('{teamglobalId}', teamglobalId),
+        ).then((data) => {
+          setTeamglobalReducer(data);
+        });
 
         setLoadingTeamglobal(false);
       };
@@ -191,37 +192,42 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
 
   const handleOnClickInsert = async () => {
     if (teamglobalId) {
-      await request(
-        URL_TEAMGLOBAL_ID.replace('{teamglobalId}', teamglobalId),
+      await newRequest(
         MethodsEnum.PUT,
-        undefined,
+        URL_TEAMGLOBAL_ID.replace('{teamglobalId}', teamglobalId),
+        {},
         teamglobal,
-        'Time editado com sucesso!',
-      );
+      ).then(() => {
+        setNotification('Time editado com sucesso!', 'success');
+      });
     } else {
-      await request(
-        URL_TEAMGLOBAL,
-        MethodsEnum.POST,
-        undefined,
-        teamglobal,
-        'Time inserido com sucesso!',
-      );
+      await newRequest(MethodsEnum.POST, URL_TEAMGLOBAL, {}, teamglobal).then(() => {
+        setNotification('Time inserido com sucesso!', 'success');
+      });
     }
 
-    await request(URL_TEAMGLOBAL, MethodsEnum.GET, setTeamsglobal);
+    await newRequest(MethodsEnum.GET, URL_TEAMGLOBAL).then((data) => {
+      setTeamsglobal(data);
+    });
 
-    await request(URL_PLAYERGLOBAL, MethodsEnum.GET, setPlayersglobal);
-    await request(
-      URL_PLAYERGLOBAL_WITHOUT_TEAMGLOBAL,
-      MethodsEnum.GET,
-      setPlayersglobalWithoutTeamglobal,
+    await newRequest(MethodsEnum.GET, URL_PLAYERGLOBAL).then((data) => {
+      setPlayersglobal(data);
+    });
+
+    await newRequest(MethodsEnum.GET, URL_PLAYERGLOBAL, { isWithoutTeamglobal: true }).then(
+      (data) => {
+        setPlayersglobalWithoutTeamglobal(data);
+      },
     );
 
-    await request(URL_MANAGERGLOBAL, MethodsEnum.GET, setManagersglobal);
-    await request(
-      URL_MANAGERGLOBAL_WITHOUT_TEAMGLOBAL,
-      MethodsEnum.GET,
-      setManagersglobalWithoutTeamglobal,
+    await newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL).then((data) => {
+      setManagersglobal(data);
+    });
+
+    await newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL, { isWithoutTeamglobal: true }).then(
+      (data) => {
+        setManagersglobalWithoutTeamglobal(data);
+      },
     );
 
     navigate(TeamglobalRoutesEnum.TEAMGLOBAL);

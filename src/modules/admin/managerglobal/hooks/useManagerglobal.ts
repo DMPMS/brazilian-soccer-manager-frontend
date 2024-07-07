@@ -1,13 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import {
-  URL_MANAGERGLOBAL,
-  URL_MANAGERGLOBAL_ID,
-  URL_MANAGERGLOBAL_WITHOUT_TEAMGLOBAL,
-} from '../../../../shared/constants/urls';
+import { URL_MANAGERGLOBAL, URL_MANAGERGLOBAL_ID } from '../../../../shared/constants/urls';
 import { MethodsEnum } from '../../../../shared/enums/methods.enum';
-import { useRequests } from '../../../../shared/hooks/useRequests';
+import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
+import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';
 import { useManagerglobalReducer } from '../../../../store/reducers/managerglobalReducer/useManagerglobalReducer';
 import { ManagerglobalRoutesEnum } from '../routes';
 
@@ -18,8 +15,9 @@ export const useManagerglobal = () => {
     setManagersglobal,
     setManagersglobalWithoutTeamglobal,
   } = useManagerglobalReducer();
+  const { setNotification } = useGlobalReducer();
 
-  const { request } = useRequests();
+  const { newRequest } = useNewRequests();
   const navigate = useNavigate();
 
   const [managerglobalIdDelete, setManagerglobalIdDelete] = useState<number | undefined>();
@@ -31,17 +29,17 @@ export const useManagerglobal = () => {
 
   useEffect(() => {
     if (!managersglobal || managersglobal.length === 0) {
-      request(URL_MANAGERGLOBAL, MethodsEnum.GET, setManagersglobal);
+      newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL).then((data) => {
+        setManagersglobal(data);
+      });
     }
   }, []);
 
   useEffect(() => {
     if (!managersglobalWithoutTeamglobal || managersglobalWithoutTeamglobal.length === 0) {
-      request(
-        URL_MANAGERGLOBAL_WITHOUT_TEAMGLOBAL,
-        MethodsEnum.GET,
-        setManagersglobalWithoutTeamglobal,
-      );
+      newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL, { isWithoutTeamglobal: true }).then((data) => {
+        setManagersglobalWithoutTeamglobal(data);
+      });
     }
   }, []);
 
@@ -60,19 +58,21 @@ export const useManagerglobal = () => {
   };
 
   const handleOnDelete = async () => {
-    await request(
-      URL_MANAGERGLOBAL_ID.replace('{managerglobalId}', `${managerglobalIdDelete}`),
+    await newRequest(
       MethodsEnum.DELETE,
-      undefined,
-      undefined,
-      'Treinador excluído com sucesso!',
-    );
+      URL_MANAGERGLOBAL_ID.replace('{managerglobalId}', `${managerglobalIdDelete}`),
+    ).then(() => {
+      setNotification('Treinador excluído com sucesso!', 'success');
+    });
 
-    await request(URL_MANAGERGLOBAL, MethodsEnum.GET, setManagersglobal);
-    await request(
-      URL_MANAGERGLOBAL_WITHOUT_TEAMGLOBAL,
-      MethodsEnum.GET,
-      setManagersglobalWithoutTeamglobal,
+    await newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL).then((data) => {
+      setManagersglobal(data);
+    });
+
+    await newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL, { isWithoutTeamglobal: true }).then(
+      (data) => {
+        setManagersglobalWithoutTeamglobal(data);
+      },
     );
 
     setManagerglobalIdDelete(undefined);

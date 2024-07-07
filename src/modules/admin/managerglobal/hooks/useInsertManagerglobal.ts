@@ -9,14 +9,11 @@ import {
   MANAGERGLOBAL_MIN_AGE,
   MANAGERGLOBAL_MIN_LENGH_NAME,
 } from '../../../../shared/constants/others';
-import {
-  URL_MANAGERGLOBAL,
-  URL_MANAGERGLOBAL_ID,
-  URL_MANAGERGLOBAL_WITHOUT_TEAMGLOBAL,
-} from '../../../../shared/constants/urls';
+import { URL_MANAGERGLOBAL, URL_MANAGERGLOBAL_ID } from '../../../../shared/constants/urls';
 import { InsertManagerglobalDTO } from '../../../../shared/dtos/InsertManagerglobal.dto';
 import { MethodsEnum } from '../../../../shared/enums/methods.enum';
-import { useRequests } from '../../../../shared/hooks/useRequests';
+import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
+import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';
 import { useManagerglobalReducer } from '../../../../store/reducers/managerglobalReducer/useManagerglobalReducer';
 import { ManagerglobalRoutesEnum } from '../routes';
 
@@ -27,8 +24,9 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
     managerglobal: managerglobalReducer,
     setManagerglobal: setManagerglobalReducer,
   } = useManagerglobalReducer();
+  const { setNotification } = useGlobalReducer();
 
-  const { request, loading } = useRequests();
+  const { newRequest, loading } = useNewRequests();
   const navigate = useNavigate();
 
   const [loadingManagerglobal, setLoadingManagerglobal] = useState(true);
@@ -41,11 +39,12 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
   useEffect(() => {
     if (managerglobalId) {
       const findAndSetManagerglobalReducer = async (managerglobalId: string) => {
-        await request(
-          URL_MANAGERGLOBAL_ID.replace('{managerglobalId}', managerglobalId),
+        await newRequest(
           MethodsEnum.GET,
-          setManagerglobalReducer,
-        );
+          URL_MANAGERGLOBAL_ID.replace('{managerglobalId}', managerglobalId),
+        ).then((data) => {
+          setManagerglobalReducer(data);
+        });
 
         setLoadingManagerglobal(false);
       };
@@ -125,28 +124,28 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
 
   const handleOnClickInsert = async () => {
     if (managerglobalId) {
-      await request(
-        URL_MANAGERGLOBAL_ID.replace('{managerglobalId}', managerglobalId),
+      await newRequest(
         MethodsEnum.PUT,
-        undefined,
+        URL_MANAGERGLOBAL_ID.replace('{managerglobalId}', managerglobalId),
+        {},
         managerglobal,
-        'Treinador editado com sucesso!',
-      );
+      ).then(() => {
+        setNotification('Treinador editado com sucesso!', 'success');
+      });
     } else {
-      await request(
-        URL_MANAGERGLOBAL,
-        MethodsEnum.POST,
-        undefined,
-        managerglobal,
-        'Treinador inserido com sucesso!',
-      );
+      await newRequest(MethodsEnum.POST, URL_MANAGERGLOBAL, {}, managerglobal).then(() => {
+        setNotification('Treinador inserido com sucesso!', 'success');
+      });
     }
 
-    await request(URL_MANAGERGLOBAL, MethodsEnum.GET, setManagersglobal);
-    await request(
-      URL_MANAGERGLOBAL_WITHOUT_TEAMGLOBAL,
-      MethodsEnum.GET,
-      setManagersglobalWithoutTeamglobal,
+    await newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL).then((data) => {
+      setManagersglobal(data);
+    });
+
+    await newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL, { isWithoutTeamglobal: true }).then(
+      (data) => {
+        setManagersglobalWithoutTeamglobal(data);
+      },
     );
 
     navigate(ManagerglobalRoutesEnum.MANAGERGLOBAL);

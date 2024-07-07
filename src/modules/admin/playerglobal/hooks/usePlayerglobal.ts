@@ -1,13 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import {
-  URL_PLAYERGLOBAL,
-  URL_PLAYERGLOBAL_ID,
-  URL_PLAYERGLOBAL_WITHOUT_TEAMGLOBAL,
-} from '../../../../shared/constants/urls';
+import { URL_PLAYERGLOBAL, URL_PLAYERGLOBAL_ID } from '../../../../shared/constants/urls';
 import { MethodsEnum } from '../../../../shared/enums/methods.enum';
-import { useRequests } from '../../../../shared/hooks/useRequests';
+import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
+import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';
 import { usePlayerglobalReducer } from '../../../../store/reducers/playerglobalReducer/usePlayerglobalReducer';
 import { PlayerglobalRoutesEnum } from '../routes';
 
@@ -18,8 +15,9 @@ export const usePlayerglobal = () => {
     setPlayersglobal,
     setPlayersglobalWithoutTeamglobal,
   } = usePlayerglobalReducer();
+  const { setNotification } = useGlobalReducer();
 
-  const { request } = useRequests();
+  const { newRequest } = useNewRequests();
   const navigate = useNavigate();
 
   const [playerglobalIdDelete, setPlayerglobalIdDelete] = useState<number | undefined>();
@@ -31,17 +29,17 @@ export const usePlayerglobal = () => {
 
   useEffect(() => {
     if (!playersglobal || playersglobal.length === 0) {
-      request(URL_PLAYERGLOBAL, MethodsEnum.GET, setPlayersglobal);
+      newRequest(MethodsEnum.GET, URL_PLAYERGLOBAL).then((data) => {
+        setPlayersglobal(data);
+      });
     }
   }, []);
 
   useEffect(() => {
     if (!playersglobalWithoutTeamglobal || playersglobalWithoutTeamglobal.length === 0) {
-      request(
-        URL_PLAYERGLOBAL_WITHOUT_TEAMGLOBAL,
-        MethodsEnum.GET,
-        setPlayersglobalWithoutTeamglobal,
-      );
+      newRequest(MethodsEnum.GET, URL_PLAYERGLOBAL, { isWithoutTeamglobal: true }).then((data) => {
+        setPlayersglobalWithoutTeamglobal(data);
+      });
     }
   }, []);
 
@@ -60,19 +58,21 @@ export const usePlayerglobal = () => {
   };
 
   const handleOnDelete = async () => {
-    await request(
-      URL_PLAYERGLOBAL_ID.replace('{playerglobalId}', `${playerglobalIdDelete}`),
+    await newRequest(
       MethodsEnum.DELETE,
-      undefined,
-      undefined,
-      'Jogador excluído com sucesso!',
-    );
+      URL_PLAYERGLOBAL_ID.replace('{playerglobalId}', `${playerglobalIdDelete}`),
+    ).then(() => {
+      setNotification('Jogador excluído com sucesso!', 'success');
+    });
 
-    await request(URL_PLAYERGLOBAL, MethodsEnum.GET, setPlayersglobal);
-    await request(
-      URL_PLAYERGLOBAL_WITHOUT_TEAMGLOBAL,
-      MethodsEnum.GET,
-      setPlayersglobalWithoutTeamglobal,
+    await newRequest(MethodsEnum.GET, URL_PLAYERGLOBAL).then((data) => {
+      setPlayersglobal(data);
+    });
+
+    await newRequest(MethodsEnum.GET, URL_PLAYERGLOBAL, { isWithoutTeamglobal: true }).then(
+      (data) => {
+        setPlayersglobalWithoutTeamglobal(data);
+      },
     );
 
     setPlayerglobalIdDelete(undefined);
