@@ -1,3 +1,4 @@
+import { InfoCircleOutlined } from '@ant-design/icons';
 import { Form, Typography } from 'antd';
 import { useParams } from 'react-router-dom';
 
@@ -218,7 +219,15 @@ const PlayerglobalInsert = () => {
                   </FlexProject>
                 </LimitedContainerCardProject>
                 <LimitedContainerCardProject width={400}>
-                  <Form.Item label="Time" name="teamglobalId">
+                  <Form.Item
+                    label="Time"
+                    name="teamglobalId"
+                    tooltip={{
+                      title:
+                        'Times que já atingiram o número máximo de jogadores aparecerão como uma opção desabilitada.',
+                      icon: <InfoCircleOutlined />,
+                    }}
+                  >
                     <SelectProject
                       placeholder="Selecione um time"
                       allowClear

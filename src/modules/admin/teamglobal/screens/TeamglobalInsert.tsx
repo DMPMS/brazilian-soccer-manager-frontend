@@ -78,7 +78,7 @@ const TeamglobalInsert = () => {
         </FlexProject>
       ) : (
         <FlexProject justify="center">
-          <LimitedContainerProject width={805}>
+          <LimitedContainerProject width={1005}>
             <Form layout="vertical" form={formTeamglobal}>
               <FlexProject justify="space-between">
                 <LimitedContainerCardProject width={400}>
@@ -219,7 +219,7 @@ const TeamglobalInsert = () => {
                     </div>
                   </FlexProject>
                 </LimitedContainerCardProject>
-                <LimitedContainerCardProject width={400}>
+                <LimitedContainerCardProject width={600}>
                   <Form.Item
                     label={
                       <Typography.Text type="secondary">

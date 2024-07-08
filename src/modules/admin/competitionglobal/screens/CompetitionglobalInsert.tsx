@@ -75,7 +75,7 @@ const CompetitionglobalInsert = () => {
         </FlexProject>
       ) : (
         <FlexProject justify="center">
-          <LimitedContainerProject width={805}>
+          <LimitedContainerProject width={1005}>
             <Form layout="vertical" form={formCompetitionglobal}>
               <FlexProject justify="space-between">
                 <LimitedContainerCardProject width={400}>
@@ -211,7 +211,7 @@ const CompetitionglobalInsert = () => {
                     </div>
                   </FlexProject>
                 </LimitedContainerCardProject>
-                <LimitedContainerCardProject width={400}>
+                <LimitedContainerCardProject width={600}>
                   <Form.Item
                     label={
                       ruleNumberOfTeams > 0 ? (
