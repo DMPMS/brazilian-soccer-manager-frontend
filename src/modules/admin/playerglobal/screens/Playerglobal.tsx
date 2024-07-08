@@ -19,6 +19,7 @@ import { usePlayerglobal } from '../hooks/usePlayerglobal';
 
 const Playerglobal = () => {
   const {
+    loading,
     playersglobal,
     handleOnClickInsert,
     handleOnSearch,
@@ -138,6 +139,7 @@ const Playerglobal = () => {
         onCancel={handleOnCloseModalDelete}
         okText="Sim"
         cancelText="Cancelar"
+        confirmLoading={loading}
       >
         <p>Tem certeza que deseja excluir esse jogador?</p>
       </Modal>

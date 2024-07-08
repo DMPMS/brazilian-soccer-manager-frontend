@@ -128,18 +128,20 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
         URL_MANAGERGLOBAL_ID.replace('{managerglobalId}', managerglobalId),
         {},
         managerglobal,
-      ).then(() => {
-        setNotification('Treinador editado com sucesso!', 'success');
-      });
+      );
     } else {
-      await newRequest(MethodsEnum.POST, URL_MANAGERGLOBAL, {}, managerglobal).then(() => {
-        setNotification('Treinador inserido com sucesso!', 'success');
-      });
+      await newRequest(MethodsEnum.POST, URL_MANAGERGLOBAL, {}, managerglobal);
     }
 
     await newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL).then((data) => {
       setManagersglobal(data);
     });
+
+    if (managerglobalId) {
+      setNotification('Treinador editado.', 'success');
+    } else {
+      setNotification('Treinador inserido.', 'success');
+    }
 
     navigate(ManagerglobalRoutesEnum.MANAGERGLOBAL);
   };

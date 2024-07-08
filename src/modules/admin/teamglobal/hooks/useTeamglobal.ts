@@ -21,7 +21,7 @@ export const useTeamglobal = () => {
   const { setPlayersglobal } = usePlayerglobalReducer();
   const { setNotification } = useGlobalReducer();
 
-  const { newRequest } = useNewRequests();
+  const { newRequest, loading } = useNewRequests();
   const navigate = useNavigate();
 
   const [teamglobalIdDelete, setTeamglobalIdDelete] = useState<number | undefined>();
@@ -55,9 +55,7 @@ export const useTeamglobal = () => {
     await newRequest(
       MethodsEnum.DELETE,
       URL_TEAMGLOBAL_ID.replace('{teamglobalId}', `${teamglobalIdDelete}`),
-    ).then(() => {
-      setNotification('Time excluído com sucesso!', 'success');
-    });
+    );
 
     await newRequest(MethodsEnum.GET, URL_TEAMGLOBAL).then((data) => {
       setTeamsglobal(data);
@@ -72,6 +70,8 @@ export const useTeamglobal = () => {
     });
 
     setTeamglobalIdDelete(undefined);
+
+    setNotification('Time excluído.', 'success');
   };
 
   const handleOnCloseModalDelete = () => {
@@ -83,6 +83,7 @@ export const useTeamglobal = () => {
   };
 
   return {
+    loading,
     teamsglobal: teamsglobalFiltered,
     handleOnClickInsert,
     handleOnSearch,

@@ -12,7 +12,7 @@ export const useManagerglobal = () => {
   const { managersglobal, setManagersglobal } = useManagerglobalReducer();
   const { setNotification } = useGlobalReducer();
 
-  const { newRequest } = useNewRequests();
+  const { newRequest, loading } = useNewRequests();
   const navigate = useNavigate();
 
   const [managerglobalIdDelete, setManagerglobalIdDelete] = useState<number | undefined>();
@@ -48,15 +48,15 @@ export const useManagerglobal = () => {
     await newRequest(
       MethodsEnum.DELETE,
       URL_MANAGERGLOBAL_ID.replace('{managerglobalId}', `${managerglobalIdDelete}`),
-    ).then(() => {
-      setNotification('Treinador excluído com sucesso!', 'success');
-    });
+    );
 
     await newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL).then((data) => {
       setManagersglobal(data);
     });
 
     setManagerglobalIdDelete(undefined);
+
+    setNotification('Treinador excluído.', 'success');
   };
 
   const handleOnCloseModalDelete = () => {
@@ -68,6 +68,7 @@ export const useManagerglobal = () => {
   };
 
   return {
+    loading,
     managersglobal: managersglobalFiltered,
     handleOnClickInsert,
     handleOnSearch,

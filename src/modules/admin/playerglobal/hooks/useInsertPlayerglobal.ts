@@ -201,13 +201,9 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
         URL_PLAYERGLOBAL_ID.replace('{playerglobalId}', playerglobalId),
         {},
         playerglobal,
-      ).then(() => {
-        setNotification('Jogador editado com sucesso!', 'success');
-      });
+      );
     } else {
-      await newRequest(MethodsEnum.POST, URL_PLAYERGLOBAL, {}, playerglobal).then(() => {
-        setNotification('Jogador inserido com sucesso!', 'success');
-      });
+      await newRequest(MethodsEnum.POST, URL_PLAYERGLOBAL, {}, playerglobal);
     }
 
     await newRequest(MethodsEnum.GET, URL_PLAYERGLOBAL).then((data) => {
@@ -218,6 +214,12 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
     await newRequest(MethodsEnum.GET, URL_TEAMGLOBAL).then((data) => {
       setTeamsglobal(data);
     });
+
+    if (playerglobalId) {
+      setNotification('Jogador editado.', 'success');
+    } else {
+      setNotification('Jogador inserido.', 'success');
+    }
 
     navigate(PlayerglobalRoutesEnum.PLAYERGLOBAL);
   };

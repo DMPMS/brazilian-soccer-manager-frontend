@@ -12,7 +12,7 @@ export const usePlayerglobal = () => {
   const { playersglobal, setPlayersglobal } = usePlayerglobalReducer();
   const { setNotification } = useGlobalReducer();
 
-  const { newRequest } = useNewRequests();
+  const { newRequest, loading } = useNewRequests();
   const navigate = useNavigate();
 
   const [playerglobalIdDelete, setPlayerglobalIdDelete] = useState<number | undefined>();
@@ -48,15 +48,15 @@ export const usePlayerglobal = () => {
     await newRequest(
       MethodsEnum.DELETE,
       URL_PLAYERGLOBAL_ID.replace('{playerglobalId}', `${playerglobalIdDelete}`),
-    ).then(() => {
-      setNotification('Jogador excluído com sucesso!', 'success');
-    });
+    );
 
     await newRequest(MethodsEnum.GET, URL_PLAYERGLOBAL).then((data) => {
       setPlayersglobal(data);
     });
 
     setPlayerglobalIdDelete(undefined);
+
+    setNotification('Jogador excluído.', 'success');
   };
 
   const handleOnCloseModalDelete = () => {
@@ -68,6 +68,7 @@ export const usePlayerglobal = () => {
   };
 
   return {
+    loading,
     playersglobal: playersglobalFiltered,
     handleOnClickInsert,
     handleOnSearch,

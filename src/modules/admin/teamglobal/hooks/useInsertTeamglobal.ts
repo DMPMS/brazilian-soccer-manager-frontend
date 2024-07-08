@@ -217,13 +217,9 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
         URL_TEAMGLOBAL_ID.replace('{teamglobalId}', teamglobalId),
         {},
         teamglobal,
-      ).then(() => {
-        setNotification('Time editado com sucesso!', 'success');
-      });
+      );
     } else {
-      await newRequest(MethodsEnum.POST, URL_TEAMGLOBAL, {}, teamglobal).then(() => {
-        setNotification('Time inserido com sucesso!', 'success');
-      });
+      await newRequest(MethodsEnum.POST, URL_TEAMGLOBAL, {}, teamglobal);
     }
 
     await newRequest(MethodsEnum.GET, URL_TEAMGLOBAL).then((data) => {
@@ -237,6 +233,12 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
     await newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL).then((data) => {
       setManagersglobal(data);
     });
+
+    if (teamglobalId) {
+      setNotification('Time editado.', 'success');
+    } else {
+      setNotification('Time inserido.', 'success');
+    }
 
     navigate(TeamglobalRoutesEnum.TEAMGLOBAL);
   };

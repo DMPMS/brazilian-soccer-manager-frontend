@@ -18,7 +18,7 @@ export const useCompetitionglobal = () => {
   const { setTeamsglobal } = useTeamglobalReducer();
   const { setNotification } = useGlobalReducer();
 
-  const { newRequest } = useNewRequests();
+  const { newRequest, loading } = useNewRequests();
   const navigate = useNavigate();
 
   const [competitionglobalIdDelete, setCompetitionglobalIdDelete] = useState<number | undefined>(
@@ -59,9 +59,7 @@ export const useCompetitionglobal = () => {
     await newRequest(
       MethodsEnum.DELETE,
       URL_COMPETITIONGLOBAL_ID.replace('{competitionglobalId}', `${competitionglobalIdDelete}`),
-    ).then(() => {
-      setNotification('Competição excluída com sucesso!', 'success');
-    });
+    );
 
     await newRequest(MethodsEnum.GET, URL_COMPETITIONGLOBAL).then((data) => {
       setCompetitionsglobal(data);
@@ -72,6 +70,8 @@ export const useCompetitionglobal = () => {
     });
 
     setCompetitionglobalIdDelete(undefined);
+
+    setNotification('Competição excluída.', 'success');
   };
 
   const handleOnCloseModalDelete = () => {
@@ -83,6 +83,7 @@ export const useCompetitionglobal = () => {
   };
 
   return {
+    loading,
     competitionsglobal: competitionsglobalFiltered,
     handleOnClickInsert,
     handleOnSearch,

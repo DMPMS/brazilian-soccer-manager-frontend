@@ -17,6 +17,7 @@ import { useTeamglobal } from '../hooks/useTeamglobal';
 
 const Teamglobal = () => {
   const {
+    loading,
     teamsglobal,
     handleOnClickInsert,
     handleOnSearch,
@@ -108,6 +109,7 @@ const Teamglobal = () => {
         onCancel={handleOnCloseModalDelete}
         okText="Sim"
         cancelText="Cancelar"
+        confirmLoading={loading}
       >
         <p>Tem certeza que deseja excluir esse time?</p>
       </Modal>

@@ -194,13 +194,9 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
         URL_COMPETITIONGLOBAL_ID.replace('{competitionglobalId}', competitionglobalId),
         {},
         competitionglobal,
-      ).then(() => {
-        setNotification('Competição editada com sucesso!', 'success');
-      });
+      );
     } else {
-      await newRequest(MethodsEnum.POST, URL_COMPETITIONGLOBAL, {}, competitionglobal).then(() => {
-        setNotification('Competição inserida com sucesso!', 'success');
-      });
+      await newRequest(MethodsEnum.POST, URL_COMPETITIONGLOBAL, {}, competitionglobal);
     }
 
     await newRequest(MethodsEnum.GET, URL_COMPETITIONGLOBAL).then((data) => {
@@ -210,6 +206,12 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
     await newRequest(MethodsEnum.GET, URL_TEAMGLOBAL).then((data) => {
       setTeamsglobal(data);
     });
+
+    if (competitionglobalId) {
+      setNotification('Competição editada.', 'success');
+    } else {
+      setNotification('Competição inserida.', 'success');
+    }
 
     navigate(CompetitionglobalRoutesEnum.COMPETITIONGLOBAL);
   };

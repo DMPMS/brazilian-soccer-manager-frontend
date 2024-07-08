@@ -17,6 +17,7 @@ import { useManagerglobal } from '../hooks/useManagerglobal';
 
 const Managerglobal = () => {
   const {
+    loading,
     managersglobal,
     handleOnClickInsert,
     handleOnSearch,
@@ -112,6 +113,7 @@ const Managerglobal = () => {
         onCancel={handleOnCloseModalDelete}
         okText="Sim"
         cancelText="Cancelar"
+        confirmLoading={loading}
       >
         <p>Tem certeza que deseja excluir esse treinador?</p>
       </Modal>

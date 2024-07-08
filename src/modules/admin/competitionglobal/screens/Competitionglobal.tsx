@@ -21,6 +21,7 @@ import { useCompetitionglobal } from '../hooks/useCompetitionglobal';
 
 const Competitionglobal = () => {
   const {
+    loading,
     competitionsglobal,
     handleOnClickInsert,
     handleOnSearch,
@@ -119,6 +120,7 @@ const Competitionglobal = () => {
         onCancel={handleOnCloseModalDelete}
         okText="Sim"
         cancelText="Cancelar"
+        confirmLoading={loading}
       >
         <p>Tem certeza que deseja excluir essa competição?</p>
       </Modal>
