@@ -20,7 +20,6 @@ import { ManagerglobalRoutesEnum } from '../routes';
 export const useInsertManagerglobal = (managerglobalId?: string) => {
   const {
     setManagersglobal,
-    setManagersglobalWithoutTeamglobal,
     managerglobal: managerglobalReducer,
     setManagerglobal: setManagerglobalReducer,
   } = useManagerglobalReducer();
@@ -141,12 +140,6 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
     await newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL).then((data) => {
       setManagersglobal(data);
     });
-
-    await newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL, { isWithoutTeamglobal: true }).then(
-      (data) => {
-        setManagersglobalWithoutTeamglobal(data);
-      },
-    );
 
     navigate(ManagerglobalRoutesEnum.MANAGERGLOBAL);
   };

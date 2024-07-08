@@ -9,12 +9,7 @@ import { usePlayerglobalReducer } from '../../../../store/reducers/playerglobalR
 import { PlayerglobalRoutesEnum } from '../routes';
 
 export const usePlayerglobal = () => {
-  const {
-    playersglobal,
-    playersglobalWithoutTeamglobal,
-    setPlayersglobal,
-    setPlayersglobalWithoutTeamglobal,
-  } = usePlayerglobalReducer();
+  const { playersglobal, setPlayersglobal } = usePlayerglobalReducer();
   const { setNotification } = useGlobalReducer();
 
   const { newRequest } = useNewRequests();
@@ -31,14 +26,6 @@ export const usePlayerglobal = () => {
     if (!playersglobal || playersglobal.length === 0) {
       newRequest(MethodsEnum.GET, URL_PLAYERGLOBAL).then((data) => {
         setPlayersglobal(data);
-      });
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!playersglobalWithoutTeamglobal || playersglobalWithoutTeamglobal.length === 0) {
-      newRequest(MethodsEnum.GET, URL_PLAYERGLOBAL, { isWithoutTeamglobal: true }).then((data) => {
-        setPlayersglobalWithoutTeamglobal(data);
       });
     }
   }, []);
@@ -69,12 +56,6 @@ export const usePlayerglobal = () => {
       setPlayersglobal(data);
     });
 
-    await newRequest(MethodsEnum.GET, URL_PLAYERGLOBAL, { isWithoutTeamglobal: true }).then(
-      (data) => {
-        setPlayersglobalWithoutTeamglobal(data);
-      },
-    );
-
     setPlayerglobalIdDelete(undefined);
   };
 
@@ -88,7 +69,6 @@ export const usePlayerglobal = () => {
 
   return {
     playersglobal: playersglobalFiltered,
-    playersglobalWithoutTeamglobal,
     handleOnClickInsert,
     handleOnSearch,
     handleOnEdit,

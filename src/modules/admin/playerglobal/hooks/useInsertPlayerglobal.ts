@@ -32,7 +32,6 @@ import { PlayerglobalRoutesEnum } from '../routes';
 export const useInsertPlayerglobal = (playerglobalId?: string) => {
   const {
     setPlayersglobal,
-    setPlayersglobalWithoutTeamglobal,
     playerglobal: playerglobalReducer,
     setPlayerglobal: setPlayerglobalReducer,
   } = usePlayerglobalReducer();
@@ -214,12 +213,6 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
     await newRequest(MethodsEnum.GET, URL_PLAYERGLOBAL).then((data) => {
       setPlayersglobal(data);
     });
-
-    await newRequest(MethodsEnum.GET, URL_PLAYERGLOBAL, { isWithoutTeamglobal: true }).then(
-      (data) => {
-        setPlayersglobalWithoutTeamglobal(data);
-      },
-    );
 
     // Just by inserting.
     await newRequest(MethodsEnum.GET, URL_TEAMGLOBAL).then((data) => {

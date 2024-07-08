@@ -9,12 +9,7 @@ import { useManagerglobalReducer } from '../../../../store/reducers/managergloba
 import { ManagerglobalRoutesEnum } from '../routes';
 
 export const useManagerglobal = () => {
-  const {
-    managersglobal,
-    managersglobalWithoutTeamglobal,
-    setManagersglobal,
-    setManagersglobalWithoutTeamglobal,
-  } = useManagerglobalReducer();
+  const { managersglobal, setManagersglobal } = useManagerglobalReducer();
   const { setNotification } = useGlobalReducer();
 
   const { newRequest } = useNewRequests();
@@ -31,14 +26,6 @@ export const useManagerglobal = () => {
     if (!managersglobal || managersglobal.length === 0) {
       newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL).then((data) => {
         setManagersglobal(data);
-      });
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!managersglobalWithoutTeamglobal || managersglobalWithoutTeamglobal.length === 0) {
-      newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL, { isWithoutTeamglobal: true }).then((data) => {
-        setManagersglobalWithoutTeamglobal(data);
       });
     }
   }, []);
@@ -69,12 +56,6 @@ export const useManagerglobal = () => {
       setManagersglobal(data);
     });
 
-    await newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL, { isWithoutTeamglobal: true }).then(
-      (data) => {
-        setManagersglobalWithoutTeamglobal(data);
-      },
-    );
-
     setManagerglobalIdDelete(undefined);
   };
 
@@ -88,7 +69,6 @@ export const useManagerglobal = () => {
 
   return {
     managersglobal: managersglobalFiltered,
-    managersglobalWithoutTeamglobal,
     handleOnClickInsert,
     handleOnSearch,
     handleOnEdit,

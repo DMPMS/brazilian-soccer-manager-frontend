@@ -32,8 +32,8 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
     teamglobal: teamglobalReducer,
     setTeamglobal: setTeamglobalReducer,
   } = useTeamglobalReducer();
-  const { setManagersglobalWithoutTeamglobal, setManagersglobal } = useManagerglobalReducer();
-  const { setPlayersglobalWithoutTeamglobal, setPlayersglobal } = usePlayerglobalReducer();
+  const { setManagersglobal } = useManagerglobalReducer();
+  const { setPlayersglobal } = usePlayerglobalReducer();
   const { setNotification } = useGlobalReducer();
 
   const { newRequest, loading } = useNewRequests();
@@ -58,9 +58,29 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
     PlayerglobalType[]
   >([]);
 
+  const [managersglobalWithoutTeamglobal, setManagersglobalWithoutTeamglobal] = useState<
+    ManagerglobalType[]
+  >([]);
+
+  const [playersglobalWithoutTeamglobal, setPlayersglobalWithoutTeamglobal] = useState<
+    ManagerglobalType[]
+  >([]);
+
   useEffect(() => {
-    if (teamglobalId) {
-      const findAndSetTeamglobalReducer = async (teamglobalId: string) => {
+    const fetchData = async () => {
+      await newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL, { isWithoutTeamglobal: true }).then(
+        (data) => {
+          setManagersglobalWithoutTeamglobal(data);
+        },
+      );
+
+      await newRequest(MethodsEnum.GET, URL_PLAYERGLOBAL, { isWithoutTeamglobal: true }).then(
+        (data) => {
+          setPlayersglobalWithoutTeamglobal(data);
+        },
+      );
+
+      if (teamglobalId) {
         await newRequest(
           MethodsEnum.GET,
           URL_TEAMGLOBAL_ID.replace('{teamglobalId}', teamglobalId),
@@ -68,16 +88,16 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
           setTeamglobalReducer(data);
         });
 
+        setIsEdit(true);
         setLoadingTeamglobal(false);
-      };
+      } else {
+        setIsEdit(false);
+        setTeamglobalReducer(undefined);
+        setLoadingTeamglobal(false);
+      }
+    };
 
-      setIsEdit(true);
-      findAndSetTeamglobalReducer(teamglobalId);
-    } else {
-      setIsEdit(false);
-      setTeamglobalReducer(undefined);
-      setLoadingTeamglobal(false);
-    }
+    fetchData();
   }, [teamglobalId]);
 
   useEffect(() => {
@@ -214,21 +234,9 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
       setPlayersglobal(data);
     });
 
-    await newRequest(MethodsEnum.GET, URL_PLAYERGLOBAL, { isWithoutTeamglobal: true }).then(
-      (data) => {
-        setPlayersglobalWithoutTeamglobal(data);
-      },
-    );
-
     await newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL).then((data) => {
       setManagersglobal(data);
     });
-
-    await newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL, { isWithoutTeamglobal: true }).then(
-      (data) => {
-        setManagersglobalWithoutTeamglobal(data);
-      },
-    );
 
     navigate(TeamglobalRoutesEnum.TEAMGLOBAL);
   };
@@ -252,6 +260,8 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
     playerglobalIdsCount,
     managerglobalOfTeamglobalReducer,
     playersglobalOfTeamglobalReducer,
+    managersglobalWithoutTeamglobal,
+    playersglobalWithoutTeamglobal,
     handleOnChangeInput,
     handleOnClickInsert,
     handleOnClickReset,

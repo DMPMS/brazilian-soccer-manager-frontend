@@ -17,8 +17,8 @@ import { TeamglobalRoutesEnum } from '../routes';
 
 export const useTeamglobal = () => {
   const { teamsglobal, setTeamsglobal } = useTeamglobalReducer();
-  const { setManagersglobalWithoutTeamglobal, setManagersglobal } = useManagerglobalReducer();
-  const { setPlayersglobalWithoutTeamglobal, setPlayersglobal } = usePlayerglobalReducer();
+  const { setManagersglobal } = useManagerglobalReducer();
+  const { setPlayersglobal } = usePlayerglobalReducer();
   const { setNotification } = useGlobalReducer();
 
   const { newRequest } = useNewRequests();
@@ -67,21 +67,9 @@ export const useTeamglobal = () => {
       setPlayersglobal(data);
     });
 
-    await newRequest(MethodsEnum.GET, URL_PLAYERGLOBAL, { isWithoutTeamglobal: true }).then(
-      (data) => {
-        setPlayersglobalWithoutTeamglobal(data);
-      },
-    );
-
     await newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL).then((data) => {
       setManagersglobal(data);
     });
-
-    await newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL, { isWithoutTeamglobal: true }).then(
-      (data) => {
-        setManagersglobalWithoutTeamglobal(data);
-      },
-    );
 
     setTeamglobalIdDelete(undefined);
   };

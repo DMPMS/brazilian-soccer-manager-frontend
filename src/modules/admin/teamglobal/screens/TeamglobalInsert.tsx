@@ -26,8 +26,6 @@ import { PlayerglobalType } from '../../../../shared/types/PlayerglobalType';
 // import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';
 import { useCountry } from '../../../shared/country/hooks/useCountry';
 import { HomeRoutesEnum } from '../../home/routes';
-import { useManagerglobal } from '../../managerglobal/hooks/useManagerglobal';
-import { usePlayerglobal } from '../../playerglobal/hooks/usePlayerglobal';
 import { useInsertTeamglobal } from '../hooks/useInsertTeamglobal';
 import { TeamglobalRoutesEnum } from '../routes';
 
@@ -43,6 +41,8 @@ const TeamglobalInsert = () => {
     playerglobalIdsCount,
     managerglobalOfTeamglobalReducer,
     playersglobalOfTeamglobalReducer,
+    managersglobalWithoutTeamglobal,
+    playersglobalWithoutTeamglobal,
     handleOnChangeInput,
     handleOnClickInsert,
     handleOnClickReset,
@@ -54,8 +54,6 @@ const TeamglobalInsert = () => {
   } = useInsertTeamglobal(teamglobalId);
 
   const { countries } = useCountry();
-  const { playersglobalWithoutTeamglobal } = usePlayerglobal();
-  const { managersglobalWithoutTeamglobal } = useManagerglobal();
   // const { setNotification } = useGlobalReducer();
 
   return (
