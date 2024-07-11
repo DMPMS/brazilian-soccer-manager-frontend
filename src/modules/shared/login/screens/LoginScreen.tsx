@@ -1,4 +1,4 @@
-import { Form } from 'antd';
+import { Form, Typography } from 'antd';
 
 import ButtonProject from '../../../../shared/components/buttons/button/ButtonProject';
 import FlexProject from '../../../../shared/components/flex/FlexProject';
@@ -8,8 +8,16 @@ import { LimitedContainerCardProject } from '../../../../shared/components/style
 import { useLogin } from '../hooks/useLogin';
 import { LogoLogin, TitleLogin } from '../styles/loginScreen.style';
 
+const { Text, Link } = Typography;
+
 const LoginScreen = () => {
-  const { loading, disabledButton, handleOnChangeInput, handleOnClickLogin } = useLogin();
+  const {
+    loading,
+    disabledButton,
+    handleOnChangeInput,
+    handleOnClickLogin,
+    handleOnClickNewAccount,
+  } = useLogin();
 
   return (
     <FlexProject justify="center" align="center" style={{ height: '100vh' }}>
@@ -40,7 +48,7 @@ const LoginScreen = () => {
             rules={[{ required: true, message: 'Insira sua senha.' }]}
           >
             <InputPasswordProject
-              placeholder="Senha"
+              placeholder="********"
               onChange={(event) => handleOnChangeInput(event, 'password')}
             />
           </Form.Item>
@@ -52,9 +60,16 @@ const LoginScreen = () => {
           type="primary"
           onClick={handleOnClickLogin}
           width="100%"
+          margin="0px 0px 8px 0px"
         >
           Entrar
         </ButtonProject>
+
+        <FlexProject justify="center" align="center">
+          <Text>
+            Novo por aqui? <Link onClick={handleOnClickNewAccount}>Cadastre-se</Link> agora!
+          </Text>
+        </FlexProject>
       </LimitedContainerCardProject>
     </FlexProject>
   );

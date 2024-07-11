@@ -3,6 +3,15 @@ export const DEFAULT_LOGIN = {
   password: '',
 };
 
+export const DEFAULT_USER = {
+  name: '',
+  age: 0,
+  countryId: undefined,
+  email: '',
+  password: '',
+  confirmPassword: '',
+};
+
 export const DEFAULT_MANAGERGLOBAL = {
   name: '',
   age: 0,

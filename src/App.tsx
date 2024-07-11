@@ -9,6 +9,7 @@ import { playerglobalRoutes } from './modules/admin/playerglobal/routes';
 import { teamglobalRoutes } from './modules/admin/teamglobal/routes';
 import { firstScreenRoutes } from './modules/firstScreen/routes';
 import { loginRoutes } from './modules/shared/login/routes';
+import { newAccountRoutes } from './modules/shared/newAccount/routes';
 import { URL_USER } from './shared/constants/urls';
 import { MethodsEnum } from './shared/enums/methods.enum';
 import { getAuthorizationToken, verifyLoggedIn } from './shared/functions/connection/auth';
@@ -16,7 +17,7 @@ import { useNewRequests } from './shared/hooks/useNewRequests';
 import { useNotification } from './shared/hooks/useNotification';
 import { useGlobalReducer } from './store/reducers/globalReducer/useGlobalReducer';
 
-const routes: RouteObject[] = [...loginRoutes];
+const routes: RouteObject[] = [...loginRoutes, ...newAccountRoutes];
 const routesLoggedIn: RouteObject[] = [
   ...homeRoutes,
   ...managerglobalRoutes,

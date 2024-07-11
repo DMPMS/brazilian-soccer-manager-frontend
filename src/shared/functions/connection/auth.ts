@@ -1,9 +1,9 @@
 import { NavigateFunction, redirect } from 'react-router-dom';
 
 import { LoginRoutesEnum } from '../../../modules/shared/login/routes';
-import { UserType } from '../../../modules/shared/login/types/UserType';
 import { AUTHORIZATION_KEY } from '../../constants/authorizationConstants';
 import { URL_USER } from '../../constants/urls';
+import { UserType } from '../../types/UserType';
 import { connectionAPIGet } from './connectionAPI';
 import { getItemStorage, removeItemStorage, setItemStorage } from './storageProxy';
 

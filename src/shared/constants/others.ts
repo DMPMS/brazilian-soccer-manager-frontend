@@ -1,3 +1,10 @@
+export const USER_MIN_LENGH_NAME = 3;
+export const USER_MAX_LENGH_NAME = 40;
+export const USER_MIN_AGE = 18;
+export const USER_MAX_AGE = 90;
+export const USER_MIN_LENGH_PASSWORD = 3;
+export const USER_MAX_LENGH_PASSWORD = 40;
+
 export const COMPETITIONGLOBAL_MIN_LENGH_NAME = 3;
 export const COMPETITIONGLOBAL_MAX_LENGH_NAME = 40;
 export const COMPETITIONGLOBAL_MIN_LENGH_SEASON = 3;

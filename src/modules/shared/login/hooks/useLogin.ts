@@ -9,9 +9,10 @@ import { MethodsEnum } from '../../../../shared/enums/methods.enum';
 import { setAuthorizationToken } from '../../../../shared/functions/connection/auth';
 import { isValidEmail } from '../../../../shared/functions/isValideEmail';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
+import { AuthType } from '../../../../shared/types/AuthType';
 import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';
 import { FirstScreenRoutesEnum } from '../../../firstScreen/routes';
-import { AuthType } from '../types/AuthType';
+import { NewAccountRoutesEnum } from '../../newAccount/routes';
 
 export const useLogin = () => {
   const { setNotification, setUser } = useGlobalReducer();
@@ -57,10 +58,15 @@ export const useLogin = () => {
       });
   };
 
+  const handleOnClickNewAccount = () => {
+    navigate(NewAccountRoutesEnum.NEW_ACCOUNT);
+  };
+
   return {
     loading,
     disabledButton,
     handleOnChangeInput,
     handleOnClickLogin,
+    handleOnClickNewAccount,
   };
 };
