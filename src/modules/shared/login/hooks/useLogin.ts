@@ -1,8 +1,12 @@
+import { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { DEFAULT_LOGIN } from '../../../../shared/constants/dtos';
-import { ERROR_INVALID_PASSWORD } from '../../../../shared/constants/errorsStatus';
+import {
+  ERROR_BACKEND_INVALID_PASSWORD,
+  ERROR_INVALID_PASSWORD,
+} from '../../../../shared/constants/errorsStatus';
 import { URL_AUTH } from '../../../../shared/constants/urls';
 import { LoginDTO } from '../../../../shared/dtos/login.dto.';
 import { MethodsEnum } from '../../../../shared/enums/methods.enum';
@@ -42,6 +46,7 @@ export const useLogin = () => {
     newRequest(
       MethodsEnum.POST,
       URL_AUTH,
+      true,
       {},
       {
         email: login.email,
@@ -53,8 +58,14 @@ export const useLogin = () => {
         setAuthorizationToken(data.accessToken);
         navigate(FirstScreenRoutesEnum.FIRST_SCREEN);
       })
-      .catch(() => {
-        setNotification(ERROR_INVALID_PASSWORD, 'error');
+      .catch((error: AxiosError) => {
+        const responseErrorMessage = (error.response?.data as { message: string }).message;
+
+        if (responseErrorMessage === ERROR_BACKEND_INVALID_PASSWORD) {
+          setNotification(ERROR_INVALID_PASSWORD, 'error');
+        } else {
+          setNotification(error.message, 'error');
+        }
       });
   };
 

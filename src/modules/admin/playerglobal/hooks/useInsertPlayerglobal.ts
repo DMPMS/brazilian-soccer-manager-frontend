@@ -199,11 +199,12 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
       await newRequest(
         MethodsEnum.PUT,
         URL_PLAYERGLOBAL_ID.replace('{playerglobalId}', playerglobalId),
+        false,
         {},
         playerglobal,
       );
     } else {
-      await newRequest(MethodsEnum.POST, URL_PLAYERGLOBAL, {}, playerglobal);
+      await newRequest(MethodsEnum.POST, URL_PLAYERGLOBAL, false, {}, playerglobal);
     }
 
     await newRequest(MethodsEnum.GET, URL_PLAYERGLOBAL).then((data) => {

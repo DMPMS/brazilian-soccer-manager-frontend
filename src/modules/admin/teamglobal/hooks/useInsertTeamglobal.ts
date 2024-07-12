@@ -68,17 +68,17 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      await newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL, { isWithoutTeamglobal: true }).then(
-        (data) => {
-          setManagersglobalWithoutTeamglobal(data);
-        },
-      );
+      await newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL, false, {
+        isWithoutTeamglobal: true,
+      }).then((data) => {
+        setManagersglobalWithoutTeamglobal(data);
+      });
 
-      await newRequest(MethodsEnum.GET, URL_PLAYERGLOBAL, { isWithoutTeamglobal: true }).then(
-        (data) => {
-          setPlayersglobalWithoutTeamglobal(data);
-        },
-      );
+      await newRequest(MethodsEnum.GET, URL_PLAYERGLOBAL, false, {
+        isWithoutTeamglobal: true,
+      }).then((data) => {
+        setPlayersglobalWithoutTeamglobal(data);
+      });
 
       if (teamglobalId) {
         await newRequest(
@@ -215,11 +215,12 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
       await newRequest(
         MethodsEnum.PUT,
         URL_TEAMGLOBAL_ID.replace('{teamglobalId}', teamglobalId),
+        false,
         {},
         teamglobal,
       );
     } else {
-      await newRequest(MethodsEnum.POST, URL_TEAMGLOBAL, {}, teamglobal);
+      await newRequest(MethodsEnum.POST, URL_TEAMGLOBAL, false, {}, teamglobal);
     }
 
     await newRequest(MethodsEnum.GET, URL_TEAMGLOBAL).then((data) => {

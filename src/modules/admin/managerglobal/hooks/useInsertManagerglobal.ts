@@ -126,11 +126,12 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
       await newRequest(
         MethodsEnum.PUT,
         URL_MANAGERGLOBAL_ID.replace('{managerglobalId}', managerglobalId),
+        false,
         {},
         managerglobal,
       );
     } else {
-      await newRequest(MethodsEnum.POST, URL_MANAGERGLOBAL, {}, managerglobal);
+      await newRequest(MethodsEnum.POST, URL_MANAGERGLOBAL, false, {}, managerglobal);
     }
 
     await newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL).then((data) => {

@@ -192,11 +192,12 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
       await newRequest(
         MethodsEnum.PUT,
         URL_COMPETITIONGLOBAL_ID.replace('{competitionglobalId}', competitionglobalId),
+        false,
         {},
         competitionglobal,
       );
     } else {
-      await newRequest(MethodsEnum.POST, URL_COMPETITIONGLOBAL, {}, competitionglobal);
+      await newRequest(MethodsEnum.POST, URL_COMPETITIONGLOBAL, false, {}, competitionglobal);
     }
 
     await newRequest(MethodsEnum.GET, URL_COMPETITIONGLOBAL).then((data) => {

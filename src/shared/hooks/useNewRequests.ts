@@ -10,7 +10,13 @@ export const useNewRequests = () => {
 
   const [loading, setLoading] = useState(false);
 
-  const newRequest = async (methodType: MethodType, url: string, params = {}, body = {}) => {
+  const newRequest = async (
+    methodType: MethodType,
+    url: string,
+    catchError = false,
+    params = {},
+    body = {},
+  ) => {
     setLoading(true);
 
     const headers = {
@@ -28,8 +34,11 @@ export const useNewRequests = () => {
       });
       return response.data;
     } catch (error) {
-      setNotification(String(error), 'error');
-      throw error;
+      if (catchError) {
+        return Promise.reject(error);
+      } else {
+        setNotification(String(error), 'error');
+      }
     } finally {
       setLoading(false);
     }
