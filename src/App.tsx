@@ -10,7 +10,7 @@ import { teamglobalRoutes } from './modules/admin/teamglobal/routes';
 import { firstScreenRoutes } from './modules/firstScreen/routes';
 import { loginRoutes } from './modules/shared/login/routes';
 import { newAccountRoutes } from './modules/shared/newAccount/routes';
-import { URL_USER } from './shared/constants/urls';
+import { URL_USER_LOGGED_IN } from './shared/constants/urls';
 import { MethodsEnum } from './shared/enums/methods.enum';
 import { getAuthorizationToken, verifyLoggedIn } from './shared/functions/connection/auth';
 import { useNewRequests } from './shared/hooks/useNewRequests';
@@ -40,7 +40,7 @@ function App() {
   useEffect(() => {
     const token = getAuthorizationToken();
     if (token) {
-      newRequest(MethodsEnum.GET, URL_USER).then((data) => {
+      newRequest(MethodsEnum.GET, URL_USER_LOGGED_IN).then((data) => {
         setUser(data);
       });
     }
