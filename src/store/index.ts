@@ -7,6 +7,7 @@ import managerglobalReducer from './reducers/managerglobalReducer';
 import playerglobalReducer from './reducers/playerglobalReducer';
 import positionReducer from './reducers/positionReducer';
 import ruleReducer from './reducers/ruleReducer';
+import saveReducer from './reducers/saveReducer';
 import teamglobalReducer from './reducers/teamglobalReducer';
 
 export const store = configureStore({
@@ -19,6 +20,7 @@ export const store = configureStore({
     countryReducer,
     positionReducer,
     playerglobalReducer,
+    saveReducer,
   },
 });
 

@@ -1,14 +1,14 @@
 import { useForm } from 'antd/es/form/Form';
-import { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { DEFAULT_USER } from '../../../../shared/constants/dtos';
 import {
   ERROR_BACKEND_EMAIL_ALREADY_REGISTERED,
+  ERROR_BACKEND_INVALID_PASSWORD,
   ERROR_EMAIL_ALREADY_REGISTERED,
+  ERROR_INVALID_PASSWORD,
 } from '../../../../shared/constants/errorsStatus';
-// import { ERROR_INVALID_PASSWORD } from '../../../../shared/constants/errorsStatus';
 import {
   USER_MAX_AGE,
   USER_MAX_LENGH_NAME,
@@ -17,25 +17,18 @@ import {
   USER_MIN_LENGH_NAME,
   USER_MIN_LENGH_PASSWORD,
 } from '../../../../shared/constants/others';
-import {
-  // URL_AUTH,
-  URL_USER,
-} from '../../../../shared/constants/urls';
+import { URL_AUTH, URL_USER } from '../../../../shared/constants/urls';
 import { createUserDTO } from '../../../../shared/dtos/createUser.dto';
 import { MethodsEnum } from '../../../../shared/enums/methods.enum';
-// import { setAuthorizationToken } from '../../../../shared/functions/connection/auth';
+import { setAuthorizationToken } from '../../../../shared/functions/connection/auth';
 import { isValidEmail } from '../../../../shared/functions/isValideEmail';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
-// import { AuthType } from '../../../../shared/types/AuthType';
 import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';
-// import { FirstScreenRoutesEnum } from '../../../firstScreen/routes';
+import { SaveRoutesEnum } from '../../../user/save/routes';
 import { LoginRoutesEnum } from '../../login/routes';
 
 export const useNewAccount = () => {
-  const {
-    setNotification,
-    // setUser: setUserReducer
-  } = useGlobalReducer();
+  const { setNotification, setUser: setUserReducer } = useGlobalReducer();
 
   const { newRequest, loading } = useNewRequests();
   const navigate = useNavigate();
@@ -93,37 +86,45 @@ export const useNewAccount = () => {
   };
 
   const handleOnClickInsert = async () => {
-    await newRequest(MethodsEnum.POST, URL_USER, true, {}, user)
-      .then(() => {
-        setNotification('Conta criada.', 'success');
-      })
-      .catch((error: AxiosError) => {
+    try {
+      await newRequest(MethodsEnum.POST, URL_USER, true, {}, user);
+      setNotification('Conta criada.', 'success');
+
+      try {
+        const data = await newRequest(
+          MethodsEnum.POST,
+          URL_AUTH,
+          true,
+          {},
+          {
+            email: user.email,
+            password: user.password,
+          },
+        );
+
+        setUserReducer(data.user);
+        setAuthorizationToken(data.accessToken);
+        navigate(SaveRoutesEnum.SAVE);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
         const responseErrorMessage = (error.response?.data as { message: string }).message;
 
-        if (responseErrorMessage === ERROR_BACKEND_EMAIL_ALREADY_REGISTERED) {
-          setNotification(ERROR_EMAIL_ALREADY_REGISTERED, 'error');
+        if (responseErrorMessage === ERROR_BACKEND_INVALID_PASSWORD) {
+          setNotification(ERROR_INVALID_PASSWORD, 'error');
         } else {
           setNotification(error.message, 'error');
         }
-      });
+      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      const responseErrorMessage = (error.response?.data as { message: string }).message;
 
-    // await newRequest(
-    //   MethodsEnum.POST,
-    //   URL_AUTH,
-    //   {},
-    //   {
-    //     email: user.email,
-    //     password: user.password,
-    //   },
-    // )
-    //   .then((data: AuthType) => {
-    //     setUserReducer(data.user);
-    //     setAuthorizationToken(data.accessToken);
-    //     navigate(FirstScreenRoutesEnum.FIRST_SCREEN);
-    //   })
-    //   .catch(() => {
-    //     setNotification(ERROR_INVALID_PASSWORD, 'error');
-    //   });
+      if (responseErrorMessage === ERROR_BACKEND_EMAIL_ALREADY_REGISTERED) {
+        setNotification(ERROR_EMAIL_ALREADY_REGISTERED, 'error');
+      } else {
+        setNotification(error.message, 'error');
+      }
+    }
   };
 
   const handleOnClickReset = () => {

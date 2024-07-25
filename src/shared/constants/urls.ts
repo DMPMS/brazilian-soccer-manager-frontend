@@ -1,6 +1,8 @@
 export const URL_USER = 'http://localhost:8080/user';
 export const URL_USER_LOGGED_IN = 'http://localhost:8080/user/loggedIn';
 
+export const URL_SAVE = 'http://localhost:8080/save';
+
 export const URL_AUTH = 'http://localhost:8080/auth';
 
 export const URL_COMPETITIONGLOBAL = 'http://localhost:8080/competitionglobal';

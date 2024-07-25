@@ -10,6 +10,7 @@ import { teamglobalRoutes } from './modules/admin/teamglobal/routes';
 import { firstScreenRoutes } from './modules/firstScreen/routes';
 import { loginRoutes } from './modules/shared/login/routes';
 import { newAccountRoutes } from './modules/shared/newAccount/routes';
+import { saveRoutes } from './modules/user/save/routes';
 import { URL_USER_LOGGED_IN } from './shared/constants/urls';
 import { MethodsEnum } from './shared/enums/methods.enum';
 import { getAuthorizationToken, verifyLoggedIn } from './shared/functions/connection/auth';
@@ -24,6 +25,7 @@ const routesLoggedIn: RouteObject[] = [
   ...competitionglobalRoutes,
   ...teamglobalRoutes,
   ...playerglobalRoutes,
+  ...saveRoutes,
   ...firstScreenRoutes,
 ].map((route) => ({
   ...route,
