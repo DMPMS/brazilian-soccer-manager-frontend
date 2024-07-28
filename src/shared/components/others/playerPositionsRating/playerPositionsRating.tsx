@@ -55,36 +55,48 @@ const calculateOverall = (
   secondaryPositionIds: number[],
 ) => {
   if (playerOverall < PLAYERGLOBAL_MIN_OVERALL || playerOverall > PLAYERGLOBAL_MAX_OVERALL) {
-    return '?';
+    return { overall: '?', colorIndex: 5 };
   }
 
   if (primaryPositionIds.includes(positionId)) {
-    return playerOverall * PLAYERGLOBAL_PRIMARY_POSITION_RATING;
+    return { overall: playerOverall * PLAYERGLOBAL_PRIMARY_POSITION_RATING, colorIndex: 0 };
   }
 
   if (secondaryPositionIds.includes(positionId)) {
-    return Math.ceil(playerOverall * PLAYERGLOBAL_SECONDARY_POSITION_RATING);
+    return {
+      overall: Math.ceil(playerOverall * PLAYERGLOBAL_SECONDARY_POSITION_RATING),
+      colorIndex: 1,
+    };
   }
 
   const positionArea = positionAreaById[positionId];
 
   const primaryAreaMatch = primaryPositionIds.some((id) => positionAreaById[id] === positionArea);
   if (primaryAreaMatch) {
-    return Math.ceil(playerOverall * PLAYERGLOBAL_SAME_AREA_PRIMARY_POSITION_RATING);
+    return {
+      overall: Math.ceil(playerOverall * PLAYERGLOBAL_SAME_AREA_PRIMARY_POSITION_RATING),
+      colorIndex: 2,
+    };
   }
 
   const secondaryAreaMatch = secondaryPositionIds.some(
     (id) => positionAreaById[id] === positionArea,
   );
   if (secondaryAreaMatch) {
-    return Math.ceil(playerOverall * PLAYERGLOBAL_SAME_AREA_SECONDARY_POSITION_RATING);
+    return {
+      overall: Math.ceil(playerOverall * PLAYERGLOBAL_SAME_AREA_SECONDARY_POSITION_RATING),
+      colorIndex: 3,
+    };
   }
 
   if (positionId === positionIds.GOL) {
-    return PLAYERGLOBAL_DEFAULT_GOALKEEPER_POSITION_RATING;
+    return { overall: PLAYERGLOBAL_DEFAULT_GOALKEEPER_POSITION_RATING, colorIndex: 5 };
   }
 
-  return Math.ceil(playerOverall * PLAYERGLOBAL_NON_PLAYING_POSITION_RATING);
+  return {
+    overall: Math.ceil(playerOverall * PLAYERGLOBAL_NON_PLAYING_POSITION_RATING),
+    colorIndex: 4,
+  };
 };
 
 const PlayerPositionsRating = ({
@@ -108,6 +120,13 @@ const PlayerPositionsRating = ({
     GOL: calculateOverall(positionIds.GOL, playerOverall, primaryPositionIds, secondaryPositionIds),
   };
 
+  const positionsColors = {
+    ataque: ['#FF4830', '#FF5e47', '#FF7063', '#D65D51', '#AB4D44', '#636363'],
+    meiocampo: ['#30FF30', '#47FF4A', '#66FF63', '#55D651', '#46AB44', '#636363'],
+    defesa: ['#303AFF', '#475CFF', '#6373FF', '#515CD6', '#444DAB', '#636363'],
+    goleiro: ['#FFBD30', '#FFBF47', '#636363', '#636363', '#636363', '#636363'],
+  };
+
   return (
     <div>
       <FlexProject justify="space-between" align="center">
@@ -118,13 +137,13 @@ const PlayerPositionsRating = ({
           style={{
             width: '100%',
             height: 100,
-            backgroundColor: '#F28B82',
+            backgroundColor: positionsColors.ataque[positionOveralls.PE.colorIndex],
             border: '1px solid #000000',
             borderLeft: '2px solid #000000',
             borderTop: '2px solid #000000',
           }}
         >
-          <div>{positionOveralls.PE}</div>
+          <div>{positionOveralls.PE.overall}</div>
           <div>PE</div>
         </FlexProject>
         <FlexProject
@@ -143,12 +162,12 @@ const PlayerPositionsRating = ({
             style={{
               width: '100%',
               height: 50,
-              backgroundColor: '#F28B82',
+              backgroundColor: positionsColors.ataque[positionOveralls.CA.colorIndex],
               border: '1px solid #000000',
               borderTop: '2px solid #000000',
             }}
           >
-            <div>{positionOveralls.CA}</div>
+            <div>{positionOveralls.CA.overall}</div>
             <div>CA</div>
           </FlexProject>
           <FlexProject
@@ -158,11 +177,11 @@ const PlayerPositionsRating = ({
             style={{
               width: '100%',
               height: 50,
-              backgroundColor: '#F28B82',
+              backgroundColor: positionsColors.ataque[positionOveralls.SA.colorIndex],
               border: '1px solid #000000',
             }}
           >
-            <div>{positionOveralls.SA}</div>
+            <div>{positionOveralls.SA.overall}</div>
             <div>SA</div>
           </FlexProject>
         </FlexProject>
@@ -173,13 +192,13 @@ const PlayerPositionsRating = ({
           style={{
             width: '100%',
             height: 100,
-            backgroundColor: '#F28B82',
+            backgroundColor: positionsColors.ataque[positionOveralls.PD.colorIndex],
             border: '1px solid #000000',
             borderRight: '2px solid #000000',
             borderTop: '2px solid #000000',
           }}
         >
-          <div>{positionOveralls.PD}</div>
+          <div>{positionOveralls.PD.overall}</div>
           <div>PD</div>
         </FlexProject>
       </FlexProject>
@@ -192,12 +211,12 @@ const PlayerPositionsRating = ({
           style={{
             width: '100%',
             height: 150,
-            backgroundColor: '#CCFF90',
+            backgroundColor: positionsColors.meiocampo[positionOveralls.ME.colorIndex],
             border: '1px solid #000000',
             borderLeft: '2px solid #000000',
           }}
         >
-          <div>{positionOveralls.ME}</div>
+          <div>{positionOveralls.ME.overall}</div>
           <div>ME</div>
         </FlexProject>
         <FlexProject
@@ -216,11 +235,11 @@ const PlayerPositionsRating = ({
             style={{
               width: '100%',
               height: 50,
-              backgroundColor: '#CCFF90',
+              backgroundColor: positionsColors.meiocampo[positionOveralls.MO.colorIndex],
               border: '1px solid #000000',
             }}
           >
-            <div>{positionOveralls.MO}</div>
+            <div>{positionOveralls.MO.overall}</div>
             <div>MO</div>
           </FlexProject>
           <FlexProject
@@ -230,11 +249,11 @@ const PlayerPositionsRating = ({
             style={{
               width: '100%',
               height: 50,
-              backgroundColor: '#CCFF90',
+              backgroundColor: positionsColors.meiocampo[positionOveralls.MC.colorIndex],
               border: '1px solid #000000',
             }}
           >
-            <div>{positionOveralls.MC}</div>
+            <div>{positionOveralls.MC.overall}</div>
             <div>MC</div>
           </FlexProject>
           <FlexProject
@@ -244,11 +263,11 @@ const PlayerPositionsRating = ({
             style={{
               width: '100%',
               height: 50,
-              backgroundColor: '#CCFF90',
+              backgroundColor: positionsColors.meiocampo[positionOveralls.VOL.colorIndex],
               border: '1px solid #000000',
             }}
           >
-            <div>{positionOveralls.VOL}</div>
+            <div>{positionOveralls.VOL.overall}</div>
             <div>VOL</div>
           </FlexProject>
         </FlexProject>
@@ -259,12 +278,12 @@ const PlayerPositionsRating = ({
           style={{
             width: '100%',
             height: 150,
-            backgroundColor: '#CCFF90',
+            backgroundColor: positionsColors.meiocampo[positionOveralls.MD.colorIndex],
             border: '1px solid #000000',
             borderRight: '2px solid #000000',
           }}
         >
-          <div>{positionOveralls.MD}</div>
+          <div>{positionOveralls.MD.overall}</div>
           <div>MD</div>
         </FlexProject>
       </FlexProject>
@@ -277,13 +296,13 @@ const PlayerPositionsRating = ({
           style={{
             width: '100%',
             height: 100,
-            backgroundColor: '#AECBFA',
+            backgroundColor: positionsColors.defesa[positionOveralls.LE.colorIndex],
             border: '1px solid #000000',
             borderLeft: '2px solid #000000',
             borderBottom: '2px solid #000000',
           }}
         >
-          <div>{positionOveralls.LE}</div>
+          <div>{positionOveralls.LE.overall}</div>
           <div>LE</div>
         </FlexProject>
         <FlexProject
@@ -302,11 +321,11 @@ const PlayerPositionsRating = ({
             style={{
               width: '100%',
               height: 50,
-              backgroundColor: '#AECBFA',
+              backgroundColor: positionsColors.defesa[positionOveralls.ZAG.colorIndex],
               border: '1px solid #000000',
             }}
           >
-            <div>{positionOveralls.ZAG}</div>
+            <div>{positionOveralls.ZAG.overall}</div>
             <div>ZAG</div>
           </FlexProject>
           <FlexProject
@@ -316,12 +335,12 @@ const PlayerPositionsRating = ({
             style={{
               width: '100%',
               height: 50,
-              backgroundColor: '#FFAB40',
+              backgroundColor: positionsColors.goleiro[positionOveralls.GOL.colorIndex],
               border: '1px solid #000000',
               borderBottom: '2px solid #000000',
             }}
           >
-            <div>{positionOveralls.GOL}</div>
+            <div>{positionOveralls.GOL.overall}</div>
             <div>GOL</div>
           </FlexProject>
         </FlexProject>
@@ -332,13 +351,13 @@ const PlayerPositionsRating = ({
           style={{
             width: '100%',
             height: 100,
-            backgroundColor: '#AECBFA',
+            backgroundColor: positionsColors.defesa[positionOveralls.LD.colorIndex],
             border: '1px solid #000000',
             borderRight: '2px solid #000000',
             borderBottom: '2px solid #000000',
           }}
         >
-          <div>{positionOveralls.LD}</div>
+          <div>{positionOveralls.LD.overall}</div>
           <div>LD</div>
         </FlexProject>
       </FlexProject>

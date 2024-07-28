@@ -158,6 +158,20 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
     });
   };
 
+  const handleOnChangeInputNumber = (value: number | string | null, nameObject: string) => {
+    if (typeof value === 'number') {
+      setPlayerglobal({
+        ...playerglobal,
+        [nameObject]: value,
+      });
+    } else {
+      setPlayerglobal({
+        ...playerglobal,
+        [nameObject]: 0,
+      });
+    }
+  };
+
   const handleOnChangeDatePicker = (date: dayjs.Dayjs | null, nameObject: string) => {
     setPlayerglobal({
       ...playerglobal,
@@ -246,6 +260,7 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
     playerglobalReducerTeamglobalId: playerglobalReducer?.teamglobal?.id,
     playerglobal,
     handleOnChangeInput,
+    handleOnChangeInputNumber,
     handleOnChangeDatePicker,
     handleOnClickInsert,
     handleOnClickReset,

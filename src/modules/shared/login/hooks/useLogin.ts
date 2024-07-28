@@ -38,7 +38,7 @@ export const useLogin = () => {
   const handleOnChangeInput = (event: React.ChangeEvent<HTMLInputElement>, nameObject: string) => {
     setLogin({
       ...login,
-      [nameObject]: event.target.value,
+      [nameObject]: nameObject === 'email' ? event.target.value.toLowerCase() : event.target.value,
     });
   };
 

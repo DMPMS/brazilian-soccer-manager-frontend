@@ -55,6 +55,7 @@ const PlayerglobalInsert = () => {
     playerglobalReducerTeamglobalId,
     playerglobal,
     handleOnChangeInput,
+    handleOnChangeInputNumber,
     handleOnChangeDatePicker,
     handleOnClickInsert,
     handleOnClickReset,
