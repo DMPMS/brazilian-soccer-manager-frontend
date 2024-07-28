@@ -1,8 +1,10 @@
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { Form, Typography } from 'antd';
+import dayjs from 'dayjs';
 import { useParams } from 'react-router-dom';
 
 import ButtonProject from '../../../../shared/components/buttons/button/ButtonProject';
+import DatePickerProject from '../../../../shared/components/datepickers/datePickerProject';
 import FlexProject from '../../../../shared/components/flex/FlexProject';
 import ImageProject from '../../../../shared/components/image/ImageProject';
 import InputProject from '../../../../shared/components/inputs/input/InputProject';
@@ -18,6 +20,8 @@ import {
 import CountrySVGProject from '../../../../shared/components/svg/CountrySVGProject';
 import PositionTagProject from '../../../../shared/components/tags/positionTag/PositionTagProject';
 import {
+  CURRENT_DATE_UTC,
+  DATE_FORMAT,
   PLAYERGLOBAL_MAX_AGE,
   PLAYERGLOBAL_MAX_LENGH_NAME,
   PLAYERGLOBAL_MAX_OVERALL,
@@ -51,7 +55,7 @@ const PlayerglobalInsert = () => {
     playerglobalReducerTeamglobalId,
     playerglobal,
     handleOnChangeInput,
-    handleOnChangeInputNumber,
+    handleOnChangeDatePicker,
     handleOnClickInsert,
     handleOnClickReset,
     handleOnClickCancel,
@@ -114,28 +118,53 @@ const PlayerglobalInsert = () => {
                   </Form.Item>
 
                   <Form.Item
-                    label="Idade"
-                    name="age"
+                    label="Data de nascimento"
+                    name="birthdate"
                     required
+                    tooltip={{
+                      title: `A data atual no sistema é ${CURRENT_DATE_UTC.format(DATE_FORMAT)}`,
+                      icon: <InfoCircleOutlined />,
+                    }}
                     rules={[
                       { required: true, message: 'Este campo deve ser preenchido.' },
                       {
-                        type: 'number',
-                        min: PLAYERGLOBAL_MIN_AGE,
-                        message: `A idade mínima é ${PLAYERGLOBAL_MIN_AGE}.`,
-                      },
-                      {
-                        type: 'number',
-                        max: PLAYERGLOBAL_MAX_AGE,
-                        message: `A idade máxima é ${PLAYERGLOBAL_MAX_AGE}.`,
+                        validator: (_, value) => {
+                          if (!value) {
+                            return Promise.resolve();
+                          }
+
+                          const birthdate = dayjs(value).startOf('day');
+
+                          const minDate = CURRENT_DATE_UTC.subtract(
+                            PLAYERGLOBAL_MIN_AGE,
+                            'year',
+                          ).startOf('day');
+
+                          const maxDate = CURRENT_DATE_UTC.subtract(
+                            PLAYERGLOBAL_MAX_AGE,
+                            'year',
+                          ).startOf('day');
+
+                          if (birthdate.isAfter(minDate)) {
+                            return Promise.reject(`A idade mínima é ${PLAYERGLOBAL_MIN_AGE} anos.`);
+                          } else if (birthdate.isBefore(maxDate)) {
+                            return Promise.reject(`A idade máxima é ${PLAYERGLOBAL_MAX_AGE} anos.`);
+                          }
+
+                          return Promise.resolve();
+                        },
                       },
                     ]}
                   >
-                    <InputIntegerProject
-                      placeholder="Idade"
-                      onChange={(value) => {
-                        handleOnChangeInputNumber(value, 'age');
-                      }}
+                    <DatePickerProject
+                      placeholder="Selecione uma data"
+                      minDate={CURRENT_DATE_UTC.subtract(PLAYERGLOBAL_MAX_AGE, 'year').startOf(
+                        'day',
+                      )}
+                      maxDate={CURRENT_DATE_UTC.subtract(PLAYERGLOBAL_MIN_AGE, 'year').startOf(
+                        'day',
+                      )}
+                      onChange={(date) => handleOnChangeDatePicker(date, 'birthdate')}
                     />
                   </Form.Item>
 

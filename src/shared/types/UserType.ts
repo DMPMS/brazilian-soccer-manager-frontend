@@ -1,7 +1,7 @@
 export interface UserType {
   id: number;
   name: string;
-  age: number;
+  birthdate: string;
   email: string;
   countryId?: number;
 }

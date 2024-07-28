@@ -1,9 +1,12 @@
 import { useForm } from 'antd/es/form/Form';
+import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { DEFAULT_MANAGERGLOBAL } from '../../../../shared/constants/dtos';
 import {
+  CURRENT_DATE_UTC,
+  DEFAULT_DATE_FORMAT,
   MANAGERGLOBAL_MAX_AGE,
   MANAGERGLOBAL_MAX_LENGH_NAME,
   MANAGERGLOBAL_MIN_AGE,
@@ -61,13 +64,13 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
     if (managerglobalReducer) {
       setManagerglobal({
         name: managerglobalReducer.name,
-        age: managerglobalReducer.age,
+        birthdate: managerglobalReducer.birthdate,
         countryId: managerglobalReducer.country?.id,
       });
 
       formManagerglobal.setFieldsValue({
         name: managerglobalReducer.name,
-        age: managerglobalReducer.age,
+        birthdate: dayjs(managerglobalReducer.birthdate),
         countryId:
           managerglobalReducer.country?.id !== undefined
             ? `${managerglobalReducer.country.id}`
@@ -83,11 +86,18 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
     if (
       managerglobal.name.length >= MANAGERGLOBAL_MIN_LENGH_NAME &&
       managerglobal.name.length <= MANAGERGLOBAL_MAX_LENGH_NAME &&
-      managerglobal.age >= MANAGERGLOBAL_MIN_AGE &&
-      managerglobal.age <= MANAGERGLOBAL_MAX_AGE &&
+      managerglobal.birthdate &&
       managerglobal.countryId
     ) {
-      setDisabledButton(false);
+      const birthdate = dayjs(managerglobal.birthdate).startOf('day');
+      const minDate = CURRENT_DATE_UTC.subtract(MANAGERGLOBAL_MIN_AGE, 'year').startOf('day');
+      const maxDate = CURRENT_DATE_UTC.subtract(MANAGERGLOBAL_MAX_AGE, 'year').startOf('day');
+
+      if (!(birthdate.isAfter(minDate) || birthdate.isBefore(maxDate))) {
+        setDisabledButton(false);
+      } else {
+        setDisabledButton(true);
+      }
     } else {
       setDisabledButton(true);
     }
@@ -100,18 +110,11 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
     });
   };
 
-  const handleOnChangeInputNumber = (value: number | string | null, nameObject: string) => {
-    if (typeof value === 'number') {
-      setManagerglobal({
-        ...managerglobal,
-        [nameObject]: value,
-      });
-    } else {
-      setManagerglobal({
-        ...managerglobal,
-        [nameObject]: 0,
-      });
-    }
+  const handleOnChangeDatePicker = (date: dayjs.Dayjs | null, nameObject: string) => {
+    setManagerglobal({
+      ...managerglobal,
+      [nameObject]: date ? date.format(DEFAULT_DATE_FORMAT) : '',
+    });
   };
 
   const handleOnChangeCountrySelect = (value: string) => {
@@ -163,7 +166,7 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
     loadingManagerglobal,
     formManagerglobal,
     handleOnChangeInput,
-    handleOnChangeInputNumber,
+    handleOnChangeDatePicker,
     handleOnClickInsert,
     handleOnClickReset,
     handleOnClickCancel,

@@ -4,7 +4,7 @@ import { TeamglobalType } from './TeamglobalType';
 export interface ManagerglobalType {
   id: number;
   name: string;
-  age: number;
+  birthdate: string;
   country?: CountryType;
   teamglobal?: TeamglobalType;
 }

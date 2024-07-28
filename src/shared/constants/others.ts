@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 export const USER_MIN_LENGH_NAME = 3;
 export const USER_MAX_LENGH_NAME = 40;
 export const USER_MIN_AGE = 18;
@@ -38,3 +40,7 @@ export const TEAMGLOBAL_MIN_LENGH_NAME = 3;
 export const TEAMGLOBAL_MAX_LENGH_NAME = 40;
 export const TEAMGLOBAL_MIN_PLAYERSGLOBAL = 1;
 export const TEAMGLOBAL_MAX_PLAYERSGLOBAL = 40;
+
+export const CURRENT_DATE_UTC = dayjs();
+export const DATE_FORMAT = 'DD/MM/YYYY';
+export const DEFAULT_DATE_FORMAT = 'YYYY-MM-DD';

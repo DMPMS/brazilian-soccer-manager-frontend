@@ -5,7 +5,7 @@ import { TeamglobalType } from './TeamglobalType';
 export interface PlayerglobalType {
   id: number;
   name: string;
-  age: number;
+  birthdate: string;
   overall: number;
   playersglobalPosition?: PlayerglobalPositionType[];
   country?: CountryType;

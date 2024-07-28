@@ -1,5 +1,5 @@
 export interface InsertManagerglobalDTO {
   name: string;
-  age: number;
+  birthdate: string;
   countryId?: number;
 }

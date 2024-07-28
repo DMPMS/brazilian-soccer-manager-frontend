@@ -1,6 +1,6 @@
 export interface InsertPlayerglobalDTO {
   name: string;
-  age: number;
+  birthdate: string;
   overall: number;
   countryId?: number;
   teamglobalId?: number;

@@ -1,4 +1,5 @@
 import { useForm } from 'antd/es/form/Form';
+import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,6 +11,8 @@ import {
   ERROR_INVALID_PASSWORD,
 } from '../../../../shared/constants/errorsStatus';
 import {
+  CURRENT_DATE_UTC,
+  DEFAULT_DATE_FORMAT,
   USER_MAX_AGE,
   USER_MAX_LENGH_NAME,
   USER_MAX_LENGH_PASSWORD,
@@ -42,8 +45,7 @@ export const useNewAccount = () => {
     if (
       user.name.length >= USER_MIN_LENGH_NAME &&
       user.name.length <= USER_MAX_LENGH_NAME &&
-      user.age >= USER_MIN_AGE &&
-      user.age <= USER_MAX_AGE &&
+      user.birthdate &&
       user.email &&
       isValidEmail(user.email) &&
       user.password.length >= USER_MIN_LENGH_PASSWORD &&
@@ -51,7 +53,15 @@ export const useNewAccount = () => {
       user.confirmPassword === user.password &&
       user.countryId
     ) {
-      setDisabledButton(false);
+      const birthdate = dayjs(user.birthdate).startOf('day');
+      const minDate = CURRENT_DATE_UTC.subtract(USER_MIN_AGE, 'year').startOf('day');
+      const maxDate = CURRENT_DATE_UTC.subtract(USER_MAX_AGE, 'year').startOf('day');
+
+      if (!(birthdate.isAfter(minDate) || birthdate.isBefore(maxDate))) {
+        setDisabledButton(false);
+      } else {
+        setDisabledButton(true);
+      }
     } else {
       setDisabledButton(true);
     }
@@ -64,18 +74,11 @@ export const useNewAccount = () => {
     });
   };
 
-  const handleOnChangeInputNumber = (value: number | string | null, nameObject: string) => {
-    if (typeof value === 'number') {
-      setUser({
-        ...user,
-        [nameObject]: value,
-      });
-    } else {
-      setUser({
-        ...user,
-        [nameObject]: 0,
-      });
-    }
+  const handleOnChangeDatePicker = (date: dayjs.Dayjs | null, nameObject: string) => {
+    setUser({
+      ...user,
+      [nameObject]: date ? date.format(DEFAULT_DATE_FORMAT) : '',
+    });
   };
 
   const handleOnChangeCountrySelect = (value: string) => {
@@ -141,7 +144,7 @@ export const useNewAccount = () => {
     disabledButton,
     formUser,
     handleOnChangeInput,
-    handleOnChangeInputNumber,
+    handleOnChangeDatePicker,
     handleOnClickInsert,
     handleOnClickReset,
     handleOnClickCancel,

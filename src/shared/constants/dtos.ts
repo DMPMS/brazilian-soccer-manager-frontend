@@ -5,7 +5,7 @@ export const DEFAULT_LOGIN = {
 
 export const DEFAULT_USER = {
   name: '',
-  age: 0,
+  birthdate: '',
   countryId: undefined,
   email: '',
   password: '',
@@ -14,13 +14,13 @@ export const DEFAULT_USER = {
 
 export const DEFAULT_MANAGERGLOBAL = {
   name: '',
-  age: 0,
+  birthdate: '',
   countryId: undefined,
 };
 
 export const DEFAULT_PLAYERGLOBAL = {
   name: '',
-  age: 0,
+  birthdate: '',
   overall: 0,
   countryId: undefined,
   teamglobalId: undefined,

@@ -1,9 +1,12 @@
 import { useForm } from 'antd/es/form/Form';
+import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { DEFAULT_PLAYERGLOBAL } from '../../../../shared/constants/dtos';
 import {
+  CURRENT_DATE_UTC,
+  DEFAULT_DATE_FORMAT,
   PLAYERGLOBAL_MAX_AGE,
   PLAYERGLOBAL_MAX_LENGH_NAME,
   PLAYERGLOBAL_MAX_OVERALL,
@@ -87,7 +90,7 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
 
       setPlayerglobal({
         name: playerglobalReducer.name,
-        age: playerglobalReducer.age,
+        birthdate: playerglobalReducer.birthdate,
         overall: playerglobalReducer.overall,
         countryId: playerglobalReducer.country?.id,
         teamglobalId: playerglobalReducer.teamglobal?.id,
@@ -97,7 +100,7 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
 
       formPlayerglobal.setFieldsValue({
         name: playerglobalReducer.name,
-        age: playerglobalReducer.age,
+        birthdate: dayjs(playerglobalReducer.birthdate),
         overall: playerglobalReducer.overall,
         countryId:
           playerglobalReducer.country?.id !== undefined
@@ -126,8 +129,7 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
     if (
       playerglobal.name.length >= PLAYERGLOBAL_MIN_LENGH_NAME &&
       playerglobal.name.length <= PLAYERGLOBAL_MAX_LENGH_NAME &&
-      playerglobal.age >= PLAYERGLOBAL_MIN_AGE &&
-      playerglobal.age <= PLAYERGLOBAL_MAX_AGE &&
+      playerglobal.birthdate &&
       playerglobal.overall >= PLAYERGLOBAL_MIN_OVERALL &&
       playerglobal.overall <= PLAYERGLOBAL_MAX_OVERALL &&
       playerglobal.countryId &&
@@ -135,7 +137,15 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
       playerglobal.primaryPositionIds.length <= PLAYERGLOBAL_MAX_PRIMARY_POSITIONS &&
       playerglobal.secondaryPositionIds.length <= PLAYERGLOBAL_MAX_SECONDARY_POSITIONS
     ) {
-      setDisabledButton(false);
+      const birthdate = dayjs(playerglobal.birthdate).startOf('day');
+      const minDate = CURRENT_DATE_UTC.subtract(PLAYERGLOBAL_MIN_AGE, 'year').startOf('day');
+      const maxDate = CURRENT_DATE_UTC.subtract(PLAYERGLOBAL_MAX_AGE, 'year').startOf('day');
+
+      if (!(birthdate.isAfter(minDate) || birthdate.isBefore(maxDate))) {
+        setDisabledButton(false);
+      } else {
+        setDisabledButton(true);
+      }
     } else {
       setDisabledButton(true);
     }
@@ -148,18 +158,11 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
     });
   };
 
-  const handleOnChangeInputNumber = (value: number | string | null, nameObject: string) => {
-    if (typeof value === 'number') {
-      setPlayerglobal({
-        ...playerglobal,
-        [nameObject]: value,
-      });
-    } else {
-      setPlayerglobal({
-        ...playerglobal,
-        [nameObject]: 0,
-      });
-    }
+  const handleOnChangeDatePicker = (date: dayjs.Dayjs | null, nameObject: string) => {
+    setPlayerglobal({
+      ...playerglobal,
+      [nameObject]: date ? date.format(DEFAULT_DATE_FORMAT) : '',
+    });
   };
 
   const handleOnChangeCountrySelect = (value: string) => {
@@ -243,7 +246,7 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
     playerglobalReducerTeamglobalId: playerglobalReducer?.teamglobal?.id,
     playerglobal,
     handleOnChangeInput,
-    handleOnChangeInputNumber,
+    handleOnChangeDatePicker,
     handleOnClickInsert,
     handleOnClickReset,
     handleOnClickCancel,

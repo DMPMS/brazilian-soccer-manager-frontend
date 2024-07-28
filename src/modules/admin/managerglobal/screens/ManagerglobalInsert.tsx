@@ -1,16 +1,20 @@
+import { InfoCircleOutlined } from '@ant-design/icons';
 import { Form } from 'antd';
+import dayjs from 'dayjs';
 import { useParams } from 'react-router-dom';
 
 import ButtonProject from '../../../../shared/components/buttons/button/ButtonProject';
+import DatePickerProject from '../../../../shared/components/datepickers/datePickerProject';
 import FlexProject from '../../../../shared/components/flex/FlexProject';
 import InputProject from '../../../../shared/components/inputs/input/InputProject';
-import InputIntegerProject from '../../../../shared/components/inputs/inputInteger/InputIntegerProject';
 import LoadingProject from '../../../../shared/components/loading/LoadingProject';
 import Screen from '../../../../shared/components/screen/ScreenProject';
 import SelectProject from '../../../../shared/components/select/SelectProject';
 import { LimitedContainerCardProject } from '../../../../shared/components/styles/limited.styled';
 import CountrySVGProject from '../../../../shared/components/svg/CountrySVGProject';
 import {
+  CURRENT_DATE_UTC,
+  DATE_FORMAT,
   MANAGERGLOBAL_MAX_AGE,
   MANAGERGLOBAL_MAX_LENGH_NAME,
   MANAGERGLOBAL_MIN_AGE,
@@ -32,7 +36,7 @@ const ManagerglobalInsert = () => {
     loadingManagerglobal,
     formManagerglobal,
     handleOnChangeInput,
-    handleOnChangeInputNumber,
+    handleOnChangeDatePicker,
     handleOnClickInsert,
     handleOnClickReset,
     handleOnClickCancel,
@@ -89,28 +93,49 @@ const ManagerglobalInsert = () => {
               </Form.Item>
 
               <Form.Item
-                label="Idade"
-                name="age"
+                label="Data de nascimento"
+                name="birthdate"
                 required
+                tooltip={{
+                  title: `A data atual no sistema é ${CURRENT_DATE_UTC.format(DATE_FORMAT)}`,
+                  icon: <InfoCircleOutlined />,
+                }}
                 rules={[
                   { required: true, message: 'Este campo deve ser preenchido.' },
                   {
-                    type: 'number',
-                    min: MANAGERGLOBAL_MIN_AGE,
-                    message: `A idade mínima é ${MANAGERGLOBAL_MIN_AGE}.`,
-                  },
-                  {
-                    type: 'number',
-                    max: MANAGERGLOBAL_MAX_AGE,
-                    message: `A idade máxima é ${MANAGERGLOBAL_MAX_AGE}.`,
+                    validator: (_, value) => {
+                      if (!value) {
+                        return Promise.resolve();
+                      }
+
+                      const birthdate = dayjs(value).startOf('day');
+
+                      const minDate = CURRENT_DATE_UTC.subtract(
+                        MANAGERGLOBAL_MIN_AGE,
+                        'year',
+                      ).startOf('day');
+
+                      const maxDate = CURRENT_DATE_UTC.subtract(
+                        MANAGERGLOBAL_MAX_AGE,
+                        'year',
+                      ).startOf('day');
+
+                      if (birthdate.isAfter(minDate)) {
+                        return Promise.reject(`A idade mínima é ${MANAGERGLOBAL_MIN_AGE} anos.`);
+                      } else if (birthdate.isBefore(maxDate)) {
+                        return Promise.reject(`A idade máxima é ${MANAGERGLOBAL_MAX_AGE} anos.`);
+                      }
+
+                      return Promise.resolve();
+                    },
                   },
                 ]}
               >
-                <InputIntegerProject
-                  placeholder="Idade"
-                  onChange={(value) => {
-                    handleOnChangeInputNumber(value, 'age');
-                  }}
+                <DatePickerProject
+                  placeholder="Selecione uma data"
+                  minDate={CURRENT_DATE_UTC.subtract(MANAGERGLOBAL_MAX_AGE, 'year').startOf('day')}
+                  maxDate={CURRENT_DATE_UTC.subtract(MANAGERGLOBAL_MIN_AGE, 'year').startOf('day')}
+                  onChange={(date) => handleOnChangeDatePicker(date, 'birthdate')}
                 />
               </Form.Item>
 
