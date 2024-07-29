@@ -17,7 +17,7 @@ const PageNotFound = () => {
     <FlexProject justify="center" align="center" style={{ height: '100vh' }}>
       <LimitedContainerCardProject width={300} margin="10px">
         <FlexProject justify="center" align="center" vertical style={{ textAlign: 'center' }}>
-          <ImageNotFound src="../../../../public/deflatedBall.png" />
+          <ImageNotFound src="/deflatedBall.png" />
           <TitleNotFound level={3}>Erro 404</TitleNotFound>
         </FlexProject>
         <DescriptionNotFound>Ops! Parece que essa página está fora de jogo.</DescriptionNotFound>

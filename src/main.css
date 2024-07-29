@@ -2,3 +2,16 @@ body {
   margin: 0px;
   background-color: #052574;
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: #f0f0f0;
+}
+
+::-webkit-scrollbar-thumb {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: #c8c7c7;
+}

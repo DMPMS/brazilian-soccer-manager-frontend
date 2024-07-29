@@ -143,7 +143,7 @@ const SidebarProject = () => {
           bottom: 0,
         }}
       >
-        <LogoSidebar src="../../../../public/logo.png"></LogoSidebar>
+        <LogoSidebar src="/logo.png"></LogoSidebar>
         <Menu
           theme="light"
           items={items}
