@@ -7,7 +7,6 @@ import CompetitionIconSVGProject from '../../../../shared/components/svg/Competi
 import ManagerIconSVGProject from '../../../../shared/components/svg/ManagerIconSVGProject';
 import PlayerIconSVGProject from '../../../../shared/components/svg/PlayeIconSVGProject';
 import TeamIconSVGProject from '../../../../shared/components/svg/TeamIconSVGProject';
-import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';
 import { useHome } from '../hooks/useHome';
 
 const Home = () => {
@@ -21,10 +20,6 @@ const Home = () => {
     handleOnClickCompetitionglobalCardView,
     handleOnClickCompetitionglobalCardInsert,
   } = useHome();
-
-  const { user } = useGlobalReducer();
-
-  console.log(user);
 
   return (
     <Screen

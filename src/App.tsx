@@ -13,26 +13,45 @@ import { newAccountRoutes } from './modules/shared/newAccount/routes';
 import { saveRoutes } from './modules/user/save/routes';
 import { URL_USER_LOGGED_IN } from './shared/constants/urls';
 import { MethodsEnum } from './shared/enums/methods.enum';
-import { getAuthorizationToken, verifyLoggedIn } from './shared/functions/connection/auth';
+import { UserTypeEnum } from './shared/enums/userType.enum';
+import {
+  getAuthorizationToken,
+  verifyLoggedIn,
+  verifyUserTypeLoggedIn,
+} from './shared/functions/connection/auth';
 import { useNewRequests } from './shared/hooks/useNewRequests';
 import { useNotification } from './shared/hooks/useNotification';
 import { useGlobalReducer } from './store/reducers/globalReducer/useGlobalReducer';
 
 const routes: RouteObject[] = [...loginRoutes, ...newAccountRoutes];
-const routesLoggedIn: RouteObject[] = [
+
+const routesLoggedIn: RouteObject[] = [...firstScreenRoutes].map((route) => ({
+  ...route,
+  loader: verifyLoggedIn(),
+}));
+
+const routesUserTypeUserLoggedIn: RouteObject[] = [...saveRoutes].map((route) => ({
+  ...route,
+  loader: verifyUserTypeLoggedIn(UserTypeEnum.User),
+}));
+
+const routesUserTypeAdminLoggedIn: RouteObject[] = [
   ...homeRoutes,
   ...managerglobalRoutes,
   ...competitionglobalRoutes,
   ...teamglobalRoutes,
   ...playerglobalRoutes,
-  ...saveRoutes,
-  ...firstScreenRoutes,
 ].map((route) => ({
   ...route,
-  loader: verifyLoggedIn,
+  loader: verifyUserTypeLoggedIn(UserTypeEnum.Admin),
 }));
 
-const router: RemixRouter = createBrowserRouter([...routes, ...routesLoggedIn]);
+const router: RemixRouter = createBrowserRouter([
+  ...routes,
+  ...routesLoggedIn,
+  ...routesUserTypeUserLoggedIn,
+  ...routesUserTypeAdminLoggedIn,
+]);
 
 function App() {
   const { contextHolder } = useNotification();
