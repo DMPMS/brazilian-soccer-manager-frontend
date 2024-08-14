@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { UserType } from '../../../modules/login/types/UserType';
 import { NotificationType } from '../../../shared/types/NotificationType';
+import { UserType } from '../../../shared/types/UserType';
 
 interface GlobalState {
   notification?: NotificationType;

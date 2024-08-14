@@ -12,6 +12,23 @@ export const DEFAULT_USER = {
   confirmPassword: '',
 };
 
+export const DEFAULT_SAVE = {
+  name: '',
+  competitionsglobalCountryId: undefined,
+  competitionglobalId: undefined,
+  teamglobalId: undefined,
+  isCustomManager: false,
+  managerCountryId: undefined,
+  managerName: '',
+  managerBirthdate: '',
+};
+
+export const DEFAULT_CUSTOMMANAGER = {
+  managerName: '',
+  managerBirthdate: '',
+  managerCountryId: undefined,
+};
+
 export const DEFAULT_MANAGERGLOBAL = {
   name: '',
   birthdate: '',

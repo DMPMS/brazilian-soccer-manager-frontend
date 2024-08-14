@@ -1,7 +1,9 @@
+import { Modal } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import dayjs from 'dayjs';
 import { useMemo } from 'react';
 
+import ButtonProject from '../../../../shared/components/buttons/button/ButtonProject';
 import FlexProject from '../../../../shared/components/flex/FlexProject';
 import ImageProject from '../../../../shared/components/image/ImageProject';
 import { LimitedContainerCardProject } from '../../../../shared/components/styles/limited.styled';
@@ -12,7 +14,14 @@ import { useSave } from '../hooks/useSave';
 import { TitleSave } from '../styles/save.style';
 
 const Save = () => {
-  const { saves } = useSave();
+  const {
+    saves,
+    openModalLogout,
+    handleOnClickInsert,
+    handleOnClickLogout,
+    handleOnCancelLogout,
+    handleOnConfirmLogout,
+  } = useSave();
 
   const columns: ColumnsType<SaveType> = useMemo(
     () => [
@@ -67,14 +76,33 @@ const Save = () => {
   );
 
   return (
-    <FlexProject justify="center" align="center" style={{ height: '100vh' }}>
-      <LimitedContainerCardProject width={900} margin="10px">
-        <FlexProject justify="center" align="center" vertical style={{ textAlign: 'center' }}>
+    <>
+      <Modal
+        title="Atenção"
+        open={openModalLogout}
+        onOk={handleOnConfirmLogout}
+        onCancel={handleOnCancelLogout}
+        okText="Sim"
+        cancelText="Cancelar"
+      >
+        <p>Tem certeza que deseja sair?</p>
+      </Modal>
+
+      <FlexProject justify="center" align="center" style={{ height: '100vh' }}>
+        <LimitedContainerCardProject width={900} margin="10px">
           <TitleSave level={3}>Salvamentos</TitleSave>
+          <FlexProject justify="space-between" margin="0px 0px 16px 0px">
+            <ButtonProject type="primary" onClick={handleOnClickLogout}>
+              Sair
+            </ButtonProject>
+            <ButtonProject type="primary" onClick={handleOnClickInsert}>
+              Novo jogo
+            </ButtonProject>
+          </FlexProject>
           <TableProject columns={columns} dataSource={saves} />
-        </FlexProject>
-      </LimitedContainerCardProject>
-    </FlexProject>
+        </LimitedContainerCardProject>
+      </FlexProject>
+    </>
   );
 };
 
