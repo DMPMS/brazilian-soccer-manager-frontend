@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { CountryType } from '../../../shared/types/CountryType';
+import { CountryType } from '../../../shared/types/Country.type';
 
 interface CountryState {
   countries: CountryType[];

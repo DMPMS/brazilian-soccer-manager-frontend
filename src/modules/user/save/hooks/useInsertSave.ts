@@ -18,7 +18,7 @@ import {
 import { URL_SAVE } from '../../../../shared/constants/urls';
 import { CustomManagerDTO } from '../../../../shared/dtos/customManager.dto';
 import { InsertSaveDTO } from '../../../../shared/dtos/InsertSave.dto';
-import { MethodsEnum } from '../../../../shared/enums/methods.enum';
+import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
 import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';
 import { useSaveReducer } from '../../../../store/reducers/saveReducer/useSaveReducer';
@@ -116,15 +116,17 @@ export const useInsertSave = () => {
   }, [save]);
 
   const handleOnChangeInput = (event: React.ChangeEvent<HTMLInputElement>, nameObject: string) => {
+    const inputValue = event.target.value;
+
     setSave({
       ...save,
-      [nameObject]: event.target.value,
+      [nameObject]: inputValue,
     });
 
     if (nameObject === 'managerName') {
       setCustomManager({
         ...customManager,
-        [nameObject]: event.target.value,
+        [nameObject]: inputValue,
       });
     }
   };
@@ -295,9 +297,6 @@ export const useInsertSave = () => {
       ...(save.managerName === '' && { managerName: undefined }),
       ...(save.managerBirthdate === '' && { managerBirthdate: undefined }),
     };
-
-    console.log(save);
-    console.log(adjustedSave);
 
     await newRequest(MethodsEnum.POST, URL_SAVE, false, {}, adjustedSave);
 

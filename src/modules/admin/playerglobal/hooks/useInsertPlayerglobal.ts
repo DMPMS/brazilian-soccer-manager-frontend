@@ -25,7 +25,7 @@ import {
   URL_TEAMGLOBAL,
 } from '../../../../shared/constants/urls';
 import { InsertPlayerglobalDTO } from '../../../../shared/dtos/InsertPlayerglobal.dto';
-import { MethodsEnum } from '../../../../shared/enums/methods.enum';
+import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
 import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';
 import { usePlayerglobalReducer } from '../../../../store/reducers/playerglobalReducer/usePlayerglobalReducer';
@@ -152,24 +152,21 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
   }, [playerglobal]);
 
   const handleOnChangeInput = (event: React.ChangeEvent<HTMLInputElement>, nameObject: string) => {
+    const inputValue = event.target.value;
+
     setPlayerglobal({
       ...playerglobal,
-      [nameObject]: event.target.value,
+      [nameObject]: inputValue,
     });
   };
 
   const handleOnChangeInputNumber = (value: number | string | null, nameObject: string) => {
-    if (typeof value === 'number') {
-      setPlayerglobal({
-        ...playerglobal,
-        [nameObject]: value,
-      });
-    } else {
-      setPlayerglobal({
-        ...playerglobal,
-        [nameObject]: 0,
-      });
-    }
+    const inputValue = value;
+
+    setPlayerglobal({
+      ...playerglobal,
+      [nameObject]: inputValue ? inputValue : 0,
+    });
   };
 
   const handleOnChangeDatePicker = (date: dayjs.Dayjs | null, nameObject: string) => {

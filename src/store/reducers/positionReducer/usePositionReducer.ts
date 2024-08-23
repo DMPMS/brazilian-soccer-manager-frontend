@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 
-import { PositionType } from '../../../shared/types/PositionType';
+import { PositionType } from '../../../shared/types/Position.type';
 import { useAppSelector } from '../../hooks';
 import { setPositionsAction } from '.';
 

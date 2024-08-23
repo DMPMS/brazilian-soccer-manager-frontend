@@ -1,10 +1,11 @@
-import { ManagersaveType } from './ManagersaveType';
+import { ManagersaveType } from './Managersave.type';
 
 export interface SaveType {
   id: number;
   name: string;
   datetime: string;
-  controllerManagersave?: ManagersaveType;
   createdAt: string;
   updatedAt: string;
+
+  controllerManagersave?: ManagersaveType;
 }

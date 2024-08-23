@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { ManagerglobalType } from '../../../shared/types/ManagerglobalType';
+import { ManagerglobalType } from '../../../shared/types/Managerglobal.type';
 
 interface ManagerglobalState {
   managersglobal: ManagerglobalType[];

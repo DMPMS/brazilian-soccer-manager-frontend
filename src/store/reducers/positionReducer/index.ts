@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { PositionType } from '../../../shared/types/PositionType';
+import { PositionType } from '../../../shared/types/Position.type';
 
 interface PositionState {
   positions: PositionType[];

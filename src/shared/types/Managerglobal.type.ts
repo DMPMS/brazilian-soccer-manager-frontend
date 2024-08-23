@@ -1,10 +1,11 @@
-import { CountryType } from './CountryType';
-import { TeamglobalType } from './TeamglobalType';
+import { CountryType } from './Country.type';
+import { TeamglobalType } from './Teamglobal.type';
 
 export interface ManagerglobalType {
   id: number;
   name: string;
   birthdate: string;
+
   country?: CountryType;
   teamglobal?: TeamglobalType;
 }

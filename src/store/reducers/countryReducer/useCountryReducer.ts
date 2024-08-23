@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 
-import { CountryType } from '../../../shared/types/CountryType';
+import { CountryType } from '../../../shared/types/Country.type';
 import { useAppSelector } from '../../hooks';
 import { setCountriesAction } from '.';
 

@@ -1,6 +1,6 @@
 import { RouteObject } from 'react-router-dom';
 
-import NewAccountScreen from './screens/NewAccountScreen';
+import NewAccount from './screens/NewAccount';
 
 export enum NewAccountRoutesEnum {
   NEW_ACCOUNT = '/new-account',
@@ -9,6 +9,6 @@ export enum NewAccountRoutesEnum {
 export const newAccountRoutes: RouteObject[] = [
   {
     path: NewAccountRoutesEnum.NEW_ACCOUNT,
-    element: <NewAccountScreen />,
+    element: <NewAccount />,
   },
 ];

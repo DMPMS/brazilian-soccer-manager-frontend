@@ -3,9 +3,9 @@ import { LoaderFunction, NavigateFunction, redirect } from 'react-router-dom';
 import { LoginRoutesEnum } from '../../../modules/shared/login/routes';
 import { AUTHORIZATION_KEY } from '../../constants/authorizationConstants';
 import { URL_USER_LOGGED_IN } from '../../constants/urls';
-import { UserTypeEnum } from '../../enums/userType.enum';
-import { UserTokenType } from '../../types/UserTokenType';
-import { UserType } from '../../types/UserType';
+import { UserUserTypeEnum } from '../../enums/UserUserType.enum';
+import { UserType } from '../../types/User.type';
+import { UserTokenType } from '../../types/UserToken.type';
 import { connectionAPIGet } from './connectionAPI';
 import { getItemStorage, removeItemStorage, setItemStorage } from './storageProxy';
 
@@ -30,7 +30,7 @@ export const getUserInfoByToken = (): UserTokenType | undefined => {
   return undefined;
 };
 
-export const verifyUserTypeLoggedIn = (userType: UserTypeEnum): LoaderFunction => {
+export const verifyUserTypeLoggedIn = (userType: UserUserTypeEnum): LoaderFunction => {
   return async () => {
     const token = getAuthorizationToken();
     if (!token) {

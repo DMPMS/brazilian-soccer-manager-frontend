@@ -22,7 +22,7 @@ import {
 } from '../../../../shared/constants/others';
 import { URL_AUTH, URL_USER } from '../../../../shared/constants/urls';
 import { createUserDTO } from '../../../../shared/dtos/createUser.dto';
-import { MethodsEnum } from '../../../../shared/enums/methods.enum';
+import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
 import { setAuthorizationToken } from '../../../../shared/functions/connection/auth';
 import { isValidEmail } from '../../../../shared/functions/isValideEmail';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
@@ -68,9 +68,11 @@ export const useNewAccount = () => {
   }, [user]);
 
   const handleOnChangeInput = (event: React.ChangeEvent<HTMLInputElement>, nameObject: string) => {
+    const inputValue = event.target.value;
+
     setUser({
       ...user,
-      [nameObject]: nameObject === 'email' ? event.target.value.toLowerCase() : event.target.value,
+      [nameObject]: nameObject === 'email' ? inputValue.toLowerCase() : inputValue,
     });
   };
 

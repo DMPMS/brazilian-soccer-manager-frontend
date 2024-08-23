@@ -11,7 +11,7 @@ import Screen from '../../../../shared/components/screen/ScreenProject';
 import { LimitedContainerProject } from '../../../../shared/components/styles/limited.styled';
 import CountrySVGProject from '../../../../shared/components/svg/CountrySVGProject';
 import TableProject from '../../../../shared/components/table/TableProject';
-import { TeamglobalType } from '../../../../shared/types/TeamglobalType';
+import { TeamglobalType } from '../../../../shared/types/Teamglobal.type';
 import { HomeRoutesEnum } from '../../home/routes';
 import { useTeamglobal } from '../hooks/useTeamglobal';
 

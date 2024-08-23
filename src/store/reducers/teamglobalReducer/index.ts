@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { TeamglobalType } from '../../../shared/types/TeamglobalType';
+import { TeamglobalType } from '../../../shared/types/Teamglobal.type';
 
 interface TeamglobalState {
   teamsglobal: TeamglobalType[];

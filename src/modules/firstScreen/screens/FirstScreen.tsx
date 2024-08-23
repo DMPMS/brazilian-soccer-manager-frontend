@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import FlexProject from '../../../shared/components/flex/FlexProject';
 import LoadingProject from '../../../shared/components/loading/LoadingProject';
-import { UserTypeEnum } from '../../../shared/enums/userType.enum';
+import { UserUserTypeEnum } from '../../../shared/enums/UserUserType.enum';
 import { getUserInfoByToken } from '../../../shared/functions/connection/auth';
 import { useGlobalReducer } from '../../../store/reducers/globalReducer/useGlobalReducer';
 import { HomeRoutesEnum } from '../../admin/home/routes';
@@ -15,9 +15,9 @@ const FirstScreen = () => {
 
   useEffect(() => {
     const userToken = getUserInfoByToken();
-    if (userToken?.userType === UserTypeEnum.User) {
+    if (userToken?.userType === UserUserTypeEnum.User) {
       navigate(SaveRoutesEnum.SAVE);
-    } else if (userToken?.userType === UserTypeEnum.Admin) {
+    } else if (userToken?.userType === UserUserTypeEnum.Admin) {
       navigate(HomeRoutesEnum.HOME);
     }
   }, [user]);

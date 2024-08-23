@@ -9,7 +9,7 @@ import ImageProject from '../../../../shared/components/image/ImageProject';
 import { LimitedContainerCardProject } from '../../../../shared/components/styles/limited.styled';
 import TableProject from '../../../../shared/components/table/TableProject';
 import { DATE_FORMAT, DATETIME_FORMAT } from '../../../../shared/constants/others';
-import { SaveType } from '../../../../shared/types/SaveType';
+import { SaveType } from '../../../../shared/types/Save.type';
 import { useSave } from '../hooks/useSave';
 import { TitleSave } from '../styles/save.style';
 

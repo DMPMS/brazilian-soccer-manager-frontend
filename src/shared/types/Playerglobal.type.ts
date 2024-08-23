@@ -1,6 +1,6 @@
-import { CountryType } from './CountryType';
-import { PlayerglobalPositionType } from './PlayerglobalPosition';
-import { TeamglobalType } from './TeamglobalType';
+import { CountryType } from './Country.type';
+import { PlayerglobalPositionType } from './PlayerglobalPosition.type';
+import { TeamglobalType } from './Teamglobal.type';
 
 export interface PlayerglobalType {
   id: number;
@@ -8,6 +8,7 @@ export interface PlayerglobalType {
   birthdate: string;
   overall: number;
   playersglobalPosition?: PlayerglobalPositionType[];
+
   country?: CountryType;
   teamglobal?: TeamglobalType;
 }

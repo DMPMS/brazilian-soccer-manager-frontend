@@ -16,10 +16,10 @@ import {
   URL_TEAMGLOBAL_ID,
 } from '../../../../shared/constants/urls';
 import { InsertTeamglobalDTO } from '../../../../shared/dtos/InsertTeamglobal.dto';
-import { MethodsEnum } from '../../../../shared/enums/methods.enum';
+import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
-import { ManagerglobalType } from '../../../../shared/types/ManagerglobalType';
-import { PlayerglobalType } from '../../../../shared/types/PlayerglobalType';
+import { ManagerglobalType } from '../../../../shared/types/Managerglobal.type';
+import { PlayerglobalType } from '../../../../shared/types/Playerglobal.type';
 import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';
 import { useManagerglobalReducer } from '../../../../store/reducers/managerglobalReducer/useManagerglobalReducer';
 import { usePlayerglobalReducer } from '../../../../store/reducers/playerglobalReducer/usePlayerglobalReducer';
@@ -43,8 +43,6 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
   const [disabledButton, setDisabledButton] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
   const [teamglobal, setTeamglobal] = useState<InsertTeamglobalDTO>(DEFAULT_TEAMGLOBAL);
-
-  // const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const [formTeamglobal] = useForm();
 
@@ -162,28 +160,13 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
   }, [teamglobal]);
 
   const handleOnChangeInput = (event: React.ChangeEvent<HTMLInputElement>, nameObject: string) => {
+    const inputValue = event.target.value;
+
     setTeamglobal({
       ...teamglobal,
-      [nameObject]: event.target.value,
+      [nameObject]: inputValue,
     });
   };
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // const handleUploadImage = (file: File | null, nameObject: string) => {
-  //   if (file !== null) {
-  //     setSelectedFile(file);
-  //     setTeamglobal({
-  //       ...teamglobal,
-  //       [nameObject]: file.name,
-  //     });
-  //   } else {
-  //     setSelectedFile(file);
-  //     setTeamglobal({
-  //       ...teamglobal,
-  //       [nameObject]: '',
-  //     });
-  //   }
-  // };
 
   const handleOnChangeCountrySelect = (value: string) => {
     setTeamglobal({
@@ -272,6 +255,5 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
     handleOnChangeCountrySelect,
     handleOnChangeManagerglobalSelect,
     handleOnChangePlayerglobalSelect,
-    // handleUploadImage,
   };
 };

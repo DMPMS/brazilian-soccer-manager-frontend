@@ -1,6 +1,6 @@
-import { CountryType } from './CountryType';
-import { PlayersavePositionType } from './PlayersavePosition';
-import { TeamsaveType } from './TeamsaveType';
+import { CountryType } from './Country.type';
+import { PlayersavePositionType } from './PlayersavePosition.type';
+import { TeamsaveType } from './Teamsave.type';
 
 export interface PlayersaveType {
   id: number;
@@ -9,6 +9,7 @@ export interface PlayersaveType {
   overall: number;
   stamina: number;
   playerssavePosition?: PlayersavePositionType[];
+
   country?: CountryType;
   teamsave?: TeamsaveType;
 }

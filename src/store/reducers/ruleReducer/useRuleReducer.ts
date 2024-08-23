@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 
-import { RuleType } from '../../../shared/types/RuleType';
+import { RuleType } from '../../../shared/types/Rule.type';
 import { useAppSelector } from '../../hooks';
 import { setRulesAction } from '.';
 

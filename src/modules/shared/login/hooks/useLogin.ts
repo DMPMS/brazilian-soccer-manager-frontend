@@ -9,11 +9,11 @@ import {
 } from '../../../../shared/constants/errorsStatus';
 import { URL_AUTH } from '../../../../shared/constants/urls';
 import { LoginDTO } from '../../../../shared/dtos/login.dto.';
-import { MethodsEnum } from '../../../../shared/enums/methods.enum';
+import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
 import { setAuthorizationToken } from '../../../../shared/functions/connection/auth';
 import { isValidEmail } from '../../../../shared/functions/isValideEmail';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
-import { AuthType } from '../../../../shared/types/AuthType';
+import { AuthType } from '../../../../shared/types/Auth.type';
 import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';
 import { FirstScreenRoutesEnum } from '../../../firstScreen/routes';
 import { NewAccountRoutesEnum } from '../../newAccount/routes';
@@ -36,9 +36,11 @@ export const useLogin = () => {
   }, [login]);
 
   const handleOnChangeInput = (event: React.ChangeEvent<HTMLInputElement>, nameObject: string) => {
+    const inputValue = event.target.value;
+
     setLogin({
       ...login,
-      [nameObject]: nameObject === 'email' ? event.target.value.toLowerCase() : event.target.value,
+      [nameObject]: nameObject === 'email' ? inputValue.toLowerCase() : inputValue,
     });
   };
 

@@ -13,7 +13,7 @@ import CountrySVGProject from '../../../../shared/components/svg/CountrySVGProje
 import TableProject from '../../../../shared/components/table/TableProject';
 import PositionTagProject from '../../../../shared/components/tags/positionTag/PositionTagProject';
 import { PLAYERGLOBAL_PRIMARY_POSITION_RATING } from '../../../../shared/constants/others';
-import { PlayerglobalType } from '../../../../shared/types/PlayerglobalType';
+import { PlayerglobalType } from '../../../../shared/types/Playerglobal.type';
 import { HomeRoutesEnum } from '../../home/routes';
 import { usePlayerglobal } from '../hooks/usePlayerglobal';
 

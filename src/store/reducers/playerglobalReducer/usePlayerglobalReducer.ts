@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 
-import { PlayerglobalType } from '../../../shared/types/PlayerglobalType';
+import { PlayerglobalType } from '../../../shared/types/Playerglobal.type';
 import { useAppSelector } from '../../hooks';
 import { setPlayerglobalAction, setPlayersglobalAction } from '.';
 

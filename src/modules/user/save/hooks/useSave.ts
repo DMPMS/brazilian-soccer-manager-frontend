@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { URL_SAVE } from '../../../../shared/constants/urls';
-import { MethodsEnum } from '../../../../shared/enums/methods.enum';
+import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
 import { logout } from '../../../../shared/functions/connection/auth';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
 import { useSaveReducer } from '../../../../store/reducers/saveReducer/useSaveReducer';

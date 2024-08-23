@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { CompetitionglobalType } from '../../../shared/types/CompetitionglobalType';
+import { CompetitionglobalType } from '../../../shared/types/Competitionglobal.type';
 
 interface CompetitionglobalState {
   competitionsglobal: CompetitionglobalType[];

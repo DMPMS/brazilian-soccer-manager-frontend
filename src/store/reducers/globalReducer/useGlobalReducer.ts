@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 
-import { NotificationEnum } from '../../../shared/types/NotificationType';
-import { UserType } from '../../../shared/types/UserType';
+import { NotificationEnum } from '../../../shared/types/Notification.type';
+import { UserType } from '../../../shared/types/User.type';
 import { useAppSelector } from '../../hooks';
 import { setNotificationAction, setUserAction } from '.';
 

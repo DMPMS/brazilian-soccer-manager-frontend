@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 
-import { SaveType } from '../../../shared/types/SaveType';
+import { SaveType } from '../../../shared/types/Save.type';
 import { useAppSelector } from '../../hooks';
 import { setSaveAction, setSavesAction } from '.';
 

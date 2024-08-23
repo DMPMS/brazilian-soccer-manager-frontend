@@ -19,9 +19,9 @@ import {
   COMPETITIONGLOBAL_MIN_LENGH_NAME,
   COMPETITIONGLOBAL_MIN_LENGH_SEASON,
 } from '../../../../shared/constants/others';
-import { CountryType } from '../../../../shared/types/CountryType';
-import { RuleType } from '../../../../shared/types/RuleType';
-import { TeamglobalType } from '../../../../shared/types/TeamglobalType';
+import { CountryType } from '../../../../shared/types/Country.type';
+import { RuleType } from '../../../../shared/types/Rule.type';
+import { TeamglobalType } from '../../../../shared/types/Teamglobal.type';
 import { useCountry } from '../../../shared/country/hooks/useCountry';
 import { useRule } from '../../../shared/rule/hooks/useRule';
 import { HomeRoutesEnum } from '../../home/routes';
@@ -164,7 +164,7 @@ const CompetitionglobalInsert = () => {
                     rules={[{ required: true, message: 'Este campo deve ser preenchido.' }]}
                   >
                     <SelectProject
-                      placeholder="Selecione um país"
+                      placeholder="Selecione o país"
                       allowClear
                       onChange={handleOnChangeCountrySelect}
                       options={countries.map((country: CountryType) => ({

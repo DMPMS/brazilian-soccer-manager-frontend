@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 
-import { TeamglobalType } from '../../../shared/types/TeamglobalType';
+import { TeamglobalType } from '../../../shared/types/Teamglobal.type';
 import { useAppSelector } from '../../hooks';
 import { setTeamglobalAction, setTeamsglobalAction } from '.';
 

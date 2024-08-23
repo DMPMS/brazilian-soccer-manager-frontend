@@ -12,8 +12,8 @@ import { loginRoutes } from './modules/shared/login/routes';
 import { newAccountRoutes } from './modules/shared/newAccount/routes';
 import { saveRoutes } from './modules/user/save/routes';
 import { URL_USER_LOGGED_IN } from './shared/constants/urls';
-import { MethodsEnum } from './shared/enums/methods.enum';
-import { UserTypeEnum } from './shared/enums/userType.enum';
+import { MethodsEnum } from './shared/enums/Methods.enum';
+import { UserUserTypeEnum } from './shared/enums/UserUserType.enum';
 import {
   getAuthorizationToken,
   verifyLoggedIn,
@@ -32,7 +32,7 @@ const routesLoggedIn: RouteObject[] = [...firstScreenRoutes].map((route) => ({
 
 const routesUserTypeUserLoggedIn: RouteObject[] = [...saveRoutes].map((route) => ({
   ...route,
-  loader: verifyUserTypeLoggedIn(UserTypeEnum.User),
+  loader: verifyUserTypeLoggedIn(UserUserTypeEnum.User),
 }));
 
 const routesUserTypeAdminLoggedIn: RouteObject[] = [
@@ -43,7 +43,7 @@ const routesUserTypeAdminLoggedIn: RouteObject[] = [
   ...playerglobalRoutes,
 ].map((route) => ({
   ...route,
-  loader: verifyUserTypeLoggedIn(UserTypeEnum.Admin),
+  loader: verifyUserTypeLoggedIn(UserUserTypeEnum.Admin),
 }));
 
 const router: RemixRouter = createBrowserRouter([

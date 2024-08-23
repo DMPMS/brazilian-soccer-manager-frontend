@@ -1,4 +1,3 @@
-// import { Upload } from 'antd';
 import { Form, Typography } from 'antd';
 import { useParams } from 'react-router-dom';
 
@@ -19,11 +18,9 @@ import {
   TEAMGLOBAL_MIN_LENGH_NAME,
   TEAMGLOBAL_MIN_PLAYERSGLOBAL,
 } from '../../../../shared/constants/others';
-import { CountryType } from '../../../../shared/types/CountryType';
-import { ManagerglobalType } from '../../../../shared/types/ManagerglobalType';
-import { PlayerglobalType } from '../../../../shared/types/PlayerglobalType';
-// import UploadImage from '../../../../shared/components/upload/uploadImage/UploadImage';
-// import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';
+import { CountryType } from '../../../../shared/types/Country.type';
+import { ManagerglobalType } from '../../../../shared/types/Managerglobal.type';
+import { PlayerglobalType } from '../../../../shared/types/Playerglobal.type';
 import { useCountry } from '../../../shared/country/hooks/useCountry';
 import { HomeRoutesEnum } from '../../home/routes';
 import { useInsertTeamglobal } from '../hooks/useInsertTeamglobal';
@@ -50,11 +47,9 @@ const TeamglobalInsert = () => {
     handleOnChangeCountrySelect,
     handleOnChangeManagerglobalSelect,
     handleOnChangePlayerglobalSelect,
-    // handleUploadImage,
   } = useInsertTeamglobal(teamglobalId);
 
   const { countries } = useCountry();
-  // const { setNotification } = useGlobalReducer();
 
   return (
     <Screen
@@ -115,21 +110,6 @@ const TeamglobalInsert = () => {
                       onChange={(event) => handleOnChangeInput(event, 'srcImage')}
                     />
                   </Form.Item>
-                  {/* <UploadImage
-            beforeUpload={(file: File) => {
-              if (file.type === 'image/png') {
-                handleUploadImage(file, 'srcImage');
-                return false;
-              } else {
-                handleUploadImage(null, 'srcImage');
-                setNotification('Erro!', 'error', 'Selecione uma imagem PNG');
-                return Upload.LIST_IGNORE;
-              }
-            }}
-            onRemove={() => handleUploadImage(null, 'srcImage')}
-          >
-            Selecionar imagem PNG
-          </UploadImage> */}
                   <Form.Item
                     label="Nacionalidade"
                     name="countryId"
@@ -137,7 +117,7 @@ const TeamglobalInsert = () => {
                     rules={[{ required: true, message: 'Este campo deve ser preenchido.' }]}
                   >
                     <SelectProject
-                      placeholder="Selecione um país"
+                      placeholder="Selecione o país"
                       allowClear
                       onChange={handleOnChangeCountrySelect}
                       options={countries.map((country: CountryType) => ({
@@ -170,7 +150,7 @@ const TeamglobalInsert = () => {
                     rules={[{ required: true, message: 'Este campo deve ser preenchido.' }]}
                   >
                     <SelectProject
-                      placeholder="Selecione um treinador"
+                      placeholder="Selecione o treinador"
                       allowClear
                       onChange={handleOnChangeManagerglobalSelect}
                       options={[

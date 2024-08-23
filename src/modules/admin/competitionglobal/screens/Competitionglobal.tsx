@@ -11,11 +11,8 @@ import Screen from '../../../../shared/components/screen/ScreenProject';
 import { LimitedContainerProject } from '../../../../shared/components/styles/limited.styled';
 import CountrySVGProject from '../../../../shared/components/svg/CountrySVGProject';
 import TableProject from '../../../../shared/components/table/TableProject';
-import {
-  RULE_COMPETITIONTYPE_CUP,
-  RULE_COMPETITIONTYPE_LEAGUE,
-} from '../../../../shared/constants/others';
-import { CompetitionglobalType } from '../../../../shared/types/CompetitionglobalType';
+import { RuleCompetitionTypeEnum } from '../../../../shared/enums/RuleCompetitionType.enum';
+import { CompetitionglobalType } from '../../../../shared/types/Competitionglobal.type';
 import { HomeRoutesEnum } from '../../home/routes';
 import { useCompetitionglobal } from '../hooks/useCompetitionglobal';
 
@@ -53,9 +50,9 @@ const Competitionglobal = () => {
         dataIndex: 'type',
         key: 'type',
         render: (_, target) => {
-          if (target.rule?.competitionType === RULE_COMPETITIONTYPE_LEAGUE) {
+          if (target.rule?.competitionType === RuleCompetitionTypeEnum.League) {
             return 'Liga';
-          } else if (target.rule?.competitionType === RULE_COMPETITIONTYPE_CUP) {
+          } else if (target.rule?.competitionType === RuleCompetitionTypeEnum.Cup) {
             return 'Copa';
           } else {
             return '';

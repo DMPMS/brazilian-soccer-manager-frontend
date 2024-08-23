@@ -20,7 +20,7 @@ import {
   MANAGERGLOBAL_MIN_AGE,
   MANAGERGLOBAL_MIN_LENGH_NAME,
 } from '../../../../shared/constants/others';
-import { CountryType } from '../../../../shared/types/CountryType';
+import { CountryType } from '../../../../shared/types/Country.type';
 import { useCountry } from '../../../shared/country/hooks/useCountry';
 import { HomeRoutesEnum } from '../../home/routes';
 import { useInsertManagerglobal } from '../hooks/useInsertManagerglobal';
@@ -132,7 +132,7 @@ const ManagerglobalInsert = () => {
                 ]}
               >
                 <DatePickerProject
-                  placeholder="Selecione uma data"
+                  placeholder="Selecione a data"
                   minDate={CURRENT_DATE_UTC.subtract(MANAGERGLOBAL_MAX_AGE, 'year').startOf('day')}
                   maxDate={CURRENT_DATE_UTC.subtract(MANAGERGLOBAL_MIN_AGE, 'year').startOf('day')}
                   onChange={(date) => handleOnChangeDatePicker(date, 'birthdate')}
@@ -146,7 +146,7 @@ const ManagerglobalInsert = () => {
                 rules={[{ required: true, message: 'Este campo deve ser preenchido.' }]}
               >
                 <SelectProject
-                  placeholder="Selecione um país"
+                  placeholder="Selecione o país"
                   allowClear
                   onChange={handleOnChangeCountrySelect}
                   options={countries.map((country: CountryType) => ({

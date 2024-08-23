@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
 import { ERROR_ACCESS_DANIED, ERROR_CONNECTION } from '../../constants/errorsStatus';
-import { MethodsEnum } from '../../enums/methods.enum';
+import { MethodsEnum } from '../../enums/Methods.enum';
 import { getAuthorizationToken } from './auth';
 
 export type MethodType = 'get' | 'post' | 'put' | 'patch' | 'delete';

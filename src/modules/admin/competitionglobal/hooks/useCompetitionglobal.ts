@@ -6,7 +6,7 @@ import {
   URL_COMPETITIONGLOBAL_ID,
   URL_TEAMGLOBAL,
 } from '../../../../shared/constants/urls';
-import { MethodsEnum } from '../../../../shared/enums/methods.enum';
+import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
 import { useCompetitionglobalReducer } from '../../../../store/reducers/competitionglobalReducer/useCompetitionglobalReducer';
 import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';

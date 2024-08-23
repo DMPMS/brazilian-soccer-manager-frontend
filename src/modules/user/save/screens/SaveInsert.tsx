@@ -16,7 +16,6 @@ import CountrySVGProject from '../../../../shared/components/svg/CountrySVGProje
 import {
   CURRENT_DATE_UTC,
   DATE_FORMAT,
-  RULE_COMPETITIONTYPE_LEAGUE,
   SAVE_MAX_LENGH_MANAGER_NAME,
   SAVE_MAX_LENGH_NAME,
   SAVE_MAX_MANAGER_AGE,
@@ -24,9 +23,10 @@ import {
   SAVE_MIN_LENGH_NAME,
   SAVE_MIN_MANAGER_AGE,
 } from '../../../../shared/constants/others';
-import { CompetitionglobalType } from '../../../../shared/types/CompetitionglobalType';
-import { CountryType } from '../../../../shared/types/CountryType';
-import { TeamglobalType } from '../../../../shared/types/TeamglobalType';
+import { RuleCompetitionTypeEnum } from '../../../../shared/enums/RuleCompetitionType.enum';
+import { CompetitionglobalType } from '../../../../shared/types/Competitionglobal.type';
+import { CountryType } from '../../../../shared/types/Country.type';
+import { TeamglobalType } from '../../../../shared/types/Teamglobal.type';
 import { useCompetitionglobal } from '../../../admin/competitionglobal/hooks/useCompetitionglobal';
 import { useTeamglobal } from '../../../admin/teamglobal/hooks/useTeamglobal';
 import { useCountry } from '../../../shared/country/hooks/useCountry';
@@ -164,7 +164,8 @@ const SaveInsert = () => {
                       .filter(
                         (competitionglobal: CompetitionglobalType) =>
                           competitionglobal.country?.id === selectedCompetitionsglobalCountryId &&
-                          competitionglobal.rule?.competitionType === RULE_COMPETITIONTYPE_LEAGUE,
+                          competitionglobal.rule?.competitionType ===
+                            RuleCompetitionTypeEnum.League,
                       )
                       .map((competitionglobal: CompetitionglobalType) => ({
                         value: `${competitionglobal.id}`,

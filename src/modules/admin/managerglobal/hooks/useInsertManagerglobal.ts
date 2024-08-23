@@ -14,7 +14,7 @@ import {
 } from '../../../../shared/constants/others';
 import { URL_MANAGERGLOBAL, URL_MANAGERGLOBAL_ID } from '../../../../shared/constants/urls';
 import { InsertManagerglobalDTO } from '../../../../shared/dtos/InsertManagerglobal.dto';
-import { MethodsEnum } from '../../../../shared/enums/methods.enum';
+import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
 import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';
 import { useManagerglobalReducer } from '../../../../store/reducers/managerglobalReducer/useManagerglobalReducer';
@@ -104,9 +104,11 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
   }, [managerglobal]);
 
   const handleOnChangeInput = (event: React.ChangeEvent<HTMLInputElement>, nameObject: string) => {
+    const inputValue = event.target.value;
+
     setManagerglobal({
       ...managerglobal,
-      [nameObject]: event.target.value,
+      [nameObject]: inputValue,
     });
   };
 

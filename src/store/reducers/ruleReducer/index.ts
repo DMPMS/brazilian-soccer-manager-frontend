@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { RuleType } from '../../../shared/types/RuleType';
+import { RuleType } from '../../../shared/types/Rule.type';
 
 interface RuleState {
   rules: RuleType[];

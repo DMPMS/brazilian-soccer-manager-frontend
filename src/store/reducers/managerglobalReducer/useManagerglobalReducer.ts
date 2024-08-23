@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 
-import { ManagerglobalType } from '../../../shared/types/ManagerglobalType';
+import { ManagerglobalType } from '../../../shared/types/Managerglobal.type';
 import { useAppSelector } from '../../hooks';
 import { setManagerglobalAction, setManagersglobalAction } from '.';
 

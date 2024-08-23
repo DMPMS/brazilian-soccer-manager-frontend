@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { PlayerglobalType } from '../../../shared/types/PlayerglobalType';
+import { PlayerglobalType } from '../../../shared/types/Playerglobal.type';
 
 interface PlayerglobalState {
   playersglobal: PlayerglobalType[];

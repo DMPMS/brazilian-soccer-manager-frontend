@@ -6,11 +6,11 @@ import InputProject from '../../../../shared/components/inputs/input/InputProjec
 import InputPasswordProject from '../../../../shared/components/inputs/inputPassword/InputPasswordProject';
 import { LimitedContainerCardProject } from '../../../../shared/components/styles/limited.styled';
 import { useLogin } from '../hooks/useLogin';
-import { LogoLogin, TitleLogin } from '../styles/loginScreen.style';
+import { LogoLogin, TitleLogin } from '../styles/login.style';
 
 const { Text, Link } = Typography;
 
-const LoginScreen = () => {
+const Login = () => {
   const {
     loading,
     disabledButton,
@@ -75,4 +75,4 @@ const LoginScreen = () => {
   );
 };
 
-export default LoginScreen;
+export default Login;

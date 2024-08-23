@@ -15,7 +15,7 @@ import {
   URL_TEAMGLOBAL,
 } from '../../../../shared/constants/urls';
 import { InsertCompetitionglobalDTO } from '../../../../shared/dtos/InsertCompetitonglobal.dto';
-import { MethodsEnum } from '../../../../shared/enums/methods.enum';
+import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
 import { useCompetitionglobalReducer } from '../../../../store/reducers/competitionglobalReducer/useCompetitionglobalReducer';
 import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';
@@ -137,9 +137,11 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
   }, [competitionglobal]);
 
   const handleOnChangeInput = (event: React.ChangeEvent<HTMLInputElement>, nameObject: string) => {
+    const inputValue = event.target.value;
+
     setCompetitionglobal({
       ...competitionglobal,
-      [nameObject]: event.target.value,
+      [nameObject]: inputValue,
     });
   };
 

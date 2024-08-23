@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { SaveType } from '../../../shared/types/SaveType';
+import { SaveType } from '../../../shared/types/Save.type';
 
 interface SaveState {
   saves: SaveType[];

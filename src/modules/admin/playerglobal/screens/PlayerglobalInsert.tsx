@@ -33,9 +33,9 @@ import {
   TEAMGLOBAL_MAX_PLAYERSGLOBAL,
 } from '../../../../shared/constants/others';
 import { PLAYERGLOBAL_MIN_PRIMARY_POSITIONS } from '../../../../shared/constants/others';
-import { CountryType } from '../../../../shared/types/CountryType';
-import { PositionType } from '../../../../shared/types/PositionType';
-import { TeamglobalType } from '../../../../shared/types/TeamglobalType';
+import { CountryType } from '../../../../shared/types/Country.type';
+import { PositionType } from '../../../../shared/types/Position.type';
+import { TeamglobalType } from '../../../../shared/types/Teamglobal.type';
 import { useCountry } from '../../../shared/country/hooks/useCountry';
 import { usePosition } from '../../../shared/position/hooks/usePosition';
 import { HomeRoutesEnum } from '../../home/routes';
@@ -158,7 +158,7 @@ const PlayerglobalInsert = () => {
                     ]}
                   >
                     <DatePickerProject
-                      placeholder="Selecione uma data"
+                      placeholder="Selecione a data"
                       minDate={CURRENT_DATE_UTC.subtract(PLAYERGLOBAL_MAX_AGE, 'year').startOf(
                         'day',
                       )}
@@ -202,7 +202,7 @@ const PlayerglobalInsert = () => {
                     rules={[{ required: true, message: 'Este campo deve ser preenchido.' }]}
                   >
                     <SelectProject
-                      placeholder="Selecione um país"
+                      placeholder="Selecione o país"
                       allowClear
                       onChange={handleOnChangeCountrySelect}
                       options={countries.map((country: CountryType) => ({
@@ -259,7 +259,7 @@ const PlayerglobalInsert = () => {
                     }}
                   >
                     <SelectProject
-                      placeholder="Selecione um time"
+                      placeholder="Selecione o time"
                       allowClear
                       onChange={handleOnChangeTeamglobalSelect}
                       options={teamsglobal.map((teamglobal: TeamglobalType) => ({

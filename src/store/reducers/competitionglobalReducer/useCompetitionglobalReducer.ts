@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 
-import { CompetitionglobalType } from '../../../shared/types/CompetitionglobalType';
+import { CompetitionglobalType } from '../../../shared/types/Competitionglobal.type';
 import { useAppSelector } from '../../hooks';
 import { setCompetitionglobalAction, setCompetitionsglobalAction } from '.';
 

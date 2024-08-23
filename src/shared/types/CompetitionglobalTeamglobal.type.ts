@@ -1,5 +1,5 @@
-import { CompetitionglobalType } from './CompetitionglobalType';
-import { TeamglobalType } from './TeamglobalType';
+import { CompetitionglobalType } from './Competitionglobal.type';
+import { TeamglobalType } from './Teamglobal.type';
 
 export interface CompetitionglobalTeamglobalType {
   id: number;

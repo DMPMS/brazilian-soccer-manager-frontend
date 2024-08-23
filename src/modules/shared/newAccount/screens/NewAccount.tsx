@@ -23,12 +23,12 @@ import {
   USER_MIN_LENGH_NAME,
   USER_MIN_LENGH_PASSWORD,
 } from '../../../../shared/constants/others';
-import { CountryType } from '../../../../shared/types/CountryType';
+import { CountryType } from '../../../../shared/types/Country.type';
 import { useCountry } from '../../country/hooks/useCountry';
 import { useNewAccount } from '../hooks/useNewAccount';
-import { TitleNewAccount } from '../styles/newAccountScreen.style';
+import { TitleNewAccount } from '../styles/newAccount.style';
 
-const NewAccountScreen = () => {
+const NewAccount = () => {
   const {
     loading,
     disabledButton,
@@ -114,7 +114,7 @@ const NewAccountScreen = () => {
                 ]}
               >
                 <DatePickerProject
-                  placeholder="Selecione uma data"
+                  placeholder="Selecione a data"
                   minDate={CURRENT_DATE_UTC.subtract(USER_MAX_AGE, 'year').startOf('day')}
                   maxDate={CURRENT_DATE_UTC.subtract(USER_MIN_AGE, 'year').startOf('day')}
                   onChange={(date) => handleOnChangeDatePicker(date, 'birthdate')}
@@ -132,7 +132,7 @@ const NewAccountScreen = () => {
                 rules={[{ required: true, message: 'Este campo deve ser preenchido.' }]}
               >
                 <SelectProject
-                  placeholder="Selecione um país"
+                  placeholder="Selecione o país"
                   allowClear
                   onChange={handleOnChangeCountrySelect}
                   options={countries.map((country: CountryType) => ({
@@ -251,4 +251,4 @@ const NewAccountScreen = () => {
   );
 };
 
-export default NewAccountScreen;
+export default NewAccount;

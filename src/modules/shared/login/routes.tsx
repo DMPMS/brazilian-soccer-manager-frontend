@@ -1,6 +1,6 @@
 import { RouteObject } from 'react-router-dom';
 
-import LoginScreen from './screens/LoginScreen';
+import Login from './screens/Login';
 
 export enum LoginRoutesEnum {
   LOGIN = '/login',
@@ -9,6 +9,6 @@ export enum LoginRoutesEnum {
 export const loginRoutes: RouteObject[] = [
   {
     path: LoginRoutesEnum.LOGIN,
-    element: <LoginScreen />,
+    element: <Login />,
   },
 ];

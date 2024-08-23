@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import { URL_RULE } from '../../../../shared/constants/urls';
-import { MethodsEnum } from '../../../../shared/enums/methods.enum';
+import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
 import { useRuleReducer } from '../../../../store/reducers/ruleReducer/useRuleReducer';
 
