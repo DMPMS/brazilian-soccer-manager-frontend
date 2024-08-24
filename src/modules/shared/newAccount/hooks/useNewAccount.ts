@@ -77,16 +77,20 @@ export const useNewAccount = () => {
   };
 
   const handleOnChangeDatePicker = (date: dayjs.Dayjs | null, nameObject: string) => {
+    const datePickerValue = date ? date.format(DEFAULT_DATE_FORMAT) : '';
+
     setUser({
       ...user,
-      [nameObject]: date ? date.format(DEFAULT_DATE_FORMAT) : '',
+      [nameObject]: datePickerValue,
     });
   };
 
   const handleOnChangeCountrySelect = (value: string) => {
+    const selectValue = value ? Number(value) : undefined;
+
     setUser({
       ...user,
-      countryId: value ? Number(value) : undefined,
+      countryId: selectValue,
     });
   };
 

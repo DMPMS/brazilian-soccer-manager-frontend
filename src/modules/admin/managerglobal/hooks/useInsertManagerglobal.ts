@@ -113,16 +113,20 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
   };
 
   const handleOnChangeDatePicker = (date: dayjs.Dayjs | null, nameObject: string) => {
+    const datePickerValue = date ? date.format(DEFAULT_DATE_FORMAT) : '';
+
     setManagerglobal({
       ...managerglobal,
-      [nameObject]: date ? date.format(DEFAULT_DATE_FORMAT) : '',
+      [nameObject]: datePickerValue,
     });
   };
 
   const handleOnChangeCountrySelect = (value: string) => {
+    const selectValue = value ? Number(value) : undefined;
+
     setManagerglobal({
       ...managerglobal,
-      countryId: value ? Number(value) : undefined,
+      countryId: selectValue,
     });
   };
 

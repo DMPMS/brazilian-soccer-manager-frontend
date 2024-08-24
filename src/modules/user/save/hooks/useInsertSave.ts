@@ -132,34 +132,34 @@ export const useInsertSave = () => {
   };
 
   const handleOnChangeDatePicker = (date: dayjs.Dayjs | null, nameObject: string) => {
-    const selectedDate = date ? date.format(DEFAULT_DATE_FORMAT) : '';
+    const datePickerValue = date ? date.format(DEFAULT_DATE_FORMAT) : '';
 
     setSave({
       ...save,
-      [nameObject]: selectedDate,
+      [nameObject]: datePickerValue,
     });
 
     if (nameObject === 'managerBirthdate') {
       setCustomManager({
         ...customManager,
-        [nameObject]: selectedDate,
+        [nameObject]: datePickerValue,
       });
     }
   };
 
   const handleOnChangeRadio = (event: RadioChangeEvent) => {
-    const selectedValue = event.target.value;
+    const radioValue = event.target.value;
 
-    if (selectedValue === 'default') {
+    setSave({
+      ...save,
+      isCustomManager: radioValue === 'default' ? false : true,
+      managerName: radioValue === 'default' ? '' : customManager.managerName,
+      managerBirthdate: radioValue === 'default' ? '' : customManager.managerBirthdate,
+      managerCountryId: radioValue === 'default' ? undefined : customManager.managerCountryId,
+    });
+
+    if (radioValue === 'default') {
       formSave.resetFields(['managerName', 'managerBirthdate', 'managerCountryId']);
-
-      setSave({
-        ...save,
-        isCustomManager: false,
-        managerName: '',
-        managerBirthdate: '',
-        managerCountryId: undefined,
-      });
 
       const managerglobal = managersglobal.find(
         (managerglobal) => managerglobal.teamglobal?.id === save.teamglobalId,
@@ -172,14 +172,6 @@ export const useInsertSave = () => {
           managerglobal?.country?.id !== undefined ? `${managerglobal.country.id}` : undefined,
       });
     } else {
-      setSave({
-        ...save,
-        isCustomManager: true,
-        managerName: customManager.managerName,
-        managerBirthdate: customManager.managerBirthdate,
-        managerCountryId: customManager.managerCountryId,
-      });
-
       formSave.setFieldsValue({
         managerName: customManager.managerName,
         managerBirthdate: customManager.managerBirthdate
@@ -192,15 +184,15 @@ export const useInsertSave = () => {
       });
     }
 
-    setSelectedRadioOption(selectedValue);
+    setSelectedRadioOption(radioValue);
   };
 
   const handleOnChangeCompetitionglobalCountrySelect = (value: string) => {
-    const selectedValue = value ? Number(value) : undefined;
+    const selectValue = value ? Number(value) : undefined;
 
     setSave({
       ...save,
-      competitionsglobalCountryId: selectedValue,
+      competitionsglobalCountryId: selectValue,
       competitionglobalId: undefined,
       teamglobalId: undefined,
       ...(selectedRadioOption === 'default' && { managerName: '' }),
@@ -209,7 +201,7 @@ export const useInsertSave = () => {
     });
 
     setSelectedCompetitionglobalId(undefined);
-    setSelectedCompetitionsglobalCountryId(selectedValue);
+    setSelectedCompetitionsglobalCountryId(selectValue);
 
     formSave.resetFields(['competitionglobalId', 'teamglobalId']);
 
@@ -219,18 +211,18 @@ export const useInsertSave = () => {
   };
 
   const handleOnChangeCompetitionglobalSelect = (value: string) => {
-    const selectedValue = value ? Number(value) : undefined;
+    const selectValue = value ? Number(value) : undefined;
 
     setSave({
       ...save,
-      competitionglobalId: selectedValue,
+      competitionglobalId: selectValue,
       teamglobalId: undefined,
       ...(selectedRadioOption === 'default' && { managerName: '' }),
       ...(selectedRadioOption === 'default' && { managerBirthdate: '' }),
       ...(selectedRadioOption === 'default' && { managerCountryId: undefined }),
     });
 
-    setSelectedCompetitionglobalId(selectedValue);
+    setSelectedCompetitionglobalId(selectValue);
 
     formSave.resetFields(['teamglobalId']);
 
@@ -240,18 +232,18 @@ export const useInsertSave = () => {
   };
 
   const handleOnChangeTeamglobalSelect = (value: string) => {
-    const selectedValue = value ? Number(value) : undefined;
+    const selectValue = value ? Number(value) : undefined;
+
+    setSave({
+      ...save,
+      teamglobalId: selectValue,
+      ...(selectedRadioOption === 'default' && { managerName: '' }),
+      ...(selectedRadioOption === 'default' && { managerBirthdate: '' }),
+      ...(selectedRadioOption === 'default' && { managerCountryId: undefined }),
+    });
 
     if (selectedRadioOption === 'default') {
-      setSave({
-        ...save,
-        teamglobalId: selectedValue,
-        managerName: '',
-        managerBirthdate: '',
-        managerCountryId: undefined,
-      });
-
-      if (!selectedValue) {
+      if (!selectValue) {
         formSave.setFieldsValue({
           managerName: '',
           managerBirthdate: '',
@@ -259,7 +251,7 @@ export const useInsertSave = () => {
         });
       } else {
         const managerglobal = managersglobal.find(
-          (managerglobal) => managerglobal.teamglobal?.id === selectedValue,
+          (managerglobal) => managerglobal.teamglobal?.id === selectValue,
         );
 
         formSave.setFieldsValue({
@@ -269,25 +261,20 @@ export const useInsertSave = () => {
             managerglobal?.country?.id !== undefined ? `${managerglobal.country.id}` : undefined,
         });
       }
-    } else {
-      setSave({
-        ...save,
-        teamglobalId: selectedValue,
-      });
     }
   };
 
   const handleOnChangeManagerCountrySelect = (value: string) => {
-    const selectedValue = value ? Number(value) : undefined;
+    const selectValue = value ? Number(value) : undefined;
 
     setSave({
       ...save,
-      managerCountryId: selectedValue,
+      managerCountryId: selectValue,
     });
 
     setCustomManager({
       ...customManager,
-      managerCountryId: selectedValue,
+      managerCountryId: selectValue,
     });
   };
 

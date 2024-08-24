@@ -169,27 +169,31 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
   };
 
   const handleOnChangeCountrySelect = (value: string) => {
+    const selectValue = value ? Number(value) : undefined;
+
     setTeamglobal({
       ...teamglobal,
-      countryId: value ? Number(value) : undefined,
+      countryId: selectValue,
     });
   };
 
   const handleOnChangeManagerglobalSelect = (value: string) => {
+    const selectValue = value ? Number(value) : undefined;
+
     setTeamglobal({
       ...teamglobal,
-      managerglobalId: value ? Number(value) : undefined,
+      managerglobalId: selectValue,
     });
   };
 
   const handleOnChangePlayerglobalSelect = (values: string[]) => {
-    const updatedValues = values.map((value) => Number(value));
+    const selectValues = values.map((value) => Number(value));
 
-    setPlayerglobalIdsCount(updatedValues.length);
+    setPlayerglobalIdsCount(selectValues.length);
 
     setTeamglobal({
       ...teamglobal,
-      playerglobalIds: updatedValues,
+      playerglobalIds: selectValues,
     });
   };
 

@@ -146,24 +146,21 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
   };
 
   const handleOnChangeRuleSelect = (value: string) => {
-    if (value) {
-      const selectedRuleId = Number(value);
+    const selectValue = value ? Number(value) : undefined;
 
-      setCompetitionglobal({
-        ...competitionglobal,
-        ruleId: selectedRuleId,
-      });
+    setCompetitionglobal({
+      ...competitionglobal,
+      ruleId: selectValue,
+      ...(selectValue === undefined && { teamglobalIds: [] }),
+    });
 
-      const selectedRule = rules.find((rule) => rule.id === selectedRuleId);
+    if (selectValue) {
+      const selectedRule = rules.find((rule) => rule.id === selectValue);
+
       if (selectedRule) {
         setRuleNumberOfTeams(selectedRule.numberOfTeams);
       }
     } else {
-      setCompetitionglobal({
-        ...competitionglobal,
-        ruleId: undefined,
-        teamglobalIds: [],
-      });
       setRuleNumberOfTeams(0);
       setTeamglobalIdsCount(0);
 
@@ -172,20 +169,22 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
   };
 
   const handleOnChangeCountrySelect = (value: string) => {
+    const selectValue = value ? Number(value) : undefined;
+
     setCompetitionglobal({
       ...competitionglobal,
-      countryId: value ? Number(value) : undefined,
+      countryId: selectValue,
     });
   };
 
   const handleOnChangeTeamglobalSelect = (values: string[]) => {
-    const updatedValues = values.map((value) => Number(value));
+    const selectValues = values.map((value) => Number(value));
 
-    setTeamglobalIdsCount(updatedValues.length);
+    setTeamglobalIdsCount(selectValues.length);
 
     setCompetitionglobal({
       ...competitionglobal,
-      teamglobalIds: updatedValues,
+      teamglobalIds: selectValues,
     });
   };
 

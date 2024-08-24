@@ -161,50 +161,56 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
   };
 
   const handleOnChangeInputNumber = (value: number | string | null, nameObject: string) => {
-    const inputValue = value;
+    const inputValue = value ? value : 0;
 
     setPlayerglobal({
       ...playerglobal,
-      [nameObject]: inputValue ? inputValue : 0,
+      [nameObject]: inputValue,
     });
   };
 
   const handleOnChangeDatePicker = (date: dayjs.Dayjs | null, nameObject: string) => {
+    const datePickerValue = date ? date.format(DEFAULT_DATE_FORMAT) : '';
+
     setPlayerglobal({
       ...playerglobal,
-      [nameObject]: date ? date.format(DEFAULT_DATE_FORMAT) : '',
+      [nameObject]: datePickerValue,
     });
   };
 
   const handleOnChangeCountrySelect = (value: string) => {
+    const selectValue = value ? Number(value) : undefined;
+
     setPlayerglobal({
       ...playerglobal,
-      countryId: value ? Number(value) : undefined,
+      countryId: selectValue,
     });
   };
 
   const handleOnChangeTeamglobalSelect = (value: string) => {
+    const selectValue = value ? Number(value) : undefined;
+
     setPlayerglobal({
       ...playerglobal,
-      teamglobalId: value ? Number(value) : undefined,
+      teamglobalId: selectValue,
     });
   };
 
   const handleOnChangePrimaryPositionSelect = (values: string[]) => {
-    const updatedValues = values.map((value) => Number(value));
+    const selectValues = values.map((value) => Number(value));
 
     setPlayerglobal({
       ...playerglobal,
-      primaryPositionIds: updatedValues,
+      primaryPositionIds: selectValues,
     });
   };
 
   const handleOnChangeSecondaryPositionSelect = (values: string[]) => {
-    const updatedValues = values.map((value) => Number(value));
+    const selectValues = values.map((value) => Number(value));
 
     setPlayerglobal({
       ...playerglobal,
-      secondaryPositionIds: updatedValues,
+      secondaryPositionIds: selectValues,
     });
   };
 
