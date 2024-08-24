@@ -8,10 +8,10 @@ const NUMERIC_CHAR_CODE_START = 48;
 const NUMERIC_CHAR_CODE_END = 57;
 
 const InputIntegerProject = ({ ...props }: InputIntegerProjectProps) => {
-  const handleOnKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    const charCode = e.which ? e.which : e.keyCode;
+  const handleOnKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const charCode = event.which ? event.which : event.keyCode;
     if (charCode > NUMERIC_CHAR_CODE_END || charCode < NUMERIC_CHAR_CODE_START) {
-      e.preventDefault();
+      event.preventDefault();
     }
   };
 
@@ -23,12 +23,12 @@ const InputIntegerProject = ({ ...props }: InputIntegerProjectProps) => {
     return value;
   };
 
-  const handleOnPaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
-    const clipboardData = e.clipboardData;
+  const handleOnPaste = (event: React.ClipboardEvent<HTMLInputElement>) => {
+    const clipboardData = event.clipboardData;
     const pastedData = clipboardData.getData('text');
     // Checks if the pasted text contains only numbers.
     if (!/^\d+$/.test(pastedData)) {
-      e.preventDefault();
+      event.preventDefault();
     }
   };
 

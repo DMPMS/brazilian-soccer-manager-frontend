@@ -1,4 +1,4 @@
-import { Layout, Menu, Modal } from 'antd';
+import { Layout, Menu } from 'antd';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,6 +8,7 @@ import { ManagerglobalRoutesEnum } from '../../../modules/admin/managerglobal/ro
 import { PlayerglobalRoutesEnum } from '../../../modules/admin/playerglobal/routes';
 import { TeamglobalRoutesEnum } from '../../../modules/admin/teamglobal/routes';
 import { logout } from '../../functions/connection/auth';
+import ModalLogoutProject from '../modals/logout/ModalLogoutProject';
 import CompetitionIconSVGProject from '../svg/CompetitionIconSVGProject';
 import HomeIconSVGProject from '../svg/HomeIconSVGProject';
 import LogoutIconSVGProject from '../svg/LogoutIconSVGProject';
@@ -22,14 +23,18 @@ const { Sider } = Layout;
 const SidebarProject = () => {
   const navigate = useNavigate();
 
-  const [open, setOpen] = useState(false);
+  const [openModalLogout, setOpenModalLogout] = useState(false);
 
-  const showModal = () => {
-    setOpen(true);
+  const handleOnClickLogout = () => {
+    setOpenModalLogout(true);
   };
 
-  const hideModal = () => {
-    setOpen(false);
+  const handleOnCancelLogout = () => {
+    setOpenModalLogout(false);
+  };
+
+  const handleOnConfirmLogout = () => {
+    logout(navigate);
   };
 
   const items: SidebarItem[] = [
@@ -111,22 +116,17 @@ const SidebarProject = () => {
       key: 'logout',
       label: 'Sair',
       icon: <LogoutIconSVGProject />,
-      onClick: () => showModal(),
+      onClick: () => handleOnClickLogout(),
     },
   ];
 
   return (
     <>
-      <Modal
-        title="Atenção"
-        open={open}
-        onOk={() => logout(navigate)}
-        onCancel={hideModal}
-        okText="Sim"
-        cancelText="Cancelar"
-      >
-        <p>Tem certeza que deseja sair?</p>
-      </Modal>
+      <ModalLogoutProject
+        open={openModalLogout}
+        onOk={handleOnConfirmLogout}
+        onCancel={handleOnCancelLogout}
+      />
 
       <Sider
         theme="light"

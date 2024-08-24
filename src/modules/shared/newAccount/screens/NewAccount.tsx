@@ -46,9 +46,7 @@ const NewAccount = () => {
   return (
     <FlexProject justify="center" align="center" style={{ height: '100vh' }}>
       <LimitedContainerCardProject width={605} margin="10px">
-        <FlexProject justify="center" align="center" vertical style={{ textAlign: 'center' }}>
-          <TitleNewAccount level={3}>Nova Conta</TitleNewAccount>
-        </FlexProject>
+        <TitleNewAccount level={3}>Nova Conta</TitleNewAccount>
 
         <Form layout="vertical" form={formUser} onFinish={handleOnClickInsert}>
           <FlexProject justify="space-between">

@@ -1,4 +1,3 @@
-import { Modal } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import dayjs from 'dayjs';
 import { useMemo } from 'react';
@@ -6,6 +5,7 @@ import { useMemo } from 'react';
 import ButtonProject from '../../../../shared/components/buttons/button/ButtonProject';
 import FlexProject from '../../../../shared/components/flex/FlexProject';
 import ImageProject from '../../../../shared/components/image/ImageProject';
+import ModalLogoutProject from '../../../../shared/components/modals/logout/ModalLogoutProject';
 import { LimitedContainerCardProject } from '../../../../shared/components/styles/limited.styled';
 import TableProject from '../../../../shared/components/table/TableProject';
 import { DATE_FORMAT, DATETIME_FORMAT } from '../../../../shared/constants/others';
@@ -77,16 +77,11 @@ const Save = () => {
 
   return (
     <>
-      <Modal
-        title="Atenção"
+      <ModalLogoutProject
         open={openModalLogout}
         onOk={handleOnConfirmLogout}
         onCancel={handleOnCancelLogout}
-        okText="Sim"
-        cancelText="Cancelar"
-      >
-        <p>Tem certeza que deseja sair?</p>
-      </Modal>
+      />
 
       <FlexProject justify="center" align="center" style={{ height: '100vh' }}>
         <LimitedContainerCardProject width={900} margin="10px">
