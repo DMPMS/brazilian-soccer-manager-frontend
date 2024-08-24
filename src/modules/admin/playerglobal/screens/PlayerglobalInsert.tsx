@@ -93,7 +93,7 @@ const PlayerglobalInsert = () => {
       ) : (
         <FlexProject justify="center">
           <LimitedContainerProject width={1110}>
-            <Form layout="vertical" form={formPlayerglobal}>
+            <Form layout="vertical" form={formPlayerglobal} onFinish={handleOnClickInsert}>
               <FlexProject justify="space-between">
                 <LimitedContainerCardProject width={400}>
                   <Form.Item
@@ -150,9 +150,9 @@ const PlayerglobalInsert = () => {
                             return Promise.reject(`A idade mínima é ${PLAYERGLOBAL_MIN_AGE} anos.`);
                           } else if (birthdate.isBefore(maxDate)) {
                             return Promise.reject(`A idade máxima é ${PLAYERGLOBAL_MAX_AGE} anos.`);
+                          } else {
+                            return Promise.resolve();
                           }
-
-                          return Promise.resolve();
                         },
                       },
                     ]}
@@ -240,8 +240,8 @@ const PlayerglobalInsert = () => {
                       <ButtonProject
                         loading={loading}
                         disabled={disabledButton}
-                        onClick={handleOnClickInsert}
                         type="primary"
+                        htmlType="submit"
                       >
                         {isEdit ? 'Salvar' : 'Inserir'}
                       </ButtonProject>
@@ -311,16 +311,19 @@ const PlayerglobalInsert = () => {
                     rules={[
                       { required: true, message: 'Este campo deve ser preenchido.' },
                       {
-                        validator: (_, value) =>
-                          !value || value.length === 0
-                            ? Promise.resolve()
-                            : value.length >= PLAYERGLOBAL_MIN_PRIMARY_POSITIONS
-                              ? Promise.resolve()
-                              : Promise.reject(
-                                  new Error(
-                                    `Você deve selecionar pelo menos ${PLAYERGLOBAL_MIN_PRIMARY_POSITIONS} posições.`,
-                                  ),
-                                ),
+                        validator: (_, value) => {
+                          if (!value || value.length === 0) {
+                            return Promise.resolve();
+                          } else if (value.length >= PLAYERGLOBAL_MIN_PRIMARY_POSITIONS) {
+                            return Promise.resolve();
+                          } else {
+                            return Promise.reject(
+                              new Error(
+                                `Você deve selecionar pelo menos ${PLAYERGLOBAL_MIN_PRIMARY_POSITIONS} posições.`,
+                              ),
+                            );
+                          }
+                        },
                       },
                     ]}
                   >

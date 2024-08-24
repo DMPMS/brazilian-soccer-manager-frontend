@@ -69,7 +69,7 @@ const ManagerglobalInsert = () => {
       ) : (
         <FlexProject justify="center">
           <LimitedContainerCardProject width={400}>
-            <Form layout="vertical" form={formManagerglobal}>
+            <Form layout="vertical" form={formManagerglobal} onFinish={handleOnClickInsert}>
               <Form.Item
                 label="Nome"
                 name="name"
@@ -124,9 +124,9 @@ const ManagerglobalInsert = () => {
                         return Promise.reject(`A idade mínima é ${MANAGERGLOBAL_MIN_AGE} anos.`);
                       } else if (birthdate.isBefore(maxDate)) {
                         return Promise.reject(`A idade máxima é ${MANAGERGLOBAL_MAX_AGE} anos.`);
+                      } else {
+                        return Promise.resolve();
                       }
-
-                      return Promise.resolve();
                     },
                   },
                 ]}
@@ -171,27 +171,27 @@ const ManagerglobalInsert = () => {
                   }
                 />
               </Form.Item>
+
+              <FlexProject justify="space-between">
+                <div>
+                  <ButtonProject onClick={handleOnClickCancel}>Cancelar</ButtonProject>
+                </div>
+                <div>
+                  <ButtonProject onClick={handleOnClickReset} margin="0px 8px 0px 0px">
+                    Resetar
+                  </ButtonProject>
+
+                  <ButtonProject
+                    loading={loading}
+                    disabled={disabledButton}
+                    type="primary"
+                    htmlType="submit"
+                  >
+                    {isEdit ? 'Salvar' : 'Inserir'}
+                  </ButtonProject>
+                </div>
+              </FlexProject>
             </Form>
-
-            <FlexProject justify="space-between">
-              <div>
-                <ButtonProject onClick={handleOnClickCancel}>Cancelar</ButtonProject>
-              </div>
-              <div>
-                <ButtonProject onClick={handleOnClickReset} margin="0px 8px 0px 0px">
-                  Resetar
-                </ButtonProject>
-
-                <ButtonProject
-                  loading={loading}
-                  disabled={disabledButton}
-                  onClick={handleOnClickInsert}
-                  type="primary"
-                >
-                  {isEdit ? 'Salvar' : 'Inserir'}
-                </ButtonProject>
-              </div>
-            </FlexProject>
           </LimitedContainerCardProject>
         </FlexProject>
       )}

@@ -76,7 +76,7 @@ const CompetitionglobalInsert = () => {
       ) : (
         <FlexProject justify="center">
           <LimitedContainerProject width={1005}>
-            <Form layout="vertical" form={formCompetitionglobal}>
+            <Form layout="vertical" form={formCompetitionglobal} onFinish={handleOnClickInsert}>
               <FlexProject justify="space-between">
                 <LimitedContainerCardProject width={400}>
                   <FlexProject justify="space-between">
@@ -203,8 +203,8 @@ const CompetitionglobalInsert = () => {
                       <ButtonProject
                         loading={loading}
                         disabled={disabledButton}
-                        onClick={handleOnClickInsert}
                         type="primary"
+                        htmlType="submit"
                       >
                         {isEdit ? 'Salvar' : 'Inserir'}
                       </ButtonProject>
@@ -228,14 +228,17 @@ const CompetitionglobalInsert = () => {
                     rules={[
                       { required: true, message: 'Este campo deve ser preenchido.' },
                       {
-                        validator: (_, value) =>
-                          !value || value.length === 0
-                            ? Promise.resolve()
-                            : value.length === ruleNumberOfTeams
-                              ? Promise.resolve()
-                              : Promise.reject(
-                                  new Error(`Você deve selecionar ${ruleNumberOfTeams} times.`),
-                                ),
+                        validator: (_, value) => {
+                          if (!value || value.length === 0) {
+                            return Promise.resolve();
+                          } else if (value.length === ruleNumberOfTeams) {
+                            return Promise.resolve();
+                          } else {
+                            return Promise.reject(
+                              new Error(`Você deve selecionar ${ruleNumberOfTeams} times.`),
+                            );
+                          }
+                        },
                       },
                     ]}
                   >

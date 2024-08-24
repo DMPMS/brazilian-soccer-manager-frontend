@@ -66,7 +66,7 @@ const SaveInsert = () => {
       <LimitedContainerCardProject width={605} margin="10px">
         <TitleSaveInsert level={3}>Novo Jogo</TitleSaveInsert>
 
-        <Form layout="vertical" form={formSave}>
+        <Form layout="vertical" form={formSave} onFinish={handleOnClickInsert}>
           <FlexProject justify="space-between">
             <FlexProject justify="space-between" vertical>
               <LimitedContainerProject width={300}>
@@ -91,11 +91,15 @@ const SaveInsert = () => {
                     },
                     {
                       validator: (_, value) => {
-                        if (userSaveNames.includes(value)) {
-                          return Promise.reject(`Você já possui um salvamento com este nome.`);
+                        if (!value) {
+                          return Promise.resolve();
                         }
 
-                        return Promise.resolve();
+                        if (userSaveNames.includes(value)) {
+                          return Promise.reject(`Você já possui um salvamento com este nome.`);
+                        } else {
+                          return Promise.resolve();
+                        }
                       },
                     },
                   ]}
@@ -326,9 +330,9 @@ const SaveInsert = () => {
                           return Promise.reject(`A idade mínima é ${SAVE_MIN_MANAGER_AGE} anos.`);
                         } else if (birthdate.isBefore(maxDate)) {
                           return Promise.reject(`A idade máxima é ${SAVE_MAX_MANAGER_AGE} anos.`);
+                        } else {
+                          return Promise.resolve();
                         }
-
-                        return Promise.resolve();
                       },
                     },
                   ]}
@@ -397,8 +401,8 @@ const SaveInsert = () => {
             <ButtonProject
               loading={loading}
               disabled={disabledButton}
-              onClick={handleOnClickInsert}
               type="primary"
+              htmlType="submit"
             >
               Criar jogo
             </ButtonProject>

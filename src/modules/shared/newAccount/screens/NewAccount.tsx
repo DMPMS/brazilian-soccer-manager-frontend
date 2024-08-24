@@ -50,7 +50,7 @@ const NewAccount = () => {
           <TitleNewAccount level={3}>Nova Conta</TitleNewAccount>
         </FlexProject>
 
-        <Form layout="vertical" form={formUser}>
+        <Form layout="vertical" form={formUser} onFinish={handleOnClickInsert}>
           <FlexProject justify="space-between">
             <LimitedContainerProject width={300}>
               <Form.Item
@@ -106,9 +106,9 @@ const NewAccount = () => {
                         return Promise.reject(`A idade mínima é ${USER_MIN_AGE} anos.`);
                       } else if (birthdate.isBefore(maxDate)) {
                         return Promise.reject(`A idade máxima é ${USER_MAX_AGE} anos.`);
+                      } else {
+                        return Promise.resolve();
                       }
-
-                      return Promise.resolve();
                     },
                   },
                 ]}
@@ -212,8 +212,9 @@ const NewAccount = () => {
                     validator(_, value) {
                       if (!value || getFieldValue('password') === value) {
                         return Promise.resolve();
+                      } else {
+                        return Promise.reject(new Error('As senhas não são iguais.'));
                       }
-                      return Promise.reject(new Error('As senhas não são iguais.'));
                     },
                   }),
                 ]}
@@ -225,27 +226,27 @@ const NewAccount = () => {
               </Form.Item>
             </LimitedContainerProject>
           </FlexProject>
+
+          <FlexProject justify="space-between">
+            <div>
+              <ButtonProject onClick={handleOnClickCancel}>Cancelar</ButtonProject>
+            </div>
+            <div>
+              <ButtonProject onClick={handleOnClickReset} margin="0px 8px 0px 0px">
+                Resetar
+              </ButtonProject>
+
+              <ButtonProject
+                loading={loading}
+                disabled={disabledButton}
+                type="primary"
+                htmlType="submit"
+              >
+                Criar conta
+              </ButtonProject>
+            </div>
+          </FlexProject>
         </Form>
-
-        <FlexProject justify="space-between">
-          <div>
-            <ButtonProject onClick={handleOnClickCancel}>Cancelar</ButtonProject>
-          </div>
-          <div>
-            <ButtonProject onClick={handleOnClickReset} margin="0px 8px 0px 0px">
-              Resetar
-            </ButtonProject>
-
-            <ButtonProject
-              loading={loading}
-              disabled={disabledButton}
-              onClick={handleOnClickInsert}
-              type="primary"
-            >
-              Criar conta
-            </ButtonProject>
-          </div>
-        </FlexProject>
       </LimitedContainerCardProject>
     </FlexProject>
   );

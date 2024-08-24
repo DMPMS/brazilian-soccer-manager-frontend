@@ -27,7 +27,7 @@ const Login = () => {
           <TitleLogin level={3}>Brazilian Soccer Manager</TitleLogin>
         </FlexProject>
 
-        <Form layout="vertical">
+        <Form layout="vertical" onFinish={handleOnClickLogin}>
           <Form.Item
             name="email"
             required
@@ -52,24 +52,24 @@ const Login = () => {
               onChange={(event) => handleOnChangeInput(event, 'password')}
             />
           </Form.Item>
+
+          <ButtonProject
+            loading={loading}
+            disabled={disabledButton}
+            type="primary"
+            htmlType="submit"
+            width="100%"
+            margin="0px 0px 8px 0px"
+          >
+            Entrar
+          </ButtonProject>
+
+          <FlexProject justify="center" align="center">
+            <Text>
+              Novo por aqui? <Link onClick={handleOnClickNewAccount}>Cadastre-se</Link> agora!
+            </Text>
+          </FlexProject>
         </Form>
-
-        <ButtonProject
-          loading={loading}
-          disabled={disabledButton}
-          type="primary"
-          onClick={handleOnClickLogin}
-          width="100%"
-          margin="0px 0px 8px 0px"
-        >
-          Entrar
-        </ButtonProject>
-
-        <FlexProject justify="center" align="center">
-          <Text>
-            Novo por aqui? <Link onClick={handleOnClickNewAccount}>Cadastre-se</Link> agora!
-          </Text>
-        </FlexProject>
       </LimitedContainerCardProject>
     </FlexProject>
   );

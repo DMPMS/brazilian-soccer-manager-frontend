@@ -74,7 +74,7 @@ const TeamglobalInsert = () => {
       ) : (
         <FlexProject justify="center">
           <LimitedContainerProject width={1005}>
-            <Form layout="vertical" form={formTeamglobal}>
+            <Form layout="vertical" form={formTeamglobal} onFinish={handleOnClickInsert}>
               <FlexProject justify="space-between">
                 <LimitedContainerCardProject width={400}>
                   <Form.Item
@@ -191,8 +191,8 @@ const TeamglobalInsert = () => {
                       <ButtonProject
                         loading={loading}
                         disabled={disabledButton}
-                        onClick={handleOnClickInsert}
                         type="primary"
+                        htmlType="submit"
                       >
                         {isEdit ? 'Salvar' : 'Inserir'}
                       </ButtonProject>
@@ -212,16 +212,19 @@ const TeamglobalInsert = () => {
                     rules={[
                       { required: true, message: 'Este campo deve ser preenchido.' },
                       {
-                        validator: (_, value) =>
-                          !value || value.length === 0
-                            ? Promise.resolve()
-                            : value.length >= TEAMGLOBAL_MIN_PLAYERSGLOBAL
-                              ? Promise.resolve()
-                              : Promise.reject(
-                                  new Error(
-                                    `Você deve selecionar pelo menos ${TEAMGLOBAL_MIN_PLAYERSGLOBAL} jogadores.`,
-                                  ),
-                                ),
+                        validator: (_, value) => {
+                          if (!value || value.length === 0) {
+                            return Promise.resolve();
+                          } else if (value.length >= TEAMGLOBAL_MIN_PLAYERSGLOBAL) {
+                            return Promise.resolve();
+                          } else {
+                            return Promise.reject(
+                              new Error(
+                                `Você deve selecionar pelo menos ${TEAMGLOBAL_MIN_PLAYERSGLOBAL} jogadores.`,
+                              ),
+                            );
+                          }
+                        },
                       },
                     ]}
                   >
