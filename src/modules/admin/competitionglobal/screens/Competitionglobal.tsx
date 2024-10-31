@@ -11,7 +11,6 @@ import Screen from '../../../../shared/components/screen/ScreenProject';
 import { LimitedContainerProject } from '../../../../shared/components/styles/limited.styled';
 import CountrySVGProject from '../../../../shared/components/svg/CountrySVGProject';
 import TableProject from '../../../../shared/components/table/TableProject';
-import { RuleCompetitionTypeEnum } from '../../../../shared/enums/RuleCompetitionType.enum';
 import { CompetitionglobalType } from '../../../../shared/types/Competitionglobal.type';
 import { HomeRoutesEnum } from '../../home/routes';
 import { useCompetitionglobal } from '../hooks/useCompetitionglobal';
@@ -20,6 +19,7 @@ const Competitionglobal = () => {
   const {
     loading,
     competitionsglobal,
+    competitionglobalCanBeDeleted,
     handleOnClickInsert,
     handleOnSearch,
     handleOnEdit,
@@ -44,20 +44,6 @@ const Competitionglobal = () => {
             </text>
           </FlexProject>
         ),
-      },
-      {
-        title: 'Tipo',
-        dataIndex: 'type',
-        key: 'type',
-        render: (_, target) => {
-          if (target.rule?.competitionType === RuleCompetitionTypeEnum.League) {
-            return 'Liga';
-          } else if (target.rule?.competitionType === RuleCompetitionTypeEnum.Cup) {
-            return 'Copa';
-          } else {
-            return '';
-          }
-        },
       },
       {
         title: 'País',
@@ -85,17 +71,20 @@ const Competitionglobal = () => {
               onClick={() => handleOnEdit(target.id)}
               icon={<EditOutlined />}
             ></ButtonProject>
-            <ButtonProject
-              type="primary"
-              danger
-              onClick={() => handleOnOpenModalDelete(target.id)}
-              icon={<DeleteOutlined />}
-            ></ButtonProject>
+
+            {competitionglobalCanBeDeleted(target) && (
+              <ButtonProject
+                type="primary"
+                danger
+                onClick={() => handleOnOpenModalDelete(target.id)}
+                icon={<DeleteOutlined />}
+              ></ButtonProject>
+            )}
           </Space>
         ),
       },
     ],
-    [],
+    [competitionsglobal],
   );
 
   return (

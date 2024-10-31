@@ -7,7 +7,9 @@ import {
   URL_TEAMGLOBAL,
 } from '../../../../shared/constants/urls';
 import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
+import { RuleCompetitionTypeEnum } from '../../../../shared/enums/RuleCompetitionType.enum';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
+import { CompetitionglobalType } from '../../../../shared/types/Competitionglobal.type';
 import { useCompetitionglobalReducer } from '../../../../store/reducers/competitionglobalReducer/useCompetitionglobalReducer';
 import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';
 import { useTeamglobalReducer } from '../../../../store/reducers/teamglobalReducer/useTeamglobalReducer';
@@ -82,9 +84,53 @@ export const useCompetitionglobal = () => {
     setCompetitionglobalIdDelete(competitionglobalId);
   };
 
+  const competitionglobalCanBeDeleted = (competitionglobal: CompetitionglobalType): boolean => {
+    if (competitionglobal.rule?.competitionType === RuleCompetitionTypeEnum.BrazilianLeagueA) {
+      return false;
+    }
+
+    if (competitionglobal.rule?.competitionType === RuleCompetitionTypeEnum.BrazilianLeagueC) {
+      const competitionglobalWithRuleBrazilianLeagueDExists = competitionsglobal.find(
+        (competitionglobal) =>
+          competitionglobal.rule?.competitionType === RuleCompetitionTypeEnum.BrazilianLeagueD,
+      );
+
+      console.log(competitionglobalWithRuleBrazilianLeagueDExists);
+
+      if (competitionglobalWithRuleBrazilianLeagueDExists) {
+        return false;
+      }
+    }
+
+    if (competitionglobal.rule?.competitionType === RuleCompetitionTypeEnum.BrazilianLeagueB) {
+      const competitionglobalWithRuleBrazilianLeagueCExists = competitionsglobal.find(
+        (competitionglobal) =>
+          competitionglobal.rule?.competitionType === RuleCompetitionTypeEnum.BrazilianLeagueC,
+      );
+
+      if (competitionglobalWithRuleBrazilianLeagueCExists) {
+        return false;
+      }
+    }
+
+    if (competitionglobal.rule?.competitionType === RuleCompetitionTypeEnum.BrazilianCup) {
+      const competitionglobalWithRuleBrazilianSupercupExists = competitionsglobal.find(
+        (competitionglobal) =>
+          competitionglobal.rule?.competitionType === RuleCompetitionTypeEnum.BrazilianSuperCup,
+      );
+
+      if (competitionglobalWithRuleBrazilianSupercupExists) {
+        return false;
+      }
+    }
+
+    return true;
+  };
+
   return {
     loading,
     competitionsglobal: competitionsglobalFiltered,
+    competitionglobalCanBeDeleted,
     handleOnClickInsert,
     handleOnSearch,
     handleOnEdit,

@@ -3,5 +3,5 @@ export interface RuleType {
   name: string;
   competitionType: number;
   numberOfTeams: number;
-  yellowCardsMax: number;
+  description: number;
 }
