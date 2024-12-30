@@ -15,7 +15,7 @@ import {
   URL_TEAMGLOBAL,
   URL_TEAMGLOBAL_ID,
 } from '../../../../shared/constants/urls';
-import { InsertTeamglobalDTO } from '../../../../shared/dtos/InsertTeamglobal.dto';
+import { InsertTeamglobalDTO } from '../../../../shared/dtos/insertTeamglobal.dto';
 import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
 import { ManagerglobalType } from '../../../../shared/types/Managerglobal.type';

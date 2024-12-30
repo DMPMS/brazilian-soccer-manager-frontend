@@ -5,29 +5,24 @@ import FlexProject from '../../../../shared/components/flex/FlexProject';
 import InputProject from '../../../../shared/components/inputs/input/InputProject';
 import InputPasswordProject from '../../../../shared/components/inputs/inputPassword/InputPasswordProject';
 import { LimitedContainerCardProject } from '../../../../shared/components/styles/limited.styled';
-import { useLogin } from '../hooks/useLogin';
-import { LogoLogin, TitleLogin } from '../styles/login.style';
+import { useSignIn } from '../hooks/useSignIn';
+import { LogoSignIn, TitleSignIn } from '../styles/signIn.style';
 
 const { Text, Link } = Typography;
 
-const Login = () => {
-  const {
-    loading,
-    disabledButton,
-    handleOnChangeInput,
-    handleOnClickLogin,
-    handleOnClickNewAccount,
-  } = useLogin();
+const SignIn = () => {
+  const { loading, disabledButton, handleOnChangeInput, handleOnClickSignIn, handleOnClickSignUp } =
+    useSignIn();
 
   return (
     <FlexProject justify="center" align="center" style={{ height: '100vh' }}>
       <LimitedContainerCardProject width={300} margin="10px">
         <FlexProject justify="center" align="center" vertical style={{ textAlign: 'center' }}>
-          <LogoLogin src="logo.png" />
-          <TitleLogin level={3}>Brazilian Soccer Manager</TitleLogin>
+          <LogoSignIn src="logo.png" />
+          <TitleSignIn level={3}>Brazilian Soccer Manager</TitleSignIn>
         </FlexProject>
 
-        <Form layout="vertical" onFinish={handleOnClickLogin}>
+        <Form layout="vertical" onFinish={handleOnClickSignIn}>
           <Form.Item
             name="email"
             required
@@ -66,7 +61,7 @@ const Login = () => {
 
           <FlexProject justify="center" align="center">
             <Text>
-              Novo por aqui? <Link onClick={handleOnClickNewAccount}>Cadastre-se</Link> agora!
+              Novo por aqui? <Link onClick={handleOnClickSignUp}>Cadastre-se</Link> agora!
             </Text>
           </FlexProject>
         </Form>
@@ -75,4 +70,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignIn;

@@ -3,11 +3,11 @@ import styled from 'styled-components';
 
 const { Title } = Typography;
 
-export const LogoLogin = styled.img`
+export const LogoSignIn = styled.img`
   width: 70%;
   display: block;
 `;
 
-export const TitleLogin = styled(Title)`
+export const TitleSignIn = styled(Title)`
   margin: 0px;
 `;

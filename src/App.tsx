@@ -8,8 +8,8 @@ import { managerglobalRoutes } from './modules/admin/managerglobal/routes';
 import { playerglobalRoutes } from './modules/admin/playerglobal/routes';
 import { teamglobalRoutes } from './modules/admin/teamglobal/routes';
 import { firstScreenRoutes } from './modules/firstScreen/routes';
-import { loginRoutes } from './modules/shared/login/routes';
-import { newAccountRoutes } from './modules/shared/newAccount/routes';
+import { signInRoutes } from './modules/shared/signIn/routes';
+import { signUpRoutes } from './modules/shared/signUp/routes';
 import { saveRoutes } from './modules/user/save/routes';
 import { URL_USER_LOGGED_IN } from './shared/constants/urls';
 import { MethodsEnum } from './shared/enums/Methods.enum';
@@ -23,7 +23,7 @@ import { useNewRequests } from './shared/hooks/useNewRequests';
 import { useNotification } from './shared/hooks/useNotification';
 import { useGlobalReducer } from './store/reducers/globalReducer/useGlobalReducer';
 
-const routes: RouteObject[] = [...loginRoutes, ...newAccountRoutes];
+const routes: RouteObject[] = [...signInRoutes, ...signUpRoutes];
 
 const routesLoggedIn: RouteObject[] = [...firstScreenRoutes].map((route) => ({
   ...route,

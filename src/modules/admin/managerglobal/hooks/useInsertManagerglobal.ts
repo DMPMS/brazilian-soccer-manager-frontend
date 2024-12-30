@@ -13,7 +13,7 @@ import {
   MANAGERGLOBAL_MIN_LENGH_NAME,
 } from '../../../../shared/constants/others';
 import { URL_MANAGERGLOBAL, URL_MANAGERGLOBAL_ID } from '../../../../shared/constants/urls';
-import { InsertManagerglobalDTO } from '../../../../shared/dtos/InsertManagerglobal.dto';
+import { InsertManagerglobalDTO } from '../../../../shared/dtos/insertManagerglobal.dto';
 import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
 import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';

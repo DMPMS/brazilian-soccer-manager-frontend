@@ -3,14 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import ButtonProject from '../../../shared/components/buttons/button/ButtonProject';
 import FlexProject from '../../../shared/components/flex/FlexProject';
 import { LimitedContainerCardProject } from '../../../shared/components/styles/limited.styled';
-import { LoginRoutesEnum } from '../../shared/login/routes';
+import { SignInRoutesEnum } from '../../shared/signIn/routes';
 import { DescriptionNotFound, ImageNotFound, TitleNotFound } from '../styles/pageNotFound.styles';
 
 const PageNotFound = () => {
   const navigate = useNavigate();
 
   const handleOnClickButton = () => {
-    navigate(LoginRoutesEnum.LOGIN);
+    navigate(SignInRoutesEnum.SIGN_IN);
   };
 
   return (

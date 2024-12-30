@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const { Title } = Typography;
 
-export const TitleNewAccount = styled(Title)`
+export const TitleSignUp = styled(Title)`
   text-align: center;
   margin: 0px;
 `;

@@ -2,13 +2,13 @@ import { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { DEFAULT_LOGIN } from '../../../../shared/constants/dtos';
+import { DEFAULT_SIGN_IN } from '../../../../shared/constants/dtos';
 import {
   ERROR_BACKEND_INVALID_PASSWORD,
   ERROR_INVALID_PASSWORD,
 } from '../../../../shared/constants/errorsStatus';
 import { URL_AUTH } from '../../../../shared/constants/urls';
-import { LoginDTO } from '../../../../shared/dtos/login.dto.';
+import { SignInDTO } from '../../../../shared/dtos/signIn.dto';
 import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
 import { setAuthorizationToken } from '../../../../shared/functions/connection/auth';
 import { isValidEmail } from '../../../../shared/functions/isValideEmail';
@@ -16,43 +16,43 @@ import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
 import { AuthType } from '../../../../shared/types/Auth.type';
 import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';
 import { FirstScreenRoutesEnum } from '../../../firstScreen/routes';
-import { NewAccountRoutesEnum } from '../../newAccount/routes';
+import { SignUpRoutesEnum } from '../../signUp/routes';
 
-export const useLogin = () => {
+export const useSignIn = () => {
   const { setNotification, setUser } = useGlobalReducer();
 
   const { newRequest, loading } = useNewRequests();
   const navigate = useNavigate();
 
   const [disabledButton, setDisabledButton] = useState(true);
-  const [login, setLogin] = useState<LoginDTO>(DEFAULT_LOGIN);
+  const [signIn, setSignIn] = useState<SignInDTO>(DEFAULT_SIGN_IN);
 
   useEffect(() => {
-    if (login.email && login.password && isValidEmail(login.email)) {
+    if (signIn.email && signIn.password && isValidEmail(signIn.email)) {
       setDisabledButton(false);
     } else {
       setDisabledButton(true);
     }
-  }, [login]);
+  }, [signIn]);
 
   const handleOnChangeInput = (event: React.ChangeEvent<HTMLInputElement>, nameObject: string) => {
     const inputValue = event.target.value;
 
-    setLogin({
-      ...login,
+    setSignIn({
+      ...signIn,
       [nameObject]: nameObject === 'email' ? inputValue.toLowerCase() : inputValue,
     });
   };
 
-  const handleOnClickLogin = () => {
+  const handleOnClickSignIn = () => {
     newRequest(
       MethodsEnum.POST,
       URL_AUTH,
       true,
       {},
       {
-        email: login.email,
-        password: login.password,
+        email: signIn.email,
+        password: signIn.password,
       },
     )
       .then((data: AuthType) => {
@@ -71,15 +71,15 @@ export const useLogin = () => {
       });
   };
 
-  const handleOnClickNewAccount = () => {
-    navigate(NewAccountRoutesEnum.NEW_ACCOUNT);
+  const handleOnClickSignUp = () => {
+    navigate(SignUpRoutesEnum.SIGN_UP);
   };
 
   return {
     loading,
     disabledButton,
     handleOnChangeInput,
-    handleOnClickLogin,
-    handleOnClickNewAccount,
+    handleOnClickSignIn,
+    handleOnClickSignUp,
   };
 };

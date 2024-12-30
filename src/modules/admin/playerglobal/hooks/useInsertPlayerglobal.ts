@@ -24,7 +24,7 @@ import {
   URL_PLAYERGLOBAL_ID,
   URL_TEAMGLOBAL,
 } from '../../../../shared/constants/urls';
-import { InsertPlayerglobalDTO } from '../../../../shared/dtos/InsertPlayerglobal.dto';
+import { InsertPlayerglobalDTO } from '../../../../shared/dtos/insertPlayerglobal.dto';
 import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
 import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';

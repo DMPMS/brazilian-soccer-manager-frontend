@@ -1,9 +1,9 @@
-export const DEFAULT_LOGIN = {
+export const DEFAULT_SIGN_IN = {
   email: '',
   password: '',
 };
 
-export const DEFAULT_USER = {
+export const DEFAULT_SIGN_UP = {
   name: '',
   birthdate: '',
   countryId: undefined,

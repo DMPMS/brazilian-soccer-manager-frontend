@@ -25,10 +25,10 @@ import {
 } from '../../../../shared/constants/others';
 import { CountryType } from '../../../../shared/types/Country.type';
 import { useCountry } from '../../country/hooks/useCountry';
-import { useNewAccount } from '../hooks/useNewAccount';
-import { TitleNewAccount } from '../styles/newAccount.style';
+import { useSignUp } from '../hooks/useSignUp';
+import { TitleSignUp } from '../styles/signUp';
 
-const NewAccount = () => {
+const SignUp = () => {
   const {
     loading,
     disabledButton,
@@ -39,14 +39,14 @@ const NewAccount = () => {
     handleOnClickReset,
     handleOnClickCancel,
     handleOnChangeCountrySelect,
-  } = useNewAccount();
+  } = useSignUp();
 
   const { countries } = useCountry();
 
   return (
     <FlexProject justify="center" align="center" style={{ height: '100vh' }}>
       <LimitedContainerCardProject width={605} margin="10px">
-        <TitleNewAccount level={3}>Nova Conta</TitleNewAccount>
+        <TitleSignUp level={3}>Nova Conta</TitleSignUp>
 
         <Form layout="vertical" form={formUser} onFinish={handleOnClickInsert}>
           <FlexProject justify="space-between">
@@ -250,4 +250,4 @@ const NewAccount = () => {
   );
 };
 
-export default NewAccount;
+export default SignUp;

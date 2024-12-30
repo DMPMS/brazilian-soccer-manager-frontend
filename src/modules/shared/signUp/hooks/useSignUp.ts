@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { DEFAULT_USER } from '../../../../shared/constants/dtos';
+import { DEFAULT_SIGN_UP } from '../../../../shared/constants/dtos';
 import {
   ERROR_BACKEND_EMAIL_ALREADY_REGISTERED,
   ERROR_BACKEND_INVALID_PASSWORD,
@@ -21,23 +21,23 @@ import {
   USER_MIN_LENGH_PASSWORD,
 } from '../../../../shared/constants/others';
 import { URL_AUTH, URL_USER } from '../../../../shared/constants/urls';
-import { createUserDTO } from '../../../../shared/dtos/createUser.dto';
+import { signUpDTO } from '../../../../shared/dtos/signUp.dto';
 import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
 import { setAuthorizationToken } from '../../../../shared/functions/connection/auth';
 import { isValidEmail } from '../../../../shared/functions/isValideEmail';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
 import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';
 import { SaveRoutesEnum } from '../../../user/save/routes';
-import { LoginRoutesEnum } from '../../login/routes';
+import { SignInRoutesEnum } from '../../signIn/routes';
 
-export const useNewAccount = () => {
+export const useSignUp = () => {
   const { setNotification, setUser: setUserReducer } = useGlobalReducer();
 
   const { newRequest, loading } = useNewRequests();
   const navigate = useNavigate();
 
   const [disabledButton, setDisabledButton] = useState(true);
-  const [user, setUser] = useState<createUserDTO>(DEFAULT_USER);
+  const [user, setUser] = useState<signUpDTO>(DEFAULT_SIGN_UP);
 
   const [formUser] = useForm();
 
@@ -137,12 +137,12 @@ export const useNewAccount = () => {
   };
 
   const handleOnClickReset = () => {
-    setUser(DEFAULT_USER);
+    setUser(DEFAULT_SIGN_UP);
     formUser.resetFields();
   };
 
   const handleOnClickCancel = () => {
-    navigate(LoginRoutesEnum.LOGIN);
+    navigate(SignInRoutesEnum.SIGN_IN);
   };
 
   return {

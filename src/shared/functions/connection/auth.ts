@@ -1,6 +1,6 @@
 import { LoaderFunction, NavigateFunction, redirect } from 'react-router-dom';
 
-import { LoginRoutesEnum } from '../../../modules/shared/login/routes';
+import { SignInRoutesEnum } from '../../../modules/shared/signIn/routes';
 import { AUTHORIZATION_KEY } from '../../constants/authorizationConstants';
 import { URL_USER_LOGGED_IN } from '../../constants/urls';
 import { UserUserTypeEnum } from '../../enums/UserUserType.enum';
@@ -34,7 +34,7 @@ export const verifyUserTypeLoggedIn = (userType: UserUserTypeEnum): LoaderFuncti
   return async () => {
     const token = getAuthorizationToken();
     if (!token) {
-      return redirect(LoginRoutesEnum.LOGIN);
+      return redirect(SignInRoutesEnum.SIGN_IN);
     }
 
     const user = await connectionAPIGet<UserType>(URL_USER_LOGGED_IN).catch(() => {
@@ -42,7 +42,7 @@ export const verifyUserTypeLoggedIn = (userType: UserUserTypeEnum): LoaderFuncti
     });
 
     if (!user) {
-      return redirect(LoginRoutesEnum.LOGIN);
+      return redirect(SignInRoutesEnum.SIGN_IN);
     }
 
     const tokenSplited = token.split('.');
@@ -51,10 +51,10 @@ export const verifyUserTypeLoggedIn = (userType: UserUserTypeEnum): LoaderFuncti
       const decodedToken = JSON.parse(window.atob(tokenSplited[1])) as UserTokenType;
 
       if (decodedToken.userType !== userType) {
-        return redirect(LoginRoutesEnum.LOGIN);
+        return redirect(SignInRoutesEnum.SIGN_IN);
       }
     } else {
-      return redirect(LoginRoutesEnum.LOGIN);
+      return redirect(SignInRoutesEnum.SIGN_IN);
     }
 
     return null;
@@ -65,7 +65,7 @@ export const verifyLoggedIn = (): LoaderFunction => {
   return async () => {
     const token = getAuthorizationToken();
     if (!token) {
-      return redirect(LoginRoutesEnum.LOGIN);
+      return redirect(SignInRoutesEnum.SIGN_IN);
     }
 
     const user = await connectionAPIGet<UserType>(URL_USER_LOGGED_IN).catch(() => {
@@ -73,7 +73,7 @@ export const verifyLoggedIn = (): LoaderFunction => {
     });
 
     if (!user) {
-      return redirect(LoginRoutesEnum.LOGIN);
+      return redirect(SignInRoutesEnum.SIGN_IN);
     }
 
     return null;
@@ -82,5 +82,5 @@ export const verifyLoggedIn = (): LoaderFunction => {
 
 export const logout = (navigate: NavigateFunction) => {
   unsetAuthorizationToken();
-  navigate(LoginRoutesEnum.LOGIN);
+  navigate(SignInRoutesEnum.SIGN_IN);
 };

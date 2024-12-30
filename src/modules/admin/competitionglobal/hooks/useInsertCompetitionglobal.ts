@@ -14,7 +14,7 @@ import {
   URL_COMPETITIONGLOBAL_ID,
   URL_TEAMGLOBAL,
 } from '../../../../shared/constants/urls';
-import { InsertCompetitionglobalDTO } from '../../../../shared/dtos/InsertCompetitonglobal.dto';
+import { InsertCompetitionglobalDTO } from '../../../../shared/dtos/insertCompetitonglobal.dto';
 import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
 import { useCompetitionglobalReducer } from '../../../../store/reducers/competitionglobalReducer/useCompetitionglobalReducer';

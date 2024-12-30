@@ -17,7 +17,7 @@ import {
 } from '../../../../shared/constants/others';
 import { URL_SAVE } from '../../../../shared/constants/urls';
 import { CustomManagerDTO } from '../../../../shared/dtos/customManager.dto';
-import { InsertSaveDTO } from '../../../../shared/dtos/InsertSave.dto';
+import { InsertSaveDTO } from '../../../../shared/dtos/insertSave.dto';
 import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
 import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';
