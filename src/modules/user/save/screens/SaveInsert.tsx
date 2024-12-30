@@ -168,8 +168,14 @@ const SaveInsert = () => {
                       .filter(
                         (competitionglobal: CompetitionglobalType) =>
                           competitionglobal.country?.id === selectedCompetitionsglobalCountryId &&
-                          competitionglobal.rule?.competitionType ===
-                            RuleCompetitionTypeEnum.League,
+                          (competitionglobal.rule?.competitionType ===
+                            RuleCompetitionTypeEnum.BrazilianLeagueA ||
+                            competitionglobal.rule?.competitionType ===
+                              RuleCompetitionTypeEnum.BrazilianLeagueB ||
+                            competitionglobal.rule?.competitionType ===
+                              RuleCompetitionTypeEnum.BrazilianLeagueC ||
+                            competitionglobal.rule?.competitionType ===
+                              RuleCompetitionTypeEnum.BrazilianLeagueD),
                       )
                       .map((competitionglobal: CompetitionglobalType) => ({
                         value: `${competitionglobal.id}`,
@@ -387,27 +393,27 @@ const SaveInsert = () => {
               </LimitedContainerProject>
             </FlexProject>
           </FlexProject>
+
+          <FlexProject justify="space-between">
+            <div>
+              <ButtonProject onClick={handleOnClickCancel}>Cancelar</ButtonProject>
+            </div>
+            <div>
+              <ButtonProject onClick={handleOnClickReset} margin="0px 8px 0px 0px">
+                Resetar
+              </ButtonProject>
+
+              <ButtonProject
+                loading={loading}
+                disabled={disabledButton}
+                type="primary"
+                htmlType="submit"
+              >
+                Criar jogo
+              </ButtonProject>
+            </div>
+          </FlexProject>
         </Form>
-
-        <FlexProject justify="space-between">
-          <div>
-            <ButtonProject onClick={handleOnClickCancel}>Cancelar</ButtonProject>
-          </div>
-          <div>
-            <ButtonProject onClick={handleOnClickReset} margin="0px 8px 0px 0px">
-              Resetar
-            </ButtonProject>
-
-            <ButtonProject
-              loading={loading}
-              disabled={disabledButton}
-              type="primary"
-              htmlType="submit"
-            >
-              Criar jogo
-            </ButtonProject>
-          </div>
-        </FlexProject>
       </LimitedContainerCardProject>
     </FlexProject>
   );

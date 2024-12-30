@@ -162,7 +162,9 @@ export const useInsertSave = () => {
       formSave.resetFields(['managerName', 'managerBirthdate', 'managerCountryId']);
 
       const managerglobal = managersglobal.find(
-        (managerglobal) => managerglobal.teamglobal?.id === save.teamglobalId,
+        (managerglobal) =>
+          managerglobal.teamglobal?.id === save.teamglobalId &&
+          managerglobal.teamglobal !== undefined,
       );
 
       formSave.setFieldsValue({
