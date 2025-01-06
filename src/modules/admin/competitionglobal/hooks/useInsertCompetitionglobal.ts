@@ -134,6 +134,8 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
     } else {
       setDisabledButton(true);
     }
+
+    console.log(competitionglobal);
   }, [competitionglobal]);
 
   const handleOnChangeInput = (event: React.ChangeEvent<HTMLInputElement>, nameObject: string) => {
@@ -148,21 +150,33 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
   const handleOnChangeRuleSelect = (value: string) => {
     const selectValue = value ? Number(value) : undefined;
 
-    setCompetitionglobal({
-      ...competitionglobal,
-      ruleId: selectValue,
-      ...(selectValue === undefined && { teamglobalIds: [] }),
-    });
-
     if (selectValue) {
       const selectedRule = rules.find((rule) => rule.id === selectValue);
 
       if (selectedRule) {
         setRuleNumberOfTeams(selectedRule.numberOfTeams);
+
+        formCompetitionglobal.setFieldsValue({
+          name: selectedRule.default_competition_name,
+          srcImage: selectedRule.default_competition_src_image,
+        });
+
+        setCompetitionglobal({
+          ...competitionglobal,
+          ruleId: selectValue,
+          name: selectedRule.default_competition_name,
+          srcImage: selectedRule.default_competition_src_image,
+        });
       }
     } else {
       setRuleNumberOfTeams(0);
       setTeamglobalIdsCount(0);
+
+      setCompetitionglobal({
+        ...competitionglobal,
+        ruleId: selectValue,
+        teamglobalIds: [],
+      });
 
       formCompetitionglobal.resetFields(['teamglobalIds']);
     }

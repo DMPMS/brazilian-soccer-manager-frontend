@@ -151,6 +151,25 @@ const CompetitionglobalInsert = () => {
             <Form layout="vertical" form={formCompetitionglobal} onFinish={handleOnClickInsert}>
               <FlexProject justify="space-between">
                 <LimitedContainerCardProject width={400}>
+                  <Form.Item
+                    label="Regras"
+                    name="ruleId"
+                    required
+                    rules={[{ required: true, message: 'Este campo deve ser preenchido.' }]}
+                  >
+                    <SelectProject
+                      placeholder="Selecione as regras"
+                      allowClear
+                      onChange={handleOnChangeRuleSelect}
+                      options={rules.map((rule: RuleType) => ({
+                        value: `${rule.id}`,
+                        label: `${rule.name}`,
+                        disabled: !competitionglobalWithRuleCanBeCreated(rule),
+                      }))}
+                      disabled={isEdit}
+                    />
+                  </Form.Item>
+
                   <FlexProject justify="space-between">
                     <LimitedContainerProject width={250}>
                       <Form.Item
@@ -209,25 +228,6 @@ const CompetitionglobalInsert = () => {
                     <InputProject
                       placeholder="Caminho da imagem"
                       onChange={(event) => handleOnChangeInput(event, 'srcImage')}
-                    />
-                  </Form.Item>
-
-                  <Form.Item
-                    label="Regras"
-                    name="ruleId"
-                    required
-                    rules={[{ required: true, message: 'Este campo deve ser preenchido.' }]}
-                  >
-                    <SelectProject
-                      placeholder="Selecione as regras"
-                      allowClear
-                      onChange={handleOnChangeRuleSelect}
-                      options={rules.map((rule: RuleType) => ({
-                        value: `${rule.id}`,
-                        label: `${rule.name}`,
-                        disabled: !competitionglobalWithRuleCanBeCreated(rule),
-                      }))}
-                      disabled={isEdit}
                     />
                   </Form.Item>
 
