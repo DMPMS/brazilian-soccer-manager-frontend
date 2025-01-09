@@ -41,7 +41,11 @@ const CompetitionglobalInsert = () => {
     loadingCompetitionglobal,
     formCompetitionglobal,
     ruleNumberOfTeams,
+    ruleCompetitionType,
     teamglobalIdsCount,
+    teamglobalOfCompetitionglobalReducerIds,
+    teamglobalWithoutCompetitionglobalRuleTypeLeagueIds,
+    teamglobalWithoutCompetitionglobalRuleTypeCupIds,
     handleOnChangeInput,
     handleOnClickInsert,
     handleOnClickReset,
@@ -325,20 +329,41 @@ const CompetitionglobalInsert = () => {
                       maxCount={ruleNumberOfTeams}
                       disabled={ruleNumberOfTeams === 0}
                       onChange={handleOnChangeTeamglobalSelect}
-                      options={teamsglobal.map((teamglobal: TeamglobalType) => ({
-                        value: `${teamglobal.id}`,
-                        label: (
-                          <FlexProject justify="flex-start" align="center">
-                            <ImageProject
-                              src={teamglobal.srcImage}
-                              width={20}
-                              height={20}
-                              margin="0px 5px 0px 0px"
-                            />
-                            <text>{teamglobal.name}</text>
-                          </FlexProject>
-                        ),
-                      }))}
+                      options={teamsglobal
+                        .filter((teamglobal: TeamglobalType) =>
+                          ruleCompetitionType !== undefined &&
+                          [
+                            RuleCompetitionTypeEnum.BrazilianLeagueA,
+                            RuleCompetitionTypeEnum.BrazilianLeagueB,
+                            RuleCompetitionTypeEnum.BrazilianLeagueC,
+                            RuleCompetitionTypeEnum.BrazilianLeagueD,
+                          ].includes(ruleCompetitionType)
+                            ? [
+                                ...teamglobalOfCompetitionglobalReducerIds,
+                                ...teamglobalWithoutCompetitionglobalRuleTypeLeagueIds,
+                              ].includes(teamglobal.id)
+                            : ruleCompetitionType !== undefined &&
+                                [RuleCompetitionTypeEnum.BrazilianCup].includes(ruleCompetitionType)
+                              ? [
+                                  ...teamglobalOfCompetitionglobalReducerIds,
+                                  ...teamglobalWithoutCompetitionglobalRuleTypeCupIds,
+                                ].includes(teamglobal.id)
+                              : true,
+                        )
+                        .map((teamglobal: TeamglobalType) => ({
+                          value: `${teamglobal.id}`,
+                          label: (
+                            <FlexProject justify="flex-start" align="center">
+                              <ImageProject
+                                src={teamglobal.srcImage}
+                                width={20}
+                                height={20}
+                                margin="0px 5px 0px 0px"
+                              />
+                              <text>{teamglobal.name}</text>
+                            </FlexProject>
+                          ),
+                        }))}
                       showSearch
                       filterOption={(input, option) =>
                         option.label.props.children[1].props.children

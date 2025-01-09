@@ -95,8 +95,6 @@ export const useCompetitionglobal = () => {
           competitionglobal.rule?.competitionType === RuleCompetitionTypeEnum.BrazilianLeagueD,
       );
 
-      console.log(competitionglobalWithRuleBrazilianLeagueDExists);
-
       if (competitionglobalWithRuleBrazilianLeagueDExists) {
         return false;
       }
