@@ -31,6 +31,7 @@ import {
   PLAYERGLOBAL_MIN_LENGH_NAME,
   PLAYERGLOBAL_MIN_OVERALL,
   TEAMGLOBAL_MAX_PLAYERSGLOBAL,
+  TEAMGLOBAL_MIN_PLAYERSGLOBAL,
 } from '../../../../shared/constants/others';
 import { PLAYERGLOBAL_MIN_PRIMARY_POSITIONS } from '../../../../shared/constants/others';
 import { CountryType } from '../../../../shared/types/Country.type';
@@ -52,6 +53,7 @@ const PlayerglobalInsert = () => {
     isEdit,
     loadingPlayerglobal,
     formPlayerglobal,
+    playersglobalInTeamglobalOfPlayerglobalReducerCount,
     playerglobalReducerTeamglobalId,
     playerglobal,
     handleOnChangeInput,
@@ -254,7 +256,7 @@ const PlayerglobalInsert = () => {
                     name="teamglobalId"
                     tooltip={{
                       title:
-                        'Times que já atingiram o número máximo de jogadores aparecerão como uma opção desabilitada.',
+                        'Times que já atingiram o número máximo de jogadores aparecerão como uma opção desabilitada. Se o time tiver o número mínimo de jogadores, este campo estará desabilitado.',
                       icon: <InfoCircleOutlined />,
                     }}
                   >
@@ -265,7 +267,7 @@ const PlayerglobalInsert = () => {
                       options={teamsglobal.map((teamglobal: TeamglobalType) => ({
                         value: `${teamglobal.id}`,
                         disabled:
-                          teamglobal.playersglobalCount === TEAMGLOBAL_MAX_PLAYERSGLOBAL
+                          teamglobal.playersglobalCount >= TEAMGLOBAL_MAX_PLAYERSGLOBAL
                             ? teamglobal.id === playerglobalReducerTeamglobalId
                               ? false
                               : true
@@ -294,6 +296,11 @@ const PlayerglobalInsert = () => {
                           .localeCompare(
                             optionB.label.props.children[1].props.children.toLowerCase(),
                           )
+                      }
+                      disabled={
+                        playersglobalInTeamglobalOfPlayerglobalReducerCount !== undefined &&
+                        playersglobalInTeamglobalOfPlayerglobalReducerCount <=
+                          TEAMGLOBAL_MIN_PLAYERSGLOBAL
                       }
                     />
                   </Form.Item>

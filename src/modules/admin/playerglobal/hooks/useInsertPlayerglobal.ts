@@ -260,6 +260,8 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
     isEdit,
     loadingPlayerglobal,
     formPlayerglobal,
+    playersglobalInTeamglobalOfPlayerglobalReducerCount:
+      playerglobalReducer?.teamglobal?.playersglobalCount,
     playerglobalReducerTeamglobalId: playerglobalReducer?.teamglobal?.id,
     playerglobal,
     handleOnChangeInput,

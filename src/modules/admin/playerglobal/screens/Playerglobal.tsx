@@ -12,7 +12,10 @@ import { LimitedContainerProject } from '../../../../shared/components/styles/li
 import CountrySVGProject from '../../../../shared/components/svg/CountrySVGProject';
 import TableProject from '../../../../shared/components/table/TableProject';
 import PositionTagProject from '../../../../shared/components/tags/positionTag/PositionTagProject';
-import { PLAYERGLOBAL_PRIMARY_POSITION_RATING } from '../../../../shared/constants/others';
+import {
+  PLAYERGLOBAL_PRIMARY_POSITION_RATING,
+  TEAMGLOBAL_MIN_PLAYERSGLOBAL,
+} from '../../../../shared/constants/others';
 import { PlayerglobalType } from '../../../../shared/types/Playerglobal.type';
 import { HomeRoutesEnum } from '../../home/routes';
 import { usePlayerglobal } from '../hooks/usePlayerglobal';
@@ -105,7 +108,9 @@ const Playerglobal = () => {
               onClick={() => handleOnEdit(target.id)}
               icon={<EditOutlined />}
             ></ButtonProject>
-            {!target.teamglobal && (
+            {(!target.teamglobal ||
+              (target.teamglobal &&
+                target.teamglobal.playersglobalCount > TEAMGLOBAL_MIN_PLAYERSGLOBAL)) && (
               <ButtonProject
                 type="primary"
                 danger
