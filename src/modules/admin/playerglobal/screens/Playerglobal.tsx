@@ -6,7 +6,7 @@ import { useMemo } from 'react';
 
 import ButtonProject from '../../../../shared/components/buttons/button/ButtonProject';
 import FlexProject from '../../../../shared/components/flex/FlexProject';
-import ImageProject from '../../../../shared/components/image/ImageProject';
+import ImageProject from '../../../../shared/components/images/imageProject/ImageProject';
 import Screen from '../../../../shared/components/screen/ScreenProject';
 import { LimitedContainerProject } from '../../../../shared/components/styles/limited.styled';
 import CountrySVGProject from '../../../../shared/components/svg/CountrySVGProject';

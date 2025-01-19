@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import ButtonProject from '../../../../shared/components/buttons/button/ButtonProject';
 import DatePickerProject from '../../../../shared/components/datepickers/datePickerProject';
 import FlexProject from '../../../../shared/components/flex/FlexProject';
-import ImageProject from '../../../../shared/components/image/ImageProject';
+import ImageProject from '../../../../shared/components/images/imageProject/ImageProject';
 import InputProject from '../../../../shared/components/inputs/input/InputProject';
 import SelectProject from '../../../../shared/components/select/SelectProject';
 import {

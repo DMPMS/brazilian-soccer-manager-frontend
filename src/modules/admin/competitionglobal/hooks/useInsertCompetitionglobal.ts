@@ -17,6 +17,7 @@ import {
 import { InsertCompetitionglobalDTO } from '../../../../shared/dtos/insertCompetitonglobal.dto';
 import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
 import { RuleCompetitionTypeEnum } from '../../../../shared/enums/RuleCompetitionType.enum';
+import { validateImage } from '../../../../shared/functions/validateImage';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
 import { TeamglobalType } from '../../../../shared/types/Teamglobal.type';
 import { useCompetitionglobalReducer } from '../../../../store/reducers/competitionglobalReducer/useCompetitionglobalReducer';
@@ -47,6 +48,8 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
 
   const { rules } = useRule();
 
+  const [isValidImage, setIsValidImage] = useState<boolean>(false); // It's on top
+  const [srcImage, setSrcImage] = useState<string>('');
   const [ruleNumberOfTeams, setRuleNumberOfTeams] = useState<number>(0);
   const [ruleCompetitionType, setRuleCompetitionType] = useState<
     RuleCompetitionTypeEnum | undefined
@@ -83,19 +86,15 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
       });
 
       if (competitionglobalId) {
-        const findAndSetCompetitionglobalReducer = async (competitionglobalId: string) => {
-          await newRequest(
-            MethodsEnum.GET,
-            URL_COMPETITIONGLOBAL_ID.replace('{competitionglobalId}', competitionglobalId),
-          ).then((data) => {
-            setCompetitionglobalReducer(data);
-          });
-
-          setLoadingCompetitionglobal(false);
-        };
+        await newRequest(
+          MethodsEnum.GET,
+          URL_COMPETITIONGLOBAL_ID.replace('{competitionglobalId}', competitionglobalId),
+        ).then((data) => {
+          setCompetitionglobalReducer(data);
+        });
 
         setIsEdit(true);
-        findAndSetCompetitionglobalReducer(competitionglobalId);
+        setLoadingCompetitionglobal(false);
       } else {
         setIsEdit(false);
         setCompetitionglobalReducer(undefined);
@@ -107,61 +106,70 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
   }, [competitionglobalId]);
 
   useEffect(() => {
-    if (competitionglobalReducer) {
-      const teamglobalIds: number[] = [];
+    const fetchData = async () => {
+      if (competitionglobalReducer) {
+        const teamglobalIds: number[] = [];
 
-      competitionglobalReducer.competitionsglobalTeamglobal?.forEach(
-        (competitionglobalTeamglobal) => {
-          if (competitionglobalTeamglobal.teamglobal) {
-            teamglobalIds.push(competitionglobalTeamglobal.teamglobal.id);
-          }
-        },
-      );
+        competitionglobalReducer.competitionsglobalTeamglobal?.forEach(
+          (competitionglobalTeamglobal) => {
+            if (competitionglobalTeamglobal.teamglobal) {
+              teamglobalIds.push(competitionglobalTeamglobal.teamglobal.id);
+            }
+          },
+        );
 
-      setCompetitionglobal({
-        name: competitionglobalReducer.name,
-        season: competitionglobalReducer.season,
-        srcImage: competitionglobalReducer.srcImage,
-        ruleId: competitionglobalReducer.rule?.id,
-        countryId: competitionglobalReducer.country?.id,
-        teamglobalIds: teamglobalIds,
-      });
+        setCompetitionglobal({
+          name: competitionglobalReducer.name,
+          season: competitionglobalReducer.season,
+          srcImage: competitionglobalReducer.srcImage,
+          ruleId: competitionglobalReducer.rule?.id,
+          countryId: competitionglobalReducer.country?.id,
+          teamglobalIds: teamglobalIds,
+        });
 
-      formCompetitionglobal.setFieldsValue({
-        name: competitionglobalReducer.name,
-        season: competitionglobalReducer.season,
-        srcImage: competitionglobalReducer.srcImage,
-        ruleId:
-          competitionglobalReducer.rule?.id !== undefined
-            ? `${competitionglobalReducer.rule.id}`
-            : undefined,
-        countryId:
-          competitionglobalReducer.country?.id !== undefined
-            ? `${competitionglobalReducer.country.id}`
-            : undefined,
-        teamglobalIds:
-          teamglobalIds.length !== 0
-            ? teamglobalIds.map((teamglobalId) => `${teamglobalId}`)
-            : undefined,
-      });
+        formCompetitionglobal.setFieldsValue({
+          name: competitionglobalReducer.name,
+          season: competitionglobalReducer.season,
+          srcImage: competitionglobalReducer.srcImage,
+          ruleId:
+            competitionglobalReducer.rule?.id !== undefined
+              ? `${competitionglobalReducer.rule.id}`
+              : undefined,
+          countryId:
+            competitionglobalReducer.country?.id !== undefined
+              ? `${competitionglobalReducer.country.id}`
+              : undefined,
+          teamglobalIds:
+            teamglobalIds.length !== 0
+              ? teamglobalIds.map((teamglobalId) => `${teamglobalId}`)
+              : undefined,
+        });
 
-      setRuleNumberOfTeams(competitionglobalReducer.rule?.numberOfTeams || 0);
-      setRuleCompetitionType(competitionglobalReducer.rule?.competitionType);
-      setTeamglobalIdsCount(teamglobalIds.length);
+        setIsValidImage((await validateImage(competitionglobalReducer.srcImage)) ? true : false);
+        setSrcImage(competitionglobalReducer.srcImage);
 
-      setTeamglobalOfCompetitionglobalReducerIds(
-        (competitionglobalReducer.competitionsglobalTeamglobal || [])
-          .map((item) => item.teamglobal?.id)
-          .filter((teamglobal): teamglobal is number => teamglobal !== undefined),
-      );
-    } else {
-      setCompetitionglobal(DEFAULT_COMPETITIONGLOBAL);
-      formCompetitionglobal.resetFields();
-      setRuleNumberOfTeams(0);
-      setRuleCompetitionType(undefined);
-      setTeamglobalIdsCount(0);
-      setTeamglobalOfCompetitionglobalReducerIds([]);
-    }
+        setRuleNumberOfTeams(competitionglobalReducer.rule?.numberOfTeams || 0);
+        setRuleCompetitionType(competitionglobalReducer.rule?.competitionType);
+        setTeamglobalIdsCount(teamglobalIds.length);
+
+        setTeamglobalOfCompetitionglobalReducerIds(
+          (competitionglobalReducer.competitionsglobalTeamglobal || [])
+            .map((item) => item.teamglobal?.id)
+            .filter((teamglobal): teamglobal is number => teamglobal !== undefined),
+        );
+      } else {
+        setCompetitionglobal(DEFAULT_COMPETITIONGLOBAL);
+        formCompetitionglobal.resetFields();
+        setIsValidImage(false);
+        setSrcImage('');
+        setRuleNumberOfTeams(0);
+        setRuleCompetitionType(undefined);
+        setTeamglobalIdsCount(0);
+        setTeamglobalOfCompetitionglobalReducerIds([]);
+      }
+    };
+
+    fetchData();
   }, [competitionglobalReducer]);
 
   useEffect(() => {
@@ -173,21 +181,30 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
       competitionglobal.srcImage &&
       competitionglobal.ruleId &&
       competitionglobal.countryId &&
-      competitionglobal.teamglobalIds.length === ruleNumberOfTeams
+      competitionglobal.teamglobalIds.length === ruleNumberOfTeams &&
+      isValidImage
     ) {
       setDisabledButton(false);
     } else {
       setDisabledButton(true);
     }
-  }, [competitionglobal]);
+  }, [competitionglobal, ruleNumberOfTeams, isValidImage]);
 
-  const handleOnChangeInput = (event: React.ChangeEvent<HTMLInputElement>, nameObject: string) => {
+  const handleOnChangeInput = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+    nameObject: string,
+  ) => {
     const inputValue = event.target.value;
 
     setCompetitionglobal({
       ...competitionglobal,
       [nameObject]: inputValue,
     });
+
+    if (nameObject === 'srcImage') {
+      setIsValidImage((await validateImage(inputValue)) ? true : false);
+      setSrcImage(inputValue);
+    }
   };
 
   const handleOnChangeRuleSelect = (value: string) => {
@@ -281,6 +298,8 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
   const handleOnClickReset = () => {
     setCompetitionglobal(DEFAULT_COMPETITIONGLOBAL);
     formCompetitionglobal.resetFields();
+    setIsValidImage(false);
+    setSrcImage('');
     setRuleNumberOfTeams(0);
     setRuleCompetitionType(undefined);
     setTeamglobalIdsCount(0);
@@ -296,6 +315,8 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
     isEdit,
     loadingCompetitionglobal,
     formCompetitionglobal,
+    isValidImage,
+    srcImage,
     ruleNumberOfTeams,
     ruleCompetitionType,
     teamglobalIdsCount,

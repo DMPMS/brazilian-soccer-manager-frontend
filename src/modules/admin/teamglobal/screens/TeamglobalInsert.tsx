@@ -1,8 +1,10 @@
+import { InfoCircleOutlined } from '@ant-design/icons';
 import { Form, Typography } from 'antd';
 import { useParams } from 'react-router-dom';
 
 import ButtonProject from '../../../../shared/components/buttons/button/ButtonProject';
 import FlexProject from '../../../../shared/components/flex/FlexProject';
+import ImageDivPreviewProject from '../../../../shared/components/images/imageDivPreview/ImageDivPreviewProject';
 import InputProject from '../../../../shared/components/inputs/input/InputProject';
 import LoadingProject from '../../../../shared/components/loading/LoadingProject';
 import Screen from '../../../../shared/components/screen/ScreenProject';
@@ -18,6 +20,7 @@ import {
   TEAMGLOBAL_MIN_LENGH_NAME,
   TEAMGLOBAL_MIN_PLAYERSGLOBAL,
 } from '../../../../shared/constants/others';
+import { validateImage } from '../../../../shared/functions/validateImage';
 import { CountryType } from '../../../../shared/types/Country.type';
 import { ManagerglobalType } from '../../../../shared/types/Managerglobal.type';
 import { PlayerglobalType } from '../../../../shared/types/Playerglobal.type';
@@ -35,6 +38,8 @@ const TeamglobalInsert = () => {
     isEdit,
     loadingTeamglobal,
     formTeamglobal,
+    isValidImage,
+    srcImage,
     playerglobalIdsCount,
     managerglobalOfTeamglobalReducer,
     playersglobalOfTeamglobalReducer,
@@ -103,13 +108,43 @@ const TeamglobalInsert = () => {
                     label="Caminho da imagem"
                     name="srcImage"
                     required
-                    rules={[{ required: true, message: 'Este campo deve ser preenchido.' }]}
+                    rules={[
+                      { required: true, message: 'Este campo deve ser preenchido.' },
+                      {
+                        validator: async (_, value) => {
+                          if (!value) {
+                            return Promise.resolve();
+                          }
+
+                          const isValid = await validateImage(value);
+
+                          if (!isValid) {
+                            return Promise.reject('Insira um caminho válido.');
+                          } else {
+                            return Promise.resolve();
+                          }
+                        },
+                      },
+                    ]}
+                    tooltip={{
+                      title:
+                        'Recomenda-se o uso de uma imagem de fundo transparente, com resolução de 100x100 pixels, que ocupe o máximo possível do espaço disponível no quadrado.',
+                      icon: <InfoCircleOutlined />,
+                    }}
                   >
                     <InputProject
                       placeholder="Caminho da imagem"
                       onChange={(event) => handleOnChangeInput(event, 'srcImage')}
                     />
                   </Form.Item>
+                  <FlexProject justify="center">
+                    <ImageDivPreviewProject
+                      isValidImage={isValidImage}
+                      src={srcImage}
+                      width={100}
+                      height={100}
+                    />
+                  </FlexProject>
                   <Form.Item
                     label="Nacionalidade"
                     name="countryId"

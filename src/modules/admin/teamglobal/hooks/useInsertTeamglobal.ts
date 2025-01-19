@@ -17,6 +17,7 @@ import {
 } from '../../../../shared/constants/urls';
 import { InsertTeamglobalDTO } from '../../../../shared/dtos/insertTeamglobal.dto';
 import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
+import { validateImage } from '../../../../shared/functions/validateImage';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
 import { ManagerglobalType } from '../../../../shared/types/Managerglobal.type';
 import { PlayerglobalType } from '../../../../shared/types/Playerglobal.type';
@@ -46,6 +47,8 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
 
   const [formTeamglobal] = useForm();
 
+  const [isValidImage, setIsValidImage] = useState<boolean>(false); // It's on top
+  const [srcImage, setSrcImage] = useState<string>('');
   const [playerglobalIdsCount, setPlayerglobalIdsCount] = useState<number>(0);
 
   const [managerglobalOfTeamglobalReducer, setManagerglobalOfTeamglobalReducer] = useState<
@@ -99,48 +102,57 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
   }, [teamglobalId]);
 
   useEffect(() => {
-    if (teamglobalReducer) {
-      const playerglobalIds: number[] = [];
+    const fetchData = async () => {
+      if (teamglobalReducer) {
+        const playerglobalIds: number[] = [];
 
-      teamglobalReducer.playersglobal?.forEach((playerglobal) => {
-        playerglobalIds.push(playerglobal.id);
-      });
+        teamglobalReducer.playersglobal?.forEach((playerglobal) => {
+          playerglobalIds.push(playerglobal.id);
+        });
 
-      setTeamglobal({
-        name: teamglobalReducer.name,
-        srcImage: teamglobalReducer.srcImage,
-        countryId: teamglobalReducer.country?.id,
-        managerglobalId: teamglobalReducer.managerglobal?.id,
-        playerglobalIds: playerglobalIds,
-      });
+        setTeamglobal({
+          name: teamglobalReducer.name,
+          srcImage: teamglobalReducer.srcImage,
+          countryId: teamglobalReducer.country?.id,
+          managerglobalId: teamglobalReducer.managerglobal?.id,
+          playerglobalIds: playerglobalIds,
+        });
 
-      formTeamglobal.setFieldsValue({
-        name: teamglobalReducer.name,
-        srcImage: teamglobalReducer.srcImage,
-        countryId:
-          teamglobalReducer.country?.id !== undefined
-            ? `${teamglobalReducer.country.id}`
-            : undefined,
-        managerglobalId:
-          teamglobalReducer.managerglobal?.id !== undefined
-            ? `${teamglobalReducer.managerglobal.id}`
-            : undefined,
-        playerglobalIds:
-          playerglobalIds.length !== 0
-            ? playerglobalIds.map((playerglobalId) => `${playerglobalId}`)
-            : undefined,
-      });
+        formTeamglobal.setFieldsValue({
+          name: teamglobalReducer.name,
+          srcImage: teamglobalReducer.srcImage,
+          countryId:
+            teamglobalReducer.country?.id !== undefined
+              ? `${teamglobalReducer.country.id}`
+              : undefined,
+          managerglobalId:
+            teamglobalReducer.managerglobal?.id !== undefined
+              ? `${teamglobalReducer.managerglobal.id}`
+              : undefined,
+          playerglobalIds:
+            playerglobalIds.length !== 0
+              ? playerglobalIds.map((playerglobalId) => `${playerglobalId}`)
+              : undefined,
+        });
 
-      setPlayerglobalIdsCount(teamglobalReducer.playersglobal?.length || 0);
-      setManagerglobalOfTeamglobalReducer(teamglobalReducer.managerglobal);
-      setPlayersglobalOfTeamglobalReducer(teamglobalReducer.playersglobal || []);
-    } else {
-      setTeamglobal(DEFAULT_TEAMGLOBAL);
-      formTeamglobal.resetFields();
-      setPlayerglobalIdsCount(0);
-      setManagerglobalOfTeamglobalReducer(undefined);
-      setPlayersglobalOfTeamglobalReducer([]);
-    }
+        setIsValidImage((await validateImage(teamglobalReducer.srcImage)) ? true : false);
+        setSrcImage(teamglobalReducer.srcImage);
+
+        setPlayerglobalIdsCount(teamglobalReducer.playersglobal?.length || 0);
+        setManagerglobalOfTeamglobalReducer(teamglobalReducer.managerglobal);
+        setPlayersglobalOfTeamglobalReducer(teamglobalReducer.playersglobal || []);
+      } else {
+        setTeamglobal(DEFAULT_TEAMGLOBAL);
+        formTeamglobal.resetFields();
+        setIsValidImage(false);
+        setSrcImage('');
+        setPlayerglobalIdsCount(0);
+        setManagerglobalOfTeamglobalReducer(undefined);
+        setPlayersglobalOfTeamglobalReducer([]);
+      }
+    };
+
+    fetchData();
   }, [teamglobalReducer]);
 
   useEffect(() => {
@@ -151,21 +163,30 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
       teamglobal.countryId &&
       teamglobal.managerglobalId &&
       teamglobal.playerglobalIds.length >= TEAMGLOBAL_MIN_PLAYERSGLOBAL &&
-      teamglobal.playerglobalIds.length <= TEAMGLOBAL_MAX_PLAYERSGLOBAL
+      teamglobal.playerglobalIds.length <= TEAMGLOBAL_MAX_PLAYERSGLOBAL &&
+      isValidImage
     ) {
       setDisabledButton(false);
     } else {
       setDisabledButton(true);
     }
-  }, [teamglobal]);
+  }, [teamglobal, isValidImage]);
 
-  const handleOnChangeInput = (event: React.ChangeEvent<HTMLInputElement>, nameObject: string) => {
+  const handleOnChangeInput = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+    nameObject: string,
+  ) => {
     const inputValue = event.target.value;
 
     setTeamglobal({
       ...teamglobal,
       [nameObject]: inputValue,
     });
+
+    if (nameObject === 'srcImage') {
+      setIsValidImage((await validateImage(inputValue)) ? true : false);
+      setSrcImage(inputValue);
+    }
   };
 
   const handleOnChangeCountrySelect = (value: string) => {
@@ -234,6 +255,8 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
   const handleOnClickReset = () => {
     setTeamglobal(DEFAULT_TEAMGLOBAL);
     formTeamglobal.resetFields();
+    setIsValidImage(false);
+    setSrcImage('');
     setPlayerglobalIdsCount(0);
   };
 
@@ -247,6 +270,8 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
     isEdit,
     loadingTeamglobal,
     formTeamglobal,
+    isValidImage,
+    srcImage,
     playerglobalIdsCount,
     managerglobalOfTeamglobalReducer,
     playersglobalOfTeamglobalReducer,

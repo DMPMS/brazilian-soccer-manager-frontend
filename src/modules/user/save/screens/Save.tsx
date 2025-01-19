@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 
 import ButtonProject from '../../../../shared/components/buttons/button/ButtonProject';
 import FlexProject from '../../../../shared/components/flex/FlexProject';
-import ImageProject from '../../../../shared/components/image/ImageProject';
+import ImageProject from '../../../../shared/components/images/imageProject/ImageProject';
 import ModalLogoutProject from '../../../../shared/components/modals/logout/ModalLogoutProject';
 import { LimitedContainerCardProject } from '../../../../shared/components/styles/limited.styled';
 import TableProject from '../../../../shared/components/table/TableProject';
