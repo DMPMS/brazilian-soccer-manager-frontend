@@ -26,6 +26,7 @@ import {
 } from '../../../../shared/constants/urls';
 import { InsertPlayerglobalDTO } from '../../../../shared/dtos/insertPlayerglobal.dto';
 import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
+import { PositionEnum } from '../../../../shared/enums/Position.enum';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
 import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';
 import { usePlayerglobalReducer } from '../../../../store/reducers/playerglobalReducer/usePlayerglobalReducer';
@@ -75,8 +76,8 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
 
   useEffect(() => {
     if (playerglobalReducer) {
-      const primaryPositionIds: number[] = [];
-      const secondaryPositionIds: number[] = [];
+      const primaryPositionIds: PositionEnum[] = [];
+      const secondaryPositionIds: PositionEnum[] = [];
 
       playerglobalReducer.playersglobalPosition?.forEach((playerglobalPosition) => {
         if (playerglobalPosition.position) {

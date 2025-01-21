@@ -1,21 +1,22 @@
 import { TagProps } from 'antd';
 
+import { PositionAreaEnum } from '../../../enums/PositionArea.enum';
 import { TagStyled } from './positionTagProject.style';
 
 interface PositionTagProjectProps extends TagProps {
-  area?: string;
+  area?: PositionAreaEnum;
 }
 
 const PositionTagProject = ({ area, ...props }: PositionTagProjectProps) => {
   let color: string;
 
-  if (area === 'Ataque') {
+  if (area === PositionAreaEnum.Attack) {
     color = '#f5222d';
-  } else if (area === 'Meio-Campo') {
+  } else if (area === PositionAreaEnum.Midfield) {
     color = '#52c41a';
-  } else if (area === 'Defesa') {
+  } else if (area === PositionAreaEnum.Defense) {
     color = '#1890ff';
-  } else if (area === 'Goleiro') {
+  } else if (area === PositionAreaEnum.Goalkeeper) {
     color = '#faad14';
   } else {
     color = 'default';
