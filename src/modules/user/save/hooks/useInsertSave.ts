@@ -53,7 +53,7 @@ export const useInsertSave = () => {
     number | undefined
   >(undefined);
 
-  const [selectedRadioOption, setSelectedRadioOption] = useState<string>('default');
+  const [selectedRadioOptionIsDefault, setSelectedRadioOptionIsDefault] = useState<boolean>(true);
   const [userSaveNames, setUserSaveNames] = useState<string[]>([]);
   const [customManager, setCustomManager] = useState<CustomManagerDTO>(DEFAULT_CUSTOMMANAGER);
 
@@ -150,15 +150,17 @@ export const useInsertSave = () => {
   const handleOnChangeRadio = (event: RadioChangeEvent) => {
     const radioValue = event.target.value;
 
+    const isDefaultRadioOption = radioValue === 'default';
+
     setSave({
       ...save,
-      isCustomManager: radioValue === 'default' ? false : true,
-      managerName: radioValue === 'default' ? '' : customManager.managerName,
-      managerBirthdate: radioValue === 'default' ? '' : customManager.managerBirthdate,
-      managerCountryId: radioValue === 'default' ? undefined : customManager.managerCountryId,
+      isCustomManager: isDefaultRadioOption ? false : true,
+      managerName: isDefaultRadioOption ? '' : customManager.managerName,
+      managerBirthdate: isDefaultRadioOption ? '' : customManager.managerBirthdate,
+      managerCountryId: isDefaultRadioOption ? undefined : customManager.managerCountryId,
     });
 
-    if (radioValue === 'default') {
+    if (isDefaultRadioOption) {
       formSave.resetFields(['managerName', 'managerBirthdate', 'managerCountryId']);
 
       const managerglobal = managersglobal.find(
@@ -186,7 +188,7 @@ export const useInsertSave = () => {
       });
     }
 
-    setSelectedRadioOption(radioValue);
+    setSelectedRadioOptionIsDefault(isDefaultRadioOption);
   };
 
   const handleOnChangeCompetitionglobalCountrySelect = (value: string) => {
@@ -197,9 +199,9 @@ export const useInsertSave = () => {
       competitionsglobalCountryId: selectValue,
       competitionglobalId: undefined,
       teamglobalId: undefined,
-      ...(selectedRadioOption === 'default' && { managerName: '' }),
-      ...(selectedRadioOption === 'default' && { managerBirthdate: '' }),
-      ...(selectedRadioOption === 'default' && { managerCountryId: undefined }),
+      ...(selectedRadioOptionIsDefault && { managerName: '' }),
+      ...(selectedRadioOptionIsDefault && { managerBirthdate: '' }),
+      ...(selectedRadioOptionIsDefault && { managerCountryId: undefined }),
     });
 
     setSelectedCompetitionglobalId(undefined);
@@ -207,7 +209,7 @@ export const useInsertSave = () => {
 
     formSave.resetFields(['competitionglobalId', 'teamglobalId']);
 
-    if (selectedRadioOption === 'default') {
+    if (selectedRadioOptionIsDefault) {
       formSave.resetFields(['managerName', 'managerBirthdate', 'managerCountryId']);
     }
   };
@@ -219,16 +221,16 @@ export const useInsertSave = () => {
       ...save,
       competitionglobalId: selectValue,
       teamglobalId: undefined,
-      ...(selectedRadioOption === 'default' && { managerName: '' }),
-      ...(selectedRadioOption === 'default' && { managerBirthdate: '' }),
-      ...(selectedRadioOption === 'default' && { managerCountryId: undefined }),
+      ...(selectedRadioOptionIsDefault && { managerName: '' }),
+      ...(selectedRadioOptionIsDefault && { managerBirthdate: '' }),
+      ...(selectedRadioOptionIsDefault && { managerCountryId: undefined }),
     });
 
     setSelectedCompetitionglobalId(selectValue);
 
     formSave.resetFields(['teamglobalId']);
 
-    if (selectedRadioOption === 'default') {
+    if (selectedRadioOptionIsDefault) {
       formSave.resetFields(['managerName', 'managerBirthdate', 'managerCountryId']);
     }
   };
@@ -239,12 +241,12 @@ export const useInsertSave = () => {
     setSave({
       ...save,
       teamglobalId: selectValue,
-      ...(selectedRadioOption === 'default' && { managerName: '' }),
-      ...(selectedRadioOption === 'default' && { managerBirthdate: '' }),
-      ...(selectedRadioOption === 'default' && { managerCountryId: undefined }),
+      ...(selectedRadioOptionIsDefault && { managerName: '' }),
+      ...(selectedRadioOptionIsDefault && { managerBirthdate: '' }),
+      ...(selectedRadioOptionIsDefault && { managerCountryId: undefined }),
     });
 
-    if (selectedRadioOption === 'default') {
+    if (selectedRadioOptionIsDefault) {
       if (!selectValue) {
         formSave.setFieldsValue({
           managerName: '',
@@ -310,7 +312,7 @@ export const useInsertSave = () => {
     setCompetitionsglobalDistinctCountryIds([]);
     setSelectedCompetitionsglobalCountryId(undefined);
     setSelectedCompetitionglobalId(undefined);
-    setSelectedRadioOption('default');
+    setSelectedRadioOptionIsDefault(true);
   };
 
   const handleOnClickCancel = () => {
@@ -324,7 +326,7 @@ export const useInsertSave = () => {
     competitionsglobalDistinctCountryIds,
     selectedCompetitionsglobalCountryId,
     selectedCompetitionglobalId,
-    selectedRadioOption,
+    selectedRadioOptionIsDefault,
     userSaveNames,
     handleOnChangeInput,
     handleOnChangeDatePicker,

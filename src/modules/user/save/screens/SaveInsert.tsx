@@ -43,7 +43,7 @@ const SaveInsert = () => {
     competitionsglobalDistinctCountryIds,
     selectedCompetitionsglobalCountryId,
     selectedCompetitionglobalId,
-    selectedRadioOption,
+    selectedRadioOptionIsDefault,
     userSaveNames,
     handleOnChangeInput,
     handleOnChangeDatePicker,
@@ -297,8 +297,8 @@ const SaveInsert = () => {
                   ]}
                 >
                   <InputProject
-                    placeholder={selectedRadioOption === 'default' ? 'Selecione o time' : 'Nome'}
-                    disabled={selectedRadioOption === 'default'}
+                    placeholder={selectedRadioOptionIsDefault ? 'Selecione o time' : 'Nome'}
+                    disabled={selectedRadioOptionIsDefault}
                     onChange={(event) => handleOnChangeInput(event, 'managerName')}
                   />
                 </Form.Item>
@@ -345,11 +345,11 @@ const SaveInsert = () => {
                 >
                   <DatePickerProject
                     placeholder={
-                      selectedRadioOption === 'default' ? 'Selecione o time' : 'Selecione a data'
+                      selectedRadioOptionIsDefault ? 'Selecione o time' : 'Selecione a data'
                     }
                     minDate={CURRENT_DATE_UTC.subtract(SAVE_MAX_MANAGER_AGE, 'year').startOf('day')}
                     maxDate={CURRENT_DATE_UTC.subtract(SAVE_MIN_MANAGER_AGE, 'year').startOf('day')}
-                    disabled={selectedRadioOption === 'default'}
+                    disabled={selectedRadioOptionIsDefault}
                     onChange={(date) => handleOnChangeDatePicker(date, 'managerBirthdate')}
                   />
                 </Form.Item>
@@ -363,10 +363,10 @@ const SaveInsert = () => {
                 >
                   <SelectProject
                     placeholder={
-                      selectedRadioOption === 'default' ? 'Selecione o time' : 'Selecione o país'
+                      selectedRadioOptionIsDefault ? 'Selecione o time' : 'Selecione o país'
                     }
                     allowClear
-                    disabled={selectedRadioOption === 'default'}
+                    disabled={selectedRadioOptionIsDefault}
                     onChange={handleOnChangeManagerCountrySelect}
                     options={countries.map((country: CountryType) => ({
                       value: `${country.id}`,
