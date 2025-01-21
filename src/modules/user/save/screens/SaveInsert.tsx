@@ -168,10 +168,13 @@ const SaveInsert = () => {
                       .filter(
                         (competitionglobal: CompetitionglobalType) =>
                           competitionglobal.country?.id === selectedCompetitionsglobalCountryId &&
-                          (competitionglobal.rule?.id === RuleEnum.BrazilianLeagueA ||
-                            competitionglobal.rule?.id === RuleEnum.BrazilianLeagueB ||
-                            competitionglobal.rule?.id === RuleEnum.BrazilianLeagueC ||
-                            competitionglobal.rule?.id === RuleEnum.BrazilianLeagueD),
+                          competitionglobal.rule?.id &&
+                          [
+                            RuleEnum.BrazilianLeagueA,
+                            RuleEnum.BrazilianLeagueB,
+                            RuleEnum.BrazilianLeagueC,
+                            RuleEnum.BrazilianLeagueD,
+                          ].includes(competitionglobal.rule.id),
                       )
                       .map((competitionglobal: CompetitionglobalType) => ({
                         value: `${competitionglobal.id}`,
