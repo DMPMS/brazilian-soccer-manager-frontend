@@ -23,7 +23,7 @@ import {
   SAVE_MIN_LENGH_NAME,
   SAVE_MIN_MANAGER_AGE,
 } from '../../../../shared/constants/others';
-import { RuleCompetitionTypeEnum } from '../../../../shared/enums/RuleCompetitionType.enum';
+import { RuleEnum } from '../../../../shared/enums/Rule.enum';
 import { CompetitionglobalType } from '../../../../shared/types/Competitionglobal.type';
 import { CountryType } from '../../../../shared/types/Country.type';
 import { TeamglobalType } from '../../../../shared/types/Teamglobal.type';
@@ -168,14 +168,10 @@ const SaveInsert = () => {
                       .filter(
                         (competitionglobal: CompetitionglobalType) =>
                           competitionglobal.country?.id === selectedCompetitionsglobalCountryId &&
-                          (competitionglobal.rule?.competitionType ===
-                            RuleCompetitionTypeEnum.BrazilianLeagueA ||
-                            competitionglobal.rule?.competitionType ===
-                              RuleCompetitionTypeEnum.BrazilianLeagueB ||
-                            competitionglobal.rule?.competitionType ===
-                              RuleCompetitionTypeEnum.BrazilianLeagueC ||
-                            competitionglobal.rule?.competitionType ===
-                              RuleCompetitionTypeEnum.BrazilianLeagueD),
+                          (competitionglobal.rule?.id === RuleEnum.BrazilianLeagueA ||
+                            competitionglobal.rule?.id === RuleEnum.BrazilianLeagueB ||
+                            competitionglobal.rule?.id === RuleEnum.BrazilianLeagueC ||
+                            competitionglobal.rule?.id === RuleEnum.BrazilianLeagueD),
                       )
                       .map((competitionglobal: CompetitionglobalType) => ({
                         value: `${competitionglobal.id}`,

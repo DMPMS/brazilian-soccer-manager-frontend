@@ -16,7 +16,7 @@ import {
 } from '../../../../shared/constants/urls';
 import { InsertCompetitionglobalDTO } from '../../../../shared/dtos/insertCompetitonglobal.dto';
 import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
-import { RuleCompetitionTypeEnum } from '../../../../shared/enums/RuleCompetitionType.enum';
+import { RuleEnum } from '../../../../shared/enums/Rule.enum';
 import { validateImage } from '../../../../shared/functions/validateImage';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
 import { TeamglobalType } from '../../../../shared/types/Teamglobal.type';
@@ -51,9 +51,7 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
   const [isValidImage, setIsValidImage] = useState<boolean>(false); // It's on top
   const [srcImage, setSrcImage] = useState<string>('');
   const [ruleNumberOfTeams, setRuleNumberOfTeams] = useState<number>(0);
-  const [ruleCompetitionType, setRuleCompetitionType] = useState<
-    RuleCompetitionTypeEnum | undefined
-  >(undefined);
+  const [ruleId, setRuleId] = useState<RuleEnum | undefined>(undefined);
   const [teamglobalIdsCount, setTeamglobalIdsCount] = useState<number>(0);
 
   const [teamglobalOfCompetitionglobalReducerIds, setTeamglobalOfCompetitionglobalReducerIds] =
@@ -149,7 +147,7 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
         setSrcImage(competitionglobalReducer.srcImage);
 
         setRuleNumberOfTeams(competitionglobalReducer.rule?.numberOfTeams || 0);
-        setRuleCompetitionType(competitionglobalReducer.rule?.competitionType);
+        setRuleId(competitionglobalReducer.rule?.id);
         setTeamglobalIdsCount(teamglobalIds.length);
 
         setTeamglobalOfCompetitionglobalReducerIds(
@@ -163,7 +161,7 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
         setIsValidImage(false);
         setSrcImage('');
         setRuleNumberOfTeams(0);
-        setRuleCompetitionType(undefined);
+        setRuleId(undefined);
         setTeamglobalIdsCount(0);
         setTeamglobalOfCompetitionglobalReducerIds([]);
       }
@@ -215,7 +213,7 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
 
       if (selectedRule) {
         setRuleNumberOfTeams(selectedRule.numberOfTeams);
-        setRuleCompetitionType(selectedRule.competitionType);
+        setRuleId(selectedRule.id);
 
         formCompetitionglobal.setFieldsValue({
           name: selectedRule.default_competition_name,
@@ -232,7 +230,7 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
       }
     } else {
       setRuleNumberOfTeams(0);
-      setRuleCompetitionType(undefined);
+      setRuleId(undefined);
 
       setCompetitionglobal({
         ...competitionglobal,
@@ -301,7 +299,7 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
     setIsValidImage(false);
     setSrcImage('');
     setRuleNumberOfTeams(0);
-    setRuleCompetitionType(undefined);
+    setRuleId(undefined);
     setTeamglobalIdsCount(0);
   };
 
@@ -318,7 +316,7 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
     isValidImage,
     srcImage,
     ruleNumberOfTeams,
-    ruleCompetitionType,
+    ruleId,
     teamglobalIdsCount,
     teamglobalOfCompetitionglobalReducerIds,
     teamglobalWithoutCompetitionglobalRuleTypeLeagueIds,

@@ -7,7 +7,7 @@ import {
   URL_TEAMGLOBAL,
 } from '../../../../shared/constants/urls';
 import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
-import { RuleCompetitionTypeEnum } from '../../../../shared/enums/RuleCompetitionType.enum';
+import { RuleEnum } from '../../../../shared/enums/Rule.enum';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
 import { CompetitionglobalType } from '../../../../shared/types/Competitionglobal.type';
 import { useCompetitionglobalReducer } from '../../../../store/reducers/competitionglobalReducer/useCompetitionglobalReducer';
@@ -85,14 +85,13 @@ export const useCompetitionglobal = () => {
   };
 
   const competitionglobalCanBeDeleted = (competitionglobal: CompetitionglobalType): boolean => {
-    if (competitionglobal.rule?.competitionType === RuleCompetitionTypeEnum.BrazilianLeagueA) {
+    if (competitionglobal.rule?.id === RuleEnum.BrazilianLeagueA) {
       return false;
     }
 
-    if (competitionglobal.rule?.competitionType === RuleCompetitionTypeEnum.BrazilianLeagueC) {
+    if (competitionglobal.rule?.id === RuleEnum.BrazilianLeagueC) {
       const competitionglobalWithRuleBrazilianLeagueDExists = competitionsglobal.find(
-        (competitionglobal) =>
-          competitionglobal.rule?.competitionType === RuleCompetitionTypeEnum.BrazilianLeagueD,
+        (competitionglobal) => competitionglobal.rule?.id === RuleEnum.BrazilianLeagueD,
       );
 
       if (competitionglobalWithRuleBrazilianLeagueDExists) {
@@ -100,10 +99,9 @@ export const useCompetitionglobal = () => {
       }
     }
 
-    if (competitionglobal.rule?.competitionType === RuleCompetitionTypeEnum.BrazilianLeagueB) {
+    if (competitionglobal.rule?.id === RuleEnum.BrazilianLeagueB) {
       const competitionglobalWithRuleBrazilianLeagueCExists = competitionsglobal.find(
-        (competitionglobal) =>
-          competitionglobal.rule?.competitionType === RuleCompetitionTypeEnum.BrazilianLeagueC,
+        (competitionglobal) => competitionglobal.rule?.id === RuleEnum.BrazilianLeagueC,
       );
 
       if (competitionglobalWithRuleBrazilianLeagueCExists) {
@@ -111,10 +109,9 @@ export const useCompetitionglobal = () => {
       }
     }
 
-    if (competitionglobal.rule?.competitionType === RuleCompetitionTypeEnum.BrazilianCup) {
+    if (competitionglobal.rule?.id === RuleEnum.BrazilianCup) {
       const competitionglobalWithRuleBrazilianSupercupExists = competitionsglobal.find(
-        (competitionglobal) =>
-          competitionglobal.rule?.competitionType === RuleCompetitionTypeEnum.BrazilianSuperCup,
+        (competitionglobal) => competitionglobal.rule?.id === RuleEnum.BrazilianSuperCup,
       );
 
       if (competitionglobalWithRuleBrazilianSupercupExists) {

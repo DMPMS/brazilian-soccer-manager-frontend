@@ -21,7 +21,7 @@ import {
   COMPETITIONGLOBAL_MIN_LENGH_NAME,
   COMPETITIONGLOBAL_MIN_LENGH_SEASON,
 } from '../../../../shared/constants/others';
-import { RuleCompetitionTypeEnum } from '../../../../shared/enums/RuleCompetitionType.enum';
+import { RuleEnum } from '../../../../shared/enums/Rule.enum';
 import { validateImage } from '../../../../shared/functions/validateImage';
 import { CountryType } from '../../../../shared/types/Country.type';
 import { RuleType } from '../../../../shared/types/Rule.type';
@@ -46,7 +46,7 @@ const CompetitionglobalInsert = () => {
     isValidImage,
     srcImage,
     ruleNumberOfTeams,
-    ruleCompetitionType,
+    ruleId,
     teamglobalIdsCount,
     teamglobalOfCompetitionglobalReducerIds,
     teamglobalWithoutCompetitionglobalRuleTypeLeagueIds,
@@ -66,18 +66,17 @@ const CompetitionglobalInsert = () => {
   const { competitionsglobal } = useCompetitionglobal();
 
   const competitionglobalWithRuleCanBeCreated = (rule: RuleType): boolean => {
-    const competitionglobalWithRuleExists = competitionsglobal.find(
-      (competitionglobal) => competitionglobal.rule?.competitionType === rule.competitionType,
+    const competitionglobalWithRuleIdExists = competitionsglobal.find(
+      (competitionglobal) => competitionglobal.rule?.id === rule.id,
     );
 
-    if (competitionglobalWithRuleExists) {
+    if (competitionglobalWithRuleIdExists) {
       return false;
     }
 
-    if (rule.competitionType === RuleCompetitionTypeEnum.BrazilianLeagueD) {
+    if (rule.id === RuleEnum.BrazilianLeagueD) {
       const competitionglobalWithRuleBrazilianLeagueCExists = competitionsglobal.find(
-        (competitionglobal) =>
-          competitionglobal.rule?.competitionType === RuleCompetitionTypeEnum.BrazilianLeagueC,
+        (competitionglobal) => competitionglobal.rule?.id === RuleEnum.BrazilianLeagueC,
       );
 
       if (!competitionglobalWithRuleBrazilianLeagueCExists) {
@@ -85,10 +84,9 @@ const CompetitionglobalInsert = () => {
       }
     }
 
-    if (rule.competitionType === RuleCompetitionTypeEnum.BrazilianLeagueC) {
+    if (rule.id === RuleEnum.BrazilianLeagueC) {
       const competitionglobalWithRuleBrazilianLeagueBExists = competitionsglobal.find(
-        (competitionglobal) =>
-          competitionglobal.rule?.competitionType === RuleCompetitionTypeEnum.BrazilianLeagueB,
+        (competitionglobal) => competitionglobal.rule?.id === RuleEnum.BrazilianLeagueB,
       );
 
       if (!competitionglobalWithRuleBrazilianLeagueBExists) {
@@ -96,10 +94,9 @@ const CompetitionglobalInsert = () => {
       }
     }
 
-    if (rule.competitionType === RuleCompetitionTypeEnum.BrazilianLeagueB) {
+    if (rule.id === RuleEnum.BrazilianLeagueB) {
       const competitionglobalWithRuleBrazilianLeagueAExists = competitionsglobal.find(
-        (competitionglobal) =>
-          competitionglobal.rule?.competitionType === RuleCompetitionTypeEnum.BrazilianLeagueA,
+        (competitionglobal) => competitionglobal.rule?.id === RuleEnum.BrazilianLeagueA,
       );
 
       if (!competitionglobalWithRuleBrazilianLeagueAExists) {
@@ -107,15 +104,13 @@ const CompetitionglobalInsert = () => {
       }
     }
 
-    if (rule.competitionType === RuleCompetitionTypeEnum.BrazilianSuperCup) {
+    if (rule.id === RuleEnum.BrazilianSuperCup) {
       const competitionglobalWithRuleBrazilianLeagueAExists = competitionsglobal.find(
-        (competitionglobal) =>
-          competitionglobal.rule?.competitionType === RuleCompetitionTypeEnum.BrazilianLeagueA,
+        (competitionglobal) => competitionglobal.rule?.id === RuleEnum.BrazilianLeagueA,
       );
 
       const competitionglobalWithRuleBrazilianCupExists = competitionsglobal.find(
-        (competitionglobal) =>
-          competitionglobal.rule?.competitionType === RuleCompetitionTypeEnum.BrazilianCup,
+        (competitionglobal) => competitionglobal.rule?.id === RuleEnum.BrazilianCup,
       );
 
       if (
@@ -127,7 +122,7 @@ const CompetitionglobalInsert = () => {
     }
 
     // Due to the competitionsglobal reducer not being loaded yet. Remove when putting it in useInsertCompetitionglobal.
-    if (rule.competitionType === RuleCompetitionTypeEnum.BrazilianLeagueA) {
+    if (rule.id === RuleEnum.BrazilianLeagueA) {
       return false;
     }
 
@@ -366,19 +361,18 @@ const CompetitionglobalInsert = () => {
                       onChange={handleOnChangeTeamglobalSelect}
                       options={teamsglobal
                         .filter((teamglobal: TeamglobalType) =>
-                          ruleCompetitionType !== undefined &&
+                          ruleId !== undefined &&
                           [
-                            RuleCompetitionTypeEnum.BrazilianLeagueA,
-                            RuleCompetitionTypeEnum.BrazilianLeagueB,
-                            RuleCompetitionTypeEnum.BrazilianLeagueC,
-                            RuleCompetitionTypeEnum.BrazilianLeagueD,
-                          ].includes(ruleCompetitionType)
+                            RuleEnum.BrazilianLeagueA,
+                            RuleEnum.BrazilianLeagueB,
+                            RuleEnum.BrazilianLeagueC,
+                            RuleEnum.BrazilianLeagueD,
+                          ].includes(ruleId)
                             ? [
                                 ...teamglobalOfCompetitionglobalReducerIds,
                                 ...teamglobalWithoutCompetitionglobalRuleTypeLeagueIds,
                               ].includes(teamglobal.id)
-                            : ruleCompetitionType !== undefined &&
-                                [RuleCompetitionTypeEnum.BrazilianCup].includes(ruleCompetitionType)
+                            : ruleId !== undefined && [RuleEnum.BrazilianCup].includes(ruleId)
                               ? [
                                   ...teamglobalOfCompetitionglobalReducerIds,
                                   ...teamglobalWithoutCompetitionglobalRuleTypeCupIds,
