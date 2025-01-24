@@ -1,3 +1,5 @@
+import { DeleteOutlined, PlayCircleOutlined } from '@ant-design/icons';
+import { Space } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import dayjs from 'dayjs';
 import { useMemo } from 'react';
@@ -8,7 +10,7 @@ import ImageProject from '../../../../shared/components/images/imageProject/Imag
 import ModalLogoutProject from '../../../../shared/components/modals/logout/ModalLogoutProject';
 import { LimitedContainerCardProject } from '../../../../shared/components/styles/limited.styled';
 import TableProject from '../../../../shared/components/table/TableProject';
-import { DATE_FORMAT, DATETIME_FORMAT } from '../../../../shared/constants/others';
+import { DATE_FORMAT } from '../../../../shared/constants/others';
 import { SaveType } from '../../../../shared/types/Save.type';
 import { useSave } from '../hooks/useSave';
 import { TitleSave } from '../styles/save.style';
@@ -16,11 +18,13 @@ import { TitleSave } from '../styles/save.style';
 const Save = () => {
   const {
     saves,
+    savePlayId,
     openModalLogout,
     handleOnClickInsert,
     handleOnClickLogout,
     handleOnCancelLogout,
     handleOnConfirmLogout,
+    handleOnClickPlaySave,
   } = useSave();
 
   const columns: ColumnsType<SaveType> = useMemo(
@@ -60,19 +64,24 @@ const Save = () => {
         render: (_, target) => dayjs(target.datetime).format(DATE_FORMAT),
       },
       {
-        title: 'Último acesso',
-        dataIndex: 'updatedAt',
-        key: 'updatedAt',
-        render: (_, target) => dayjs(target.updatedAt).format(DATETIME_FORMAT),
-      },
-      {
-        title: 'Data de criação',
-        dataIndex: 'createdAt',
-        key: 'createdAt',
-        render: (_, target) => dayjs(target.createdAt).format(DATETIME_FORMAT),
+        title: 'Ações',
+        dataIndex: '',
+        key: '',
+        render: (_, target) => (
+          <Space>
+            <ButtonProject
+              loading={savePlayId === target.id}
+              type="primary"
+              onClick={() => handleOnClickPlaySave(target.id)}
+              icon={<PlayCircleOutlined />}
+            ></ButtonProject>
+
+            <ButtonProject type="primary" danger icon={<DeleteOutlined />}></ButtonProject>
+          </Space>
+        ),
       },
     ],
-    [],
+    [savePlayId],
   );
 
   return (

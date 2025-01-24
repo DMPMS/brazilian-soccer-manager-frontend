@@ -1,6 +1,7 @@
 import { CompetitionsaveTeamsaveType } from './CompetitionsaveTeamsave.type';
 import { CountryType } from './Country.type';
 import { ManagersaveType } from './Managersave.type';
+import { MatchType } from './Match.type';
 import { PlayersaveType } from './Playersave.type';
 
 export interface TeamsaveType {
@@ -13,4 +14,7 @@ export interface TeamsaveType {
   managersave?: ManagersaveType;
   playerssave?: PlayersaveType[];
   competitionssaveTeamsave?: CompetitionsaveTeamsaveType[];
+
+  homeMatches?: MatchType[];
+  awayMatches?: MatchType[];
 }

@@ -11,6 +11,7 @@ import { firstScreenRoutes } from './modules/firstScreen/routes';
 import { signInRoutes } from './modules/shared/signIn/routes';
 import { signUpRoutes } from './modules/shared/signUp/routes';
 import { saveRoutes } from './modules/user/save/routes';
+import { savePlayRoutes } from './modules/user/savePlay/routes';
 import { URL_USER_LOGGED_IN } from './shared/constants/urls';
 import { MethodsEnum } from './shared/enums/Methods.enum';
 import { UserUserTypeEnum } from './shared/enums/UserUserType.enum';
@@ -30,10 +31,12 @@ const routesLoggedIn: RouteObject[] = [...firstScreenRoutes].map((route) => ({
   loader: verifyLoggedIn(),
 }));
 
-const routesUserTypeUserLoggedIn: RouteObject[] = [...saveRoutes].map((route) => ({
-  ...route,
-  loader: verifyUserTypeLoggedIn(UserUserTypeEnum.User),
-}));
+const routesUserTypeUserLoggedIn: RouteObject[] = [...saveRoutes, ...savePlayRoutes].map(
+  (route) => ({
+    ...route,
+    loader: verifyUserTypeLoggedIn(UserUserTypeEnum.User),
+  }),
+);
 
 const routesUserTypeAdminLoggedIn: RouteObject[] = [
   ...homeRoutes,
