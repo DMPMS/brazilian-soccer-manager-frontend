@@ -15,10 +15,8 @@ const StaminaBarProject = ({ stamina }: StaminaBarProjectProps) => {
     color = '#ffec00';
   } else if (stamina <= 80) {
     color = '#9acd32';
-  } else if (stamina < 100) {
-    color = '#008000';
   } else {
-    color = '#1890ff';
+    color = '#008000';
   }
 
   return (

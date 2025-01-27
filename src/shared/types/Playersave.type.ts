@@ -1,3 +1,4 @@
+import { MoraleEnum } from '../enums/Morale.enum';
 import { CountryType } from './Country.type';
 import { PlayersavePositionType } from './PlayersavePosition.type';
 import { TeamsaveType } from './Teamsave.type';
@@ -8,6 +9,7 @@ export interface PlayersaveType {
   birthdate: string;
   overall: number;
   stamina: number;
+  morale: MoraleEnum;
   playerssavePosition?: PlayersavePositionType[];
 
   country?: CountryType;

@@ -2,6 +2,8 @@ import { ColumnsType } from 'antd/es/table';
 import { useMemo } from 'react';
 
 import FlexProject from '../../../../shared/components/flex/FlexProject';
+import MoraleIconProject from '../../../../shared/components/others/moraleIcon/MoraleIconProject';
+import OverallByMoraleProject from '../../../../shared/components/others/overallByMorale/OverallByMoraleProject';
 import StaminaBarProject from '../../../../shared/components/others/staminaBar/StaminaBarProject';
 import Screen from '../../../../shared/components/screen/ScreenProject';
 import CountrySVGProject from '../../../../shared/components/svg/CountrySVGProject';
@@ -28,6 +30,19 @@ const SavePlaySquad = () => {
         dataIndex: 'overall',
         key: 'overall',
         sorter: (a, b) => a.overall - b.overall,
+        render: (_, target) => {
+          return (
+            <FlexProject justify="flex-start" align="center">
+              <div style={{ margin: '0px 5px 0px 0px' }}>{target.overall}</div>
+              <MoraleIconProject morale={target.morale} width={20} height={20} />
+              <OverallByMoraleProject
+                morale={target.morale}
+                overall={target.overall}
+                margin={'0px 0px 0px 5px'}
+              />
+            </FlexProject>
+          );
+        },
       },
       {
         title: 'Energia',
