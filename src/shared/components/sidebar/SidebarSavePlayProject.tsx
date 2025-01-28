@@ -6,6 +6,7 @@ import { SaveRoutesEnum } from '../../../modules/user/save/routes';
 import { useSavePlay } from '../../../modules/user/savePlay/hooks/useSavePlay';
 import { SavePlayRoutesEnum } from '../../../modules/user/savePlay/routes';
 import { useSavePlayReducer } from '../../../store/reducers/savePlayReducer/useSavePlayReducer';
+import CalendarIconSVGProject from '../svg/CalendarIconSVGProject';
 import HomeIconSVGProject from '../svg/HomeIconSVGProject';
 import LogoutIconSVGProject from '../svg/LogoutIconSVGProject';
 import PlayerIconSVGProject from '../svg/PlayeIconSVGProject';
@@ -47,6 +48,12 @@ const SidebarSavePlayProject = () => {
       label: 'Elenco',
       icon: <PlayerIconSVGProject />,
       onClick: () => navigate(SavePlayRoutesEnum.SAVE_PLAY_SQUAD),
+    },
+    {
+      key: 'savePlayCalendar',
+      label: 'Calendário',
+      icon: <CalendarIconSVGProject />,
+      onClick: () => navigate(SavePlayRoutesEnum.SAVE_PLAY_CALENDAR),
     },
     {
       key: 'exit',

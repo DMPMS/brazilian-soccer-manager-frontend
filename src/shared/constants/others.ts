@@ -54,6 +54,7 @@ export const SAVE_MAX_MANAGER_AGE = MANAGERGLOBAL_MAX_AGE;
 
 export const CURRENT_DATE_UTC = dayjs();
 export const DATE_FORMAT = 'DD/MM/YYYY';
+export const MONTH_YEAR_FORMAT = 'MM/YYYY';
 export const TIME_FORMAT = 'HH:mm';
 export const DATETIME_FORMAT = 'DD/MM/YYYY [às] HH:mm';
 export const DEFAULT_DATE_FORMAT = 'YYYY-MM-DD';
