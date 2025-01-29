@@ -10,6 +10,9 @@ export const URL_COMPETITIONGLOBAL = 'http://localhost:8080/competitionglobal';
 export const URL_COMPETITIONGLOBAL_ID =
   'http://localhost:8080/competitionglobal/{competitionglobalId}';
 
+export const URL_COMPETITIONSAVE = 'http://localhost:8080/competitionsave';
+export const URL_COMPETITIONSAVE_ID = 'http://localhost:8080/competitionsave/{competitionsaveId}';
+
 export const URL_RULE = 'http://localhost:8080/rule';
 
 export const URL_MANAGERGLOBAL = 'http://localhost:8080/managerglobal';

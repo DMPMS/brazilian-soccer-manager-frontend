@@ -7,6 +7,7 @@ import { useSavePlay } from '../../../modules/user/savePlay/hooks/useSavePlay';
 import { SavePlayRoutesEnum } from '../../../modules/user/savePlay/routes';
 import { useSavePlayReducer } from '../../../store/reducers/savePlayReducer/useSavePlayReducer';
 import CalendarIconSVGProject from '../svg/CalendarIconSVGProject';
+import CompetitionIconSVGProject from '../svg/CompetitionIconSVGProject';
 import HomeIconSVGProject from '../svg/HomeIconSVGProject';
 import LogoutIconSVGProject from '../svg/LogoutIconSVGProject';
 import PlayerIconSVGProject from '../svg/PlayeIconSVGProject';
@@ -17,7 +18,7 @@ const { Sider } = Layout;
 
 const SidebarSavePlayProject = () => {
   const { savePlay } = useSavePlay();
-  const { setSavePlay } = useSavePlayReducer();
+  const { setSavePlay, setSavePlayCompetitionssave } = useSavePlayReducer();
 
   const navigate = useNavigate();
 
@@ -33,6 +34,7 @@ const SidebarSavePlayProject = () => {
 
   const handleOnConfirmExit = () => {
     setSavePlay(undefined);
+    setSavePlayCompetitionssave([]);
     navigate(SaveRoutesEnum.SAVE);
   };
 
@@ -54,6 +56,12 @@ const SidebarSavePlayProject = () => {
       label: 'Calendário',
       icon: <CalendarIconSVGProject />,
       onClick: () => navigate(SavePlayRoutesEnum.SAVE_PLAY_CALENDAR),
+    },
+    {
+      key: 'savePlayCompetitionssave',
+      label: 'Competições',
+      icon: <CompetitionIconSVGProject />,
+      onClick: () => navigate(SavePlayRoutesEnum.SAVE_PLAY_COMPETITION),
     },
     {
       key: 'exit',
