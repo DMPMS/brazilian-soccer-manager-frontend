@@ -1,5 +1,6 @@
 import { CompetitionsaveTeamsaveType } from './CompetitionsaveTeamsave.type';
 import { CountryType } from './Country.type';
+import { RankingType } from './Ranking.type';
 import { RoundType } from './Round.type';
 import { RuleType } from './Rule.type';
 
@@ -13,4 +14,5 @@ export interface CompetitionsaveType {
   country?: CountryType;
   competitionssaveTeamsave?: CompetitionsaveTeamsaveType[];
   rounds?: RoundType[];
+  rankings?: RankingType[];
 }
