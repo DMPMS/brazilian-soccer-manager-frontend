@@ -1,6 +1,6 @@
 import { Select, SelectProps } from 'antd';
 
-interface SelectProjectProps extends SelectProps {}
+export interface SelectProjectProps extends SelectProps {}
 
 const SelectProject = ({ ...props }: SelectProjectProps) => {
   return <Select {...props} />;

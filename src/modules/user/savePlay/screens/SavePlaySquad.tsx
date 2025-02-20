@@ -65,7 +65,11 @@ const SavePlaySquad = () => {
                   playersavePosition.rating === PLAYERSAVE_PRIMARY_POSITION_RATING,
               )
               .map((playersavePosition, index) => (
-                <PositionTagProject area={playersavePosition.position?.area} key={index}>
+                <PositionTagProject
+                  area={playersavePosition.position?.area}
+                  key={index}
+                  primaryPosition={true}
+                >
                   {playersavePosition.position?.abbreviation}
                 </PositionTagProject>
               ))}

@@ -5,9 +5,10 @@ import { TagStyled } from './positionTagProject.style';
 
 interface PositionTagProjectProps extends TagProps {
   area?: PositionAreaEnum;
+  primaryPosition?: boolean;
 }
 
-const PositionTagProject = ({ area, ...props }: PositionTagProjectProps) => {
+const PositionTagProject = ({ area, primaryPosition, ...props }: PositionTagProjectProps) => {
   let color: string;
 
   if (area === PositionAreaEnum.Attack) {
@@ -22,7 +23,7 @@ const PositionTagProject = ({ area, ...props }: PositionTagProjectProps) => {
     color = 'default';
   }
 
-  return <TagStyled color={color} {...props} />;
+  return <TagStyled color={color} primaryPosition={primaryPosition} {...props} />;
 };
 
 export default PositionTagProject;

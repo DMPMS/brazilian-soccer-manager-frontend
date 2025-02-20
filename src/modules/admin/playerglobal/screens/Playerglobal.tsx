@@ -58,7 +58,11 @@ const Playerglobal = () => {
                   playerglobalPosition.rating === PLAYERGLOBAL_PRIMARY_POSITION_RATING,
               )
               .map((playerglobalPosition, index) => (
-                <PositionTagProject area={playerglobalPosition.position?.area} key={index}>
+                <PositionTagProject
+                  area={playerglobalPosition.position?.area}
+                  key={index}
+                  primaryPosition={true}
+                >
                   {playerglobalPosition.position?.abbreviation}
                 </PositionTagProject>
               ))}

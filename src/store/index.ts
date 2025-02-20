@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import competitionglobalReducer from './reducers/competitionglobalReducer';
 import countryReducer from './reducers/countryReducer';
+import formationReducer from './reducers/formationReducer';
 import globalReducer from './reducers/globalReducer';
 import managerglobalReducer from './reducers/managerglobalReducer';
 import playerglobalReducer from './reducers/playerglobalReducer';
@@ -23,6 +24,7 @@ export const store = configureStore({
     playerglobalReducer,
     saveReducer,
     savePlayReducer,
+    formationReducer,
   },
 });
 

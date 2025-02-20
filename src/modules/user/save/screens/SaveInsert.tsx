@@ -7,7 +7,7 @@ import DatePickerProject from '../../../../shared/components/datepickers/datePic
 import FlexProject from '../../../../shared/components/flex/FlexProject';
 import ImageProject from '../../../../shared/components/images/imageProject/ImageProject';
 import InputProject from '../../../../shared/components/inputs/input/InputProject';
-import SelectProject from '../../../../shared/components/select/SelectProject';
+import SelectProject from '../../../../shared/components/selects/select/SelectProject';
 import {
   LimitedContainerCardProject,
   LimitedContainerProject,

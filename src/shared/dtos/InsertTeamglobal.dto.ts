@@ -4,4 +4,6 @@ export interface InsertTeamglobalDTO {
   countryId?: number;
   managerglobalId?: number;
   playerglobalIds: number[];
+  squadplanglobalFormationId: number;
+  squadplanglobalPlayerglobalIds: number[];
 }

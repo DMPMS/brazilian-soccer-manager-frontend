@@ -2,7 +2,7 @@ import { useForm } from 'antd/es/form/Form';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { DEFAULT_TEAMGLOBAL } from '../../../../shared/constants/dtos';
+import { DEFAULT_FORMATION_ID, DEFAULT_TEAMGLOBAL } from '../../../../shared/constants/dtos';
 import {
   TEAMGLOBAL_MAX_LENGH_NAME,
   TEAMGLOBAL_MAX_PLAYERSGLOBAL,
@@ -16,6 +16,7 @@ import {
   URL_TEAMGLOBAL_ID,
 } from '../../../../shared/constants/urls';
 import { InsertTeamglobalDTO } from '../../../../shared/dtos/insertTeamglobal.dto';
+import { FormationEnum } from '../../../../shared/enums/Formation.enum';
 import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
 import { validateImage } from '../../../../shared/functions/validateImage';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
@@ -49,7 +50,11 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
 
   const [isValidImage, setIsValidImage] = useState<boolean>(false); // It's on top
   const [srcImage, setSrcImage] = useState<string>('');
-  const [playerglobalIdsCount, setPlayerglobalIdsCount] = useState<number>(0);
+  const [playerglobalIds, setPlayerglobalIds] = useState<number[]>([]);
+  const [formationId, setFormationId] = useState<FormationEnum>(DEFAULT_FORMATION_ID);
+  const [squadplanglobalPlayersglobalDict, setSquadplanglobalPlayersglobalDict] = useState<{
+    [key: string]: number | undefined;
+  }>({});
 
   const [managerglobalOfTeamglobalReducer, setManagerglobalOfTeamglobalReducer] = useState<
     ManagerglobalType | undefined
@@ -64,7 +69,7 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
   >([]);
 
   const [playersglobalWithoutTeamglobal, setPlayersglobalWithoutTeamglobal] = useState<
-    ManagerglobalType[]
+    PlayerglobalType[]
   >([]);
 
   useEffect(() => {
@@ -110,12 +115,20 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
           playerglobalIds.push(playerglobal.id);
         });
 
+        const squadplanglobalFormationId =
+          teamglobalReducer.squadplanglobal?.formation?.id || DEFAULT_FORMATION_ID;
+
+        const squadplanglobalPlayerglobalIds =
+          teamglobalReducer.squadplanglobal?.playerglobalIds || [];
+
         setTeamglobal({
           name: teamglobalReducer.name,
           srcImage: teamglobalReducer.srcImage,
           countryId: teamglobalReducer.country?.id,
           managerglobalId: teamglobalReducer.managerglobal?.id,
           playerglobalIds: playerglobalIds,
+          squadplanglobalFormationId: squadplanglobalFormationId,
+          squadplanglobalPlayerglobalIds: squadplanglobalPlayerglobalIds,
         });
 
         formTeamglobal.setFieldsValue({
@@ -133,20 +146,37 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
             playerglobalIds.length !== 0
               ? playerglobalIds.map((playerglobalId) => `${playerglobalId}`)
               : undefined,
+          squadplanglobalFormationId: `${squadplanglobalFormationId}`,
+          ...Object.fromEntries(
+            squadplanglobalPlayerglobalIds.map((squadplanglobalPlayerglobalId, index) => [
+              `squadplanglobalPlayerglobal${index}`,
+              squadplanglobalPlayerglobalId.toString(),
+            ]),
+          ),
         });
 
         setIsValidImage((await validateImage(teamglobalReducer.srcImage)) ? true : false);
         setSrcImage(teamglobalReducer.srcImage);
 
-        setPlayerglobalIdsCount(teamglobalReducer.playersglobal?.length || 0);
+        setPlayerglobalIds(playerglobalIds);
+        setFormationId(squadplanglobalFormationId);
+
+        const obj = Object.fromEntries(
+          squadplanglobalPlayerglobalIds.map((value, index) => [index, value]),
+        );
+        setSquadplanglobalPlayersglobalDict(obj);
+
         setManagerglobalOfTeamglobalReducer(teamglobalReducer.managerglobal);
         setPlayersglobalOfTeamglobalReducer(teamglobalReducer.playersglobal || []);
       } else {
         setTeamglobal(DEFAULT_TEAMGLOBAL);
         formTeamglobal.resetFields();
+        formTeamglobal.setFieldsValue({ squadplanglobalFormationId: `${DEFAULT_FORMATION_ID}` });
         setIsValidImage(false);
         setSrcImage('');
-        setPlayerglobalIdsCount(0);
+        setPlayerglobalIds([]);
+        setFormationId(DEFAULT_FORMATION_ID);
+        setSquadplanglobalPlayersglobalDict({});
         setManagerglobalOfTeamglobalReducer(undefined);
         setPlayersglobalOfTeamglobalReducer([]);
       }
@@ -164,6 +194,8 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
       teamglobal.managerglobalId &&
       teamglobal.playerglobalIds.length >= TEAMGLOBAL_MIN_PLAYERSGLOBAL &&
       teamglobal.playerglobalIds.length <= TEAMGLOBAL_MAX_PLAYERSGLOBAL &&
+      teamglobal.squadplanglobalFormationId &&
+      teamglobal.squadplanglobalPlayerglobalIds.every((item) => item !== 0) &&
       isValidImage
     ) {
       setDisabledButton(false);
@@ -210,11 +242,59 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
   const handleOnChangePlayerglobalSelect = (values: string[]) => {
     const selectValues = values.map((value) => Number(value));
 
-    setPlayerglobalIdsCount(selectValues.length);
+    setPlayerglobalIds(selectValues);
+
+    const removedPlayerglobalIds = teamglobal.playerglobalIds.filter(
+      (playerglobalId) => !selectValues.includes(playerglobalId),
+    );
+
+    const squadplanglobalPlayerglobalIdsUpdated = [...teamglobal.squadplanglobalPlayerglobalIds];
+    const squadplanglobalPlayersglobalDictUpdated = { ...squadplanglobalPlayersglobalDict };
+
+    removedPlayerglobalIds.forEach((playerglobalId) => {
+      const index = squadplanglobalPlayerglobalIdsUpdated.indexOf(playerglobalId);
+
+      if (index !== -1) {
+        squadplanglobalPlayerglobalIdsUpdated[index] = 0;
+        squadplanglobalPlayersglobalDictUpdated[index] = undefined;
+        formTeamglobal.resetFields([`squadplanglobalPlayerglobal${index}`]);
+      }
+    });
 
     setTeamglobal({
       ...teamglobal,
       playerglobalIds: selectValues,
+      squadplanglobalPlayerglobalIds: squadplanglobalPlayerglobalIdsUpdated,
+    });
+
+    setSquadplanglobalPlayersglobalDict(squadplanglobalPlayersglobalDictUpdated);
+  };
+
+  const handleOnChangeFormationSelect = (value: string) => {
+    const selectValue = value ? Number(value) : DEFAULT_FORMATION_ID;
+
+    setFormationId(selectValue);
+
+    setTeamglobal({
+      ...teamglobal,
+      squadplanglobalFormationId: selectValue,
+    });
+  };
+
+  const handleOnChangeSquadplanglobalPositionSelect = (index: number, value: string) => {
+    const selectValue = value ? Number(value) : undefined;
+
+    setSquadplanglobalPlayersglobalDict({
+      ...squadplanglobalPlayersglobalDict,
+      [index]: selectValue,
+    });
+
+    const squadplanglobalPlayerglobalIdsUpdated = [...teamglobal.squadplanglobalPlayerglobalIds];
+    squadplanglobalPlayerglobalIdsUpdated[index] = selectValue || 0;
+
+    setTeamglobal({
+      ...teamglobal,
+      squadplanglobalPlayerglobalIds: squadplanglobalPlayerglobalIdsUpdated,
     });
   };
 
@@ -257,7 +337,9 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
     formTeamglobal.resetFields();
     setIsValidImage(false);
     setSrcImage('');
-    setPlayerglobalIdsCount(0);
+    setPlayerglobalIds([]);
+    setFormationId(DEFAULT_FORMATION_ID);
+    setSquadplanglobalPlayersglobalDict({});
   };
 
   const handleOnClickCancel = () => {
@@ -272,11 +354,13 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
     formTeamglobal,
     isValidImage,
     srcImage,
-    playerglobalIdsCount,
+    playerglobalIds,
     managerglobalOfTeamglobalReducer,
     playersglobalOfTeamglobalReducer,
     managersglobalWithoutTeamglobal,
     playersglobalWithoutTeamglobal,
+    formationId,
+    squadplanglobalPlayersglobalDict,
     handleOnChangeInput,
     handleOnClickInsert,
     handleOnClickReset,
@@ -284,5 +368,7 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
     handleOnChangeCountrySelect,
     handleOnChangeManagerglobalSelect,
     handleOnChangePlayerglobalSelect,
+    handleOnChangeFormationSelect,
+    handleOnChangeSquadplanglobalPositionSelect,
   };
 };

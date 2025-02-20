@@ -27,3 +27,5 @@ export const URL_POSITION = 'http://localhost:8080/position';
 
 export const URL_PLAYERGLOBAL = 'http://localhost:8080/playerglobal';
 export const URL_PLAYERGLOBAL_ID = 'http://localhost:8080/playerglobal/{playerglobalId}';
+
+export const URL_FORMATION = 'http://localhost:8080/formation';

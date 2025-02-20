@@ -9,7 +9,7 @@ import FlexProject from '../../../../shared/components/flex/FlexProject';
 import InputProject from '../../../../shared/components/inputs/input/InputProject';
 import LoadingProject from '../../../../shared/components/loading/LoadingProject';
 import Screen from '../../../../shared/components/screen/ScreenProject';
-import SelectProject from '../../../../shared/components/select/SelectProject';
+import SelectProject from '../../../../shared/components/selects/select/SelectProject';
 import { LimitedContainerCardProject } from '../../../../shared/components/styles/limited.styled';
 import CountrySVGProject from '../../../../shared/components/svg/CountrySVGProject';
 import {

@@ -8,12 +8,14 @@ import ImageDivPreviewProject from '../../../../shared/components/images/imageDi
 import InputProject from '../../../../shared/components/inputs/input/InputProject';
 import LoadingProject from '../../../../shared/components/loading/LoadingProject';
 import Screen from '../../../../shared/components/screen/ScreenProject';
-import SelectProject from '../../../../shared/components/select/SelectProject';
+import SquadplanglobalPositionSelects from '../../../../shared/components/selects/formationSelect/FormationSelectProject';
+import SelectProject from '../../../../shared/components/selects/select/SelectProject';
 import {
   LimitedContainerCardProject,
   LimitedContainerProject,
 } from '../../../../shared/components/styles/limited.styled';
 import CountrySVGProject from '../../../../shared/components/svg/CountrySVGProject';
+import { DEFAULT_FORMATION_ID } from '../../../../shared/constants/dtos';
 import {
   TEAMGLOBAL_MAX_LENGH_NAME,
   TEAMGLOBAL_MAX_PLAYERSGLOBAL,
@@ -22,9 +24,11 @@ import {
 } from '../../../../shared/constants/others';
 import { validateImage } from '../../../../shared/functions/validateImage';
 import { CountryType } from '../../../../shared/types/Country.type';
+import { FormationType } from '../../../../shared/types/Formation.type';
 import { ManagerglobalType } from '../../../../shared/types/Managerglobal.type';
 import { PlayerglobalType } from '../../../../shared/types/Playerglobal.type';
 import { useCountry } from '../../../shared/country/hooks/useCountry';
+import { useFormation } from '../../../shared/formation/hooks/useFormation';
 import { HomeRoutesEnum } from '../../home/routes';
 import { useInsertTeamglobal } from '../hooks/useInsertTeamglobal';
 import { TeamglobalRoutesEnum } from '../routes';
@@ -40,11 +44,13 @@ const TeamglobalInsert = () => {
     formTeamglobal,
     isValidImage,
     srcImage,
-    playerglobalIdsCount,
+    playerglobalIds,
     managerglobalOfTeamglobalReducer,
     playersglobalOfTeamglobalReducer,
     managersglobalWithoutTeamglobal,
     playersglobalWithoutTeamglobal,
+    formationId,
+    squadplanglobalPlayersglobalDict,
     handleOnChangeInput,
     handleOnClickInsert,
     handleOnClickReset,
@@ -52,9 +58,12 @@ const TeamglobalInsert = () => {
     handleOnChangeCountrySelect,
     handleOnChangeManagerglobalSelect,
     handleOnChangePlayerglobalSelect,
+    handleOnChangeFormationSelect,
+    handleOnChangeSquadplanglobalPositionSelect,
   } = useInsertTeamglobal(teamglobalId);
 
   const { countries } = useCountry();
+  const { formations } = useFormation();
 
   return (
     <Screen
@@ -238,7 +247,7 @@ const TeamglobalInsert = () => {
                   <Form.Item
                     label={
                       <Typography.Text type="secondary">
-                        <Typography.Text>Jogadores</Typography.Text> ({playerglobalIdsCount} /{' '}
+                        <Typography.Text>Jogadores</Typography.Text> ({playerglobalIds.length} /{' '}
                         {TEAMGLOBAL_MAX_PLAYERSGLOBAL})
                       </Typography.Text>
                     }
@@ -292,6 +301,37 @@ const TeamglobalInsert = () => {
                   </Form.Item>
                 </LimitedContainerCardProject>
               </FlexProject>
+              <LimitedContainerCardProject width={1005}>
+                <Form.Item
+                  label="Escolha uma formação"
+                  name="squadplanglobalFormationId"
+                  required
+                  rules={[{ required: true, message: 'Este campo deve ser preenchido.' }]}
+                >
+                  <SelectProject
+                    defaultValue={`${DEFAULT_FORMATION_ID}`}
+                    placeholder="Selecione uma formação"
+                    onChange={handleOnChangeFormationSelect}
+                    options={formations.map((formation: FormationType) => ({
+                      value: `${formation.id}`,
+                      label: `${formation.name}`,
+                    }))}
+                  />
+                </Form.Item>
+
+                {formationId && (
+                  <SquadplanglobalPositionSelects
+                    formationId={formationId}
+                    playerglobalIds={playerglobalIds}
+                    playersglobalOfTeamglobalReducer={playersglobalOfTeamglobalReducer}
+                    playersglobalWithoutTeamglobal={playersglobalWithoutTeamglobal}
+                    squadplanglobalPlayersglobalDict={squadplanglobalPlayersglobalDict}
+                    handleOnChangeSquadplanglobalPositionSelect={
+                      handleOnChangeSquadplanglobalPositionSelect
+                    }
+                  />
+                )}
+              </LimitedContainerCardProject>
             </Form>
           </LimitedContainerProject>
         </FlexProject>

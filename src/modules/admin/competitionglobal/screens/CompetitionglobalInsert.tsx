@@ -9,7 +9,7 @@ import ImageProject from '../../../../shared/components/images/imageProject/Imag
 import InputProject from '../../../../shared/components/inputs/input/InputProject';
 import LoadingProject from '../../../../shared/components/loading/LoadingProject';
 import Screen from '../../../../shared/components/screen/ScreenProject';
-import SelectProject from '../../../../shared/components/select/SelectProject';
+import SelectProject from '../../../../shared/components/selects/select/SelectProject';
 import {
   LimitedContainerCardProject,
   LimitedContainerProject,

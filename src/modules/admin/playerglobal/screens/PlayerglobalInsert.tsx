@@ -12,7 +12,7 @@ import InputIntegerProject from '../../../../shared/components/inputs/inputInteg
 import LoadingProject from '../../../../shared/components/loading/LoadingProject';
 import PlayerPositionsRating from '../../../../shared/components/others/playerPositionsRating/playerPositionsRating';
 import Screen from '../../../../shared/components/screen/ScreenProject';
-import SelectProject from '../../../../shared/components/select/SelectProject';
+import SelectProject from '../../../../shared/components/selects/select/SelectProject';
 import {
   LimitedContainerCardProject,
   LimitedContainerProject,
@@ -347,7 +347,7 @@ const PlayerglobalInsert = () => {
                           : false,
                         label: (
                           <FlexProject justify="flex-start" align="center">
-                            <PositionTagProject area={position?.area}>
+                            <PositionTagProject area={position?.area} primaryPosition={true}>
                               {position?.abbreviation}
                             </PositionTagProject>
                             <text>{position.name}</text>

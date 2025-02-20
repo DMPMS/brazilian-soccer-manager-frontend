@@ -1,3 +1,5 @@
+import { FormationEnum } from '../enums/Formation.enum';
+
 export const DEFAULT_SIGN_IN = {
   email: '',
   password: '',
@@ -45,12 +47,16 @@ export const DEFAULT_PLAYERGLOBAL = {
   secondaryPositionIds: [],
 };
 
+export const DEFAULT_FORMATION_ID = FormationEnum.F442;
+
 export const DEFAULT_TEAMGLOBAL = {
   name: '',
   srcImage: '',
   countryId: undefined,
   managerglobalId: undefined,
   playerglobalIds: [],
+  squadplanglobalFormationId: DEFAULT_FORMATION_ID,
+  squadplanglobalPlayerglobalIds: new Array(11).fill(0),
 };
 
 export const DEFAULT_COMPETITIONGLOBAL = {

@@ -2,6 +2,7 @@ import { CompetitionglobalTeamglobalType } from './CompetitionglobalTeamglobal.t
 import { CountryType } from './Country.type';
 import { ManagerglobalType } from './Managerglobal.type';
 import { PlayerglobalType } from './Playerglobal.type';
+import { SquadplanglobalType } from './Squadplanglobal.type';
 
 export interface TeamglobalType {
   id: number;
@@ -13,4 +14,5 @@ export interface TeamglobalType {
   managerglobal?: ManagerglobalType;
   playersglobal?: PlayerglobalType[];
   competitionsglobalTeamglobal?: CompetitionglobalTeamglobalType[];
+  squadplanglobal?: SquadplanglobalType;
 }

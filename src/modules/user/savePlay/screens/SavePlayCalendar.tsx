@@ -7,7 +7,7 @@ import { useMemo } from 'react';
 import FlexProject from '../../../../shared/components/flex/FlexProject';
 import ImageProject from '../../../../shared/components/images/imageProject/ImageProject';
 import Screen from '../../../../shared/components/screen/ScreenProject';
-import SelectProject from '../../../../shared/components/select/SelectProject';
+import SelectProject from '../../../../shared/components/selects/select/SelectProject';
 import { LimitedContainerProject } from '../../../../shared/components/styles/limited.styled';
 import TableProject from '../../../../shared/components/table/TableProject';
 import { DATETIME_FORMAT } from '../../../../shared/constants/others';
