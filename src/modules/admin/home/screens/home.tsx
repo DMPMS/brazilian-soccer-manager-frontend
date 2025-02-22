@@ -11,14 +11,14 @@ import { useHome } from '../hooks/useHome';
 
 const Home = () => {
   const {
-    handleOnClickManagerglobalCardView,
-    handleOnClickManagerglobalCardInsert,
-    handleOnClickPlayerglobalCardView,
-    handleOnClickPlayerglobalCardInsert,
-    handleOnClickTeamglobalCardView,
-    handleOnClickTeamglobalCardInsert,
-    handleOnClickCompetitionglobalCardView,
-    handleOnClickCompetitionglobalCardInsert,
+    handleOnManagerglobalCardView,
+    handleOnManagerglobalCardInsert,
+    handleOnPlayerglobalCardView,
+    handleOnPlayerglobalCardInsert,
+    handleOnTeamglobalCardView,
+    handleOnTeamglobalCardInsert,
+    handleOnCompetitionglobalCardView,
+    handleOnCompetitionglobalCardInsert,
   } = useHome();
 
   return (
@@ -38,11 +38,11 @@ const Home = () => {
             <PlusCircleOutlined
               title="Inserir jogador"
               key="playersglobal_insert"
-              onClick={handleOnClickPlayerglobalCardInsert}
+              onClick={handleOnPlayerglobalCardInsert}
             />,
           ]}
         >
-          <FlexProject justify="space-between" onClick={handleOnClickPlayerglobalCardView}>
+          <FlexProject justify="space-between" onClick={handleOnPlayerglobalCardView}>
             <Typography.Title level={5} style={{ margin: 0 }}>
               Jogadores
             </Typography.Title>
@@ -58,11 +58,11 @@ const Home = () => {
             <PlusCircleOutlined
               title="Inserir treinador"
               key="managersglobal_insert"
-              onClick={handleOnClickManagerglobalCardInsert}
+              onClick={handleOnManagerglobalCardInsert}
             />,
           ]}
         >
-          <FlexProject justify="space-between" onClick={handleOnClickManagerglobalCardView}>
+          <FlexProject justify="space-between" onClick={handleOnManagerglobalCardView}>
             <Typography.Title level={5} style={{ margin: 0 }}>
               Treinadores
             </Typography.Title>
@@ -78,11 +78,11 @@ const Home = () => {
             <PlusCircleOutlined
               title="Inserir time"
               key="teamsglobal_insert"
-              onClick={handleOnClickTeamglobalCardInsert}
+              onClick={handleOnTeamglobalCardInsert}
             />,
           ]}
         >
-          <FlexProject justify="space-between" onClick={handleOnClickTeamglobalCardView}>
+          <FlexProject justify="space-between" onClick={handleOnTeamglobalCardView}>
             <Typography.Title level={5} style={{ margin: 0 }}>
               Times
             </Typography.Title>
@@ -98,11 +98,11 @@ const Home = () => {
             <PlusCircleOutlined
               title="Inserir competição"
               key="competitionsglobal_insert"
-              onClick={handleOnClickCompetitionglobalCardInsert}
+              onClick={handleOnCompetitionglobalCardInsert}
             />,
           ]}
         >
-          <FlexProject justify="space-between" onClick={handleOnClickCompetitionglobalCardView}>
+          <FlexProject justify="space-between" onClick={handleOnCompetitionglobalCardView}>
             <Typography.Title level={5} style={{ margin: 0 }}>
               Competições
             </Typography.Title>

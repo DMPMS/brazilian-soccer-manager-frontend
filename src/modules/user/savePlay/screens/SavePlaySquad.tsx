@@ -9,7 +9,7 @@ import Screen from '../../../../shared/components/screen/ScreenProject';
 import CountrySVGProject from '../../../../shared/components/svg/CountrySVGProject';
 import TableProject from '../../../../shared/components/table/TableProject';
 import PositionTagProject from '../../../../shared/components/tags/positionTag/PositionTagProject';
-import { PLAYERSAVE_PRIMARY_POSITION_RATING } from '../../../../shared/constants/others';
+import { PositionRatingEnum } from '../../../../shared/enums/PositionRating.enum';
 import { orderPlayersaveByPosition } from '../../../../shared/functions/orderPlayersaveByPosition';
 import { PlayersaveType } from '../../../../shared/types/Playersave.type';
 import { useSavePlaySquad } from '../hooks/useSavePlaySquad';
@@ -61,8 +61,7 @@ const SavePlaySquad = () => {
           <>
             {target.playerssavePosition
               ?.filter(
-                (playersavePosition) =>
-                  playersavePosition.rating === PLAYERSAVE_PRIMARY_POSITION_RATING,
+                (playersavePosition) => playersavePosition.rating === PositionRatingEnum.Primary,
               )
               .map((playersavePosition, index) => (
                 <PositionTagProject

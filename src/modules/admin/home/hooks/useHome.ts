@@ -8,46 +8,46 @@ import { TeamglobalRoutesEnum } from '../../teamglobal/routes';
 export const useHome = () => {
   const navigate = useNavigate();
 
-  const handleOnClickManagerglobalCardView = () => {
+  const handleOnManagerglobalCardView = () => {
     navigate(ManagerglobalRoutesEnum.MANAGERGLOBAL);
   };
 
-  const handleOnClickManagerglobalCardInsert = () => {
+  const handleOnManagerglobalCardInsert = () => {
     navigate(ManagerglobalRoutesEnum.MANAGERGLOBAL_INSERT);
   };
 
-  const handleOnClickPlayerglobalCardView = () => {
+  const handleOnPlayerglobalCardView = () => {
     navigate(PlayerglobalRoutesEnum.PLAYERGLOBAL);
   };
 
-  const handleOnClickPlayerglobalCardInsert = () => {
+  const handleOnPlayerglobalCardInsert = () => {
     navigate(PlayerglobalRoutesEnum.PLAYERGLOBAL_INSERT);
   };
 
-  const handleOnClickTeamglobalCardView = () => {
+  const handleOnTeamglobalCardView = () => {
     navigate(TeamglobalRoutesEnum.TEAMGLOBAL);
   };
 
-  const handleOnClickTeamglobalCardInsert = () => {
+  const handleOnTeamglobalCardInsert = () => {
     navigate(TeamglobalRoutesEnum.TEAMGLOBAL_INSERT);
   };
 
-  const handleOnClickCompetitionglobalCardView = () => {
+  const handleOnCompetitionglobalCardView = () => {
     navigate(CompetitionglobalRoutesEnum.COMPETITIONGLOBAL);
   };
 
-  const handleOnClickCompetitionglobalCardInsert = () => {
+  const handleOnCompetitionglobalCardInsert = () => {
     navigate(CompetitionglobalRoutesEnum.COMPETITIONGLOBAL_INSERT);
   };
 
   return {
-    handleOnClickManagerglobalCardView,
-    handleOnClickManagerglobalCardInsert,
-    handleOnClickPlayerglobalCardView,
-    handleOnClickPlayerglobalCardInsert,
-    handleOnClickTeamglobalCardView,
-    handleOnClickTeamglobalCardInsert,
-    handleOnClickCompetitionglobalCardView,
-    handleOnClickCompetitionglobalCardInsert,
+    handleOnManagerglobalCardView,
+    handleOnManagerglobalCardInsert,
+    handleOnPlayerglobalCardView,
+    handleOnPlayerglobalCardInsert,
+    handleOnTeamglobalCardView,
+    handleOnTeamglobalCardInsert,
+    handleOnCompetitionglobalCardView,
+    handleOnCompetitionglobalCardInsert,
   };
 };

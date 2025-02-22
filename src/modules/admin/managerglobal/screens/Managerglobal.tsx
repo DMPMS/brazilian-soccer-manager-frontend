@@ -19,7 +19,7 @@ const Managerglobal = () => {
   const {
     loading,
     managersglobal,
-    handleOnClickInsert,
+    handleOnInsert,
     handleOnSearch,
     handleOnEdit,
     handleOnDelete,
@@ -122,7 +122,7 @@ const Managerglobal = () => {
           <Search placeholder="Buscar treinador" onSearch={handleOnSearch} enterButton />
         </LimitedContainerProject>
 
-        <ButtonProject type="primary" onClick={handleOnClickInsert}>
+        <ButtonProject type="primary" onClick={handleOnInsert}>
           Inserir
         </ButtonProject>
       </FlexProject>

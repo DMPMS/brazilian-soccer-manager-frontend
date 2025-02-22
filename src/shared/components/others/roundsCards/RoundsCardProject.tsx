@@ -18,11 +18,11 @@ interface CardProjectProps {
 const RoundsCardProject = ({ rounds }: CardProjectProps) => {
   const [activeTabIndex, setActiveTabIndex] = useState<number>(0);
 
-  const handleOnClickPrevRound = () => {
+  const handleOnPrevRound = () => {
     setActiveTabIndex((prevIndex) => Math.max(prevIndex - 1, 0));
   };
 
-  const handleOnClickNextRound = () => {
+  const handleOnNextRound = () => {
     setActiveTabIndex((prevIndex) => Math.min(prevIndex + 1, tabList.length - 1));
   };
 
@@ -87,7 +87,7 @@ const RoundsCardProject = ({ rounds }: CardProjectProps) => {
           <ButtonProject
             type="text"
             icon={<LeftOutlined />}
-            onClick={handleOnClickPrevRound}
+            onClick={handleOnPrevRound}
             disabled={activeTabIndex === 0}
           />
           <Typography.Title level={5} style={{ margin: 0 }}>
@@ -96,7 +96,7 @@ const RoundsCardProject = ({ rounds }: CardProjectProps) => {
           <ButtonProject
             type="text"
             icon={<RightOutlined />}
-            onClick={handleOnClickNextRound}
+            onClick={handleOnNextRound}
             disabled={activeTabIndex === tabList.length - 1}
           />
         </div>

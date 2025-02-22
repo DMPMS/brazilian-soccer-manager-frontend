@@ -1,4 +1,4 @@
-import { PLAYERSAVE_PRIMARY_POSITION_RATING } from '../constants/others';
+import { PositionRatingEnum } from '../enums/PositionRating.enum';
 import { PlayersaveType } from '../types/Playersave.type';
 
 export const orderPlayersaveByPosition = (playerssave: PlayersaveType[]) => {
@@ -7,13 +7,11 @@ export const orderPlayersaveByPosition = (playerssave: PlayersaveType[]) => {
   return playerssaveCopy.sort((a, b) => {
     const playerpositionA = a.playerssavePosition?.find(
       (playersavePosition) =>
-        playersavePosition.position?.id &&
-        playersavePosition.rating === PLAYERSAVE_PRIMARY_POSITION_RATING,
+        playersavePosition.position?.id && playersavePosition.rating === PositionRatingEnum.Primary,
     );
     const playerpositionB = b.playerssavePosition?.find(
       (playersavePosition) =>
-        playersavePosition.position?.id &&
-        playersavePosition.rating === PLAYERSAVE_PRIMARY_POSITION_RATING,
+        playersavePosition.position?.id && playersavePosition.rating === PositionRatingEnum.Primary,
     );
 
     if (!playerpositionA && playerpositionB) return 1;

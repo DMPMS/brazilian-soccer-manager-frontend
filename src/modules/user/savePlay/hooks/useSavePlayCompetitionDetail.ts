@@ -27,12 +27,6 @@ export const useSavePlayCompetitionDetail = (competitionsaveId?: string) => {
           false,
           { saveId: savePlay?.id },
         ).then((data: CompetitionsaveType) => {
-          data.rounds?.sort((a, b) => a.id - b.id);
-
-          data.rounds?.forEach((round) => {
-            round.matches?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-          });
-
           setSavePlayCompetitionsave(data);
         });
 

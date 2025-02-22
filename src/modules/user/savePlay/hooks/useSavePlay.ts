@@ -5,10 +5,8 @@ import { useSavePlayReducer } from '../../../../store/reducers/savePlayReducer/u
 export const useSavePlay = () => {
   const { savePlay } = useSavePlayReducer();
 
-  const savePlayTeamsaveMatches: MatchType[] = [
-    ...(savePlay?.controllerManagersave?.teamsave?.homeMatches || []),
-    ...(savePlay?.controllerManagersave?.teamsave?.awayMatches || []),
-  ].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  const savePlayTeamsaveMatches: MatchType[] =
+    savePlay?.controllerManagersave?.teamsave?.matches || [];
 
   const savePlayTeamsavePlayerssave: PlayersaveType[] =
     savePlay?.controllerManagersave?.teamsave?.playerssave || [];

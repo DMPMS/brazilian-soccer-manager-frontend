@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { URL_RULE } from '../../../../shared/constants/urls';
 import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
+import { RuleType } from '../../../../shared/types/Rule.type';
 import { useRuleReducer } from '../../../../store/reducers/ruleReducer/useRuleReducer';
 
 export const useRule = () => {
@@ -12,7 +13,7 @@ export const useRule = () => {
 
   useEffect(() => {
     if (!rules || rules.length === 0) {
-      newRequest(MethodsEnum.GET, URL_RULE).then((data) => {
+      newRequest(MethodsEnum.GET, URL_RULE).then((data: RuleType[]) => {
         setRules(data);
       });
     }

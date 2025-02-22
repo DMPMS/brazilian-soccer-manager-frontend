@@ -35,9 +35,9 @@ const SignUp = () => {
     formUser,
     handleOnChangeInput,
     handleOnChangeDatePicker,
-    handleOnClickInsert,
-    handleOnClickReset,
-    handleOnClickCancel,
+    handleOnInsert,
+    handleOnReset,
+    handleOnCancel,
     handleOnChangeCountrySelect,
   } = useSignUp();
 
@@ -48,7 +48,7 @@ const SignUp = () => {
       <LimitedContainerCardProject width={605} margin="10px">
         <TitleSignUp level={3}>Nova Conta</TitleSignUp>
 
-        <Form layout="vertical" form={formUser} onFinish={handleOnClickInsert}>
+        <Form layout="vertical" form={formUser} onFinish={handleOnInsert}>
           <FlexProject justify="space-between">
             <LimitedContainerProject width={300}>
               <Form.Item
@@ -227,10 +227,10 @@ const SignUp = () => {
 
           <FlexProject justify="space-between">
             <div>
-              <ButtonProject onClick={handleOnClickCancel}>Cancelar</ButtonProject>
+              <ButtonProject onClick={handleOnCancel}>Cancelar</ButtonProject>
             </div>
             <div>
-              <ButtonProject onClick={handleOnClickReset} margin="0px 8px 0px 0px">
+              <ButtonProject onClick={handleOnReset} margin="0px 8px 0px 0px">
                 Resetar
               </ButtonProject>
 

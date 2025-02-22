@@ -11,7 +11,7 @@ import { LogoSignIn, TitleSignIn } from '../styles/signIn.style';
 const { Text, Link } = Typography;
 
 const SignIn = () => {
-  const { loading, disabledButton, handleOnChangeInput, handleOnClickSignIn, handleOnClickSignUp } =
+  const { loading, disabledButton, handleOnChangeInput, handleOnSignIn, handleOnSignUp } =
     useSignIn();
 
   return (
@@ -22,7 +22,7 @@ const SignIn = () => {
           <TitleSignIn level={3}>Brazilian Soccer Manager</TitleSignIn>
         </FlexProject>
 
-        <Form layout="vertical" onFinish={handleOnClickSignIn}>
+        <Form layout="vertical" onFinish={handleOnSignIn}>
           <Form.Item
             name="email"
             required
@@ -61,7 +61,7 @@ const SignIn = () => {
 
           <FlexProject justify="center" align="center">
             <Text>
-              Novo por aqui? <Link onClick={handleOnClickSignUp}>Cadastre-se</Link> agora!
+              Novo por aqui? <Link onClick={handleOnSignUp}>Cadastre-se</Link> agora!
             </Text>
           </FlexProject>
         </Form>

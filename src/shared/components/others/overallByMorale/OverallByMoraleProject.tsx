@@ -1,11 +1,5 @@
-import {
-  PLAYERSAVE_HIGH_MORALE_RATING,
-  PLAYERSAVE_LOW_MORALE_RATING,
-  PLAYERSAVE_NORMAL_MORALE_RATING,
-  PLAYERSAVE_VERY_HIGH_MORALE_RATING,
-  PLAYERSAVE_VERY_LOW_MORALE_RATING,
-} from '../../../constants/others';
 import { MoraleEnum } from '../../../enums/Morale.enum';
+import { MoraleRatingEnum } from '../../../enums/MoraleRating.enum';
 
 interface OverallByMoraleProjectProps {
   morale: MoraleEnum;
@@ -17,15 +11,15 @@ const OverallByMoraleProject = ({ morale, overall, margin }: OverallByMoraleProj
   let newMorale = 0;
 
   if (morale === MoraleEnum.VeryHigh) {
-    newMorale = Math.ceil(overall * PLAYERSAVE_VERY_HIGH_MORALE_RATING);
+    newMorale = Math.ceil(overall * MoraleRatingEnum.VeryHigh);
   } else if (morale === MoraleEnum.High) {
-    newMorale = Math.ceil(overall * PLAYERSAVE_HIGH_MORALE_RATING);
+    newMorale = Math.ceil(overall * MoraleRatingEnum.High);
   } else if (morale === MoraleEnum.Normal) {
-    newMorale = Math.ceil(overall * PLAYERSAVE_NORMAL_MORALE_RATING);
+    newMorale = Math.ceil(overall * MoraleRatingEnum.Normal);
   } else if (morale === MoraleEnum.Low) {
-    newMorale = Math.ceil(overall * PLAYERSAVE_LOW_MORALE_RATING);
+    newMorale = Math.ceil(overall * MoraleRatingEnum.Low);
   } else {
-    newMorale = Math.ceil(overall * PLAYERSAVE_VERY_LOW_MORALE_RATING);
+    newMorale = Math.ceil(overall * MoraleRatingEnum.VeryLow);
   }
 
   return <div style={{ margin: margin }}>{newMorale}</div>;

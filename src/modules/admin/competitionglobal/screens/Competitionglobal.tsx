@@ -20,7 +20,7 @@ const Competitionglobal = () => {
     loading,
     competitionsglobal,
     competitionglobalCanBeDeleted,
-    handleOnClickInsert,
+    handleOnInsert,
     handleOnSearch,
     handleOnEdit,
     handleOnDelete,
@@ -115,7 +115,7 @@ const Competitionglobal = () => {
           <Search placeholder="Buscar competição" onSearch={handleOnSearch} enterButton />
         </LimitedContainerProject>
 
-        <ButtonProject type="primary" onClick={handleOnClickInsert}>
+        <ButtonProject type="primary" onClick={handleOnInsert}>
           Inserir
         </ButtonProject>
       </FlexProject>

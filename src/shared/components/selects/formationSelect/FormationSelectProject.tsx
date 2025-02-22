@@ -1,11 +1,8 @@
 import { Form } from 'antd';
 
-import {
-  PLAYERGLOBAL_PRIMARY_POSITION_RATING,
-  PLAYERGLOBAL_SECONDARY_POSITION_RATING,
-} from '../../../constants/others';
 import { FormationEnum } from '../../../enums/Formation.enum';
 import { PositionAreaEnum } from '../../../enums/PositionArea.enum';
+import { PositionRatingEnum } from '../../../enums/PositionRating.enum';
 import { PlayerglobalType } from '../../../types/Playerglobal.type';
 import FlexProject from '../../flex/FlexProject';
 import PositionTagProject from '../../tags/positionTag/PositionTagProject';
@@ -519,7 +516,7 @@ const SquadplanglobalPositionSelects = ({
                       {playerglobal.playersglobalPosition
                         ?.filter(
                           (playerglobalPosition) =>
-                            playerglobalPosition.rating === PLAYERGLOBAL_PRIMARY_POSITION_RATING,
+                            playerglobalPosition.rating === PositionRatingEnum.Primary,
                         )
                         .map((playerglobalPosition, index) => (
                           <PositionTagProject
@@ -533,7 +530,7 @@ const SquadplanglobalPositionSelects = ({
                       {playerglobal.playersglobalPosition
                         ?.filter(
                           (playerglobalPosition) =>
-                            playerglobalPosition.rating === PLAYERGLOBAL_SECONDARY_POSITION_RATING,
+                            playerglobalPosition.rating === PositionRatingEnum.Secondary,
                         )
                         .map((playerglobalPosition, index) => (
                           <PositionTagProject
@@ -563,7 +560,7 @@ const SquadplanglobalPositionSelects = ({
                       {playerglobal.playersglobalPosition
                         ?.filter(
                           (playerglobalPosition) =>
-                            playerglobalPosition.rating === PLAYERGLOBAL_PRIMARY_POSITION_RATING,
+                            playerglobalPosition.rating === PositionRatingEnum.Primary,
                         )
                         .map((playerglobalPosition, index) => (
                           <PositionTagProject

@@ -44,7 +44,7 @@ export const useSignIn = () => {
     });
   };
 
-  const handleOnClickSignIn = () => {
+  const handleOnSignIn = () => {
     newRequest(
       MethodsEnum.POST,
       URL_AUTH,
@@ -71,7 +71,7 @@ export const useSignIn = () => {
       });
   };
 
-  const handleOnClickSignUp = () => {
+  const handleOnSignUp = () => {
     navigate(SignUpRoutesEnum.SIGN_UP);
   };
 
@@ -79,7 +79,7 @@ export const useSignIn = () => {
     loading,
     disabledButton,
     handleOnChangeInput,
-    handleOnClickSignIn,
-    handleOnClickSignUp,
+    handleOnSignIn,
+    handleOnSignUp,
   };
 };

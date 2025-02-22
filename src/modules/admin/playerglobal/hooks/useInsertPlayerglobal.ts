@@ -16,8 +16,6 @@ import {
   PLAYERGLOBAL_MIN_LENGH_NAME,
   PLAYERGLOBAL_MIN_OVERALL,
   PLAYERGLOBAL_MIN_PRIMARY_POSITIONS,
-  PLAYERGLOBAL_PRIMARY_POSITION_RATING,
-  PLAYERGLOBAL_SECONDARY_POSITION_RATING,
 } from '../../../../shared/constants/others';
 import {
   URL_PLAYERGLOBAL,
@@ -27,7 +25,10 @@ import {
 import { InsertPlayerglobalDTO } from '../../../../shared/dtos/insertPlayerglobal.dto';
 import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
 import { PositionEnum } from '../../../../shared/enums/Position.enum';
+import { PositionRatingEnum } from '../../../../shared/enums/PositionRating.enum';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
+import { PlayerglobalType } from '../../../../shared/types/Playerglobal.type';
+import { TeamglobalType } from '../../../../shared/types/Teamglobal.type';
 import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';
 import { usePlayerglobalReducer } from '../../../../store/reducers/playerglobalReducer/usePlayerglobalReducer';
 import { useTeamglobalReducer } from '../../../../store/reducers/teamglobalReducer/useTeamglobalReducer';
@@ -58,7 +59,7 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
         await newRequest(
           MethodsEnum.GET,
           URL_PLAYERGLOBAL_ID.replace('{playerglobalId}', playerglobalId),
-        ).then((data) => {
+        ).then((data: PlayerglobalType) => {
           setPlayerglobalReducer(data);
         });
 
@@ -81,9 +82,9 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
 
       playerglobalReducer.playersglobalPosition?.forEach((playerglobalPosition) => {
         if (playerglobalPosition.position) {
-          if (playerglobalPosition.rating === PLAYERGLOBAL_PRIMARY_POSITION_RATING) {
+          if (playerglobalPosition.rating === PositionRatingEnum.Primary) {
             primaryPositionIds.push(playerglobalPosition.position.id);
-          } else if (playerglobalPosition.rating === PLAYERGLOBAL_SECONDARY_POSITION_RATING) {
+          } else if (playerglobalPosition.rating === PositionRatingEnum.Secondary) {
             secondaryPositionIds.push(playerglobalPosition.position.id);
           }
         }
@@ -215,7 +216,7 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
     });
   };
 
-  const handleOnClickInsert = async () => {
+  const handleOnInsert = async () => {
     if (playerglobalId) {
       await newRequest(
         MethodsEnum.PUT,
@@ -228,12 +229,12 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
       await newRequest(MethodsEnum.POST, URL_PLAYERGLOBAL, false, {}, playerglobal);
     }
 
-    await newRequest(MethodsEnum.GET, URL_PLAYERGLOBAL).then((data) => {
+    await newRequest(MethodsEnum.GET, URL_PLAYERGLOBAL).then((data: PlayerglobalType[]) => {
       setPlayersglobal(data);
     });
 
     // Just by inserting.
-    await newRequest(MethodsEnum.GET, URL_TEAMGLOBAL).then((data) => {
+    await newRequest(MethodsEnum.GET, URL_TEAMGLOBAL).then((data: TeamglobalType[]) => {
       setTeamsglobal(data);
     });
 
@@ -246,12 +247,12 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
     navigate(PlayerglobalRoutesEnum.PLAYERGLOBAL);
   };
 
-  const handleOnClickReset = () => {
+  const handleOnReset = () => {
     setPlayerglobal(DEFAULT_PLAYERGLOBAL);
     formPlayerglobal.resetFields();
   };
 
-  const handleOnClickCancel = () => {
+  const handleOnCancel = () => {
     navigate(PlayerglobalRoutesEnum.PLAYERGLOBAL);
   };
 
@@ -268,9 +269,9 @@ export const useInsertPlayerglobal = (playerglobalId?: string) => {
     handleOnChangeInput,
     handleOnChangeInputNumber,
     handleOnChangeDatePicker,
-    handleOnClickInsert,
-    handleOnClickReset,
-    handleOnClickCancel,
+    handleOnInsert,
+    handleOnReset,
+    handleOnCancel,
     handleOnChangeCountrySelect,
     handleOnChangeTeamglobalSelect,
     handleOnChangePrimaryPositionSelect,

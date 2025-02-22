@@ -37,9 +37,9 @@ const ManagerglobalInsert = () => {
     formManagerglobal,
     handleOnChangeInput,
     handleOnChangeDatePicker,
-    handleOnClickInsert,
-    handleOnClickReset,
-    handleOnClickCancel,
+    handleOnInsert,
+    handleOnReset,
+    handleOnCancel,
     handleOnChangeCountrySelect,
   } = useInsertManagerglobal(managerglobalId);
 
@@ -69,7 +69,7 @@ const ManagerglobalInsert = () => {
       ) : (
         <FlexProject justify="center">
           <LimitedContainerCardProject width={400}>
-            <Form layout="vertical" form={formManagerglobal} onFinish={handleOnClickInsert}>
+            <Form layout="vertical" form={formManagerglobal} onFinish={handleOnInsert}>
               <Form.Item
                 label="Nome"
                 name="name"
@@ -174,10 +174,10 @@ const ManagerglobalInsert = () => {
 
               <FlexProject justify="space-between">
                 <div>
-                  <ButtonProject onClick={handleOnClickCancel}>Cancelar</ButtonProject>
+                  <ButtonProject onClick={handleOnCancel}>Cancelar</ButtonProject>
                 </div>
                 <div>
-                  <ButtonProject onClick={handleOnClickReset} margin="0px 8px 0px 0px">
+                  <ButtonProject onClick={handleOnReset} margin="0px 8px 0px 0px">
                     Resetar
                   </ButtonProject>
 

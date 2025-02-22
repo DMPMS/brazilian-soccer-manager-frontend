@@ -10,6 +10,7 @@ import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
 import { RuleEnum } from '../../../../shared/enums/Rule.enum';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
 import { CompetitionglobalType } from '../../../../shared/types/Competitionglobal.type';
+import { TeamglobalType } from '../../../../shared/types/Teamglobal.type';
 import { useCompetitionglobalReducer } from '../../../../store/reducers/competitionglobalReducer/useCompetitionglobalReducer';
 import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';
 import { useTeamglobalReducer } from '../../../../store/reducers/teamglobalReducer/useTeamglobalReducer';
@@ -34,13 +35,13 @@ export const useCompetitionglobal = () => {
 
   useEffect(() => {
     if (!competitionsglobal || competitionsglobal.length === 0) {
-      newRequest(MethodsEnum.GET, URL_COMPETITIONGLOBAL).then((data) => {
+      newRequest(MethodsEnum.GET, URL_COMPETITIONGLOBAL).then((data: CompetitionglobalType[]) => {
         setCompetitionsglobal(data);
       });
     }
   }, []);
 
-  const handleOnClickInsert = () => {
+  const handleOnInsert = () => {
     navigate(CompetitionglobalRoutesEnum.COMPETITIONGLOBAL_INSERT);
   };
 
@@ -63,11 +64,13 @@ export const useCompetitionglobal = () => {
       URL_COMPETITIONGLOBAL_ID.replace('{competitionglobalId}', `${competitionglobalIdDelete}`),
     );
 
-    await newRequest(MethodsEnum.GET, URL_COMPETITIONGLOBAL).then((data) => {
-      setCompetitionsglobal(data);
-    });
+    await newRequest(MethodsEnum.GET, URL_COMPETITIONGLOBAL).then(
+      (data: CompetitionglobalType[]) => {
+        setCompetitionsglobal(data);
+      },
+    );
 
-    await newRequest(MethodsEnum.GET, URL_TEAMGLOBAL).then((data) => {
+    await newRequest(MethodsEnum.GET, URL_TEAMGLOBAL).then((data: TeamglobalType[]) => {
       setTeamsglobal(data);
     });
 
@@ -126,7 +129,7 @@ export const useCompetitionglobal = () => {
     loading,
     competitionsglobal: competitionsglobalFiltered,
     competitionglobalCanBeDeleted,
-    handleOnClickInsert,
+    handleOnInsert,
     handleOnSearch,
     handleOnEdit,
     handleOnDelete,

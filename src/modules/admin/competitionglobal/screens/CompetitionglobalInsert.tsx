@@ -52,9 +52,9 @@ const CompetitionglobalInsert = () => {
     teamglobalWithoutCompetitionglobalRuleTypeLeagueIds,
     teamglobalWithoutCompetitionglobalRuleTypeCupIds,
     handleOnChangeInput,
-    handleOnClickInsert,
-    handleOnClickReset,
-    handleOnClickCancel,
+    handleOnInsert,
+    handleOnReset,
+    handleOnCancel,
     handleOnChangeCountrySelect,
     handleOnChangeRuleSelect,
     handleOnChangeTeamglobalSelect,
@@ -152,7 +152,7 @@ const CompetitionglobalInsert = () => {
       ) : (
         <FlexProject justify="center">
           <LimitedContainerProject width={1005}>
-            <Form layout="vertical" form={formCompetitionglobal} onFinish={handleOnClickInsert}>
+            <Form layout="vertical" form={formCompetitionglobal} onFinish={handleOnInsert}>
               <FlexProject justify="space-between">
                 <LimitedContainerCardProject width={400}>
                   <Form.Item
@@ -301,10 +301,10 @@ const CompetitionglobalInsert = () => {
 
                   <FlexProject justify="space-between">
                     <div>
-                      <ButtonProject onClick={handleOnClickCancel}>Cancelar</ButtonProject>
+                      <ButtonProject onClick={handleOnCancel}>Cancelar</ButtonProject>
                     </div>
                     <div>
-                      <ButtonProject onClick={handleOnClickReset} margin="0px 8px 0px 0px">
+                      <ButtonProject onClick={handleOnReset} margin="0px 8px 0px 0px">
                         Resetar
                       </ButtonProject>
 

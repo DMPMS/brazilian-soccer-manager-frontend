@@ -24,7 +24,7 @@ const SidebarSavePlayProject = () => {
 
   const [openModalExit, setOpenModalExit] = useState(false);
 
-  const handleOnClickExit = () => {
+  const handleOnExit = () => {
     setOpenModalExit(true);
   };
 
@@ -67,7 +67,7 @@ const SidebarSavePlayProject = () => {
       key: 'exit',
       label: 'Sair',
       icon: <LogoutIconSVGProject />,
-      onClick: () => handleOnClickExit(),
+      onClick: () => handleOnExit(),
     },
   ];
 

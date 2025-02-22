@@ -52,9 +52,9 @@ const TeamglobalInsert = () => {
     formationId,
     squadplanglobalPlayersglobalDict,
     handleOnChangeInput,
-    handleOnClickInsert,
-    handleOnClickReset,
-    handleOnClickCancel,
+    handleOnInsert,
+    handleOnReset,
+    handleOnCancel,
     handleOnChangeCountrySelect,
     handleOnChangeManagerglobalSelect,
     handleOnChangePlayerglobalSelect,
@@ -88,7 +88,7 @@ const TeamglobalInsert = () => {
       ) : (
         <FlexProject justify="center">
           <LimitedContainerProject width={1005}>
-            <Form layout="vertical" form={formTeamglobal} onFinish={handleOnClickInsert}>
+            <Form layout="vertical" form={formTeamglobal} onFinish={handleOnInsert}>
               <FlexProject justify="space-between">
                 <LimitedContainerCardProject width={400}>
                   <Form.Item
@@ -225,10 +225,10 @@ const TeamglobalInsert = () => {
 
                   <FlexProject justify="space-between">
                     <div>
-                      <ButtonProject onClick={handleOnClickCancel}>Cancelar</ButtonProject>
+                      <ButtonProject onClick={handleOnCancel}>Cancelar</ButtonProject>
                     </div>
                     <div>
-                      <ButtonProject onClick={handleOnClickReset} margin="0px 8px 0px 0px">
+                      <ButtonProject onClick={handleOnReset} margin="0px 8px 0px 0px">
                         Resetar
                       </ButtonProject>
 

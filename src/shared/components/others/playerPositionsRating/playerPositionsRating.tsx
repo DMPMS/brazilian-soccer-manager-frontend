@@ -1,15 +1,7 @@
-import {
-  PLAYERGLOBAL_DEFAULT_GOALKEEPER_POSITION_RATING,
-  PLAYERGLOBAL_MAX_OVERALL,
-  PLAYERGLOBAL_MIN_OVERALL,
-  PLAYERGLOBAL_NON_PLAYING_POSITION_RATING,
-  PLAYERGLOBAL_PRIMARY_POSITION_RATING,
-  PLAYERGLOBAL_SAME_AREA_PRIMARY_POSITION_RATING,
-  PLAYERGLOBAL_SAME_AREA_SECONDARY_POSITION_RATING,
-  PLAYERGLOBAL_SECONDARY_POSITION_RATING,
-} from '../../../constants/others';
+import { PLAYERGLOBAL_MAX_OVERALL, PLAYERGLOBAL_MIN_OVERALL } from '../../../constants/others';
 import { PositionEnum } from '../../../enums/Position.enum';
 import { PositionAreaEnum } from '../../../enums/PositionArea.enum';
+import { PositionRatingEnum } from '../../../enums/PositionRating.enum';
 import FlexProject from '../../flex/FlexProject';
 
 interface PlayerPositionsRatingProps {
@@ -45,12 +37,12 @@ const calculateOverall = (
   }
 
   if (primaryPositionIds.includes(positionId)) {
-    return { overall: playerOverall * PLAYERGLOBAL_PRIMARY_POSITION_RATING, colorIndex: 0 };
+    return { overall: playerOverall * PositionRatingEnum.Primary, colorIndex: 0 };
   }
 
   if (secondaryPositionIds.includes(positionId)) {
     return {
-      overall: Math.ceil(playerOverall * PLAYERGLOBAL_SECONDARY_POSITION_RATING),
+      overall: Math.ceil(playerOverall * PositionRatingEnum.Secondary),
       colorIndex: 1,
     };
   }
@@ -62,7 +54,7 @@ const calculateOverall = (
   );
   if (primaryAreaMatch) {
     return {
-      overall: Math.ceil(playerOverall * PLAYERGLOBAL_SAME_AREA_PRIMARY_POSITION_RATING),
+      overall: Math.ceil(playerOverall * PositionRatingEnum.SameAreaPrimary),
       colorIndex: 2,
     };
   }
@@ -72,17 +64,17 @@ const calculateOverall = (
   );
   if (secondaryAreaMatch) {
     return {
-      overall: Math.ceil(playerOverall * PLAYERGLOBAL_SAME_AREA_SECONDARY_POSITION_RATING),
+      overall: Math.ceil(playerOverall * PositionRatingEnum.SameAreaSecondary),
       colorIndex: 3,
     };
   }
 
   if (positionId === PositionEnum.GK) {
-    return { overall: PLAYERGLOBAL_DEFAULT_GOALKEEPER_POSITION_RATING, colorIndex: 5 };
+    return { overall: Math.ceil(playerOverall * PositionRatingEnum.NonGoalkeeper), colorIndex: 5 };
   }
 
   return {
-    overall: Math.ceil(playerOverall * PLAYERGLOBAL_NON_PLAYING_POSITION_RATING),
+    overall: Math.ceil(playerOverall * PositionRatingEnum.NonPlaying),
     colorIndex: 4,
   };
 };

@@ -22,6 +22,7 @@ import {
 } from './shared/functions/connection/auth';
 import { useNewRequests } from './shared/hooks/useNewRequests';
 import { useNotification } from './shared/hooks/useNotification';
+import { UserType } from './shared/types/User.type';
 import { useGlobalReducer } from './store/reducers/globalReducer/useGlobalReducer';
 
 const routes: RouteObject[] = [...signInRoutes, ...signUpRoutes];
@@ -64,7 +65,7 @@ function App() {
   useEffect(() => {
     const token = getAuthorizationToken();
     if (token) {
-      newRequest(MethodsEnum.GET, URL_USER_LOGGED_IN).then((data) => {
+      newRequest(MethodsEnum.GET, URL_USER_LOGGED_IN).then((data: UserType) => {
         setUser(data);
       });
     }

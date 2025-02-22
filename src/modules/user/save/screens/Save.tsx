@@ -20,11 +20,11 @@ const Save = () => {
     saves,
     savePlayId,
     openModalLogout,
-    handleOnClickInsert,
-    handleOnClickLogout,
+    handleOnInsert,
+    handleOnLogout,
     handleOnCancelLogout,
     handleOnConfirmLogout,
-    handleOnClickPlaySave,
+    handleOnPlaySave,
   } = useSave();
 
   const columns: ColumnsType<SaveType> = useMemo(
@@ -72,7 +72,7 @@ const Save = () => {
             <ButtonProject
               loading={savePlayId === target.id}
               type="primary"
-              onClick={() => handleOnClickPlaySave(target.id)}
+              onClick={() => handleOnPlaySave(target.id)}
               icon={<PlayCircleOutlined />}
             ></ButtonProject>
 
@@ -96,10 +96,10 @@ const Save = () => {
         <LimitedContainerCardProject width={900} margin="10px">
           <TitleSave level={3}>Salvamentos</TitleSave>
           <FlexProject justify="space-between" margin="0px 0px 16px 0px">
-            <ButtonProject type="primary" onClick={handleOnClickLogout}>
+            <ButtonProject type="primary" onClick={handleOnLogout}>
               Sair
             </ButtonProject>
-            <ButtonProject type="primary" onClick={handleOnClickInsert}>
+            <ButtonProject type="primary" onClick={handleOnInsert}>
               Novo jogo
             </ButtonProject>
           </FlexProject>

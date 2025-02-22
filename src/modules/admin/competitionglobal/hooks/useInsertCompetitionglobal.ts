@@ -19,6 +19,7 @@ import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
 import { RuleEnum } from '../../../../shared/enums/Rule.enum';
 import { validateImage } from '../../../../shared/functions/validateImage';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
+import { CompetitionglobalType } from '../../../../shared/types/Competitionglobal.type';
 import { TeamglobalType } from '../../../../shared/types/Teamglobal.type';
 import { useCompetitionglobalReducer } from '../../../../store/reducers/competitionglobalReducer/useCompetitionglobalReducer';
 import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';
@@ -71,15 +72,15 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
     const fetchData = async () => {
       await newRequest(MethodsEnum.GET, URL_TEAMGLOBAL, false, {
         isWithoutCompetitionglobalRuleTypeLeague: true,
-      }).then((data) => {
-        const teamglobalIds = data.map((teamglobal: TeamglobalType) => teamglobal.id);
+      }).then((data: TeamglobalType[]) => {
+        const teamglobalIds = data.map((teamglobal) => teamglobal.id);
         setTeamglobalWithoutCompetitionglobalRuleTypeLeagueIds(teamglobalIds);
       });
 
       await newRequest(MethodsEnum.GET, URL_TEAMGLOBAL, false, {
         isWithoutCompetitionglobalRuleTypeCup: true,
-      }).then((data) => {
-        const teamglobalIds = data.map((teamglobal: TeamglobalType) => teamglobal.id);
+      }).then((data: TeamglobalType[]) => {
+        const teamglobalIds = data.map((teamglobal) => teamglobal.id);
         setTeamglobalWithoutCompetitionglobalRuleTypeCupIds(teamglobalIds);
       });
 
@@ -87,7 +88,7 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
         await newRequest(
           MethodsEnum.GET,
           URL_COMPETITIONGLOBAL_ID.replace('{competitionglobalId}', competitionglobalId),
-        ).then((data) => {
+        ).then((data: CompetitionglobalType) => {
           setCompetitionglobalReducer(data);
         });
 
@@ -209,22 +210,22 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
     const selectValue = value ? Number(value) : undefined;
 
     if (selectValue) {
-      const selectedRule = rules.find((rule) => rule.id === selectValue);
+      const rule = rules.find((rule) => rule.id === selectValue);
 
-      if (selectedRule) {
-        setRuleNumberOfTeams(selectedRule.numberOfTeams);
-        setRuleId(selectedRule.id);
+      if (rule) {
+        setRuleNumberOfTeams(rule.numberOfTeams);
+        setRuleId(rule.id);
 
         formCompetitionglobal.setFieldsValue({
-          name: selectedRule.default_competition_name,
-          srcImage: selectedRule.default_competition_src_image,
+          name: rule.defaultCompetitionName,
+          srcImage: rule.defaultCompetitionSrcImage,
         });
 
         setCompetitionglobal({
           ...competitionglobal,
           ruleId: selectValue,
-          name: selectedRule.default_competition_name,
-          srcImage: selectedRule.default_competition_src_image,
+          name: rule.defaultCompetitionName,
+          srcImage: rule.defaultCompetitionSrcImage,
           teamglobalIds: [],
         });
       }
@@ -263,7 +264,7 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
     });
   };
 
-  const handleOnClickInsert = async () => {
+  const handleOnInsert = async () => {
     if (competitionglobalId) {
       await newRequest(
         MethodsEnum.PUT,
@@ -276,11 +277,13 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
       await newRequest(MethodsEnum.POST, URL_COMPETITIONGLOBAL, false, {}, competitionglobal);
     }
 
-    await newRequest(MethodsEnum.GET, URL_COMPETITIONGLOBAL).then((data) => {
-      setCompetitionsglobal(data);
-    });
+    await newRequest(MethodsEnum.GET, URL_COMPETITIONGLOBAL).then(
+      (data: CompetitionglobalType[]) => {
+        setCompetitionsglobal(data);
+      },
+    );
 
-    await newRequest(MethodsEnum.GET, URL_TEAMGLOBAL).then((data) => {
+    await newRequest(MethodsEnum.GET, URL_TEAMGLOBAL).then((data: TeamglobalType[]) => {
       setTeamsglobal(data);
     });
 
@@ -293,7 +296,7 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
     navigate(CompetitionglobalRoutesEnum.COMPETITIONGLOBAL);
   };
 
-  const handleOnClickReset = () => {
+  const handleOnReset = () => {
     setCompetitionglobal(DEFAULT_COMPETITIONGLOBAL);
     formCompetitionglobal.resetFields();
     setIsValidImage(false);
@@ -303,7 +306,7 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
     setTeamglobalIdsCount(0);
   };
 
-  const handleOnClickCancel = () => {
+  const handleOnCancel = () => {
     navigate(CompetitionglobalRoutesEnum.COMPETITIONGLOBAL);
   };
 
@@ -322,9 +325,9 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
     teamglobalWithoutCompetitionglobalRuleTypeLeagueIds,
     teamglobalWithoutCompetitionglobalRuleTypeCupIds,
     handleOnChangeInput,
-    handleOnClickInsert,
-    handleOnClickReset,
-    handleOnClickCancel,
+    handleOnInsert,
+    handleOnReset,
+    handleOnCancel,
     handleOnChangeCountrySelect,
     handleOnChangeRuleSelect,
     handleOnChangeTeamglobalSelect,

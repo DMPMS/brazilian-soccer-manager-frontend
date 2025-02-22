@@ -94,7 +94,7 @@ export const useSignUp = () => {
     });
   };
 
-  const handleOnClickInsert = async () => {
+  const handleOnInsert = async () => {
     try {
       await newRequest(MethodsEnum.POST, URL_USER, true, {}, user);
       setNotification('Conta criada.', 'success');
@@ -136,12 +136,12 @@ export const useSignUp = () => {
     }
   };
 
-  const handleOnClickReset = () => {
+  const handleOnReset = () => {
     setUser(DEFAULT_SIGN_UP);
     formUser.resetFields();
   };
 
-  const handleOnClickCancel = () => {
+  const handleOnCancel = () => {
     navigate(SignInRoutesEnum.SIGN_IN);
   };
 
@@ -151,9 +151,9 @@ export const useSignUp = () => {
     formUser,
     handleOnChangeInput,
     handleOnChangeDatePicker,
-    handleOnClickInsert,
-    handleOnClickReset,
-    handleOnClickCancel,
+    handleOnInsert,
+    handleOnReset,
+    handleOnCancel,
     handleOnChangeCountrySelect,
   };
 };

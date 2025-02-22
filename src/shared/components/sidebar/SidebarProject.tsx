@@ -25,7 +25,7 @@ const SidebarProject = () => {
 
   const [openModalLogout, setOpenModalLogout] = useState(false);
 
-  const handleOnClickLogout = () => {
+  const handleOnLogout = () => {
     setOpenModalLogout(true);
   };
 
@@ -116,7 +116,7 @@ const SidebarProject = () => {
       key: 'logout',
       label: 'Sair',
       icon: <LogoutIconSVGProject />,
-      onClick: () => handleOnClickLogout(),
+      onClick: () => handleOnLogout(),
     },
   ];
 

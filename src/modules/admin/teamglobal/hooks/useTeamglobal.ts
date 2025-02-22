@@ -9,6 +9,9 @@ import {
 } from '../../../../shared/constants/urls';
 import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
+import { ManagerglobalType } from '../../../../shared/types/Managerglobal.type';
+import { PlayerglobalType } from '../../../../shared/types/Playerglobal.type';
+import { TeamglobalType } from '../../../../shared/types/Teamglobal.type';
 import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';
 import { useManagerglobalReducer } from '../../../../store/reducers/managerglobalReducer/useManagerglobalReducer';
 import { usePlayerglobalReducer } from '../../../../store/reducers/playerglobalReducer/usePlayerglobalReducer';
@@ -33,13 +36,13 @@ export const useTeamglobal = () => {
 
   useEffect(() => {
     if (!teamsglobal || teamsglobal.length === 0) {
-      newRequest(MethodsEnum.GET, URL_TEAMGLOBAL).then((data) => {
+      newRequest(MethodsEnum.GET, URL_TEAMGLOBAL).then((data: TeamglobalType[]) => {
         setTeamsglobal(data);
       });
     }
   }, []);
 
-  const handleOnClickInsert = () => {
+  const handleOnInsert = () => {
     navigate(TeamglobalRoutesEnum.TEAMGLOBAL_INSERT);
   };
 
@@ -57,15 +60,15 @@ export const useTeamglobal = () => {
       URL_TEAMGLOBAL_ID.replace('{teamglobalId}', `${teamglobalIdDelete}`),
     );
 
-    await newRequest(MethodsEnum.GET, URL_TEAMGLOBAL).then((data) => {
+    await newRequest(MethodsEnum.GET, URL_TEAMGLOBAL).then((data: TeamglobalType[]) => {
       setTeamsglobal(data);
     });
 
-    await newRequest(MethodsEnum.GET, URL_PLAYERGLOBAL).then((data) => {
+    await newRequest(MethodsEnum.GET, URL_PLAYERGLOBAL).then((data: PlayerglobalType[]) => {
       setPlayersglobal(data);
     });
 
-    await newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL).then((data) => {
+    await newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL).then((data: ManagerglobalType[]) => {
       setManagersglobal(data);
     });
 
@@ -85,7 +88,7 @@ export const useTeamglobal = () => {
   return {
     loading,
     teamsglobal: teamsglobalFiltered,
-    handleOnClickInsert,
+    handleOnInsert,
     handleOnSearch,
     handleOnEdit,
     handleOnDelete,

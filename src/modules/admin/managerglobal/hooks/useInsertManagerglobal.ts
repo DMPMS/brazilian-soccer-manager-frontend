@@ -16,6 +16,7 @@ import { URL_MANAGERGLOBAL, URL_MANAGERGLOBAL_ID } from '../../../../shared/cons
 import { InsertManagerglobalDTO } from '../../../../shared/dtos/insertManagerglobal.dto';
 import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
+import { ManagerglobalType } from '../../../../shared/types/Managerglobal.type';
 import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';
 import { useManagerglobalReducer } from '../../../../store/reducers/managerglobalReducer/useManagerglobalReducer';
 import { ManagerglobalRoutesEnum } from '../routes';
@@ -44,7 +45,7 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
         await newRequest(
           MethodsEnum.GET,
           URL_MANAGERGLOBAL_ID.replace('{managerglobalId}', managerglobalId),
-        ).then((data) => {
+        ).then((data: ManagerglobalType) => {
           setManagerglobalReducer(data);
         });
 
@@ -130,7 +131,7 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
     });
   };
 
-  const handleOnClickInsert = async () => {
+  const handleOnInsert = async () => {
     if (managerglobalId) {
       await newRequest(
         MethodsEnum.PUT,
@@ -143,7 +144,7 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
       await newRequest(MethodsEnum.POST, URL_MANAGERGLOBAL, false, {}, managerglobal);
     }
 
-    await newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL).then((data) => {
+    await newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL).then((data: ManagerglobalType[]) => {
       setManagersglobal(data);
     });
 
@@ -156,12 +157,12 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
     navigate(ManagerglobalRoutesEnum.MANAGERGLOBAL);
   };
 
-  const handleOnClickReset = () => {
+  const handleOnReset = () => {
     setManagerglobal(DEFAULT_MANAGERGLOBAL);
     formManagerglobal.resetFields();
   };
 
-  const handleOnClickCancel = () => {
+  const handleOnCancel = () => {
     navigate(ManagerglobalRoutesEnum.MANAGERGLOBAL);
   };
 
@@ -173,9 +174,9 @@ export const useInsertManagerglobal = (managerglobalId?: string) => {
     formManagerglobal,
     handleOnChangeInput,
     handleOnChangeDatePicker,
-    handleOnClickInsert,
-    handleOnClickReset,
-    handleOnClickCancel,
+    handleOnInsert,
+    handleOnReset,
+    handleOnCancel,
     handleOnChangeCountrySelect,
   };
 };

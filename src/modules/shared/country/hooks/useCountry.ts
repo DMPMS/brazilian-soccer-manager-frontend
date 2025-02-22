@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { URL_COUNTRY } from '../../../../shared/constants/urls';
 import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
+import { CountryType } from '../../../../shared/types/Country.type';
 import { useCountryReducer } from '../../../../store/reducers/countryReducer/useCountryReducer';
 
 export const useCountry = () => {
@@ -12,7 +13,7 @@ export const useCountry = () => {
 
   useEffect(() => {
     if (!countries || countries.length === 0) {
-      newRequest(MethodsEnum.GET, URL_COUNTRY).then((data) => {
+      newRequest(MethodsEnum.GET, URL_COUNTRY).then((data: CountryType[]) => {
         setCountries(data);
       });
     }

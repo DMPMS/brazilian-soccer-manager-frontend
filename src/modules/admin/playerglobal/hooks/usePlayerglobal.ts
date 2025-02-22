@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { URL_PLAYERGLOBAL, URL_PLAYERGLOBAL_ID } from '../../../../shared/constants/urls';
 import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
+import { PlayerglobalType } from '../../../../shared/types/Playerglobal.type';
 import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';
 import { usePlayerglobalReducer } from '../../../../store/reducers/playerglobalReducer/usePlayerglobalReducer';
 import { PlayerglobalRoutesEnum } from '../routes';
@@ -24,13 +25,13 @@ export const usePlayerglobal = () => {
 
   useEffect(() => {
     if (!playersglobal || playersglobal.length === 0) {
-      newRequest(MethodsEnum.GET, URL_PLAYERGLOBAL).then((data) => {
+      newRequest(MethodsEnum.GET, URL_PLAYERGLOBAL).then((data: PlayerglobalType[]) => {
         setPlayersglobal(data);
       });
     }
   }, []);
 
-  const handleOnClickInsert = () => {
+  const handleOnInsert = () => {
     navigate(PlayerglobalRoutesEnum.PLAYERGLOBAL_INSERT);
   };
 
@@ -50,7 +51,7 @@ export const usePlayerglobal = () => {
       URL_PLAYERGLOBAL_ID.replace('{playerglobalId}', `${playerglobalIdDelete}`),
     );
 
-    await newRequest(MethodsEnum.GET, URL_PLAYERGLOBAL).then((data) => {
+    await newRequest(MethodsEnum.GET, URL_PLAYERGLOBAL).then((data: PlayerglobalType[]) => {
       setPlayersglobal(data);
     });
 
@@ -70,7 +71,7 @@ export const usePlayerglobal = () => {
   return {
     loading,
     playersglobal: playersglobalFiltered,
-    handleOnClickInsert,
+    handleOnInsert,
     handleOnSearch,
     handleOnEdit,
     handleOnDelete,

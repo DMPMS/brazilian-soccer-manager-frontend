@@ -12,10 +12,8 @@ import { LimitedContainerProject } from '../../../../shared/components/styles/li
 import CountrySVGProject from '../../../../shared/components/svg/CountrySVGProject';
 import TableProject from '../../../../shared/components/table/TableProject';
 import PositionTagProject from '../../../../shared/components/tags/positionTag/PositionTagProject';
-import {
-  PLAYERGLOBAL_PRIMARY_POSITION_RATING,
-  TEAMGLOBAL_MIN_PLAYERSGLOBAL,
-} from '../../../../shared/constants/others';
+import { TEAMGLOBAL_MIN_PLAYERSGLOBAL } from '../../../../shared/constants/others';
+import { PositionRatingEnum } from '../../../../shared/enums/PositionRating.enum';
 import { PlayerglobalType } from '../../../../shared/types/Playerglobal.type';
 import { HomeRoutesEnum } from '../../home/routes';
 import { usePlayerglobal } from '../hooks/usePlayerglobal';
@@ -24,7 +22,7 @@ const Playerglobal = () => {
   const {
     loading,
     playersglobal,
-    handleOnClickInsert,
+    handleOnInsert,
     handleOnSearch,
     handleOnEdit,
     handleOnDelete,
@@ -55,7 +53,7 @@ const Playerglobal = () => {
             {target.playersglobalPosition
               ?.filter(
                 (playerglobalPosition) =>
-                  playerglobalPosition.rating === PLAYERGLOBAL_PRIMARY_POSITION_RATING,
+                  playerglobalPosition.rating === PositionRatingEnum.Primary,
               )
               .map((playerglobalPosition, index) => (
                 <PositionTagProject
@@ -157,7 +155,7 @@ const Playerglobal = () => {
           <Search placeholder="Buscar jogador" onSearch={handleOnSearch} enterButton />
         </LimitedContainerProject>
 
-        <ButtonProject type="primary" onClick={handleOnClickInsert}>
+        <ButtonProject type="primary" onClick={handleOnInsert}>
           Inserir
         </ButtonProject>
       </FlexProject>

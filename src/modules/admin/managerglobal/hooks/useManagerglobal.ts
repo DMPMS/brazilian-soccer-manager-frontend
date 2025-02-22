@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { URL_MANAGERGLOBAL, URL_MANAGERGLOBAL_ID } from '../../../../shared/constants/urls';
 import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
+import { ManagerglobalType } from '../../../../shared/types/Managerglobal.type';
 import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';
 import { useManagerglobalReducer } from '../../../../store/reducers/managerglobalReducer/useManagerglobalReducer';
 import { ManagerglobalRoutesEnum } from '../routes';
@@ -24,13 +25,13 @@ export const useManagerglobal = () => {
 
   useEffect(() => {
     if (!managersglobal || managersglobal.length === 0) {
-      newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL).then((data) => {
+      newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL).then((data: ManagerglobalType[]) => {
         setManagersglobal(data);
       });
     }
   }, []);
 
-  const handleOnClickInsert = () => {
+  const handleOnInsert = () => {
     navigate(ManagerglobalRoutesEnum.MANAGERGLOBAL_INSERT);
   };
 
@@ -50,7 +51,7 @@ export const useManagerglobal = () => {
       URL_MANAGERGLOBAL_ID.replace('{managerglobalId}', `${managerglobalIdDelete}`),
     );
 
-    await newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL).then((data) => {
+    await newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL).then((data: ManagerglobalType[]) => {
       setManagersglobal(data);
     });
 
@@ -70,7 +71,7 @@ export const useManagerglobal = () => {
   return {
     loading,
     managersglobal: managersglobalFiltered,
-    handleOnClickInsert,
+    handleOnInsert,
     handleOnSearch,
     handleOnEdit,
     handleOnDelete,

@@ -41,9 +41,9 @@ const SaveInsert = () => {
     disabledButton,
     formSave,
     competitionsglobalDistinctCountryIds,
-    selectedCompetitionsglobalCountryId,
-    selectedCompetitionglobalId,
-    selectedRadioOptionIsDefault,
+    competitionsglobalCountryId,
+    competitionglobalId,
+    radioOptionIsDefault,
     userSaveNames,
     handleOnChangeInput,
     handleOnChangeDatePicker,
@@ -51,9 +51,9 @@ const SaveInsert = () => {
     handleOnChangeCompetitionglobalCountrySelect,
     handleOnChangeCompetitionglobalSelect,
     handleOnChangeTeamglobalSelect,
-    handleOnClickInsert,
-    handleOnClickReset,
-    handleOnClickCancel,
+    handleOnInsert,
+    handleOnReset,
+    handleOnCancel,
     handleOnChangeManagerCountrySelect,
   } = useInsertSave();
 
@@ -66,7 +66,7 @@ const SaveInsert = () => {
       <LimitedContainerCardProject width={605} margin="10px">
         <TitleSaveInsert level={3}>Novo Jogo</TitleSaveInsert>
 
-        <Form layout="vertical" form={formSave} onFinish={handleOnClickInsert}>
+        <Form layout="vertical" form={formSave} onFinish={handleOnInsert}>
           <FlexProject justify="space-between">
             <FlexProject justify="space-between" vertical>
               <LimitedContainerProject width={300}>
@@ -157,17 +157,15 @@ const SaveInsert = () => {
                 >
                   <SelectProject
                     placeholder={
-                      selectedCompetitionsglobalCountryId
-                        ? 'Selecione a competição'
-                        : 'Selecione o país'
+                      competitionsglobalCountryId ? 'Selecione a competição' : 'Selecione o país'
                     }
                     allowClear
-                    disabled={selectedCompetitionsglobalCountryId === undefined}
+                    disabled={competitionsglobalCountryId === undefined}
                     onChange={handleOnChangeCompetitionglobalSelect}
                     options={competitionsglobal
                       .filter(
                         (competitionglobal: CompetitionglobalType) =>
-                          competitionglobal.country?.id === selectedCompetitionsglobalCountryId &&
+                          competitionglobal.country?.id === competitionsglobalCountryId &&
                           competitionglobal.rule?.id &&
                           [
                             RuleEnum.BrazilianLeagueA,
@@ -213,17 +211,17 @@ const SaveInsert = () => {
                 >
                   <SelectProject
                     placeholder={
-                      selectedCompetitionglobalId ? 'Selecione o time' : 'Selecione a competição'
+                      competitionglobalId ? 'Selecione o time' : 'Selecione a competição'
                     }
                     allowClear
-                    disabled={selectedCompetitionglobalId === undefined}
+                    disabled={competitionglobalId === undefined}
                     onChange={handleOnChangeTeamglobalSelect}
                     options={teamsglobal
                       .filter((teamglobal: TeamglobalType) =>
                         teamglobal.competitionsglobalTeamglobal?.some(
                           (competitionglobalTeamglobal) =>
                             competitionglobalTeamglobal.competitionglobal?.id ===
-                            selectedCompetitionglobalId,
+                            competitionglobalId,
                         ),
                       )
                       .map((teamglobal: TeamglobalType) => ({
@@ -296,8 +294,8 @@ const SaveInsert = () => {
                   ]}
                 >
                   <InputProject
-                    placeholder={selectedRadioOptionIsDefault ? 'Selecione o time' : 'Nome'}
-                    disabled={selectedRadioOptionIsDefault}
+                    placeholder={radioOptionIsDefault ? 'Selecione o time' : 'Nome'}
+                    disabled={radioOptionIsDefault}
                     onChange={(event) => handleOnChangeInput(event, 'managerName')}
                   />
                 </Form.Item>
@@ -343,12 +341,10 @@ const SaveInsert = () => {
                   ]}
                 >
                   <DatePickerProject
-                    placeholder={
-                      selectedRadioOptionIsDefault ? 'Selecione o time' : 'Selecione a data'
-                    }
+                    placeholder={radioOptionIsDefault ? 'Selecione o time' : 'Selecione a data'}
                     minDate={CURRENT_DATE_UTC.subtract(SAVE_MAX_MANAGER_AGE, 'year').startOf('day')}
                     maxDate={CURRENT_DATE_UTC.subtract(SAVE_MIN_MANAGER_AGE, 'year').startOf('day')}
-                    disabled={selectedRadioOptionIsDefault}
+                    disabled={radioOptionIsDefault}
                     onChange={(date) => handleOnChangeDatePicker(date, 'managerBirthdate')}
                   />
                 </Form.Item>
@@ -361,11 +357,9 @@ const SaveInsert = () => {
                   rules={[{ required: true, message: 'Este campo deve ser preenchido.' }]}
                 >
                   <SelectProject
-                    placeholder={
-                      selectedRadioOptionIsDefault ? 'Selecione o time' : 'Selecione o país'
-                    }
+                    placeholder={radioOptionIsDefault ? 'Selecione o time' : 'Selecione o país'}
                     allowClear
-                    disabled={selectedRadioOptionIsDefault}
+                    disabled={radioOptionIsDefault}
                     onChange={handleOnChangeManagerCountrySelect}
                     options={countries.map((country: CountryType) => ({
                       value: `${country.id}`,
@@ -395,10 +389,10 @@ const SaveInsert = () => {
 
           <FlexProject justify="space-between">
             <div>
-              <ButtonProject onClick={handleOnClickCancel}>Cancelar</ButtonProject>
+              <ButtonProject onClick={handleOnCancel}>Cancelar</ButtonProject>
             </div>
             <div>
-              <ButtonProject onClick={handleOnClickReset} margin="0px 8px 0px 0px">
+              <ButtonProject onClick={handleOnReset} margin="0px 8px 0px 0px">
                 Resetar
               </ButtonProject>
 

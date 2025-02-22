@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { URL_POSITION } from '../../../../shared/constants/urls';
 import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
+import { PositionType } from '../../../../shared/types/Position.type';
 import { usePositionReducer } from '../../../../store/reducers/positionReducer/usePositionReducer';
 
 export const usePosition = () => {
@@ -12,7 +13,7 @@ export const usePosition = () => {
 
   useEffect(() => {
     if (!positions || positions.length === 0) {
-      newRequest(MethodsEnum.GET, URL_POSITION).then((data) => {
+      newRequest(MethodsEnum.GET, URL_POSITION).then((data: PositionType[]) => {
         setPositions(data);
       });
     }

@@ -5,6 +5,7 @@ import { URL_SAVE, URL_SAVE_ID } from '../../../../shared/constants/urls';
 import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
 import { logout } from '../../../../shared/functions/connection/auth';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
+import { SaveType } from '../../../../shared/types/Save.type';
 import { useSavePlayReducer } from '../../../../store/reducers/savePlayReducer/useSavePlayReducer';
 import { useSaveReducer } from '../../../../store/reducers/saveReducer/useSaveReducer';
 import { SavePlayRoutesEnum } from '../../savePlay/routes';
@@ -22,17 +23,17 @@ export const useSave = () => {
 
   useEffect(() => {
     if (!saves || saves.length === 0) {
-      newRequest(MethodsEnum.GET, URL_SAVE).then((data) => {
+      newRequest(MethodsEnum.GET, URL_SAVE).then((data: SaveType[]) => {
         setSaves(data);
       });
     }
   }, []);
 
-  const handleOnClickInsert = () => {
+  const handleOnInsert = () => {
     navigate(SaveRoutesEnum.SAVE_INSERT);
   };
 
-  const handleOnClickLogout = () => {
+  const handleOnLogout = () => {
     setOpenModalLogout(true);
   };
 
@@ -44,11 +45,11 @@ export const useSave = () => {
     logout(navigate);
   };
 
-  const handleOnClickPlaySave = async (saveId: number) => {
+  const handleOnPlaySave = async (saveId: number) => {
     setSavePlayId(saveId);
 
     await newRequest(MethodsEnum.GET, URL_SAVE_ID.replace('{saveId}', String(saveId))).then(
-      (data) => {
+      (data: SaveType) => {
         setSavePlay(data);
       },
     );
@@ -60,10 +61,10 @@ export const useSave = () => {
     saves,
     savePlayId,
     openModalLogout,
-    handleOnClickInsert,
-    handleOnClickLogout,
+    handleOnInsert,
+    handleOnLogout,
     handleOnCancelLogout,
     handleOnConfirmLogout,
-    handleOnClickPlaySave,
+    handleOnPlaySave,
   };
 };

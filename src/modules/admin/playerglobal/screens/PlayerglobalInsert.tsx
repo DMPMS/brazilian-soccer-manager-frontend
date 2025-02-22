@@ -59,9 +59,9 @@ const PlayerglobalInsert = () => {
     handleOnChangeInput,
     handleOnChangeInputNumber,
     handleOnChangeDatePicker,
-    handleOnClickInsert,
-    handleOnClickReset,
-    handleOnClickCancel,
+    handleOnInsert,
+    handleOnReset,
+    handleOnCancel,
     handleOnChangeCountrySelect,
     handleOnChangeTeamglobalSelect,
     handleOnChangePrimaryPositionSelect,
@@ -95,7 +95,7 @@ const PlayerglobalInsert = () => {
       ) : (
         <FlexProject justify="center">
           <LimitedContainerProject width={1110}>
-            <Form layout="vertical" form={formPlayerglobal} onFinish={handleOnClickInsert}>
+            <Form layout="vertical" form={formPlayerglobal} onFinish={handleOnInsert}>
               <FlexProject justify="space-between">
                 <LimitedContainerCardProject width={400}>
                   <Form.Item
@@ -232,10 +232,10 @@ const PlayerglobalInsert = () => {
 
                   <FlexProject justify="space-between">
                     <div>
-                      <ButtonProject onClick={handleOnClickCancel}>Cancelar</ButtonProject>
+                      <ButtonProject onClick={handleOnCancel}>Cancelar</ButtonProject>
                     </div>
                     <div>
-                      <ButtonProject onClick={handleOnClickReset} margin="0px 8px 0px 0px">
+                      <ButtonProject onClick={handleOnReset} margin="0px 8px 0px 0px">
                         Resetar
                       </ButtonProject>
 

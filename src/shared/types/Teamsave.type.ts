@@ -15,6 +15,5 @@ export interface TeamsaveType {
   playerssave?: PlayersaveType[];
   competitionssaveTeamsave?: CompetitionsaveTeamsaveType[];
 
-  homeMatches?: MatchType[];
-  awayMatches?: MatchType[];
+  matches?: MatchType[];
 }

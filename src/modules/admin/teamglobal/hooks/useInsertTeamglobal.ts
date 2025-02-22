@@ -22,6 +22,7 @@ import { validateImage } from '../../../../shared/functions/validateImage';
 import { useNewRequests } from '../../../../shared/hooks/useNewRequests';
 import { ManagerglobalType } from '../../../../shared/types/Managerglobal.type';
 import { PlayerglobalType } from '../../../../shared/types/Playerglobal.type';
+import { TeamglobalType } from '../../../../shared/types/Teamglobal.type';
 import { useGlobalReducer } from '../../../../store/reducers/globalReducer/useGlobalReducer';
 import { useManagerglobalReducer } from '../../../../store/reducers/managerglobalReducer/useManagerglobalReducer';
 import { usePlayerglobalReducer } from '../../../../store/reducers/playerglobalReducer/usePlayerglobalReducer';
@@ -76,13 +77,13 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
     const fetchData = async () => {
       await newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL, false, {
         isWithoutTeamglobal: true,
-      }).then((data) => {
+      }).then((data: ManagerglobalType[]) => {
         setManagersglobalWithoutTeamglobal(data);
       });
 
       await newRequest(MethodsEnum.GET, URL_PLAYERGLOBAL, false, {
         isWithoutTeamglobal: true,
-      }).then((data) => {
+      }).then((data: PlayerglobalType[]) => {
         setPlayersglobalWithoutTeamglobal(data);
       });
 
@@ -90,7 +91,7 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
         await newRequest(
           MethodsEnum.GET,
           URL_TEAMGLOBAL_ID.replace('{teamglobalId}', teamglobalId),
-        ).then((data) => {
+        ).then((data: TeamglobalType) => {
           setTeamglobalReducer(data);
         });
 
@@ -298,7 +299,7 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
     });
   };
 
-  const handleOnClickInsert = async () => {
+  const handleOnInsert = async () => {
     if (teamglobalId) {
       await newRequest(
         MethodsEnum.PUT,
@@ -311,15 +312,15 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
       await newRequest(MethodsEnum.POST, URL_TEAMGLOBAL, false, {}, teamglobal);
     }
 
-    await newRequest(MethodsEnum.GET, URL_TEAMGLOBAL).then((data) => {
+    await newRequest(MethodsEnum.GET, URL_TEAMGLOBAL).then((data: TeamglobalType[]) => {
       setTeamsglobal(data);
     });
 
-    await newRequest(MethodsEnum.GET, URL_PLAYERGLOBAL).then((data) => {
+    await newRequest(MethodsEnum.GET, URL_PLAYERGLOBAL).then((data: PlayerglobalType[]) => {
       setPlayersglobal(data);
     });
 
-    await newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL).then((data) => {
+    await newRequest(MethodsEnum.GET, URL_MANAGERGLOBAL).then((data: ManagerglobalType[]) => {
       setManagersglobal(data);
     });
 
@@ -332,7 +333,7 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
     navigate(TeamglobalRoutesEnum.TEAMGLOBAL);
   };
 
-  const handleOnClickReset = () => {
+  const handleOnReset = () => {
     setTeamglobal(DEFAULT_TEAMGLOBAL);
     formTeamglobal.resetFields();
     setIsValidImage(false);
@@ -342,7 +343,7 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
     setSquadplanglobalPlayersglobalDict({});
   };
 
-  const handleOnClickCancel = () => {
+  const handleOnCancel = () => {
     navigate(TeamglobalRoutesEnum.TEAMGLOBAL);
   };
 
@@ -362,9 +363,9 @@ export const useInsertTeamglobal = (teamglobalId?: string) => {
     formationId,
     squadplanglobalPlayersglobalDict,
     handleOnChangeInput,
-    handleOnClickInsert,
-    handleOnClickReset,
-    handleOnClickCancel,
+    handleOnInsert,
+    handleOnReset,
+    handleOnCancel,
     handleOnChangeCountrySelect,
     handleOnChangeManagerglobalSelect,
     handleOnChangePlayerglobalSelect,

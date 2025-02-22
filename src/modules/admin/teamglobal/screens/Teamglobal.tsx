@@ -19,7 +19,7 @@ const Teamglobal = () => {
   const {
     loading,
     teamsglobal,
-    handleOnClickInsert,
+    handleOnInsert,
     handleOnSearch,
     handleOnEdit,
     handleOnDelete,
@@ -118,7 +118,7 @@ const Teamglobal = () => {
           <Search placeholder="Buscar time" onSearch={handleOnSearch} enterButton />
         </LimitedContainerProject>
 
-        <ButtonProject type="primary" onClick={handleOnClickInsert}>
+        <ButtonProject type="primary" onClick={handleOnInsert}>
           Inserir
         </ButtonProject>
       </FlexProject>

@@ -9,7 +9,7 @@ export const useSavePlayCalendar = () => {
   const { savePlayTeamsaveMatches, savePlay } = useSavePlay();
 
   const [matchLocationFilter, setMatchLocationFilter] = useState<'home' | 'away' | 'all'>('all');
-  const [selectedMonthFilter, setSelectedMonthFilter] = useState<string | undefined>(undefined);
+  const [monthFilter, setMonthFilter] = useState<string | undefined>(undefined);
 
   const savePlayTeamsaveFilteredMatches = useMemo(() => {
     return savePlayTeamsaveMatches.filter((match) => {
@@ -22,11 +22,11 @@ export const useSavePlayCalendar = () => {
         matchLocationFilter === 'away' && match.teamsaveAway?.id === savePlayTeamsaveId;
 
       const isMonthMatch =
-        !selectedMonthFilter || dayjs(match.date).format(MONTH_YEAR_FORMAT) === selectedMonthFilter;
+        !monthFilter || dayjs(match.date).format(MONTH_YEAR_FORMAT) === monthFilter;
 
       return (matchLocationFilter === 'all' || isHome || isAway) && isMonthMatch;
     });
-  }, [matchLocationFilter, selectedMonthFilter]);
+  }, [matchLocationFilter, monthFilter]);
 
   const savePlayDistinctMatchMonths = Array.from(
     new Set(savePlayTeamsaveMatches?.map((match) => dayjs(match.date).format(MONTH_YEAR_FORMAT))),
@@ -39,7 +39,7 @@ export const useSavePlayCalendar = () => {
 
   const handleOnChangeMonthSelect = (value: string) => {
     const selectValue = value;
-    setSelectedMonthFilter(selectValue);
+    setMonthFilter(selectValue);
   };
 
   return {
