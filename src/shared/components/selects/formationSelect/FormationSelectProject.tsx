@@ -1,16 +1,20 @@
 import { Form } from 'antd';
 
 import { FormationEnum } from '../../../enums/Formation.enum';
+import { PositionEnum } from '../../../enums/Position.enum';
 import { PositionAreaEnum } from '../../../enums/PositionArea.enum';
 import { PositionRatingEnum } from '../../../enums/PositionRating.enum';
+import { calculateOverallByPosition } from '../../../functions/calculateOverall';
 import { PlayerglobalType } from '../../../types/Playerglobal.type';
 import FlexProject from '../../flex/FlexProject';
+import OverallProject from '../../others/overall/OverallProject';
 import PositionTagProject from '../../tags/positionTag/PositionTagProject';
 import SelectProject, { SelectProjectProps } from '../select/SelectProject';
 
 type OptionType = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   label: any;
+  positionId: PositionEnum;
 };
 
 const optionsMap: Record<FormationEnum, OptionType[]> = {
@@ -22,6 +26,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Goleiro</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.GK,
     },
     {
       label: (
@@ -30,6 +35,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Lateral Esquerdo</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.LB,
     },
     {
       label: (
@@ -38,6 +44,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Zagueiro</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.CB,
     },
     {
       label: (
@@ -46,6 +53,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Zagueiro</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.CB,
     },
     {
       label: (
@@ -54,6 +62,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Lateral Direito</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.RB,
     },
     {
       label: (
@@ -62,6 +71,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Meio-Campista Esquerdo</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.LM,
     },
     {
       label: (
@@ -70,6 +80,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Meio-Campista Central</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.CM,
     },
     {
       label: (
@@ -78,6 +89,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Meio-Campista Central</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.CM,
     },
     {
       label: (
@@ -86,6 +98,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Meio-Campista Direito</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.RM,
     },
     {
       label: (
@@ -94,6 +107,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Centroavante</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.CF,
     },
     {
       label: (
@@ -102,6 +116,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Centroavante</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.CF,
     },
   ],
   [FormationEnum.F442Ofensive]: [
@@ -112,6 +127,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Goleiro</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.GK,
     },
     {
       label: (
@@ -120,6 +136,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Lateral Esquerdo</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.LB,
     },
     {
       label: (
@@ -128,6 +145,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Zagueiro</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.CB,
     },
     {
       label: (
@@ -136,6 +154,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Zagueiro</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.CB,
     },
     {
       label: (
@@ -144,6 +163,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Lateral Direito</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.RB,
     },
     {
       label: (
@@ -152,6 +172,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Meio-Campista Esquerdo</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.LM,
     },
     {
       label: (
@@ -160,6 +181,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Meio-Campista Central</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.CM,
     },
     {
       label: (
@@ -168,6 +190,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Meio-Campista Ofensivo</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.AM,
     },
     {
       label: (
@@ -176,6 +199,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Meio-Campista Direito</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.RM,
     },
     {
       label: (
@@ -184,6 +208,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Centroavante</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.CF,
     },
     {
       label: (
@@ -192,6 +217,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Centroavante</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.CF,
     },
   ],
   [FormationEnum.F442Defensive]: [
@@ -202,6 +228,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Goleiro</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.GK,
     },
     {
       label: (
@@ -210,6 +237,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Lateral Esquerdo</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.LB,
     },
     {
       label: (
@@ -218,6 +246,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Zagueiro</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.CB,
     },
     {
       label: (
@@ -226,6 +255,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Zagueiro</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.CB,
     },
     {
       label: (
@@ -234,6 +264,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Lateral Direito</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.RB,
     },
     {
       label: (
@@ -242,6 +273,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Meio-Campista Esquerdo</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.LM,
     },
     {
       label: (
@@ -250,6 +282,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Volante</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.DM,
     },
     {
       label: (
@@ -258,6 +291,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Meio-Campista Central</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.CM,
     },
     {
       label: (
@@ -266,6 +300,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Meio-Campista Direito</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.RM,
     },
     {
       label: (
@@ -274,6 +309,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Centroavante</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.CF,
     },
     {
       label: (
@@ -282,6 +318,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Centroavante</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.CF,
     },
   ],
   [FormationEnum.F433]: [
@@ -292,6 +329,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Goleiro</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.GK,
     },
     {
       label: (
@@ -300,6 +338,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Lateral Esquerdo</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.LB,
     },
     {
       label: (
@@ -308,6 +347,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Zagueiro</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.CB,
     },
     {
       label: (
@@ -316,6 +356,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Zagueiro</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.CB,
     },
     {
       label: (
@@ -324,6 +365,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Lateral Direito</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.RB,
     },
     {
       label: (
@@ -332,6 +374,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Meio-Campista Central</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.CM,
     },
     {
       label: (
@@ -340,6 +383,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Meio-Campista Central</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.CM,
     },
     {
       label: (
@@ -348,6 +392,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Meio-Campista Ofensivo</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.AM,
     },
     {
       label: (
@@ -356,6 +401,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Ponta Esquerda</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.LW,
     },
     {
       label: (
@@ -364,6 +410,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Centroavante</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.CF,
     },
     {
       label: (
@@ -372,6 +419,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Ponta Direita</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.RW,
     },
   ],
   [FormationEnum.F433Ofensive]: [
@@ -382,6 +430,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Goleiro</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.GK,
     },
     {
       label: (
@@ -390,6 +439,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Lateral Esquerdo</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.LB,
     },
     {
       label: (
@@ -398,6 +448,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Zagueiro</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.CB,
     },
     {
       label: (
@@ -406,6 +457,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Zagueiro</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.CB,
     },
     {
       label: (
@@ -414,6 +466,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Lateral Direito</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.RB,
     },
     {
       label: (
@@ -422,6 +475,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Meio-Campista Central</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.CM,
     },
     {
       label: (
@@ -430,6 +484,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Meio-Campista Ofensivo</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.AM,
     },
     {
       label: (
@@ -438,6 +493,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Meio-Campista Ofensivo</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.AM,
     },
     {
       label: (
@@ -446,6 +502,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Ponta Esquerda</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.LW,
     },
     {
       label: (
@@ -454,6 +511,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Centroavante</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.CF,
     },
     {
       label: (
@@ -462,6 +520,7 @@ const optionsMap: Record<FormationEnum, OptionType[]> = {
           <text>Ponta Direita</text>
         </FlexProject>
       ),
+      positionId: PositionEnum.RW,
     },
   ],
 };
@@ -510,9 +569,30 @@ const SquadplanglobalPositionSelects = ({
                   ),
                   label: (
                     <FlexProject justify="flex-start" align="center">
-                      <text style={{ margin: '0px 5px 0px 0px' }}>
-                        {playerglobal.name} - {playerglobal.overall} -
-                      </text>
+                      <OverallProject
+                        overall={
+                          calculateOverallByPosition(
+                            selectItem.positionId,
+                            playerglobal.overall,
+                            playerglobal.playersglobalPosition
+                              ?.filter(
+                                (playerglobalPosition) =>
+                                  playerglobalPosition.rating === PositionRatingEnum.Primary,
+                              )
+                              .map((playerglobalPosition) => playerglobalPosition.position?.id)
+                              .filter((id): id is PositionEnum => id !== undefined) || [],
+                            playerglobal.playersglobalPosition
+                              ?.filter(
+                                (playerglobalPosition) =>
+                                  playerglobalPosition.rating === PositionRatingEnum.Secondary,
+                              )
+                              .map((playerglobalPosition) => playerglobalPosition.position?.id)
+                              .filter((id): id is PositionEnum => id !== undefined) || [],
+                          ).overall || 0
+                        }
+                        margin="0px 5px 0px 0px"
+                      />
+                      <text style={{ margin: '0px 5px 0px 0px' }}>{playerglobal.name}</text>
                       {playerglobal.playersglobalPosition
                         ?.filter(
                           (playerglobalPosition) =>
@@ -554,9 +634,30 @@ const SquadplanglobalPositionSelects = ({
                   ),
                   label: (
                     <FlexProject justify="flex-start" align="center">
-                      <text style={{ margin: '0px 5px 0px 0px' }}>
-                        {playerglobal.name} - {playerglobal.overall} -
-                      </text>
+                      <OverallProject
+                        overall={
+                          calculateOverallByPosition(
+                            selectItem.positionId,
+                            playerglobal.overall,
+                            playerglobal.playersglobalPosition
+                              ?.filter(
+                                (playerglobalPosition) =>
+                                  playerglobalPosition.rating === PositionRatingEnum.Primary,
+                              )
+                              .map((playerglobalPosition) => playerglobalPosition.position?.id)
+                              .filter((id): id is PositionEnum => id !== undefined) || [],
+                            playerglobal.playersglobalPosition
+                              ?.filter(
+                                (playerglobalPosition) =>
+                                  playerglobalPosition.rating === PositionRatingEnum.Secondary,
+                              )
+                              .map((playerglobalPosition) => playerglobalPosition.position?.id)
+                              .filter((id): id is PositionEnum => id !== undefined) || [],
+                          ).overall || 0
+                        }
+                        margin="0px 5px 0px 0px"
+                      />
+                      <text style={{ margin: '0px 5px 0px 0px' }}>{playerglobal.name}</text>
                       {playerglobal.playersglobalPosition
                         ?.filter(
                           (playerglobalPosition) =>
@@ -574,6 +675,12 @@ const SquadplanglobalPositionSelects = ({
                   ),
                 })),
             ]}
+            showSearch
+            filterSort={(optionA, optionB) => {
+              const overallA = optionA.label.props.children[0].props.overall || 0;
+              const overallB = optionB.label.props.children[0].props.overall || 0;
+              return overallB - overallA;
+            }}
             {...props}
           />
         </Form.Item>

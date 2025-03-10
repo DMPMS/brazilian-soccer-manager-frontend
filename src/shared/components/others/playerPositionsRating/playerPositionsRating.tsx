@@ -1,7 +1,5 @@
-import { PLAYERGLOBAL_MAX_OVERALL, PLAYERGLOBAL_MIN_OVERALL } from '../../../constants/others';
 import { PositionEnum } from '../../../enums/Position.enum';
-import { PositionAreaEnum } from '../../../enums/PositionArea.enum';
-import { PositionRatingEnum } from '../../../enums/PositionRating.enum';
+import { calculateOverallByPosition } from '../../../functions/calculateOverall';
 import FlexProject from '../../flex/FlexProject';
 
 interface PlayerPositionsRatingProps {
@@ -10,154 +8,85 @@ interface PlayerPositionsRatingProps {
   secondaryPositionIds: PositionEnum[];
 }
 
-const positionAreaByPositionId: { [key: number]: PositionAreaEnum } = {
-  1: PositionAreaEnum.Attack,
-  2: PositionAreaEnum.Attack,
-  3: PositionAreaEnum.Attack,
-  4: PositionAreaEnum.Attack,
-  5: PositionAreaEnum.Midfield,
-  6: PositionAreaEnum.Midfield,
-  7: PositionAreaEnum.Midfield,
-  8: PositionAreaEnum.Midfield,
-  9: PositionAreaEnum.Midfield,
-  10: PositionAreaEnum.Defense,
-  11: PositionAreaEnum.Defense,
-  12: PositionAreaEnum.Defense,
-  13: PositionAreaEnum.Goalkeeper,
-};
-
-const calculateOverall = (
-  positionId: PositionEnum,
-  playerOverall: number,
-  primaryPositionIds: PositionEnum[],
-  secondaryPositionIds: PositionEnum[],
-) => {
-  if (playerOverall < PLAYERGLOBAL_MIN_OVERALL || playerOverall > PLAYERGLOBAL_MAX_OVERALL) {
-    return { overall: '?', colorIndex: 5 };
-  }
-
-  if (primaryPositionIds.includes(positionId)) {
-    return { overall: playerOverall * PositionRatingEnum.Primary, colorIndex: 0 };
-  }
-
-  if (secondaryPositionIds.includes(positionId)) {
-    return {
-      overall: Math.ceil(playerOverall * PositionRatingEnum.Secondary),
-      colorIndex: 1,
-    };
-  }
-
-  const positionArea = positionAreaByPositionId[positionId];
-
-  const primaryAreaMatch = primaryPositionIds.some(
-    (id) => positionAreaByPositionId[id] === positionArea,
-  );
-  if (primaryAreaMatch) {
-    return {
-      overall: Math.ceil(playerOverall * PositionRatingEnum.SameAreaPrimary),
-      colorIndex: 2,
-    };
-  }
-
-  const secondaryAreaMatch = secondaryPositionIds.some(
-    (id) => positionAreaByPositionId[id] === positionArea,
-  );
-  if (secondaryAreaMatch) {
-    return {
-      overall: Math.ceil(playerOverall * PositionRatingEnum.SameAreaSecondary),
-      colorIndex: 3,
-    };
-  }
-
-  if (positionId === PositionEnum.GK) {
-    return { overall: Math.ceil(playerOverall * PositionRatingEnum.NonGoalkeeper), colorIndex: 5 };
-  }
-
-  return {
-    overall: Math.ceil(playerOverall * PositionRatingEnum.NonPlaying),
-    colorIndex: 4,
-  };
-};
-
 const PlayerPositionsRating = ({
   playerOverall,
   primaryPositionIds,
   secondaryPositionIds,
 }: PlayerPositionsRatingProps) => {
   const positionOveralls = {
-    [PositionEnum.CF]: calculateOverall(
+    [PositionEnum.CF]: calculateOverallByPosition(
       PositionEnum.CF,
       playerOverall,
       primaryPositionIds,
       secondaryPositionIds,
     ),
-    [PositionEnum.SS]: calculateOverall(
+    [PositionEnum.SS]: calculateOverallByPosition(
       PositionEnum.SS,
       playerOverall,
       primaryPositionIds,
       secondaryPositionIds,
     ),
-    [PositionEnum.LW]: calculateOverall(
+    [PositionEnum.LW]: calculateOverallByPosition(
       PositionEnum.LW,
       playerOverall,
       primaryPositionIds,
       secondaryPositionIds,
     ),
-    [PositionEnum.RW]: calculateOverall(
+    [PositionEnum.RW]: calculateOverallByPosition(
       PositionEnum.RW,
       playerOverall,
       primaryPositionIds,
       secondaryPositionIds,
     ),
-    [PositionEnum.AM]: calculateOverall(
+    [PositionEnum.AM]: calculateOverallByPosition(
       PositionEnum.AM,
       playerOverall,
       primaryPositionIds,
       secondaryPositionIds,
     ),
-    [PositionEnum.LM]: calculateOverall(
+    [PositionEnum.LM]: calculateOverallByPosition(
       PositionEnum.LM,
       playerOverall,
       primaryPositionIds,
       secondaryPositionIds,
     ),
-    [PositionEnum.RM]: calculateOverall(
+    [PositionEnum.RM]: calculateOverallByPosition(
       PositionEnum.RM,
       playerOverall,
       primaryPositionIds,
       secondaryPositionIds,
     ),
-    [PositionEnum.CM]: calculateOverall(
+    [PositionEnum.CM]: calculateOverallByPosition(
       PositionEnum.CM,
       playerOverall,
       primaryPositionIds,
       secondaryPositionIds,
     ),
-    [PositionEnum.DM]: calculateOverall(
+    [PositionEnum.DM]: calculateOverallByPosition(
       PositionEnum.DM,
       playerOverall,
       primaryPositionIds,
       secondaryPositionIds,
     ),
-    [PositionEnum.LB]: calculateOverall(
+    [PositionEnum.LB]: calculateOverallByPosition(
       PositionEnum.LB,
       playerOverall,
       primaryPositionIds,
       secondaryPositionIds,
     ),
-    [PositionEnum.RB]: calculateOverall(
+    [PositionEnum.RB]: calculateOverallByPosition(
       PositionEnum.RB,
       playerOverall,
       primaryPositionIds,
       secondaryPositionIds,
     ),
-    [PositionEnum.CB]: calculateOverall(
+    [PositionEnum.CB]: calculateOverallByPosition(
       PositionEnum.CB,
       playerOverall,
       primaryPositionIds,
       secondaryPositionIds,
     ),
-    [PositionEnum.GK]: calculateOverall(
+    [PositionEnum.GK]: calculateOverallByPosition(
       PositionEnum.GK,
       playerOverall,
       primaryPositionIds,

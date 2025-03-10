@@ -1,5 +1,4 @@
 import { CompetitionglobalTeamglobalType } from './CompetitionglobalTeamglobal.type';
-import { CountryType } from './Country.type';
 import { RuleType } from './Rule.type';
 
 export interface CompetitionglobalType {
@@ -9,6 +8,5 @@ export interface CompetitionglobalType {
   srcImage: string;
 
   rule?: RuleType;
-  country?: CountryType;
   competitionsglobalTeamglobal?: CompetitionglobalTeamglobalType[];
 }

@@ -46,7 +46,7 @@ const Managerglobal = () => {
               name={target.country?.name}
               width={20}
               height={20}
-              style={{ margin: '0px 5px 0px 0px' }}
+              margin="0px 5px 0px 0px"
             />
             <text>{target.country?.name}</text>
           </FlexProject>

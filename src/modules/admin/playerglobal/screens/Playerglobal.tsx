@@ -7,6 +7,7 @@ import { useMemo } from 'react';
 import ButtonProject from '../../../../shared/components/buttons/button/ButtonProject';
 import FlexProject from '../../../../shared/components/flex/FlexProject';
 import ImageProject from '../../../../shared/components/images/imageProject/ImageProject';
+import OverallProject from '../../../../shared/components/others/overall/OverallProject';
 import Screen from '../../../../shared/components/screen/ScreenProject';
 import { LimitedContainerProject } from '../../../../shared/components/styles/limited.styled';
 import CountrySVGProject from '../../../../shared/components/svg/CountrySVGProject';
@@ -43,6 +44,7 @@ const Playerglobal = () => {
         title: 'Geral',
         dataIndex: 'overall',
         key: 'overall',
+        render: (_, target) => <OverallProject overall={target.overall} />,
       },
       {
         title: 'Posições',
@@ -77,7 +79,7 @@ const Playerglobal = () => {
               name={target.country?.name}
               width={20}
               height={20}
-              style={{ margin: '0px 5px 0px 0px' }}
+              margin="0px 5px 0px 0px"
             />
             <text>{target.country?.name}</text>
           </FlexProject>

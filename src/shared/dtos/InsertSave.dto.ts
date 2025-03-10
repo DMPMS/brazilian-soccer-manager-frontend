@@ -1,6 +1,6 @@
 export interface InsertSaveDTO {
   name: string;
-  competitionsglobalCountryId?: number;
+  competitionsglobalRuleCountryId?: number;
   competitionglobalId?: number;
   teamglobalId?: number;
   isCustomManager: boolean;

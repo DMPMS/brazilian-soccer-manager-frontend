@@ -14,7 +14,7 @@ import {
   URL_COMPETITIONGLOBAL_ID,
   URL_TEAMGLOBAL,
 } from '../../../../shared/constants/urls';
-import { InsertCompetitionglobalDTO } from '../../../../shared/dtos/insertCompetitonglobal.dto';
+import { InsertCompetitionglobalDTO } from '../../../../shared/dtos/InsertCompetitonglobal.dto';
 import { MethodsEnum } from '../../../../shared/enums/Methods.enum';
 import { RuleEnum } from '../../../../shared/enums/Rule.enum';
 import { validateImage } from '../../../../shared/functions/validateImage';
@@ -122,7 +122,6 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
           season: competitionglobalReducer.season,
           srcImage: competitionglobalReducer.srcImage,
           ruleId: competitionglobalReducer.rule?.id,
-          countryId: competitionglobalReducer.country?.id,
           teamglobalIds: teamglobalIds,
         });
 
@@ -134,9 +133,9 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
             competitionglobalReducer.rule?.id !== undefined
               ? `${competitionglobalReducer.rule.id}`
               : undefined,
-          countryId:
-            competitionglobalReducer.country?.id !== undefined
-              ? `${competitionglobalReducer.country.id}`
+          ruleCountryId:
+            competitionglobalReducer.rule?.country?.id !== undefined
+              ? `${competitionglobalReducer.rule.country.id}`
               : undefined,
           teamglobalIds:
             teamglobalIds.length !== 0
@@ -179,7 +178,6 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
       competitionglobal.season.length <= COMPETITIONGLOBAL_MAX_LENGH_SEASON &&
       competitionglobal.srcImage &&
       competitionglobal.ruleId &&
-      competitionglobal.countryId &&
       competitionglobal.teamglobalIds.length === ruleNumberOfTeams &&
       isValidImage
     ) {
@@ -206,7 +204,7 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
     }
   };
 
-  const handleOnChangeRuleSelect = (value: string) => {
+  const handleOnChangeRuleSelect = async (value: string) => {
     const selectValue = value ? Number(value) : undefined;
 
     if (selectValue) {
@@ -219,7 +217,11 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
         formCompetitionglobal.setFieldsValue({
           name: rule.defaultCompetitionName,
           srcImage: rule.defaultCompetitionSrcImage,
+          ruleCountryId: `${rule.country?.id}`,
         });
+
+        setIsValidImage((await validateImage(rule.defaultCompetitionSrcImage)) ? true : false);
+        setSrcImage(rule.defaultCompetitionSrcImage);
 
         setCompetitionglobal({
           ...competitionglobal,
@@ -233,6 +235,11 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
       setRuleNumberOfTeams(0);
       setRuleId(undefined);
 
+      formCompetitionglobal.resetFields(['ruleCountryId']);
+
+      setIsValidImage(false);
+      setSrcImage('');
+
       setCompetitionglobal({
         ...competitionglobal,
         ruleId: selectValue,
@@ -242,15 +249,6 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
 
     setTeamglobalIdsCount(0);
     formCompetitionglobal.resetFields(['teamglobalIds']);
-  };
-
-  const handleOnChangeCountrySelect = (value: string) => {
-    const selectValue = value ? Number(value) : undefined;
-
-    setCompetitionglobal({
-      ...competitionglobal,
-      countryId: selectValue,
-    });
   };
 
   const handleOnChangeTeamglobalSelect = (values: string[]) => {
@@ -328,7 +326,6 @@ export const useInsertCompetitionglobal = (competitionglobalId?: string) => {
     handleOnInsert,
     handleOnReset,
     handleOnCancel,
-    handleOnChangeCountrySelect,
     handleOnChangeRuleSelect,
     handleOnChangeTeamglobalSelect,
   };

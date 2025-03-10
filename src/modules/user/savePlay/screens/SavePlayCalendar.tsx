@@ -132,7 +132,6 @@ const SavePlayCalendar = () => {
               label: month,
               value: month,
             }))}
-            style={{ width: '100%' }}
           />
         </LimitedContainerProject>
       </FlexProject>

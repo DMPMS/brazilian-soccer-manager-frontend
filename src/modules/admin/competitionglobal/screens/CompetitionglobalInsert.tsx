@@ -55,7 +55,6 @@ const CompetitionglobalInsert = () => {
     handleOnInsert,
     handleOnReset,
     handleOnCancel,
-    handleOnChangeCountrySelect,
     handleOnChangeRuleSelect,
     handleOnChangeTeamglobalSelect,
   } = useInsertCompetitionglobal(competitionglobalId);
@@ -156,13 +155,13 @@ const CompetitionglobalInsert = () => {
               <FlexProject justify="space-between">
                 <LimitedContainerCardProject width={400}>
                   <Form.Item
-                    label="Regras"
+                    label="Regra"
                     name="ruleId"
                     required
                     rules={[{ required: true, message: 'Este campo deve ser preenchido.' }]}
                   >
                     <SelectProject
-                      placeholder="Selecione as regras"
+                      placeholder="Selecione a regra"
                       allowClear
                       onChange={handleOnChangeRuleSelect}
                       options={rules.map((rule: RuleType) => ({
@@ -267,14 +266,13 @@ const CompetitionglobalInsert = () => {
 
                   <Form.Item
                     label="País"
-                    name="countryId"
+                    name="ruleCountryId"
                     required
                     rules={[{ required: true, message: 'Este campo deve ser preenchido.' }]}
                   >
                     <SelectProject
-                      placeholder="Selecione o país"
+                      placeholder={ruleId ? 'Selecione o país' : 'Selecione a regra'}
                       allowClear
-                      onChange={handleOnChangeCountrySelect}
                       options={countries.map((country: CountryType) => ({
                         value: `${country.id}`,
                         label: (
@@ -283,19 +281,13 @@ const CompetitionglobalInsert = () => {
                               name={country.name}
                               width={20}
                               height={20}
-                              style={{ margin: '0px 5px 0px 0px' }}
+                              margin="0px 5px 0px 0px"
                             />
                             <text>{country.name}</text>
                           </FlexProject>
                         ),
                       }))}
-                      showSearch
-                      filterOption={(input, option) =>
-                        option.label.props.children[1].props.children
-                          .toLowerCase()
-                          .includes(input.toLowerCase())
-                      }
-                      disabled={isEdit}
+                      disabled={true}
                     />
                   </Form.Item>
 
@@ -352,7 +344,7 @@ const CompetitionglobalInsert = () => {
                   >
                     <SelectProject
                       placeholder={
-                        ruleNumberOfTeams > 0 ? 'Selecione os times' : 'Selecione as regras'
+                        ruleNumberOfTeams > 0 ? 'Selecione os times' : 'Selecione a regra'
                       }
                       allowClear
                       mode="multiple"

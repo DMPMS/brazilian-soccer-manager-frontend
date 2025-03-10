@@ -44,10 +44,9 @@ export const useInsertSave = () => {
   const { managersglobal } = useManagerglobal();
   const { saves } = useSave();
 
-  const [competitionsglobalDistinctCountryIds, setCompetitionsglobalDistinctCountryIds] = useState<
-    number[]
-  >([]);
-  const [competitionsglobalCountryId, setCompetitionsglobalCountryId] = useState<
+  const [competitionsglobalDistinctRuleCountryIds, setCompetitionsglobalDistinctRuleCountryIds] =
+    useState<number[]>([]);
+  const [competitionsglobalRuleCountryId, setCompetitionsglobalRuleCountryId] = useState<
     number | undefined
   >(undefined);
   const [competitionglobalId, setCompetitionglobalId] = useState<number | undefined>(undefined);
@@ -57,8 +56,10 @@ export const useInsertSave = () => {
   const [customManager, setCustomManager] = useState<CustomManagerDTO>(DEFAULT_CUSTOMMANAGER);
 
   useEffect(() => {
-    setCompetitionsglobalDistinctCountryIds([
-      ...new Set(competitionsglobal.map((competitionglobal) => competitionglobal.country!.id)),
+    setCompetitionsglobalDistinctRuleCountryIds([
+      ...new Set(
+        competitionsglobal.map((competitionglobal) => competitionglobal.rule!.country!.id),
+      ),
     ]);
   }, [competitionsglobal]);
 
@@ -85,7 +86,7 @@ export const useInsertSave = () => {
       save.name.length >= SAVE_MIN_LENGH_NAME &&
       save.name.length <= SAVE_MAX_LENGH_NAME &&
       !userSaveNames.includes(save.name) &&
-      save.competitionsglobalCountryId &&
+      save.competitionsglobalRuleCountryId &&
       save.competitionglobalId &&
       save.teamglobalId &&
       (!save.isCustomManager ||
@@ -195,7 +196,7 @@ export const useInsertSave = () => {
 
     setSave({
       ...save,
-      competitionsglobalCountryId: selectValue,
+      competitionsglobalRuleCountryId: selectValue,
       competitionglobalId: undefined,
       teamglobalId: undefined,
       ...(radioOptionIsDefault && { managerName: '' }),
@@ -204,7 +205,7 @@ export const useInsertSave = () => {
     });
 
     setCompetitionglobalId(undefined);
-    setCompetitionsglobalCountryId(selectValue);
+    setCompetitionsglobalRuleCountryId(selectValue);
 
     formSave.resetFields(['competitionglobalId', 'teamglobalId']);
 
@@ -308,8 +309,8 @@ export const useInsertSave = () => {
     });
     formSave.resetFields();
 
-    setCompetitionsglobalDistinctCountryIds([]);
-    setCompetitionsglobalCountryId(undefined);
+    setCompetitionsglobalDistinctRuleCountryIds([]);
+    setCompetitionsglobalRuleCountryId(undefined);
     setCompetitionglobalId(undefined);
     setRadioOptionIsDefault(true);
   };
@@ -322,8 +323,8 @@ export const useInsertSave = () => {
     loading,
     disabledButton,
     formSave,
-    competitionsglobalDistinctCountryIds,
-    competitionsglobalCountryId,
+    competitionsglobalDistinctRuleCountryIds,
+    competitionsglobalRuleCountryId,
     competitionglobalId,
     radioOptionIsDefault,
     userSaveNames,

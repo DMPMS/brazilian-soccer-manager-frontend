@@ -25,12 +25,12 @@ const SavePlayCompetition = () => {
         render: (_, target) => (
           <FlexProject justify="flex-start" align="center">
             <CountrySVGProject
-              name={target.country?.name}
+              name={target.rule?.country?.name}
               width={20}
               height={20}
-              style={{ margin: '0px 5px 0px 0px' }}
+              margin="0px 5px 0px 0px"
             />
-            <text>{target.country?.name}</text>
+            <text>{target.rule?.country?.name}</text>
           </FlexProject>
         ),
       },

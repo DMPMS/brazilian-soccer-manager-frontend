@@ -141,7 +141,7 @@ const SignUp = () => {
                           name={country.name}
                           width={20}
                           height={20}
-                          style={{ margin: '0px 5px 0px 0px' }}
+                          margin="0px 5px 0px 0px"
                         />
                         <text>{country.name}</text>
                       </FlexProject>
@@ -152,6 +152,11 @@ const SignUp = () => {
                     option.label.props.children[1].props.children
                       .toLowerCase()
                       .includes(input.toLowerCase())
+                  }
+                  filterSort={(optionA, optionB) =>
+                    optionA.label.props.children[1].props.children
+                      .toLowerCase()
+                      .localeCompare(optionB.label.props.children[1].props.children.toLowerCase())
                   }
                 />
               </Form.Item>

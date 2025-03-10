@@ -7,16 +7,18 @@ interface StaminaBarProjectProps {
 const StaminaBarProject = ({ stamina }: StaminaBarProjectProps) => {
   let color: string;
 
-  if (stamina <= 20) {
-    color = '#ff0000';
-  } else if (stamina <= 40) {
-    color = '#ffa500';
-  } else if (stamina <= 60) {
-    color = '#ffec00';
-  } else if (stamina <= 80) {
-    color = '#9acd32';
-  } else {
+  if (stamina === 100) {
+    color = '#1890ff';
+  } else if (stamina >= 80) {
     color = '#008000';
+  } else if (stamina >= 60) {
+    color = '#9acd32';
+  } else if (stamina >= 40) {
+    color = '#e8d707';
+  } else if (stamina >= 20) {
+    color = '#ffa500';
+  } else {
+    color = '#ff0000';
   }
 
   return (

@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 
 import FlexProject from '../../../../shared/components/flex/FlexProject';
 import MoraleIconProject from '../../../../shared/components/others/moraleIcon/MoraleIconProject';
+import OverallProject from '../../../../shared/components/others/overall/OverallProject';
 import OverallByMoraleProject from '../../../../shared/components/others/overallByMorale/OverallByMoraleProject';
 import StaminaBarProject from '../../../../shared/components/others/staminaBar/StaminaBarProject';
 import Screen from '../../../../shared/components/screen/ScreenProject';
@@ -33,7 +34,7 @@ const SavePlaySquad = () => {
         render: (_, target) => {
           return (
             <FlexProject justify="flex-start" align="center">
-              <div style={{ margin: '0px 5px 0px 0px' }}>{target.overall}</div>
+              <OverallProject overall={target.overall} margin="0px 5px 0px 0px" />
               <MoraleIconProject morale={target.morale} width={20} height={20} />
               <OverallByMoraleProject
                 morale={target.morale}
@@ -90,7 +91,7 @@ const SavePlaySquad = () => {
               name={target.country?.name}
               width={20}
               height={20}
-              style={{ margin: '0px 5px 0px 0px' }}
+              margin="0px 5px 0px 0px"
             />
             <text>{target.country?.name}</text>
           </FlexProject>

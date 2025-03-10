@@ -16,7 +16,7 @@ export const DEFAULT_SIGN_UP = {
 
 export const DEFAULT_SAVE = {
   name: '',
-  competitionsglobalCountryId: undefined,
+  competitionsglobalRuleCountryId: undefined,
   competitionglobalId: undefined,
   teamglobalId: undefined,
   isCustomManager: false,
@@ -64,6 +64,5 @@ export const DEFAULT_COMPETITIONGLOBAL = {
   season: '',
   srcImage: '',
   ruleId: undefined,
-  countryId: undefined,
   teamglobalIds: [],
 };

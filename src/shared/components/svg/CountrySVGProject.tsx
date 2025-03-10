@@ -1,4 +1,9 @@
-const CountrySVGProject = ({ name, ...props }: React.SVGProps<SVGSVGElement>) => {
+interface CountrySVGProjectProps extends React.SVGProps<SVGSVGElement> {
+  name: string | undefined;
+  margin?: string;
+}
+
+const CountrySVGProject = ({ name, margin, ...props }: CountrySVGProjectProps) => {
   let content = null;
 
   switch (name) {
@@ -4444,7 +4449,12 @@ const CountrySVGProject = ({ name, ...props }: React.SVGProps<SVGSVGElement>) =>
   }
 
   return (
-    <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <svg
+      viewBox="0 0 512 512"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+      style={{ margin: margin }}
+    >
       {content}
     </svg>
   );

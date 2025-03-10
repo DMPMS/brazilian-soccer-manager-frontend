@@ -40,8 +40,8 @@ const SaveInsert = () => {
     loading,
     disabledButton,
     formSave,
-    competitionsglobalDistinctCountryIds,
-    competitionsglobalCountryId,
+    competitionsglobalDistinctRuleCountryIds,
+    competitionsglobalRuleCountryId,
     competitionglobalId,
     radioOptionIsDefault,
     userSaveNames,
@@ -113,7 +113,7 @@ const SaveInsert = () => {
               <LimitedContainerProject width={300}>
                 <Form.Item
                   label="Selecione o país"
-                  name="competitionsglobalCountryId"
+                  name="competitionsglobalRuleCountryId"
                   required
                   rules={[{ required: true, message: 'Este campo deve ser preenchido.' }]}
                 >
@@ -123,7 +123,7 @@ const SaveInsert = () => {
                     onChange={handleOnChangeCompetitionglobalCountrySelect}
                     options={countries
                       .filter((country: CountryType) =>
-                        competitionsglobalDistinctCountryIds.includes(country.id),
+                        competitionsglobalDistinctRuleCountryIds.includes(country.id),
                       )
                       .map((country: CountryType) => ({
                         value: `${country.id}`,
@@ -133,7 +133,7 @@ const SaveInsert = () => {
                               name={country.name}
                               width={20}
                               height={20}
-                              style={{ margin: '0px 5px 0px 0px' }}
+                              margin="0px 5px 0px 0px"
                             />
                             <text>{country.name}</text>
                           </FlexProject>
@@ -144,6 +144,11 @@ const SaveInsert = () => {
                       option.label.props.children[1].props.children
                         .toLowerCase()
                         .includes(input.toLowerCase())
+                    }
+                    filterSort={(optionA, optionB) =>
+                      optionA.label.props.children[1].props.children
+                        .toLowerCase()
+                        .localeCompare(optionB.label.props.children[1].props.children.toLowerCase())
                     }
                   />
                 </Form.Item>
@@ -157,15 +162,17 @@ const SaveInsert = () => {
                 >
                   <SelectProject
                     placeholder={
-                      competitionsglobalCountryId ? 'Selecione a competição' : 'Selecione o país'
+                      competitionsglobalRuleCountryId
+                        ? 'Selecione a competição'
+                        : 'Selecione o país'
                     }
                     allowClear
-                    disabled={competitionsglobalCountryId === undefined}
+                    disabled={competitionsglobalRuleCountryId === undefined}
                     onChange={handleOnChangeCompetitionglobalSelect}
                     options={competitionsglobal
                       .filter(
                         (competitionglobal: CompetitionglobalType) =>
-                          competitionglobal.country?.id === competitionsglobalCountryId &&
+                          competitionglobal.rule?.country?.id === competitionsglobalRuleCountryId &&
                           competitionglobal.rule?.id &&
                           [
                             RuleEnum.BrazilianLeagueA,
@@ -369,7 +376,7 @@ const SaveInsert = () => {
                             name={country.name}
                             width={20}
                             height={20}
-                            style={{ margin: '0px 5px 0px 0px' }}
+                            margin="0px 5px 0px 0px"
                           />
                           <text>{country.name}</text>
                         </FlexProject>

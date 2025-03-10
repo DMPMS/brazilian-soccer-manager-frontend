@@ -1,4 +1,6 @@
-import { Button, ButtonProps } from 'antd';
+import { ButtonProps } from 'antd';
+
+import { ButtonStyled } from './buttonProject.style';
 
 interface ButtonProjectProps extends ButtonProps {
   margin?: string;
@@ -6,7 +8,7 @@ interface ButtonProjectProps extends ButtonProps {
 }
 
 const ButtonProject = ({ margin, width, ...props }: ButtonProjectProps) => {
-  return <Button style={{ margin: margin, width: width }} {...props} />;
+  return <ButtonStyled margin={margin} width={width} {...props} />;
 };
 
 export default ButtonProject;

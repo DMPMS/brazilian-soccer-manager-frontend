@@ -1,7 +1,7 @@
 const NormalMoraleSVGProject = ({ ...props }: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" {...props}>
-      <circle cx="256" cy="256" r="256" fill="#ffec00" />
+      <circle cx="256" cy="256" r="256" fill="#e8d707" />
       <path d="M256,0v512c141.385,0,256-114.615,256-256S397.385,0,256,0z" fill="#D9D200" />
       <g transform="translate(256, 256) rotate(90) translate(-256, -256)">
         <g transform="translate(0, 21.63)">

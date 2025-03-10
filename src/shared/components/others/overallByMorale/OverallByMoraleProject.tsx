@@ -1,5 +1,6 @@
 import { MoraleEnum } from '../../../enums/Morale.enum';
-import { MoraleRatingEnum } from '../../../enums/MoraleRating.enum';
+import { calculateOverallByMorale } from '../../../functions/calculateOverall';
+import OverallProject from '../overall/OverallProject';
 
 interface OverallByMoraleProjectProps {
   morale: MoraleEnum;
@@ -8,21 +9,7 @@ interface OverallByMoraleProjectProps {
 }
 
 const OverallByMoraleProject = ({ morale, overall, margin }: OverallByMoraleProjectProps) => {
-  let newMorale = 0;
-
-  if (morale === MoraleEnum.VeryHigh) {
-    newMorale = Math.ceil(overall * MoraleRatingEnum.VeryHigh);
-  } else if (morale === MoraleEnum.High) {
-    newMorale = Math.ceil(overall * MoraleRatingEnum.High);
-  } else if (morale === MoraleEnum.Normal) {
-    newMorale = Math.ceil(overall * MoraleRatingEnum.Normal);
-  } else if (morale === MoraleEnum.Low) {
-    newMorale = Math.ceil(overall * MoraleRatingEnum.Low);
-  } else {
-    newMorale = Math.ceil(overall * MoraleRatingEnum.VeryLow);
-  }
-
-  return <div style={{ margin: margin }}>{newMorale}</div>;
+  return <OverallProject overall={calculateOverallByMorale(overall, morale)} margin={margin} />;
 };
 
 export default OverallByMoraleProject;
