@@ -1,4 +1,6 @@
+import { FormationEnum } from '../enums/Formation.enum';
+
 export interface FormationType {
-  id: number;
+  id: FormationEnum;
   name: string;
 }

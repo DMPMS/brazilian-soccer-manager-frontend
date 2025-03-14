@@ -4,6 +4,7 @@ import SavePlayCalendar from './screens/SavePlayCalendar';
 import SavePlayCompetition from './screens/SavePlayCompetition';
 import SavePlayCompetitionDetail from './screens/SavePlayCompetitionDetail';
 import SavePlayHome from './screens/SavePlayHome';
+import SavePlayPlayMatch from './screens/SavePlayPlayMatch';
 import SavePlaySquad from './screens/SavePlaySquad';
 
 export enum SavePlayRoutesEnum {
@@ -12,6 +13,7 @@ export enum SavePlayRoutesEnum {
   SAVE_PLAY_CALENDAR = '/save/play/calendar',
   SAVE_PLAY_COMPETITION = '/save/play/competition',
   SAVE_PLAY_COMPETITION_DETAIL = '/save/play/competition/:competitionsaveId',
+  SAVE_PLAY_PLAY_MATCH = '/save/play/match/play',
 }
 
 export const savePlayRoutes: RouteObject[] = [
@@ -34,5 +36,9 @@ export const savePlayRoutes: RouteObject[] = [
   {
     path: SavePlayRoutesEnum.SAVE_PLAY_COMPETITION_DETAIL,
     element: <SavePlayCompetitionDetail />,
+  },
+  {
+    path: SavePlayRoutesEnum.SAVE_PLAY_PLAY_MATCH,
+    element: <SavePlayPlayMatch />,
   },
 ];

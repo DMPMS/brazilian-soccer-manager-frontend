@@ -17,7 +17,7 @@ type OptionType = {
   positionId: PositionEnum;
 };
 
-const optionsMap: Record<FormationEnum, OptionType[]> = {
+export const optionsPositionsByFormationMap: Record<FormationEnum, OptionType[]> = {
   [FormationEnum.F442]: [
     {
       label: (
@@ -545,7 +545,7 @@ const SquadplanglobalPositionSelects = ({
 }: SquadplanglobalPositionSelectsProps) => {
   return (
     <>
-      {optionsMap[formationId]?.map((selectItem, index) => (
+      {optionsPositionsByFormationMap[formationId]?.map((selectItem, index) => (
         <Form.Item
           key={index}
           label={selectItem.label}

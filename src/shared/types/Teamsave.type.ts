@@ -3,6 +3,7 @@ import { CountryType } from './Country.type';
 import { ManagersaveType } from './Managersave.type';
 import { MatchType } from './Match.type';
 import { PlayersaveType } from './Playersave.type';
+import { SquadplansaveType } from './Squadplansave.type';
 
 export interface TeamsaveType {
   id: number;
@@ -14,6 +15,7 @@ export interface TeamsaveType {
   managersave?: ManagersaveType;
   playerssave?: PlayersaveType[];
   competitionssaveTeamsave?: CompetitionsaveTeamsaveType[];
+  squadplansave?: SquadplansaveType;
 
   matches?: MatchType[];
 }

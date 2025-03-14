@@ -1,7 +1,8 @@
+import { RuleEnum } from '../enums/Rule.enum';
 import { CountryType } from './Country.type';
 
 export interface RuleType {
-  id: number;
+  id: RuleEnum;
   name: string;
   level: number;
   numberOfTeams: number;
